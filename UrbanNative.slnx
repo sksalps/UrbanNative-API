@@ -1,4 +1,5 @@
 <Solution>
+  <Folder Name="/Solution Items/" />
   <Project Path="UrbanNative.Api/UrbanNative.Api.csproj" />
   <Project Path="UrbanNative.Application/UrbanNative.Application.csproj" />
   <Project Path="UrbanNative.Domain/UrbanNative.Domain.csproj" />

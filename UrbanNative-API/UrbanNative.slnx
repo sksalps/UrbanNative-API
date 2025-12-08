@@ -1,6 +1,0 @@
-<Solution>
-  <Project Path="UrbanNative.Api/UrbanNative.Api.csproj" />
-  <Project Path="UrbanNative.Application/UrbanNative.Application.csproj" />
-  <Project Path="UrbanNative.Domain/UrbanNative.Domain.csproj" />
-  <Project Path="UrbanNative.Infrastructure/UrbanNative.Infrastructure.csproj" />
-</Solution>
