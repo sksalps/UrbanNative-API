@@ -1,0 +1,6 @@
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Application\obj\Debug\net10.0\UrbanNative.Application.csproj.AssemblyReference.cache
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Application\obj\Debug\net10.0\UrbanNative.Application.GeneratedMSBuildEditorConfig.editorconfig
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Application\obj\Debug\net10.0\UrbanNative.Application.AssemblyInfoInputs.cache
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Application\obj\Debug\net10.0\UrbanNative.Application.AssemblyInfo.cs
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Application\obj\Debug\net10.0\UrbanNative.Application.csproj.CoreCompileInputs.cache
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Application\obj\Debug\net10.0\UrbanNative.Application.sourcelink.json
