@@ -1,27 +1,31 @@
-using UrbanNative.Api.Services;
-using UrbanNative.Infrastructure.Database;
+﻿using UrbanNative.Infrastructure.Database;
 using UrbanNative.Infrastructure.Repositories;
+using UrbanNative.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add controllers
+// Add services
 builder.Services.AddControllers();
-
-// Add Swagger for .NET 8
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Dependency Injection
+// Database factory
 builder.Services.AddSingleton<SqlConnectionFactory>();
+
+// Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+
+// Services
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IMessageService, MessageService>();
+builder.Services.AddScoped<IVendorRepository, VendorRepository>();
+builder.Services.AddScoped<IVendorService, VendorService>();
 
 
-var app = builder.Build();
+var app = builder.Build();   // ✔ Build only once
 
-// Enable Swagger only in Development
+// Configure HTTP Pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -29,9 +33,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthorization();
 
-// Map controllers
 app.MapControllers();
 
 app.Run();

@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Database\IConfiguration.cs" />
     <None Include="Repositories\IUserRepository.cs" />
   </ItemGroup>
 

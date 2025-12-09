@@ -1,5 +1,4 @@
 ﻿using UrbanNative.Domain.Entities;
-using Microsoft.Data.SqlClient;
 
 
 namespace UrbanNative.Infrastructure.Repositories
