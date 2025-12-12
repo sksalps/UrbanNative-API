@@ -1,0 +1,84 @@
+
+:root {
+    --primary: #0F7A5F;
+    --accent: #F59E0B;
+    --neutral-dark: #1F2937;
+    --light-bg: #F8FAFC;
+}
+
+body.admin-body {
+    background: var(--light-bg);
+    color: var(--neutral-dark);
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    min-height: 100vh;
+    background: #fff;
+    border-right: 1px solid #e9ecef;
+    transition: width .25s ease;
+}
+
+    .sidebar.mini {
+        width: 78px;
+    }
+
+    .sidebar .brand {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .sidebar .brand-text {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .sidebar.mini .brand-text {
+        display: none;
+    }
+
+.sidebar-menu .nav-link {
+    color: #344054;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+}
+
+    .sidebar-menu .nav-link .menu-text {
+        margin-left: 8px;
+    }
+
+.sidebar.mini .menu-text {
+    display: none;
+}
+
+/* Topbar */
+.navbar {
+    height: 60px;
+}
+
+/* Content */
+main {
+    height: calc(100vh - 60px);
+    overflow: auto;
+}
+
+/* Cards */
+.stat-card {
+    border-left: 4px solid var(--primary);
+}
+
+/* Small helpers */
+.img-preview {
+    max-width: 100%;
+    height: auto;
+}
+
+/* DataTables full width */
+.dataTables_wrapper .dataTables_paginate {
+    float: right;
+}

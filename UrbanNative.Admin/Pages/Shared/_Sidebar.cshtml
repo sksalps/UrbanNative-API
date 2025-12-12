@@ -1,0 +1,34 @@
+﻿@* Collapsible mini sidebar content *@
+<div class="sidebar-header d-flex align-items-center justify-content-between p-3">
+    <a class="brand d-flex align-items-center" href="/Dashboard">
+        <img src="~/images/urban_32.png" alt="UrbanNative" class="me-2" style="width:28px;height:28px;" />
+        <span class="brand-text">UrbanNative</span>
+    </a>
+    <button class="btn btn-sm btn-link text-muted" aria-label="Toggle sidebar" onclick="toggleSidebar()">
+        <i class="fa fa-bars"></i>
+    </button>
+</div>
+
+<ul class="nav flex-column sidebar-menu p-2">
+    <li class="nav-item">
+        <a class="nav-link" href="/Dashboard"><i class="fa fa-home me-2"></i><span class="menu-text">Dashboard</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/Categories"><i class="fa fa-list me-2"></i><span class="menu-text">Categories</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/Products"><i class="fa fa-box-open me-2"></i><span class="menu-text">Products</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/Variants"><i class="fa fa-layer-group me-2"></i><span class="menu-text">Variants</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/Vendors"><i class="fa fa-store me-2"></i><span class="menu-text">Vendors</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/Inventory"><i class="fa fa-boxes-stacked me-2"></i><span class="menu-text">Inventory</span></a>
+    </li>
+    <li class="nav-item mt-3">
+        <a class="nav-link text-danger" href="/Account/Logout"><i class="fa fa-sign-out-alt me-2"></i><span class="menu-text">Logout</span></a>
+    </li>
+</ul>

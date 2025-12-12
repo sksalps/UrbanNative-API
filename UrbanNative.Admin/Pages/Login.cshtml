@@ -1,0 +1,35 @@
+﻿@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Admin Login";
+    Layout = "_AdminLayout"; // ensures admin layout used after login, optional
+}
+
+<h2>Admin Login</h2>
+
+<form method="post">
+    <div>
+        <label asp-for="Identifier">Email or Username</label>
+        <input asp-for="Identifier" />
+        <span asp-validation-for="Identifier"></span>
+    </div>
+
+    <div>
+        <label asp-for="Password">Password</label>
+        <input asp-for="Password" type="password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+
+    <div>
+        <button type="submit">Sign in</button>
+    </div>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="error">@Model.ErrorMessage</div>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

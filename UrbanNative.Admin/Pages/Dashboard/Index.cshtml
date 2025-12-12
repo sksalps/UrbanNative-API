@@ -1,0 +1,30 @@
+﻿@section Scripts {
+    <script>
+        // Safely serialize server-side lists into JS arrays
+        var chartLabels = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.ChartLabels ?? new List<string>()));
+        var chartData = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.ChartData ?? new List<int>()));
+
+        // get canvas context
+        const ctx = document.getElementById('salesChart').getContext('2d');
+
+        // create chart
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: chartLabels,
+            datasets: [{
+              label: 'Orders',
+              data: chartData,
+              fill: true,
+              tension: 0.4,
+              borderColor: getComputedStyle(document.documentElement).getPropertyValue('--primary').trim() || '#0F7A5F'
+            }]
+          },
+          options: {
+            scales: {
+              y: { beginAtZero: true }
+            }
+          }
+        });
+    </script>
+}

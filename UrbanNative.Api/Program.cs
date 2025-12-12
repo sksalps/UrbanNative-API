@@ -22,6 +22,20 @@ builder.Services.AddScoped<IMessageService, MessageService>();
 builder.Services.AddScoped<IVendorRepository, VendorRepository>();
 builder.Services.AddScoped<IVendorService, VendorService>();
 
+builder.Services.AddScoped<IVariantMasterService, VariantMasterService>();
+builder.Services.AddScoped<IVariantValueService, VariantValueService>();
+builder.Services.AddScoped<IProductVariantSetService, ProductVariantSetService>();
+builder.Services.AddScoped<IProductVariantValuesService, ProductVariantValuesService>();
+
+builder.Services.AddScoped<IVariantMasterRepository, VariantMasterRepository>();
+builder.Services.AddScoped<IVariantValueRepository, VariantValueRepository>();
+builder.Services.AddScoped<IProductVariantSetRepository, ProductVariantSetRepository>();
+builder.Services.AddScoped<IProductVariantValuesRepository, ProductVariantValuesRepository>();
+
+builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
+builder.Services.AddScoped<IInventoryService, InventoryService>();
+
+builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 
 var app = builder.Build();   // ✔ Build only once
 
@@ -37,3 +51,6 @@ app.UseHttpsRedirection();
 app.MapControllers();
 
 app.Run();
+
+
+
