@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "UrbanNative.Admin\\UrbanNative.Admin.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "UrbanNative.Api\\UrbanNative.Api.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

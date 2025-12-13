@@ -18,8 +18,9 @@
         @if (isAuthenticated)
         {
             <span>@displayName (@role)</span>
-            <form method="post" asp-page="/Logout" asp-page-handler="Logout" class="inline-form" style="display:inline">
-                <button type="submit">Logout</button>
+
+            <form method="get" action="/Logout" style="display:inline;">
+                <button type="submit" class="btn-logout">Logout</button>
             </form>
         }
         else

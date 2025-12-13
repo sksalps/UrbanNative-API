@@ -1,0 +1,111 @@
+﻿/* Global Page Style */
+body.login-page {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter", sans-serif;
+    color: #fff;
+}
+
+/* Login Card */
+.login-container {
+    width: 100%;
+    max-width: 380px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    border-radius: 14px;
+    box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.4);
+    animation: fadeIn 0.7s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Title */
+.login-container h2 {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 25px;
+    font-size: 26px;
+}
+
+/* Input Groups */
+.form-group {
+    margin-bottom: 18px;
+}
+
+    .form-group label {
+        font-size: 14px;
+        opacity: 0.9;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px;
+        margin-top: 6px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        background: rgba(255, 255, 255, 0.12);
+        color: white;
+        font-size: 15px;
+    }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.4);
+        }
+
+/* Login Button */
+.btn-login {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    transition: 0.25s ease;
+}
+
+    .btn-login:hover {
+        background: linear-gradient(135deg, #4338ca, #4f46e5);
+        transform: translateY(-2px);
+    }
+
+/* Error Message */
+.error {
+    margin-top: 10px;
+    background: rgba(239, 68, 68, 0.25);
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+    color: #fecaca;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 32px;
+        margin: 20px;
+    }
+}

@@ -160,3 +160,4 @@ E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin\obj\Debug\net10.0\UrbanNative.Admin.pdb
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin\obj\Debug\net10.0\UrbanNative.Admin.genruntimeconfig.cache
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin\obj\Debug\net10.0\ref\UrbanNative.Admin.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin\obj\Debug\net10.0\compressed\kuaj6vmqx9-{0}-desrtkstqd-desrtkstqd.gz

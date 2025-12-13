@@ -1,38 +1,32 @@
 ﻿@using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
 
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>UrbanNative Admin - @ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/css/site.css" />
+
     <link rel="stylesheet" href="~/css/admin.css" />
 </head>
+
 <body>
     <div class="admin-shell">
 
-        <!-- Sidebar (if exists in Pages/Shared/_Sidebar.cshtml) -->
-        <div class="admin-sidebar">
+        <aside class="admin-sidebar">
             <partial name="_Sidebar" />
-        </div>
+        </aside>
 
         <div class="admin-main">
-
-            <!-- Topbar (Pages/Shared/_Topbar.cshtml) -->
             <partial name="_Topbar" />
 
             <main class="admin-content">
                 @RenderBody()
             </main>
-
-            <!-- Optional Footer (Pages/Shared/_Footer.cshtml) -->
-            <partial name="_Footer" />
         </div>
     </div>
-    <script src="~/js/site.js"></script>
-    <script src="~/js/admin.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

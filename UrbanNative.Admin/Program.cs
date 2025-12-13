@@ -47,8 +47,10 @@ builder.Services.AddHttpClient("ApiClient", client =>
     if (string.IsNullOrWhiteSpace(baseUrl))
     {
         // fallback - for safety during dev
-        baseUrl = "https://localhost:5128";
+        baseUrl = "http://localhost:5128";
     }
+
+
     client.BaseAddress = new Uri(baseUrl);
     client.Timeout = TimeSpan.FromSeconds(30);
 });
@@ -66,7 +68,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
