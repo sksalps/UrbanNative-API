@@ -12,30 +12,28 @@
 </head>
 <body>
     <div class="admin-shell">
+
+        <!-- Sidebar (if exists in Pages/Shared/_Sidebar.cshtml) -->
         <div class="admin-sidebar">
-            @* optional: if you created Pages/Shared/_Sidebar.cshtml, it will render here *@
-            @if (System.IO.File.Exists(Context.RequestServices.GetRequiredService<IWebHostEnvironment>().ContentRootPath + "/Pages/Shared/_Sidebar.cshtml"))
-            {
-                <partial name="~/Pages/Shared/_Sidebar.cshtml" />
-            }
+            <partial name="_Sidebar" />
         </div>
 
         <div class="admin-main">
-            @* your existing _Topbar.cshtml is in /Pages — render it *@
-            @await Html.PartialAsync("~/Pages/_Topbar.cshtml")
+
+            <!-- Topbar (Pages/Shared/_Topbar.cshtml) -->
+            <partial name="_Topbar" />
 
             <main class="admin-content">
                 @RenderBody()
             </main>
 
-            @if (System.IO.File.Exists(Context.RequestServices.GetRequiredService<IWebHostEnvironment>().ContentRootPath + "/Pages/Shared/_Footer.cshtml"))
-            {
-                <partial name="~/Pages/Shared/_Footer.cshtml" />
-            }
+            <!-- Optional Footer (Pages/Shared/_Footer.cshtml) -->
+            <partial name="_Footer" />
         </div>
     </div>
-
     <script src="~/js/site.js"></script>
     <script src="~/js/admin.js"></script>
+
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

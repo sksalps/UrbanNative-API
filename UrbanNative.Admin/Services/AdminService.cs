@@ -2,43 +2,43 @@
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using UrbanNative.Admin.Models;
+using UrbanNative.Api.Models;   // <-- DTO from API project
 
 namespace UrbanNative.Admin.Services
 {
     public class AdminService : IAdminService
     {
         private readonly HttpClient _http;
+
         public AdminService(IHttpClientFactory factory)
         {
             _http = factory.CreateClient("ApiClient");
         }
 
-        // This must return Task<AdminInfo?> to match the interface
-        public async Task<AdminInfo?> ValidateAdminAsync(string identifier, string password)
+        // Correct return type: AdminInfoDto
+        public async Task<AdminInfoDto?> ValidateAdminAsync(string identifier, string password)
         {
             if (string.IsNullOrWhiteSpace(identifier) || string.IsNullOrWhiteSpace(password))
                 return null;
 
-            var payload = new { identifier, password };
+            var payload = new { Identifier = identifier, Password = password };
 
             HttpResponseMessage res;
             try
             {
                 res = await _http.PostAsJsonAsync("/api/admin/validate", payload);
             }
-            catch (Exception)
+            catch
             {
-                // log if you have logging; for now return null on exception
                 return null;
             }
 
-            if (!res.IsSuccessStatusCode) return null;
+            if (!res.IsSuccessStatusCode)
+                return null;
 
             try
             {
-                var admin = await res.Content.ReadFromJsonAsync<AdminInfo>();
-                return admin;
+                return await res.Content.ReadFromJsonAsync<AdminInfoDto>();
             }
             catch
             {
