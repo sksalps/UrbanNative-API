@@ -1,4 +1,30 @@
-﻿@page
-@model UrbanNative.Admin.Pages.Shared._TopbarModel
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
 @{
+    var user = HttpContextAccessor.HttpContext?.User;
+    var displayName = user?.FindFirst("display_name")?.Value
+                      ?? user?.Identity?.Name
+                      ?? "Guest";
+    var role = user?.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? string.Empty;
+    var isAuthenticated = user?.Identity?.IsAuthenticated ?? false;
 }
+
+<header class="topbar">
+    <div class="brand">
+        <a href="/Index">UrbanNative Admin</a>
+    </div>
+
+    <div class="right">
+        @if (isAuthenticated)
+        {
+            <span>@displayName (@role)</span>
+            <form method="post" asp-page="/Logout" asp-page-handler="Logout" class="inline-form" style="display:inline">
+                <button type="submit">Logout</button>
+            </form>
+        }
+        else
+        {
+            <a href="/Login">Login</a>
+        }
+    </div>
+</header>

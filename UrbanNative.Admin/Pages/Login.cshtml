@@ -1,13 +1,13 @@
 ﻿@page
-@model LoginModel
+@model UrbanNative.Admin.Pages.LoginModel
 @{
     ViewData["Title"] = "Admin Login";
-    Layout = "_AdminLayout"; // ensures admin layout used after login, optional
+    Layout = "_AdminLayout";
 }
 
 <h2>Admin Login</h2>
 
-<form method="post">
+<form method="post" class="login-form">
     <div>
         <label asp-for="Identifier">Email or Username</label>
         <input asp-for="Identifier" />
