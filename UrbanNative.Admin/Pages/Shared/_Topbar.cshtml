@@ -1,31 +1,71 @@
 ﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
 @{
-    var user = HttpContextAccessor.HttpContext?.User;
-    var displayName = user?.FindFirst("display_name")?.Value
-                      ?? user?.Identity?.Name
-                      ?? "Guest";
-    var role = user?.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? string.Empty;
-    var isAuthenticated = user?.Identity?.IsAuthenticated ?? false;
+    var ctx = HttpContextAccessor?.HttpContext;
+    var user = ctx?.User;
+    var identity = user?.Identity;
+
+    string userName = identity?.Name ?? "Admin";
+    string userRole = user?.Claims?.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Role)?.Value ?? "Admin";
+
+    // Avatar initial (first letter of username)
+    string avatarInitial = !string.IsNullOrEmpty(userName) ? userName.Substring(0, 1).ToUpper() : "A";
 }
 
-<header class="topbar">
-    <div class="brand">
-        <a href="/Index">UrbanNative Admin</a>
+<div class="topbar d-flex align-items-center justify-content-between px-3 py-2 shadow-sm">
+
+    <!-- LEFT AREA — Logo + Search -->
+    <div class="d-flex align-items-center gap-3">
+
+        <!-- Logo -->
+        <!--<img src="~/images/urban_logo.png" class="topbar-logo" alt="UrbanNative Logo" />-->
+        <img src="~/images/urban_logo.png"
+             class="topbar-logo me-2"
+             style="height: 34px !important; width: 34px !important; border: 2px solid green;">
+        <!-- Search Box -->
+        <div class="topbar-search">
+            <i class="fa fa-search search-icon"></i>
+            <input type="text" placeholder="Search vendors, products, users..." />
+        </div>
+
     </div>
 
-    <div class="right">
-        @if (isAuthenticated)
-        {
-            <span>@displayName (@role)</span>
 
-            <form method="get" action="/Logout" style="display:inline;">
-                <button type="submit" class="btn-logout">Logout</button>
-            </form>
-        }
-        else
-        {
-            <a href="/Login">Login</a>
-        }
+    <!-- RIGHT AREA — Notifications + Dark Mode + Profile -->
+    <div class="d-flex align-items-center gap-4">
+
+        <!-- Notifications -->
+        <div class="dropdown notification-wrapper">
+            <i class="fa fa-bell topbar-icon" data-bs-toggle="dropdown"></i>
+            <span class="notification-badge" id="notifCount">0</span>
+
+            <ul class="dropdown-menu dropdown-menu-end p-2" id="notifList">
+                <li class="text-center text-muted small">Loading...</li>
+            </ul>
+        </div>
+
+
+        <!-- Dark Mode Toggle -->
+        <div class="darkmode-toggle" onclick="toggleDarkMode()">
+            <i class="fa fa-moon topbar-icon"></i>
+        </div>
+
+        <!-- Profile Avatar + Dropdown -->
+        <div class="dropdown">
+            <div class="avatar-circle" data-bs-toggle="dropdown">
+                @avatarInitial
+            </div>
+
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                <li class="dropdown-header">@userName<br /><small>@userRole</small></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="/Admin/Profile"><i class="fa fa-user me-2"></i> My Profile</a></li>
+                <li><a class="dropdown-item" href="/Admin/ChangePassword"><i class="fa fa-key me-2"></i> Change Password</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item text-danger" href="/Logout"><i class="fa fa-sign-out-alt me-2"></i> Logout</a></li>
+            </ul>
+        </div>
+
     </div>
-</header>
+
+</div>

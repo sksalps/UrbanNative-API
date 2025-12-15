@@ -3,6 +3,9 @@ using System.Data;
 using Microsoft.Data.SqlClient;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using UrbanNative.Application.Interfaces;
+using UrbanNative.Domain.Entities; 
+
 
 namespace UrbanNative.Infrastructure.Repositories
 {
@@ -16,7 +19,7 @@ namespace UrbanNative.Infrastructure.Repositories
 
             if (string.IsNullOrWhiteSpace(cs))
                 throw new ArgumentNullException(nameof(config),
-                    "Connection string 'Default' not found in configuration.");
+                    "Connection string 'DefaultConnection' not found in configuration.");
 
             _conn = cs;
         }
@@ -57,7 +60,7 @@ namespace UrbanNative.Infrastructure.Repositories
                 IsActive = rdr.GetBoolean(rdr.GetOrdinal("IsActive"))
             };
 
-            // password hash + salt
+            // Password hash + salt
             int hashIdx = rdr.GetOrdinal("PasswordHash");
             int saltIdx = rdr.GetOrdinal("PasswordSalt");
 

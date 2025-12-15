@@ -2,7 +2,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UrbanNative.Domain\UrbanNative.Domain.csproj" />
-    <ProjectReference Include="..\UrbanNative.Infrastructure\UrbanNative.Infrastructure.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

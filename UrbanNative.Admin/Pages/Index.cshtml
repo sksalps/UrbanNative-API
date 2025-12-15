@@ -1,12 +1,45 @@
-﻿
-@page
-@model IndexModel
+﻿@page
+@model DashboardModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Dashboard";
 }
-@attribute [Microsoft.AspNetCore.Authorization.Authorize(Policy = "AdminOnly")]
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid dashboard mt-3">
+
+    <div class="row g-4">
+
+        <div class="col-md-3">
+            <div class="stat-card bg-gradient-purple">
+                <div class="stat-value">@Model.VendorsCount</div>
+                <div class="stat-label">Total Vendors</div>
+                <i class="fa fa-store stat-icon"></i>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card bg-gradient-blue">
+                <div class="stat-value">@Model.PendingProductsCount</div>
+                <div class="stat-label">Pending Products</div>
+                <i class="fa fa-box-open stat-icon"></i>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card bg-gradient-orange">
+                <div class="stat-value">@Model.LowStockCount</div>
+                <div class="stat-label">Low Stock Items</div>
+                <i class="fa fa-triangle-exclamation stat-icon"></i>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card bg-gradient-green">
+                <div class="stat-value">@Model.UsersCount</div>
+                <div class="stat-label">Total Users</div>
+                <i class="fa fa-users stat-icon"></i>
+            </div>
+        </div>
+
+    </div>
+
 </div>

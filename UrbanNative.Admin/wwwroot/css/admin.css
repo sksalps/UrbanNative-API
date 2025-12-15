@@ -1,0 +1,298 @@
+﻿.dashboard {
+    padding: 10px;
+}
+
+/* Stat Cards */
+.stat-card {
+    position: relative;
+    padding: 22px;
+    color: white;
+    border-radius: 14px;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+    transition: transform .15s ease;
+}
+
+    .stat-card:hover {
+        transform: translateY(-4px);
+    }
+
+.stat-value {
+    font-size: 34px;
+    font-weight: 700;
+}
+
+.stat-label {
+    font-size: 15px;
+    opacity: 0.9;
+}
+
+/* Card Icons */
+.stat-icon {
+    position: absolute;
+    right: 18px;
+    bottom: 15px;
+    font-size: 48px;
+    opacity: 0.25;
+}
+
+/* Gradient Colors */
+.bg-gradient-purple {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+}
+
+.bg-gradient-blue {
+    background: linear-gradient(135deg, #1d8cf8, #3358f4);
+}
+
+.bg-gradient-orange {
+    background: linear-gradient(135deg, #ff8c00, #ff6a00);
+}
+
+.bg-gradient-green {
+    background: linear-gradient(135deg, #2dd36f, #05c46b);
+}
+
+
+
+/* Topbar */
+.topbar {
+    background: #ffffff;
+    height: 60px;
+    border-bottom: 1px solid #eaeaea;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Force override Bootstrap image rules */
+img.topbar-logo {
+    height: 32px !important;
+    width: auto !important;
+    max-height: 32px !important;
+    max-width: 40px !important;
+    object-fit: contain !important;
+    display: inline-block !important;
+}
+
+
+.topbar-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.topbar-user {
+    font-weight: 500;
+    color: #444;
+}
+
+.topbar .btn-outline-danger {
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+/* Topbar Layout */
+.topbar {
+    background: #ffffff;
+    height: 64px;
+    border-bottom: 1px solid #e6e6e6;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Logo */
+.topbar-logo {
+    height: 32px !important;
+    width: auto;
+    object-fit: contain;
+}
+
+/* Search Box */
+.topbar-search {
+    position: relative;
+    background: #f7f7f7;
+    padding: 6px 12px;
+    border-radius: 20px;
+    width: 260px;
+    display: flex;
+    align-items: center;
+}
+
+    .topbar-search input {
+        border: none;
+        background: transparent;
+        width: 100%;
+        outline: none;
+        padding-left: 25px;
+    }
+
+    .topbar-search .search-icon {
+        position: absolute;
+        left: 10px;
+        color: #777;
+    }
+
+/* Icons */
+.topbar-icon {
+    font-size: 20px;
+    color: #444;
+    cursor: pointer;
+    position: relative;
+}
+
+/* Notifications Badge */
+.notification-wrapper {
+    position: relative;
+    cursor: pointer;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #ff3b30;
+    color: white;
+    border-radius: 50%;
+    font-size: 11px;
+    padding: 2px 5px;
+}
+
+/* Avatar circle */
+.avatar-circle {
+    width: 36px;
+    height: 36px;
+    background: #6a11cb;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Dropdown menu styling */
+.dropdown-menu {
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+.dropdown-header {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px;
+}
+
+/* Dark Mode */
+body.dark {
+    background: #1a1a1a;
+    color: #f1f1f1;
+}
+
+    body.dark .topbar {
+        background: #222;
+        border-bottom-color: #333;
+    }
+
+    body.dark .topbar-search {
+        background: #333;
+    }
+
+    body.dark .dropdown-menu {
+        background: #333;
+        color: white;
+    }
+
+/* =========================
+   DARK MODE — GLOBAL
+========================= */
+
+body.dark {
+    background-color: #0f172a; /* slate-900 */
+    color: #e5e7eb;
+}
+
+    /* =========================
+   TOPBAR
+========================= */
+
+    body.dark .topbar {
+        background-color: #020617; /* near-black */
+        border-bottom: 1px solid #1e293b;
+    }
+
+    body.dark .topbar-title,
+    body.dark .topbar-user {
+        color: #e5e7eb;
+    }
+
+    body.dark .topbar-icon {
+        color: #cbd5f5;
+    }
+
+        body.dark .topbar-icon:hover {
+            color: #ffffff;
+        }
+
+    /* Search */
+    body.dark .topbar-search input {
+        background-color: #020617;
+        color: #e5e7eb;
+        border: 1px solid #1e293b;
+    }
+
+        body.dark .topbar-search input::placeholder {
+            color: #94a3b8;
+        }
+
+    /* =========================
+   SIDEBAR
+========================= */
+
+    body.dark .sidebar {
+        background-color: #020617;
+        border-right: 1px solid #1e293b;
+    }
+
+        body.dark .sidebar .nav-link {
+            color: #cbd5f5;
+        }
+
+            body.dark .sidebar .nav-link:hover,
+            body.dark .sidebar .nav-link.active {
+                background-color: #1e293b;
+                color: #ffffff;
+            }
+
+    /* =========================
+   DROPDOWNS
+========================= */
+
+    body.dark .dropdown-menu {
+        background-color: #020617;
+        color: #e5e7eb;
+        border: 1px solid #1e293b;
+    }
+
+    body.dark .dropdown-item {
+        color: #e5e7eb;
+    }
+
+        body.dark .dropdown-item:hover {
+            background-color: #1e293b;
+        }
+
+    /* =========================
+   BADGES
+========================= */
+
+    body.dark .notification-badge {
+        background-color: #ef4444;
+    }

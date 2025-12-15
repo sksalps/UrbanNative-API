@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UrbanNative.Domain\UrbanNative.Domain.csproj" />
+    <ProjectReference Include="..\UrbanNative.Application\UrbanNative.Application.csproj" />
   </ItemGroup>
 	
 

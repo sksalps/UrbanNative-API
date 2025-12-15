@@ -1,6 +1,9 @@
-﻿using UrbanNative.Infrastructure.Database;
+﻿using UrbanNative.Api.Services;
+using UrbanNative.Infrastructure.Database;
+using UrbanNative.Infrastructure;
+using UrbanNative.Application.Interfaces;
 using UrbanNative.Infrastructure.Repositories;
-using UrbanNative.Api.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddInfrastructure();
 // Database factory
 builder.Services.AddSingleton<SqlConnectionFactory>();
 
@@ -36,6 +39,11 @@ builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
 builder.Services.AddScoped<IInventoryService, InventoryService>();
 
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+builder.Services.AddScoped<IAdminNotificationRepository, AdminNotificationRepository>();
+
+
+builder.Services.AddControllers();
+
 
 var app = builder.Build();   // ✔ Build only once
 

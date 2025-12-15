@@ -1,5 +1,4 @@
-﻿using UrbanNative.Api.Models;
-
+﻿using UrbanNative.Application.DTOs;
 public interface IAdminService
 {
     Task<AdminInfoDto?> ValidateAdminAsync(string identifier, string password);

@@ -1,5 +1,121 @@
 [
   {
+    "ContainingType": "UrbanNative.Api.Controllers.AdminNotificationsController",
+    "Method": "MarkRead",
+    "RelativePath": "api/admin/notifications/{id}/read",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.AdminNotificationsController",
+    "Method": "GetUnreadCount",
+    "RelativePath": "api/admin/notifications/count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.AdminNotificationsController",
+    "Method": "GetUnread",
+    "RelativePath": "api/admin/notifications/unread",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.AdminController",
+    "Method": "GetLowStockCount",
+    "RelativePath": "api/admin/stats/low-stock-count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.AdminController",
+    "Method": "GetPendingProducts",
+    "RelativePath": "api/admin/stats/pending-products",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.AdminController",
+    "Method": "GetUsersCount",
+    "RelativePath": "api/admin/stats/users-count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.AdminController",
+    "Method": "GetVendorsCount",
+    "RelativePath": "api/admin/stats/vendors-count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "UrbanNative.Api.Controllers.AdminAuthController",
     "Method": "Validate",
     "RelativePath": "api/admin/validate",
@@ -9,7 +125,7 @@
     "Parameters": [
       {
         "Name": "req",
-        "Type": "UrbanNative.Api.Models.AdminValidateRequest",
+        "Type": "UrbanNative.Application.DTOs.AdminValidateRequest",
         "IsRequired": true
       }
     ],

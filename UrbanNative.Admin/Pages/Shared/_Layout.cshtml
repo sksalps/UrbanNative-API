@@ -19,6 +19,7 @@
 
     <!-- Site CSS -->
     <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/admin.css" rel="stylesheet" />
 
     @* CSRF token for JS if needed *@
     <meta name="RequestVerificationToken" content="@AntiForgery.GetAndStoreTokens(Context).RequestToken" />
@@ -67,5 +68,85 @@
     </script>
 
     @RenderSection("Scripts", required: false)
+
+    <script>
+        // -------------------------
+        // Dark mode (keep as-is)
+        // -------------------------
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark");
+            localStorage.setItem(
+                "darkMode",
+                document.body.classList.contains("dark") ? "1" : "0"
+            );
+        }
+
+        if (localStorage.getItem("darkMode") === "1") {
+            document.body.classList.add("dark");
+        }
+
+        // -------------------------
+        // Notifications
+        // -------------------------
+        const csrfToken = document
+            .querySelector('meta[name="RequestVerificationToken"]')
+            ?.getAttribute("content");
+
+        async function loadNotifications() {
+            try {
+                // unread notifications
+                const res = await fetch("/api/admin/notifications/unread");
+                if (!res.ok) return;
+
+                const list = await res.json();
+                const ul = document.getElementById("notifList");
+                const badge = document.getElementById("notifCount");
+
+                badge.innerText = list.length;
+                badge.style.display = list.length > 0 ? "inline-block" : "none";
+
+                ul.innerHTML = "";
+
+                if (list.length === 0) {
+                    ul.innerHTML =
+                        "<li class='dropdown-item text-muted text-center small'>No new notifications</li>";
+                    return;
+                }
+
+                list.forEach(item => {
+                    ul.innerHTML += `
+                        <li class="dropdown-item notification-item"
+                            onclick="markNotificationRead(${item.id})">
+                            <strong>${item.title}</strong><br/>
+                            <small class="text-muted">${item.message ?? ""}</small>
+                        </li>
+                    `;
+                });
+            } catch (err) {
+                console.error("Notification error:", err);
+            }
+        }
+
+        async function markNotificationRead(id) {
+            try {
+                await fetch(`/api/admin/notifications/${id}/read`, {
+                    method: "POST",
+                    headers: {
+                        "RequestVerificationToken": csrfToken
+                    }
+                });
+                loadNotifications();
+            } catch (err) {
+                console.error("Mark read failed:", err);
+            }
+        }
+
+        // initial load + auto refresh
+        document.addEventListener("DOMContentLoaded", () => {
+            loadNotifications();
+            setInterval(loadNotifications, 15000); // 15 sec
+        });
+    </script>
+
 </body>
 </html>

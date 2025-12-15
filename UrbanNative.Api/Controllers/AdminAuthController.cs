@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using UrbanNative.Api.Models;
 using UrbanNative.Infrastructure.Repositories;
 using UrbanNative.Infrastructure.Security;
 using System.Threading.Tasks;
+
+using UrbanNative.Application.DTOs;
+using UrbanNative.Application.Interfaces;
+
 
 namespace UrbanNative.Api.Controllers
 {

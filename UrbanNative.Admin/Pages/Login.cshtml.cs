@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using UrbanNative.Admin.Services;
-using UrbanNative.Admin.Models;
+using UrbanNative.Application.DTOs;
 
 namespace UrbanNative.Admin.Pages
 {

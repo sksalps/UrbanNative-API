@@ -16,7 +16,7 @@
           "Microsoft.IdentityModel.Tokens": "8.15.0",
           "System.Data.SqlClient": "4.9.0",
           "System.IdentityModel.Tokens.Jwt": "8.15.0",
-          "UrbanNative.Domain": "1.0.0"
+          "UrbanNative.Application": "1.0.0"
         },
         "runtime": {
           "UrbanNative.Infrastructure.dll": {}
@@ -522,6 +522,17 @@
           }
         }
       },
+      "UrbanNative.Application/1.0.0": {
+        "dependencies": {
+          "UrbanNative.Domain": "1.0.0"
+        },
+        "runtime": {
+          "UrbanNative.Application.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "UrbanNative.Domain/1.0.0": {
         "runtime": {
           "UrbanNative.Domain.dll": {
@@ -803,6 +814,11 @@
       "sha512": "sha512-+TUFINV2q2ifyXauQXRwy4CiBhqvDEDZeVJU7qfxya4aRYOKzVBpN+4acx25VcPB9ywUN6C0n8drWl110PhZEg==",
       "path": "system.security.cryptography.protecteddata/8.0.0",
       "hashPath": "system.security.cryptography.protecteddata.8.0.0.nupkg.sha512"
+    },
+    "UrbanNative.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "UrbanNative.Domain/1.0.0": {
       "type": "project",
