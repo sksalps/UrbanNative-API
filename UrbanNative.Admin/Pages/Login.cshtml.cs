@@ -1,13 +1,8 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System;
-using System.Collections.Generic;
 using System.Security.Claims;
-using System.Threading.Tasks;
-using UrbanNative.Admin.Services;
-using UrbanNative.Application.DTOs;
+using UrbanNative.Application.Interfaces;
 
 namespace UrbanNative.Admin.Pages
 {
@@ -21,16 +16,12 @@ namespace UrbanNative.Admin.Pages
         }
 
         [BindProperty]
-        public string Identifier { get; set; } = string.Empty; // username or email
+        public string Identifier { get; set; } = string.Empty;
 
         [BindProperty]
         public string Password { get; set; } = string.Empty;
 
         public string ErrorMessage { get; set; } = string.Empty;
-
-        public void OnGet()
-        {
-        }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -40,32 +31,53 @@ namespace UrbanNative.Admin.Pages
                 return Page();
             }
 
-            var admin = await _adminService.ValidateAdminAsync(Identifier.Trim(), Password);
-            if (admin == null)
+            // 🔐 JWT-based login
+            var result = await _adminService.ValidateAdminAsync(
+                Identifier.Trim(),
+                Password);
+
+            if (result == null)
             {
-                ErrorMessage = "Invalid credentials.";
+                ErrorMessage = "Invalid credentials";
                 return Page();
             }
 
+            // ==============================
+            // 1️⃣ Store JWT for API calls
+            // ==============================
+            Response.Cookies.Append(
+                "jwt",
+                result.Token,
+                new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = false, // true in production
+                    SameSite = SameSiteMode.Lax
+                });
+
+            // ==============================
+            // 2️⃣ Sign in Razor UI (Cookie)
+            // ==============================
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, admin.Username ?? admin.Email ?? string.Empty),
-                new Claim(ClaimTypes.NameIdentifier, admin.Id.ToString()),
-                // optionally add roles or other claims returned by API
-                new Claim(ClaimTypes.Role, "Admin")
+                new Claim(ClaimTypes.NameIdentifier, result.Admin.Id.ToString()),
+                new Claim(ClaimTypes.Name, result.Admin.Username ?? result.Admin.Email ?? ""),
+                new Claim(ClaimTypes.Role, result.Admin.Role ?? "Admin")
             };
 
-            var claimsIdentity = new ClaimsIdentity(claims, "AdminCookie");
+            var identity = new ClaimsIdentity(claims, "AdminCookie");
 
-            var authProperties = new AuthenticationProperties
-            {
-                IsPersistent = true,
-                ExpiresUtc = DateTimeOffset.UtcNow.AddHours(8)
-            };
+            await HttpContext.SignInAsync(
+                "AdminCookie",
+                new ClaimsPrincipal(identity),
+                new AuthenticationProperties
+                {
+                    IsPersistent = true,
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddHours(8)
+                });
 
-            await HttpContext.SignInAsync("AdminCookie", new ClaimsPrincipal(claimsIdentity), authProperties);
+            //HttpContext.Session.SetInt32("AdminId", result.Admin.Id);
 
-            // Redirect to dashboard
             return RedirectToPage("/Index");
         }
     }

@@ -1,9 +1,22 @@
 ﻿using UrbanNative.Application.DTOs;
-public interface IAdminService
+
+namespace UrbanNative.Application.Interfaces
 {
-    Task<AdminInfoDto?> ValidateAdminAsync(string identifier, string password);
-    Task<int> GetVendorsCountAsync();
-    Task<int> GetPendingProductsCountAsync();
-    Task<int> GetLowStockCountAsync();
-    Task<int> GetUsersCountAsync();
+    public interface IAdminService
+    {
+        // 🔐 JWT-based login
+        Task<AdminLoginResponseDto?> ValidateAdminAsync(
+            string identifier,
+            string password
+        );
+
+        // Dashboard
+        Task<int> GetVendorsCountAsync();
+        Task<int> GetPendingProductsCountAsync();
+        Task<int> GetLowStockCountAsync();
+        Task<int> GetUsersCountAsync();
+
+        Task<int> GetUnreadNotificationsCountAsync(int adminId);
+        Task<List<AdminNotificationDto>> GetUnreadNotificationsAsync(int adminId);
+    }
 }

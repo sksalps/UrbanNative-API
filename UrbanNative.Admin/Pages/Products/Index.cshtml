@@ -1,0 +1,78 @@
+﻿@page
+@model UrbanNative.Admin.Pages.Products.IndexModel
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h2 class="mb-3">Products</h2>
+
+<!-- Filters -->
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-3">
+        <input type="text" name="Search" value="@Model.Search" class="form-control" placeholder="Search product name" />
+    </div>
+    <div class="col-md-2">
+        <select name="ApprovalStatus" class="form-select">
+            <option value="">All Status</option>
+            <option value="Pending" selected="@(Model.ApprovalStatus == "Pending")">Pending</option>
+            <option value="Approved" selected="@(Model.ApprovalStatus == "Approved")">Approved</option>
+            <option value="Rejected" selected="@(Model.ApprovalStatus == "Rejected")">Rejected</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <select name="IsActive" class="form-select">
+            <option value="">All</option>
+            <option value="true" selected="@(Model.IsActive == true)">Active</option>
+            <option value="false" selected="@(Model.IsActive == false)">Inactive</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-primary w-100">Filter</button>
+    </div>
+</form>
+
+<!-- Products Table -->
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Vendor</th>
+            <th>MRP</th>
+            <th>Discount</th>
+            <th>Stock</th>
+            <th>Status</th>
+            <th>Active</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model.Products)
+        {
+            <tr>
+                <td>@p.ProductId</td>
+                <td>@p.ProductName</td>
+                <td>@p.CategoryName</td>
+                <td>@p.VendorName</td>
+                <td>@p.MRP</td>
+                <td>@p.DiscountPrice</td>
+                <td>@p.Stock</td>
+                <td>
+                    <span class="badge bg-@(p.ApprovalStatus == "Approved" ? "success" : p.ApprovalStatus == "Rejected" ? "danger" : "warning")">
+                        @p.ApprovalStatus
+                    </span>
+                </td>
+                <td>@(p.IsActive ? "Yes" : "No")</td>
+                <td>
+                    <a asp-page="View" asp-route-id="@p.ProductId" class="btn btn-sm btn-info">View</a>
+                    @if (p.ApprovalStatus == "Pending")
+                    {
+                        <button formaction="/Products/Approve/@p.ProductId" class="btn btn-sm btn-success">Approve</button>
+                        <a asp-page="Reject" asp-route-id="@p.ProductId" class="btn btn-sm btn-danger">Reject</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

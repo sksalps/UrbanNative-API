@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using UrbanNative.Application.DTOs;
-
+using UrbanNative.Application.Interfaces;
 
 public class DashboardModel : PageModel
 {

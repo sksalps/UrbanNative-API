@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using UrbanNative.Infrastructure.Repositories;
-using UrbanNative.Infrastructure.Security;
-using System.Threading.Tasks;
-
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using UrbanNative.Application.DTOs;
 using UrbanNative.Application.Interfaces;
-
+using UrbanNative.Infrastructure.Security;
 
 namespace UrbanNative.Api.Controllers
 {
@@ -14,11 +15,15 @@ namespace UrbanNative.Api.Controllers
     public class AdminAuthController : ControllerBase
     {
         private readonly IAdminRepository _repo;
-        public AdminAuthController(IAdminRepository repo)
+        private readonly IConfiguration _configuration;
+
+        public AdminAuthController(
+            IAdminRepository repo,
+            IConfiguration configuration)
         {
             _repo = repo;
+            _configuration = configuration;
         }
-
         /// <summary>
         /// Validate admin credentials. Accepts identifier (username or email) and password.
         /// Returns AdminInfoDto on success (200), 401 on failure, 400 on bad request.
@@ -32,19 +37,57 @@ namespace UrbanNative.Api.Controllers
             var admin = await _repo.GetByUsernameOrEmailAsync(req.Identifier.Trim());
             if (admin == null) return Unauthorized();
 
-            var verified = PasswordHelper.VerifyPassword(req.Password, admin.PasswordHash, admin.PasswordSalt);
+            var verified = PasswordHelper.VerifyPassword(
+                req.Password,
+                admin.PasswordHash,
+                admin.PasswordSalt);
+
             if (!verified) return Unauthorized();
 
-            var dto = new AdminInfoDto
+            var jwtSection = _configuration.GetSection("JwtSettings");
+
+            var claims = new List<Claim>
             {
-                Id = admin.Id,
-                Username = admin.Username,
-                Email = admin.Email,
-                DisplayName = admin.DisplayName,
-                Role = admin.Role ?? "Admin"
+                new Claim(ClaimTypes.NameIdentifier, admin.Id.ToString()),
+                new Claim(ClaimTypes.Name, admin.Username),
+                new Claim(ClaimTypes.Email, admin.Email),
+                new Claim(ClaimTypes.Role, admin.Role ?? "Admin") // 🔑 REQUIRED
             };
 
-            return Ok(dto);
+            var key = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(jwtSection["Key"]!)
+            );
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                issuer: jwtSection["Issuer"],
+                audience: jwtSection["Audience"],
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(
+                    Convert.ToDouble(jwtSection["ExpiryMinutes"])
+                ),
+                signingCredentials: creds
+            );
+
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return Ok(new
+            {
+                token = jwt,
+                admin = new AdminInfoDto
+                {
+                    Id = admin.Id,
+                    Username = admin.Username,
+                    Email = admin.Email,
+                    DisplayName = admin.DisplayName,
+                    Role = admin.Role ?? "Admin"
+                }
+            });
         }
+
     }
 }
+
+
+

@@ -7,9 +7,8 @@
 /// 
 namespace UrbanNative.Application.DTOs
 { 
-
-public class AdminValidateRequest
-{
+    public class AdminValidateRequest
+    {
         public string Identifier { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
     }

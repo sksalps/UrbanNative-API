@@ -17,6 +17,10 @@
     <ProjectReference Include="..\UrbanNative.Application\UrbanNative.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\NewFolder\" />
+  </ItemGroup>
+
 
 
 </Project>

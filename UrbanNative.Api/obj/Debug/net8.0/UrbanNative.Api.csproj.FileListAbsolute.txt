@@ -98,3 +98,5 @@ E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\o
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\obj\Debug\net8.0\ref\UrbanNative.Api.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\UrbanNative.Application.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\UrbanNative.Application.pdb
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\obj\Debug\net8.0\UrbanNative.Api.MvcApplicationPartsAssemblyInfo.cs
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\Dapper.dll

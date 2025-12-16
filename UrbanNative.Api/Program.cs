@@ -5,15 +5,24 @@ using UrbanNative.Application.Interfaces;
 using UrbanNative.Infrastructure.Repositories;
 
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddInfrastructure();
+
+
 // Database factory
 builder.Services.AddSingleton<SqlConnectionFactory>();
+
 
 // Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -41,11 +50,44 @@ builder.Services.AddScoped<IInventoryService, InventoryService>();
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 builder.Services.AddScoped<IAdminNotificationRepository, AdminNotificationRepository>();
 
+builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddControllers();
 
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 
+var jwtKey = jwtSettings["Key"];
+if (string.IsNullOrWhiteSpace(jwtKey))
+{
+    throw new Exception("JWT Key is missing in appsettings.json (JwtSettings:Key)");
+}
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+
+            ValidIssuer = jwtSettings["Issuer"],
+            ValidAudience = jwtSettings["Audience"],
+
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(jwtKey)
+            )
+        };
+    });
+
+builder.Services.AddAuthorization();
 var app = builder.Build();   // ✔ Build only once
+
+app.UseAuthentication();   // ⬅️ MUST COME FIRST
+app.UseAuthorization();
+
+app.MapControllers();
 
 // Configure HTTP Pipeline
 if (app.Environment.IsDevelopment())

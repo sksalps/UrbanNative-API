@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using Microsoft.Data.SqlClient;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using UrbanNative.Application.Interfaces;
 using UrbanNative.Domain.Entities; 
