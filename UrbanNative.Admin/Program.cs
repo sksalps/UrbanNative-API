@@ -10,7 +10,6 @@ builder.Services.AddRazorPages();
 
 // make IHttpContextAccessor available to views/partials
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<JwtTokenHandler>();
 
 // Authentication: cookie for Admin Razor UI
@@ -38,26 +37,21 @@ builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizeFolder("/Admin", "AdminOnly");
 });
-builder.Services.AddHttpClient("ApiClient", client =>
-{
-    var baseUrl = builder.Configuration["ApiSettings:BaseUrl"];
-    client.BaseAddress = new Uri(baseUrl!);
-})
-.AddHttpMessageHandler<JwtTokenHandler>();
 
 builder.Services.AddHttpClient("ApiClient", client =>
 {
     var baseUrl = builder.Configuration["ApiSettings:BaseUrl"];
+
     if (string.IsNullOrWhiteSpace(baseUrl))
     {
-        // fallback - for safety during dev
-        baseUrl = "http://localhost:5128";
+        baseUrl = "http://localhost:5128"; // dev fallback
     }
-
 
     client.BaseAddress = new Uri(baseUrl);
     client.Timeout = TimeSpan.FromSeconds(30);
-});
+})
+.AddHttpMessageHandler<JwtTokenHandler>();
+
 
 // register your domain services
 builder.Services.AddScoped<IAdminService, AdminService>();
