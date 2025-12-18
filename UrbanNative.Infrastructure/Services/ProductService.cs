@@ -2,6 +2,7 @@
 using UrbanNative.Application.Interfaces;
 using UrbanNative.Domain.Entities;
 
+
 namespace UrbanNative.Infrastructure.Services
 {
     public class ProductService : IProductService
@@ -26,6 +27,7 @@ namespace UrbanNative.Infrastructure.Services
             return await _productRepository.GetProductByIdAsync(productId);
         }
 
+
         // =========================
         // Admin – Products Listing
         // =========================
@@ -40,18 +42,34 @@ namespace UrbanNative.Infrastructure.Services
                 isActive
             );
         }
+        //Get product details by id for admin
+        
+        public async Task<AdminProductDto?> GetAdminProductByIdAsync(int productId)
+        {
+            var product = await _productRepository.GetAdminProductByIdAsync(productId);
+            if (product == null) return null;
+
+            var images = await _productRepository.GetProductImagesAsync(productId);
+            product.Images = images.ToList();
+
+            return product;
+        }
 
         // =========================
         // Admin – Actions
         // =========================
-        public async Task<bool> ApproveProductAsync(int productId, int adminId)
+        public async Task<bool> ApproveProductAsync(int productId, int adminId, string? remark)
         {
-            return await _productRepository.ApproveProductAsync(productId, adminId);
+            remark ??= "Approved";
+            return await _productRepository.ApproveProductAsync(productId, adminId, remark);
         }
 
-        public async Task<bool> RejectProductAsync(int productId, string reason)
+        public async Task<bool> RejectProductAsync(int productId,          int adminId,           string reason)
         {
-            return await _productRepository.RejectProductAsync(productId, reason);
+            if (string.IsNullOrWhiteSpace(reason))
+                throw new ArgumentException("Reject reason is required.");
+
+            return await _productRepository.RejectProductAsync(productId, adminId, reason);
         }
 
         public async Task<bool> ToggleActiveAsync(int productId)

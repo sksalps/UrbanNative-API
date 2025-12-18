@@ -20,11 +20,17 @@ namespace UrbanNative.Application.Interfaces
             bool? isActive
         );
 
+        Task<AdminProductDto?> GetAdminProductByIdAsync(int productId);
+        public interface IAdminProductService
+        {
+            Task<AdminProductDto?> GetByIdAsync(int productId);
+        }
         // =========================
         // Admin – Actions
         // =========================
-        Task<bool> ApproveProductAsync(int productId, int adminId);
-        Task<bool> RejectProductAsync(int productId, string reason);
+        Task<bool> ApproveProductAsync(int productId, int adminId, string? remark);
+        Task<bool> RejectProductAsync(int productId, int adminId, string reason);
         Task<bool> ToggleActiveAsync(int productId);
     }
 }
+

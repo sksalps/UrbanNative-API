@@ -79,11 +79,40 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 Encoding.UTF8.GetBytes(jwtKey)
             )
         };
+
+        // 🔥 THIS IS THE KEY FIX
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                // Read JWT from cookie instead of header
+                if (context.Request.Cookies.ContainsKey("jwt"))
+                {
+                    context.Token = context.Request.Cookies["jwt"];
+                }
+                return Task.CompletedTask;
+            }
+        };
     });
 
-builder.Services.AddAuthorization();
-var app = builder.Build();   // ✔ Build only once
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AdminCors", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5249") // Admin UI
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
+
+builder.Services.AddAuthorization();
+
+
+var app = builder.Build();   // ✔ Build only once
+app.UseCors("AdminCors");
 app.UseAuthentication();   // ⬅️ MUST COME FIRST
 app.UseAuthorization();
 

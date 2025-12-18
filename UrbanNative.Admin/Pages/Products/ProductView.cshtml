@@ -1,0 +1,251 @@
+﻿@page
+@model UrbanNative.Admin.Pages.Products.ProductViewModel
+
+@{
+    ViewData["Title"] = "View Product";
+}
+
+<h2 class="mb-3">View Product</h2>
+
+<a asp-page="Index" class="btn btn-secondary mb-3">← Back to Products</a>
+
+<div class="card mb-4">
+    <div class="card-header fw-bold">
+        Product Details
+    </div>
+    <div class="card-body row">
+        <div class="col-md-6">
+            <p><strong>Name:</strong> @Model.Product.ProductName</p>
+            <p><strong>Category:</strong> @Model.Product.CategoryName</p>
+            <p><strong>Vendor:</strong> @Model.Product.VendorName</p>
+            <p><strong>MRP:</strong> ₹@Model.Product.MRP</p>
+            <p><strong>Discount Price:</strong> ₹@Model.Product.DiscountPrice</p>
+        </div>
+
+        <div class="col-md-6">
+            <p><strong>Stock:</strong> @Model.Product.Stock</p>
+            <p>
+                <strong>Status:</strong>
+                <span class="badge bg-@(Model.Product.ApprovalStatus == "Approved" ? "success" :
+                                                            Model.Product.ApprovalStatus == "Rejected" ? "danger" : "warning")">
+                    @Model.Product.ApprovalStatus
+                </span>
+            </p>
+            <p><strong>Active:</strong> @(Model.Product.IsActive ? "Yes" : "No")</p>
+        </div>
+    </div>
+</div>
+
+<div class="mt-3">
+    @if (Model.Product.ApprovalStatus != "Approved")
+    {
+        <button class="btn btn-success me-2"
+                onclick="approveProduct(@Model.Product.ProductId)">
+            Approve
+        </button>
+
+        <button class="btn btn-danger"
+                onclick="openRejectModal(@Model.Product.ProductId)">
+            Reject
+        </button>
+    }
+    else
+    {
+        <span class="badge bg-success fs-6">Approved</span>
+    }
+   
+    <button class="btn btn-sm ms-2
+            @(Model.Product.IsActive ? "btn-warning" : "btn-primary")"
+            onclick="toggleActive(@Model.Product.ProductId)">
+        @(Model.Product.IsActive ? "Deactivate" : "Activate")
+    </button>
+</div>
+
+<div class="modal fade" id="rejectModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Reject Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" id="rejectProductId" />
+
+                <label class="form-label">Rejection Reason</label>
+                <textarea id="rejectReason"
+                          class="form-control"
+                          rows="4"
+                          placeholder="Enter reason"></textarea>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-danger" onclick="submitReject()">Reject</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@if (Model.ApprovalHistory.Any())
+{
+    <h5 class="mt-4">Approval / Reject History</h5>
+
+    <div class="timeline">
+        @foreach (var entry in Model.ApprovalHistory)
+        {
+            var isApproved = entry.Contains("APPROVED");
+            var isRejected = entry.Contains("REJECTED");
+
+            <div class="timeline-item">
+                <div class="timeline-icon
+                            @(isApproved ? "bg-success" :
+                                           isRejected ? "bg-danger" : "bg-secondary")">
+                    <i class="bi @(isApproved ? "bi-check-lg" :
+                                                          isRejected ? "bi-x-lg" : "bi-info-lg")"></i>
+                </div>
+
+                <div class="timeline-content">
+                    <div class="fw-semibold">
+                        @(isApproved ? "Approved" :
+                                        isRejected ? "Rejected" : "Updated")
+                    </div>
+
+                    <div class="text-muted small">
+                        @entry
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p class="text-muted mt-4">No approval history available.</p>
+}
+
+@if (Model.Product.Images.Any())
+{
+    <h5 class="mt-4">Product Images</h5>
+
+    <div id="productImagesCarousel"
+         class="carousel slide mb-3"
+         data-bs-ride="carousel">
+
+        <div class="carousel-inner">
+            @for (int i = 0; i < Model.Product.Images.Count; i++)
+            {
+                var img = Model.Product.Images[i];
+
+                <div class="carousel-item @(i == 0 ? "active" : "")">
+                    <img src="@img.ImageUrl"
+                         class="d-block w-100 product-image"
+                         alt="Product image" />
+                </div>
+            }
+        </div>
+
+        <button class="carousel-control-prev"
+                type="button"
+                data-bs-target="#productImagesCarousel"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+
+        <button class="carousel-control-next"
+                type="button"
+                data-bs-target="#productImagesCarousel"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+}
+else
+{
+    <p class="text-muted">No images uploaded.</p>
+}
+
+
+<script>
+    const API_BASE = window.API_BASE;
+    let rejectModal;
+
+    document.addEventListener("DOMContentLoaded", function () {
+        rejectModal = new bootstrap.Modal(
+            document.getElementById('rejectModal')
+        );
+    });
+
+    function openRejectModal(productId) {
+        document.getElementById('rejectProductId').value = productId;
+        document.getElementById('rejectReason').value = '';
+        rejectModal.show();
+    }
+
+    async function approveProduct(productId) {
+        const remark = prompt(
+            "Approval remark:",
+            "Images uploaded and verified"
+        );
+
+        if (remark === null) return;
+
+        const res = await fetch(`${API_BASE}/api/admin/products/${productId}/approve`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ remark })
+        });
+
+        if (res.ok) {
+            location.reload();
+        } else {
+            alert("Failed to approve product");
+        }
+    }
+
+    async function submitReject() {
+        const productId = document.getElementById('rejectProductId').value;
+        const reason = document.getElementById('rejectReason').value.trim();
+
+        if (!reason) {
+            alert("Reject reason is required");
+            return;
+        }
+
+        const res = await fetch(`${API_BASE}/api/admin/products/${productId}/reject`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ reason })
+        });
+
+        if (res.ok) {
+            rejectModal.hide();
+            location.reload();
+        } else {
+            alert("Failed to reject product");
+        }
+    }
+    async function toggleActive(productId) {
+        const confirmMsg = "Are you sure you want to change active status?";
+        if (!confirm(confirmMsg)) return;
+
+        const res = await fetch(
+            `${API_BASE}/api/admin/products/${productId}/toggle-active`,
+            {
+                method: 'POST',
+                credentials: 'include'
+            }
+        );
+
+        if (res.ok) {
+            location.reload();
+        } else {
+            const text = await res.text();
+            alert(`Failed to update status (${res.status}): ${text}`);
+        }
+    }
+</script>

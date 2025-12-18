@@ -36,7 +36,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "UrbanNative.Api.Controllers.AdminProductsController",
+    "ContainingType": "AdminProductsController",
     "Method": "GetAllProducts",
     "RelativePath": "api/admin/products",
     "HttpMethod": "GET",
@@ -62,7 +62,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "UrbanNative.Api.Controllers.AdminProductsController",
+    "ContainingType": "AdminProductsController",
     "Method": "GetProduct",
     "RelativePath": "api/admin/products/{id}",
     "HttpMethod": "GET",
@@ -78,8 +78,8 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "UrbanNative.Api.Controllers.AdminProductsController",
-    "Method": "ApproveProduct",
+    "ContainingType": "AdminProductsController",
+    "Method": "Approve",
     "RelativePath": "api/admin/products/{id}/approve",
     "HttpMethod": "POST",
     "IsController": true,
@@ -89,13 +89,18 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "req",
+        "Type": "UrbanNative.Application.DTOs.ApproveProductRequest",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "UrbanNative.Api.Controllers.AdminProductsController",
-    "Method": "RejectProduct",
+    "ContainingType": "AdminProductsController",
+    "Method": "Reject",
     "RelativePath": "api/admin/products/{id}/reject",
     "HttpMethod": "POST",
     "IsController": true,
@@ -108,14 +113,14 @@
       },
       {
         "Name": "req",
-        "Type": "UrbanNative.Api.Controllers.RejectProductRequest",
+        "Type": "UrbanNative.Application.DTOs.RejectProductRequest",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "UrbanNative.Api.Controllers.AdminProductsController",
+    "ContainingType": "AdminProductsController",
     "Method": "ToggleActive",
     "RelativePath": "api/admin/products/{id}/toggle-active",
     "HttpMethod": "POST",

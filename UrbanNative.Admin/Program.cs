@@ -35,17 +35,17 @@ builder.Services.AddAuthorization(options =>
 });
 builder.Services.AddRazorPages(options =>
 {
-    options.Conventions.AuthorizeFolder("/Admin", "AdminOnly");
+    options.Conventions.AuthorizeFolder("/Products", "AdminOnly");
 });
+
+builder.Services.AddTransient<JwtTokenHandler>();
 
 builder.Services.AddHttpClient("ApiClient", client =>
 {
     var baseUrl = builder.Configuration["ApiSettings:BaseUrl"];
 
     if (string.IsNullOrWhiteSpace(baseUrl))
-    {
-        baseUrl = "http://localhost:5128"; // dev fallback
-    }
+        baseUrl = "http://localhost:5128";
 
     client.BaseAddress = new Uri(baseUrl);
     client.Timeout = TimeSpan.FromSeconds(30);
@@ -53,8 +53,12 @@ builder.Services.AddHttpClient("ApiClient", client =>
 .AddHttpMessageHandler<JwtTokenHandler>();
 
 
+
 // register your domain services
 builder.Services.AddScoped<IAdminService, AdminService>();
+// register AdminProductService which implements IAdminProductService
+builder.Services.AddScoped<IAdminProductService, AdminProductService>();
+
 // register SqlHelpers example
 
 

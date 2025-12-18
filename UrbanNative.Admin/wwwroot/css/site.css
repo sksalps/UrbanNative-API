@@ -82,3 +82,40 @@ main {
 .dataTables_wrapper .dataTables_paginate {
     float: right;
 }
+
+
+.timeline {
+    position: relative;
+    margin-top: 20px;
+}
+
+.timeline-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.timeline-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.timeline-content {
+    background: #f8f9fa;
+    border-radius: 6px;
+    padding: 10px 15px;
+    width: 100%;
+}
+
+.product-image {
+    max-height: 420px;
+    object-fit: contain;
+    background-color: #f8f9fa;
+}

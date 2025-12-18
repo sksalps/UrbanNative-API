@@ -64,7 +64,6 @@ E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin\obj\Debug\net10.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin\obj\Debug\net10.0\scopedcss\bundle\UrbanNative.Admin.styles.css
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin\obj\Debug\net10.0\scopedcss\projectbundle\UrbanNative.Admin.bundle.scp.css
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin\obj\Debug\net10.0\compressed\irq5ankooj-{0}-mwhnrcotz3-mwhnrcotz3.gz
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin\obj\Debug\net10.0\compressed\nljlzefo2j-{0}-61n19gt1b8-61n19gt1b8.gz
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin\obj\Debug\net10.0\compressed\k8i6fdeqpj-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin\obj\Debug\net10.0\compressed\mhgppedwmd-{0}-bqjiyaj88i-bqjiyaj88i.gz
@@ -144,3 +143,4 @@ E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin\bin\Debug\net10.0\UrbanNative.Application.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin\bin\Debug\net10.0\UrbanNative.Application.pdb
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin\obj\Debug\net10.0\compressed\89scpv9dvj-{0}-dsl2xa9ggb-dsl2xa9ggb.gz
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin\obj\Debug\net10.0\compressed\irq5ankooj-{0}-k2rrv69gva-k2rrv69gva.gz
