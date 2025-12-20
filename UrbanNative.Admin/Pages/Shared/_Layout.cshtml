@@ -27,6 +27,13 @@
     <meta name="RequestVerificationToken" content="@AntiForgery.GetAndStoreTokens(Context).RequestToken" />
     <script>
         window.API_BASE = "@Configuration["ApiSettings:BaseUrl"]";
+        setTimeout(function () {
+            document.querySelectorAll('.alert').forEach(function (el) {
+                el.classList.add('fade');
+                setTimeout(() => el.remove(), 500);
+            });
+        }, 3000); // 3 seconds
+
     </script>
 </head>
 <body class="admin-body">

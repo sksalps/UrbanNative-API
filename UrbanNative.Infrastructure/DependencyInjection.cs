@@ -17,6 +17,10 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<IAdminNotificationRepository, AdminNotificationRepository>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IAdminVendorRepository, AdminVendorRepository>();
+            services.AddScoped<IAdminCategoryRepository, AdminCategoryRepository>();
+
+
 
             return services;
         }

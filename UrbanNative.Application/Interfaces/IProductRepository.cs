@@ -1,6 +1,7 @@
 ﻿using UrbanNative.Application.DTOs;
 using UrbanNative.Domain.Entities;
 
+//This is using on Admin Dashboard for product management and product listing "IAdminProductRepository"
 
 namespace UrbanNative.Application.Interfaces
 {

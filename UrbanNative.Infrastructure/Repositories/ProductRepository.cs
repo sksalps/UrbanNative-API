@@ -1,11 +1,12 @@
 ﻿using Dapper;
 using System.Data;
-using Microsoft.Data.SqlClient;
 using UrbanNative.Application.DTOs;
 using UrbanNative.Application.Interfaces;
 using UrbanNative.Domain.Entities;
 using UrbanNative.Infrastructure.Database;
 
+
+//This is using on Admin Dashboard for product management and product listing "AdminProductRepository"
 namespace UrbanNative.Infrastructure.Repositories
 {
     public class ProductRepository : IProductRepository

@@ -1,0 +1,119 @@
+﻿@page
+@using UrbanNative.Application.DTOs.AdminCategory
+@model UrbanNative.Admin.Pages.Categories.IndexModel
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<h3>Categories</h3>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["Error"]
+    </div>
+
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<form method="get" class="row g-2 mb-3 align-items-end">
+
+    <div class="col-md-4">
+        <label class="form-label">Search</label>
+        <input type="text"
+               name="search"
+               value="@Request.Query["search"]"
+               class="form-control"
+               placeholder="Category name..." />
+    </div>
+
+    <div class="col-md-3">
+        <label class="form-label">Level</label>
+        <select name="level" class="form-select">
+            <option value="">All</option>
+            <option value="0" selected="@(Request.Query["level"] == "0")">Root</option>
+            <option value="1" selected="@(Request.Query["level"] == "1")">Child</option>
+        </select>
+    </div>
+
+    <div class="col-md-3">
+        <label class="form-label">Active</label>
+        <select name="isActive" class="form-select">
+            <option value="">All</option>
+            <option value="true" selected="@(Request.Query["isActive"] == "true")">Active</option>
+            <option value="false" selected="@(Request.Query["isActive"] == "false")">Inactive</option>
+        </select>
+    </div>
+
+
+
+    <div class="col-md-2">
+        <button class="btn btn-primary w-100">Filter</button>
+    </div>
+
+</form>
+
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Level</th>
+            <th>Children</th>
+            <th>Active</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Categories.OrderBy(x => x.Level).ThenBy(x => x.SortOrder))
+        {
+            <tr>
+                <td>
+                    <span style="margin-left:@(item.Level * 20)px;
+                     font-weight:@(item.Level == 0 ? "600" : "400")">
+                        @item.CategoryName
+                    </span>
+                </td>
+
+                <td>@item.Level</td>
+                <td>@item.ChildCount</td>
+                <td>
+                    <span class="badge @(item.IsActive ? "bg-success" : "bg-secondary")">
+                        @(item.IsActive ? "Active" : "Inactive")
+                    </span>
+                </td>
+                <td class="text-nowrap">
+                                        <a asp-page="./CategoryDetails"
+                       asp-route-id="@item.CategoryID"
+                       class="btn btn-sm btn-info">
+                        View
+                    </a>
+
+                    <form method="post"
+                          asp-page-handler="ToggleActive"
+                          class="d-inline">
+                        <input type="hidden" name="categoryId" value="@item.CategoryID" />
+                        <button type="submit"
+                                class="btn btn-sm @(item.IsActive ? "btn-warning" : "btn-success")">
+                            @(item.IsActive ? "Deactivate" : "Activate")
+                        </button>
+                    </form>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-success"
+        data-bs-toggle="modal"
+        data-bs-target="#categoryModal">
+    Add Root Category
+</button>
+
+@await Html.PartialAsync("_CreateEditModal", new AdminCategorySaveDto())

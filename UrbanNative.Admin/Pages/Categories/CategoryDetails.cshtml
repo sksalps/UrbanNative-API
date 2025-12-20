@@ -1,0 +1,139 @@
+﻿@page "{id:int}"
+@using UrbanNative.Application.DTOs.AdminCategory
+@model UrbanNative.Admin.Pages.Categories.CategoryDetailsModel
+
+@{
+    ViewData["Title"] = "Category Details";
+}
+
+<h3>Category Details</h3>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["Error"]
+    </div>
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+    </div>
+}
+
+@if (Model.Category == null)
+{
+    <div class="alert alert-danger">
+        Category not found or failed to load.
+    </div>
+}
+else
+{
+    <!-- ================= CATEGORY DETAILS CARD ================= -->
+
+    <div class="card mb-4">
+        <div class="card-body">
+
+            <form method="post" asp-page-handler="Update">
+
+                <input type="hidden"
+                       name="categoryId"
+                       value="@Model.Category.CategoryID" />
+
+                <div class="mb-3">
+                    <label class="form-label">Category Name</label>
+                    <input type="text"
+                           name="CategoryName"
+                           class="form-control"
+                           value="@Model.Category.CategoryName"
+                           required />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea name="Description"
+                          class="form-control"
+                          rows="3">@Model.Category.Description</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Sort Order</label>
+                    <input type="number"
+                           name="SortOrder"
+                           class="form-control"
+                           value="@Model.Category.SortOrder" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Level</label>
+                    <input type="text"
+                           class="form-control"
+                           value="@Model.Category.Level"
+                           disabled />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Status</label>
+                    <span class="badge @(Model.Category.IsActive ? "bg-success" : "bg-secondary")">
+                        @(Model.Category.IsActive ? "Active" : "Inactive")
+                    </span>
+                </div>
+
+                <div class="d-flex gap-2">
+
+                    <button type="submit" class="btn btn-primary">
+                        Update
+                    </button>
+
+                    <form method="post"
+                          asp-page-handler="ToggleActive"
+                          class="d-inline">
+                        <input type="hidden"
+                               name="categoryId"
+                               value="@Model.Category.CategoryID" />
+                        <button type="submit"
+                                class="btn @(Model.Category.IsActive ? "btn-warning" : "btn-success")">
+                            @(Model.Category.IsActive ? "Deactivate" : "Activate")
+                        </button>
+                    </form>
+
+                    <button type="button"
+                            class="btn btn-success"
+                            data-bs-toggle="modal"
+                            data-bs-target="#categoryModal">
+                        Add Child Category
+                    </button>
+
+                    <a asp-page="./Index"
+                       class="btn btn-secondary">
+                        Back to List
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- ================= ADD CHILD CATEGORY MODAL ================= -->
+    @await Html.PartialAsync(
+    "_CreateEditModal",
+        new AdminCategorySaveDto
+        {
+            ParentCategoryID = Model.Category.CategoryID
+        }
+    )
+}
+
+@section Scripts {
+    <script>
+        setTimeout(function () {
+            document.querySelectorAll('.alert').forEach(function (el) {
+                el.classList.add('fade');
+                setTimeout(() => el.remove(), 500);
+            });
+        }, 3000);
+    </script>
+}

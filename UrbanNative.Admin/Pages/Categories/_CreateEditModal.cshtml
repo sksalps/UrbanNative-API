@@ -1,0 +1,28 @@
+﻿@model UrbanNative.Application.DTOs.AdminCategory.AdminCategorySaveDto
+
+<div class="modal fade" id="categoryModal">
+    <div class="modal-dialog">
+
+        <form method="post" asp-page-handler="Create">
+            <input type="hidden" name="ParentCategoryID" value="@Model.ParentCategoryID" />
+
+            <div class="mb-3">
+                <label class="form-label">Category Name</label>
+                <input name="CategoryName" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea name="Description" class="form-control"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Sort Order</label>
+                <input type="number" name="SortOrder" class="form-control" />
+            </div>
+
+            <button type="submit" class="btn btn-success">Save</button>
+        </form>
+
+    </div>
+</div>

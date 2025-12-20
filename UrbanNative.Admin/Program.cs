@@ -58,6 +58,12 @@ builder.Services.AddHttpClient("ApiClient", client =>
 builder.Services.AddScoped<IAdminService, AdminService>();
 // register AdminProductService which implements IAdminProductService
 builder.Services.AddScoped<IAdminProductService, AdminProductService>();
+// register AdminVendorService which implements IAdminVendorService
+builder.Services.AddScoped<IAdminVendorService, AdminVendorService>();
+// register AdminCategoryService which implements IAdminCategoryService
+builder.Services.AddScoped<IAdminCategoryService, AdminCategoryService>();
+
+
 
 // register SqlHelpers example
 

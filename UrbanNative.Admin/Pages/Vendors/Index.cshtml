@@ -1,0 +1,238 @@
+﻿@page
+@model UrbanNative.Admin.Pages.Vendors.IndexModel
+@{
+    ViewData["Title"] = "Vendors";
+}
+
+<h2 class="mb-3">Vendors</h2>
+
+<!-- Filters -->
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-3">
+        <input type="text" name="Search" value="@Model.Search"
+               class="form-control"
+               placeholder="Search vendor / business / mobile" />
+    </div>
+
+    <div class="col-md-2">
+        <select name="ApprovalStatus" class="form-select">
+            <option value="">All Status</option>
+            <option value="Pending" selected="@(Model.ApprovalStatus == "Pending")">Pending</option>
+            <option value="Approved" selected="@(Model.ApprovalStatus == "Approved")">Approved</option>
+            <option value="Rejected" selected="@(Model.ApprovalStatus == "Rejected")">Rejected</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <select name="IsActive" class="form-select">
+            <option value="">All</option>
+            <option value="true" selected="@(Model.IsActive == true)">Active</option>
+            <option value="false" selected="@(Model.IsActive == false)">Inactive</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <button class="btn btn-primary w-100">Filter</button>
+    </div>
+</form>
+
+<!-- Vendors Table -->
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Vendor Name</th>
+            <th>Business Name</th>
+            <th>Mobile</th>
+            <th>Email</th>
+            <th>NOP</th>
+            <th>Status</th>
+            <th>Active</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var v in Model.Vendors)
+        {
+            <tr>
+                <td>@v.VendorID</td>
+                <td>@v.VendorName</td>
+                <td>@v.BusinessName</td>
+                <td>@v.Mobile</td>
+                <td>@v.Email</td>
+                <td>
+                    <span class="badge bg-info">@v.NOP</span>
+                </td>
+
+                <td>
+                    <span class="badge bg-@(
+                        v.ApprovalStatus == "Approved" ? "success" :
+                        v.ApprovalStatus == "Rejected" ? "danger" : "warning")">
+                        @v.ApprovalStatus
+                    </span>
+                </td>
+
+                <td>
+                    <button class="btn btn-sm @(v.IsActive ? "btn-warning" : "btn-secondary")"
+                            onclick="toggleVendorActive(@v.VendorID)">
+                            @(v.IsActive ? "Deactivate" : "Activate")
+                    </button>
+                </td>
+
+                <td>
+                    <!-- View Vendor -->
+                    <a asp-page="VendorDetails"
+                       asp-route-id="@v.VendorID"
+                       class="btn btn-sm btn-info">
+                        View
+                    </a>
+
+                    @if (v.ApprovalStatus != "Approved")
+                    {
+                        <button class="btn btn-success btn-sm"
+                                onclick="approveVendor(@v.VendorID)">
+                            Approve
+                        </button>
+
+                        <button class="btn btn-danger btn-sm"
+                                onclick="openRejectModal(@v.VendorID)">
+                            Reject
+                        </button>
+                    }
+                    else
+                    {
+                        <span class="badge bg-success ms-1">Approved</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Reject Modal -->
+<div class="modal fade" id="rejectModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Reject Vendor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" id="rejectVendorId" />
+
+                <label class="form-label">Rejection Reason</label>
+                <textarea id="rejectReason"
+                          class="form-control"
+                          rows="4"
+                          placeholder="Enter reason"></textarea>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-danger" onclick="submitReject()">Reject</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    const API_BASE = window.API_BASE;
+
+    if (!API_BASE) {
+        alert("API_BASE is not defined. Check _Layout.cshtml.");
+    }
+
+    let rejectModal;
+
+    document.addEventListener("DOMContentLoaded", function () {
+        rejectModal = new bootstrap.Modal(
+            document.getElementById('rejectModal')
+        );
+    });
+
+    function openRejectModal(vendorId) {
+        document.getElementById('rejectVendorId').value = vendorId;
+        document.getElementById('rejectReason').value = '';
+        rejectModal.show();
+    }
+
+        async function approveVendor(vendorId) {
+        const remark = prompt(
+            "Approval remark:",
+            "Documents verified"
+        );
+
+        if (remark === null)
+            return;
+
+        const res = await fetch(`${API_BASE}/api/admin/vendors/approval`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({
+                vendorID: vendorId,
+                approvalStatus: "Approved",
+                reason: remark
+            })
+        });
+
+        if (res.ok) {
+            location.reload();
+        } else {
+            const text = await res.text();
+            alert(`Approve failed (${res.status}): ${text}`);
+        }
+    }
+
+    async function submitReject() {
+        const vendorId = document.getElementById('rejectVendorId').value;
+        const reason = document.getElementById('rejectReason').value.trim();
+
+        if (!reason) {
+            alert('Reject reason is required');
+            return;
+        }
+
+        const res = await fetch(`${API_BASE}/api/admin/vendors/approval`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({
+                vendorID: vendorId,
+                approvalStatus: "Rejected",
+                reason: reason
+            })
+        });
+
+        if (res.ok) {
+            rejectModal.hide();
+            location.reload();
+        } else {
+            const text = await res.text();
+            alert(`Reject failed (${res.status}): ${text}`);
+        }
+    }
+
+        async function toggleVendorActive(vendorId) {
+        if (!confirm("Are you sure you want to change active status?"))
+            return;
+
+        const res = await fetch(`${API_BASE}/api/admin/vendors/activate`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify(vendorId)   // 🔥 IMPORTANT
+        });
+
+        if (res.ok) {
+            location.reload();
+        } else {
+            const text = await res.text();
+            alert(`Failed to update status (${res.status}): ${text}`);
+        }
+    }
+</script>
