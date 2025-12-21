@@ -50,64 +50,111 @@
         </select>
     </div>
 
+    <!-- SEARCH + ADD ROOT -->
+    <div class="col-md-2 d-flex gap-2">
+        <!-- Search icon button -->
+        
+        <button type="submit" class="btn btn-primary flex-fill" title="Search">
+            <i class="bi bi-search"></i>
+        </button>
 
+        
 
-    <div class="col-md-2">
-        <button class="btn btn-primary w-100">Filter</button>
+        <!-- Add Root Category -->
+        <button type="button"
+                class="btn btn-success flex-fill"
+                data-bs-toggle="modal"
+                data-bs-target="#categoryModal"
+                title="Add Root Category">
+            <i class="bi bi-plus-lg"></i>
+        </button>
     </div>
 
 </form>
 
 
 <table class="table table-bordered table-hover">
+
     <thead>
         <tr>
             <th>Category</th>
+            <th>Description</th>
             <th>Level</th>
             <th>Children</th>
             <th>Active</th>
             <th>Actions</th>
+            <th>Add Child</th> @* (we’ll add this next) *@
         </tr>
     </thead>
+
     <tbody>
         @foreach (var item in Model.Categories.OrderBy(x => x.Level).ThenBy(x => x.SortOrder))
         {
-            <tr>
+            var isRoot = item.Level == 0;
+
+            
+            <tr class="@(item.Level == 0 ? "category-root" : "category-child")"
+                data-parent-id="@item.ParentCategoryID"
+                data-category-id="@item.CategoryID"
+                style="@(item.Level > 0 ? "display:none" : "")">
+
+                <!-- CATEGORY NAME -->
                 <td>
-                    <span style="margin-left:@(item.Level * 20)px;
-                     font-weight:@(item.Level == 0 ? "600" : "400")">
+                    <span class="toggle-icon">
+                        @if (isRoot)
+                        {
+                            <span class="icon">▶</span>
+                        }
+                    </span>
+
+                    <span style="margin-left:@(item.Level * 20)px">
                         @item.CategoryName
                     </span>
                 </td>
 
+                <!-- DESCRIPTION -->
+                <td>
+                    @{
+                        var desc = item.Description ?? "";
+                        var shortDesc = desc.Length > 50
+                        ? desc.Substring(0, 50) + "..."
+                        : desc;
+                    }
+                    <span title="@desc">@shortDesc</span>
+                </td>
+
                 <td>@item.Level</td>
                 <td>@item.ChildCount</td>
+
                 <td>
                     <span class="badge @(item.IsActive ? "bg-success" : "bg-secondary")">
                         @(item.IsActive ? "Active" : "Inactive")
                     </span>
                 </td>
+
+                <!-- ACTIONS -->
                 <td class="text-nowrap">
-                                        <a asp-page="./CategoryDetails"
+                    <a asp-page="CategoryDetails"
                        asp-route-id="@item.CategoryID"
                        class="btn btn-sm btn-info">
                         View
                     </a>
-
-                    <form method="post"
-                          asp-page-handler="ToggleActive"
-                          class="d-inline">
-                        <input type="hidden" name="categoryId" value="@item.CategoryID" />
-                        <button type="submit"
-                                class="btn btn-sm @(item.IsActive ? "btn-warning" : "btn-success")">
-                            @(item.IsActive ? "Deactivate" : "Activate")
-                        </button>
-                    </form>
                 </td>
 
+                <!-- ADD CHILD -->
+                <td class="text-center">
+                    <button type="button"
+                            class="btn btn-sm btn-outline-success"
+                            data-bs-toggle="modal"
+                            data-bs-target="#categoryModal"
+                            data-parent-id="@item.CategoryID">
+                        ➕
+                    </button>
+                </td>
             </tr>
         }
     </tbody>
+
 </table>
 
 <button class="btn btn-success"
@@ -116,4 +163,67 @@
     Add Root Category
 </button>
 
+
 @await Html.PartialAsync("_CreateEditModal", new AdminCategorySaveDto())
+
+<script>
+    const categoryModal = document.getElementById('categoryModal');
+
+    if (categoryModal) {
+        categoryModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const parentId = button?.getAttribute('data-parent-id');
+
+            const input = categoryModal.querySelector(
+                'input[name="ParentCategoryID"]'
+            );
+
+            if (input) {
+                input.value = parentId ?? '';
+            }
+        });
+    }
+    //expand/collapse logic
+    document.querySelectorAll('.category-root').forEach(root => {
+
+        root.addEventListener('click', function (e) {
+
+            if (e.target.closest('a,button')) return;
+
+            const parentId = this.dataset.categoryId;
+            const icon = this.querySelector('.icon');
+
+            let show = true;
+
+            document.querySelectorAll(
+                `.category-child[data-parent-id='${parentId}']`
+            ).forEach(child => {
+                show = child.style.display === 'none';
+                child.style.display = show ? 'table-row' : 'none';
+            });
+
+            if (icon) icon.textContent = show ? '▼' : '▶';
+        });
+
+    });
+</script>
+
+<style>
+    .category-root {
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    .category-child {
+        display: none;
+        background-color: #fafafa;
+    }
+
+    .toggle-icon {
+        width: 16px;
+        display: inline-block;
+        text-align: center;
+        margin-right: 6px;
+    }
+</style>
+

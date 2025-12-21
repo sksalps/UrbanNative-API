@@ -41,31 +41,17 @@ namespace UrbanNative.Admin.Services
         // =========================
         public async Task<string?> CreateAsync(AdminCategorySaveDto dto)
         {
-            var res = await _http.PostAsJsonAsync(
-                "/api/admin/categories",
-                dto
-            );
+            var res = await _http.PostAsJsonAsync("/api/admin/categories", dto);
 
             if (res.IsSuccessStatusCode)
                 return null;
 
             var json = await res.Content.ReadAsStringAsync();
-
-            if (string.IsNullOrWhiteSpace(json))
-                return "Unable to create category";
-
-            try
-            {
-                using var doc = JsonDocument.Parse(json);
-                return doc.RootElement
-                          .GetProperty("message")
-                          .GetString();
-            }
-            catch
-            {
-                return "Unable to create category";
-            }
+            return string.IsNullOrWhiteSpace(json)
+                ? "Unable to create category"
+                : JsonDocument.Parse(json).RootElement.GetProperty("message").GetString();
         }
+
 
 
         // =========================
@@ -73,66 +59,39 @@ namespace UrbanNative.Admin.Services
         // =========================
 
         public async Task<string?> UpdateAsync(int categoryId, AdminCategorySaveDto dto)
-    {
-        var res = await _http.PutAsJsonAsync(
-            $"/api/admin/categories/{categoryId}",
-            dto
-        );
-
-        if (res.IsSuccessStatusCode)
-            return null;
-
-        var json = await res.Content.ReadAsStringAsync();
-
-        if (string.IsNullOrWhiteSpace(json))
-            return "Unable to update category";
-
-        try
         {
-            using var doc = JsonDocument.Parse(json);
-            return doc.RootElement
-                      .GetProperty("message")
-                      .GetString();
+            var res = await _http.PutAsJsonAsync(
+                $"/api/admin/categories/{categoryId}", dto);
+
+            if (res.IsSuccessStatusCode)
+                return null;
+
+            var json = await res.Content.ReadAsStringAsync();
+            return string.IsNullOrWhiteSpace(json)
+                ? "Unable to update category"
+                : JsonDocument.Parse(json).RootElement.GetProperty("message").GetString();
         }
-        catch
+
+
+        // =========================
+        // Admin – Activate / Deactivate Category
+        // =========================
+
+        public async Task<string?> ToggleActiveAsync(int categoryId)
         {
-            return "Unable to update category";
+            var res = await _http.PostAsJsonAsync(
+                "/api/admin/categories/activate", categoryId);
+
+            if (res.IsSuccessStatusCode)
+                return null;
+
+            var json = await res.Content.ReadAsStringAsync();
+            return string.IsNullOrWhiteSpace(json)
+                ? "Unable to update category status"
+                : JsonDocument.Parse(json).RootElement.GetProperty("message").GetString();
         }
-    }
-
-    // =========================
-    // Admin – Activate / Deactivate Category
-    // =========================
 
 
-    public async Task<string?> ToggleActiveAsync(int categoryId)
-    {
-        var res = await _http.PostAsJsonAsync(
-            "/api/admin/categories/activate",
-            categoryId       );
-
-        // ✅ Success
-        if (res.IsSuccessStatusCode)
-            return null;
-
-        // ✅ Read API error message safely
-        var json = await res.Content.ReadAsStringAsync();
-
-        if (string.IsNullOrWhiteSpace(json))
-            return "Unable to update category status";
-
-        try
-        {
-            using var doc = JsonDocument.Parse(json);
-            return doc.RootElement
-                      .GetProperty("message")
-                      .GetString();
-        }
-        catch
-        {
-            return "Unable to update category status";
-        }
-    }
 
 
     }

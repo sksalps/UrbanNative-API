@@ -28,6 +28,7 @@ namespace UrbanNative.Admin.Pages.Categories
         }
 
 
+
         public async Task<IActionResult> OnPostCreateAsync(AdminCategorySaveDto dto)
         {
             var error = await _service.CreateAsync(dto);
@@ -42,12 +43,10 @@ namespace UrbanNative.Admin.Pages.Categories
             return RedirectToPage(new { id = dto.ParentCategoryID });
         }
 
-
         // ✅ UPDATE HANDLER (THIS BELONGS HERE)
 
-        public async Task<IActionResult> OnPostUpdateAsync(
-    AdminCategorySaveDto dto,
-    int categoryId)
+
+        public async Task<IActionResult> OnPostUpdateAsync( AdminCategorySaveDto dto, int categoryId)
         {
             var error = await _service.UpdateAsync(categoryId, dto);
 

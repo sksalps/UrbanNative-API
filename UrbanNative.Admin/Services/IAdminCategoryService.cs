@@ -26,4 +26,5 @@ namespace UrbanNative.Admin.Services
         // =========================
         Task<string?> ToggleActiveAsync(int categoryId);
     }
+
 }

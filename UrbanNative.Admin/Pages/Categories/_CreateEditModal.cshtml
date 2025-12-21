@@ -1,28 +1,64 @@
 ﻿@model UrbanNative.Application.DTOs.AdminCategory.AdminCategorySaveDto
 
-<div class="modal fade" id="categoryModal">
+<div class="modal fade"    id="categoryModal"     tabindex="-1"    aria-labelledby="categoryModalLabel"     aria-hidden="true">
+
     <div class="modal-dialog">
+        <div class="modal-content">
 
-        <form method="post" asp-page-handler="Create">
-            <input type="hidden" name="ParentCategoryID" value="@Model.ParentCategoryID" />
-
-            <div class="mb-3">
-                <label class="form-label">Category Name</label>
-                <input name="CategoryName" class="form-control" required />
+            <div class="modal-header">
+                <h5 class="modal-title" id="categoryModalLabel">
+                    @(Model.ParentCategoryID.HasValue ? "Add Child Category" : "Add Root Category")
+                </h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">Description</label>
-                <textarea name="Description" class="form-control"></textarea>
-            </div>
+            <form method="post" asp-page-handler="Create">
 
-            <div class="mb-3">
-                <label class="form-label">Sort Order</label>
-                <input type="number" name="SortOrder" class="form-control" />
-            </div>
+                <div class="modal-body">
 
-            <button type="submit" class="btn btn-success">Save</button>
-        </form>
+                    <input type="hidden"
+                           name="ParentCategoryID"
+                           value="@Model.ParentCategoryID" />
 
+                    <div class="mb-3">
+                        <label class="form-label">Category Name</label>
+                        <input name="CategoryName"
+                               class="form-control"
+                               required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea name="Description"
+                                  class="form-control"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Sort Order</label>
+                        <input type="number"
+                               name="SortOrder"
+                               class="form-control" />
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="submit"
+                            class="btn btn-success">
+                        Save
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
     </div>
 </div>
