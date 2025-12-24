@@ -1,0 +1,61 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>UrbanNative Admin - @ViewData["Title"]</title>
+
+    <!-- Your Admin CSS -->
+    <link rel="stylesheet" href="~/css/admin.css" />
+
+    <!-- Bootstrap & FontAwesome (if needed) -->
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <div class="admin-shell">
+
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <partial name="_Sidebar" />
+        </aside>
+
+        <!-- Main Content -->
+        <div class="admin-main">
+
+            <header class="admin-topbar shadow-sm">
+                <div class="topbar-left">
+                    <h4 class="page-title">@ViewData["Title"]</h4>
+                </div>
+
+                <div class="topbar-right d-flex align-items-center gap-3">
+                    <span class="admin-name">Hello, @User.Identity.Name</span>
+
+                    <div class="dropdown">
+                        <button class="profile-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-user"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                            <li><a class="dropdown-item" href="/Logout"><i class="fa fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+            <main class="admin-content">
+                @RenderBody()
+            </main>
+
+        </div>
+    </div>
+
+    @RenderSection("Scripts", required: false)
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,331 @@
+﻿@page "{id:int}"
+@model UrbanNative.Admin.Pages.Vendors.VendorDetailsModel
+@{
+    ViewData["Title"] = "Vendor Details";
+}
+
+<h2 class="mb-3">Vendor Details</h2>
+<a asp-page="Index" class="btn btn-secondary mb-3">← Back to Vendors</a>
+
+<!-- =========================
+     Vendor Basic Info
+========================= -->
+<div class="card mb-3">
+    <div class="card-header">
+        <strong>@Model.Vendor.VendorName</strong>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Business Name:</strong> @Model.Vendor.BusinessName</p>
+                <p><strong>Contact Person:</strong> @Model.Vendor.ContactPerson</p>
+                <p><strong>Mobile:</strong> @Model.Vendor.Mobile</p>
+                <p><strong>Email:</strong> @Model.Vendor.Email</p>
+            </div>
+
+            <div class="col-md-6">
+                <p><strong>GST Number:</strong> @Model.Vendor.GSTNumber</p>
+                <p><strong>PAN Number:</strong> @Model.Vendor.PANNumber</p>
+                <p><strong>State:</strong> @Model.Vendor.State (@Model.Vendor.StateCode)</p>
+                <span class="badge bg-info">@Model.Vendor.ApprovalStatus</span>
+                <span class="badge @(Model.Vendor.IsActive ? "bg-success" : "bg-danger")">
+                    @(Model.Vendor.IsActive ? "Active" : "Inactive")
+                </span>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+<!-- =========================
+        Referral Information, if refferred or it was direct
+========================= -->
+<div class="card mb-3">
+    <div class="card-header">
+        <strong>Referral Information</strong>
+    </div>
+    <div class="card-body">
+        @if (Model.ReferralInfo != null)
+        {
+            <p><strong>Referred By:</strong> @Model.ReferralInfo.Name</p>
+            <p><strong>Mobile:</strong> @Model.ReferralInfo.Mobile</p>
+            <p><strong>Referred At:</strong> @Model.ReferralInfo.ReferredAt.ToString("dd-MMM-yyyy")</p>
+        }
+        else
+        {
+            <p class="text-muted">Direct registration (no referral)</p>
+        }
+    </div>
+
+</div>
+<!-- =========================
+     Address Details
+========================= -->
+<div class="card mb-3">
+    <div class="card-header">
+        <strong>Address Details</strong>
+    </div>
+
+    <div class="card-body">
+        <p><strong>Business Address:</strong></p>
+        <p>@Model.Vendor.BusinessAddress</p>
+
+        <p><strong>Pickup Address:</strong></p>
+        <p>@Model.Vendor.PickupAddress</p>
+    </div>
+</div>
+
+<!-- =========================
+     Bank Details
+========================= -->
+<div class="card mb-3">
+    <div class="card-header">
+        <strong>Bank Details</strong>
+    </div>
+
+    <div class="card-body">
+        <p><strong>Bank Name:</strong> @Model.Vendor.BankName</p>
+        <p><strong>Account Number:</strong> @Model.Vendor.BankAccountNumber</p>
+        <p><strong>IFSC Code:</strong> @Model.Vendor.IFSCCode</p>
+    </div>
+</div>
+
+<!-- =========================
+     Business Authenticity Media
+========================= -->
+
+<div class="card mb-3">
+    <div class="card-header">
+        <strong>Business Authenticity Media</strong>
+    </div>
+
+    <div class="card-body">
+        @if (Model.Media.Any())
+        {
+            <div class="row">
+                @if (Model.Media.Any())
+                {
+                    <div class="row">
+                        @foreach (var m in Model.Media)
+                        {
+                            <div class="col-md-3 mb-3">
+
+                                @if (m.MediaType == "Photo")
+                                {
+                                    <img src="@m.MediaUrl"
+                                         class="img-fluid img-thumbnail mb-2"
+                                         alt="Vendor Photo" />
+                                }
+                                else if (m.MediaType == "Video")
+                                {
+                                    <video controls class="w-100 mb-2">
+                                        <source src="@m.MediaUrl" type="video/mp4" />
+                                    </video>
+                                }
+
+                                <small class="text-muted d-block">
+                                    Uploaded: @m.UploadedAt.ToString("dd-MMM-yyyy")
+                                </small>
+
+                                @if (m.Latitude.HasValue && m.Longitude.HasValue)
+                                {
+                                    <small class="text-muted d-block mb-2">
+                                        📍 @m.Latitude , @m.Longitude
+                                    </small>
+
+                                    <!-- ✅ MAP PREVIEW BUTTON -->
+                                    <a class="btn btn-sm btn-outline-primary"
+                                       target="_blank"
+                                       href="https://www.google.com/maps?q=@m.Latitude,@m.Longitude">
+                                        View on Map
+                                    </a>
+                                }
+
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted">No media uploaded by vendor.</p>
+                }
+
+            </div>
+        }
+        else
+        {
+            <p class="text-muted">No media uploaded by vendor.</p>
+        }
+    </div>
+</div>
+
+<!-- =========================
+     Status & Actions (SYMMETRIC TO PRODUCT VIEW)
+========================= -->
+<div class="card mb-3">
+    <div class="card-header">
+        <strong>Status & Actions</strong>
+    </div>
+
+    <div class="card-body">
+        <p>
+            <strong>Approval Status:</strong>
+            <span class="badge bg-@(
+                  Model.Vendor.ApprovalStatus == "Approved" ? "success" :
+                  Model.Vendor.ApprovalStatus == "Rejected" ? "danger" : "warning")">
+                @Model.Vendor.ApprovalStatus
+            </span>
+        </p>
+
+        <p>
+            <strong>Active:</strong>
+            <span class="badge @(Model.Vendor.IsActive ? "bg-success" : "bg-danger")">
+                @(Model.Vendor.IsActive ? "Yes" : "No")
+            </span>
+        </p>
+
+        <!-- ACTION BUTTONS -->
+        <form method="post" class="d-inline">
+            @if (Model.Vendor.ApprovalStatus != "Approved")
+            {
+                <button asp-page-handler="Approve"
+                        asp-route-id="@Model.Vendor.VendorID"
+                        class="btn btn-success me-2">
+                    Approve
+                </button>
+
+                <button type="button"
+                        class="btn btn-danger me-2"
+                        onclick="openRejectModal(@Model.Vendor.VendorID)">
+                    Reject
+                </button>
+            }
+            else
+            {
+                <span class="badge bg-success me-2">Approved</span>
+            }
+        </form>
+
+        <form method="post" class="d-inline">
+            <button asp-page-handler="ToggleActive"
+                    asp-route-id="@Model.Vendor.VendorID"
+                    class="btn btn-warning">
+                @(Model.Vendor.IsActive ? "Deactivate" : "Activate")
+            </button>
+
+            
+        </form>
+
+    </div>
+</div>
+
+<!-- =========================
+     Approval History (SAME AS PRODUCT VIEW)
+========================= -->
+<div class="card mb-3">
+    <div class="card-header">
+        <strong>Approval History</strong>
+    </div>
+
+    <div class="card-body">
+        @if (!string.IsNullOrWhiteSpace(Model.Vendor.RejectionReason))
+        {
+            <pre class="bg-light p-2">@Model.Vendor.RejectionReason</pre>
+        }
+        else
+        {
+            <p class="text-muted">No approval history available.</p>
+        }
+    </div>
+</div>
+
+
+
+<!-- =========================
+     Reject Modal (SAME AS LIST PAGE)
+========================= -->
+<div class="modal fade" id="rejectModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Reject Vendor</h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" id="rejectVendorId" />
+
+                <label class="form-label">Rejection Reason</label>
+                <textarea id="rejectReason"
+                          class="form-control"
+                          rows="4"
+                          placeholder="Enter rejection reason">
+                </textarea>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                    Cancel
+                </button>
+
+                <button class="btn btn-danger"
+                        onclick="submitReject()">
+                    Reject
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let rejectModal;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            rejectModal = new bootstrap.Modal(
+                document.getElementById('rejectModal')
+            );
+        });
+
+        function openRejectModal(vendorId) {
+            document.getElementById('rejectVendorId').value = vendorId;
+            document.getElementById('rejectReason').value = '';
+            rejectModal.show();
+        }
+
+        async function submitReject() {
+            const vendorId = document.getElementById('rejectVendorId').value;
+            const reason = document.getElementById('rejectReason').value.trim();
+
+            if (!reason) {
+                alert('Reject reason is required');
+                return;
+            }
+
+            const res = await fetch(`${window.API_BASE}/api/admin/vendors/approval`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({
+                    vendorID: vendorId,
+                    approvalStatus: "Rejected",
+                    reason: reason
+                })
+            });
+
+            if (res.ok) {
+                location.reload();
+            } else {
+                const text = await res.text();
+                alert(`Reject failed (${res.status}): ${text}`);
+            }
+        }
+    </script>
+}

@@ -1,0 +1,230 @@
+﻿@page
+@model UrbanNative.Admin.Pages.Products.IndexModel
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h2 class="mb-3">Products</h2>
+
+<!-- Filters -->
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-3">
+        <input type="text" name="Search" value="@Model.Search"
+               class="form-control" placeholder="Search product name" />
+    </div>
+
+    <div class="col-md-2">
+        <select name="ApprovalStatus" class="form-select">
+            <option value="">All Status</option>
+            <option value="Pending" selected="@(Model.ApprovalStatus == "Pending")">Pending</option>
+            <option value="Approved" selected="@(Model.ApprovalStatus == "Approved")">Approved</option>
+            <option value="Rejected" selected="@(Model.ApprovalStatus == "Rejected")">Rejected</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <select name="IsActive" class="form-select">
+            <option value="">All</option>
+            <option value="true" selected="@(Model.IsActive == true)">Active</option>
+            <option value="false" selected="@(Model.IsActive == false)">Inactive</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <button class="btn btn-primary w-100">Filter</button>
+    </div>
+</form>
+
+<!-- Products Table -->
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Vendor</th>
+            <th>MRP</th>
+            <th>Discount</th>
+            <th>Stock</th>
+            <th>Status</th>
+            <th>Active</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var p in Model.Products)
+        {
+            <tr>
+                <td>@p.ProductId</td>
+                <td>@p.ProductName</td>
+                <td>@p.CategoryName</td>
+                <td>@p.VendorName</td>
+                <td>@p.MRP</td>
+                <td>@p.DiscountPrice</td>
+                <td>@p.Stock</td>
+
+                <td>
+                    <span class="badge bg-@(
+                          p.ApprovalStatus == "Approved" ? "success" :
+                          p.ApprovalStatus == "Rejected" ? "danger" : "warning")">
+                        @p.ApprovalStatus
+                    </span>
+                </td>
+
+                <td>
+                    <!-- Activate / Deactivate -->
+                    <button class="btn btn-sm @(p.IsActive ? "btn-warning" : "btn-secondary")"
+                            onclick="toggleActive(@p.ProductId)">
+                        @(p.IsActive ? "Deactivate" : "Activate")
+                    </button>
+                </td>
+
+                <td>
+                    <!-- ✅ FIX 3 APPLIED HERE -->
+                    <a asp-page="ProductView"
+                       asp-route-id="@p.ProductId"
+                       class="btn btn-sm btn-info">
+                        View
+                    </a>
+
+                    @if (p.ApprovalStatus != "Approved")
+                    {
+                        <button class="btn btn-success btn-sm"
+                                onclick="approveProduct(@p.ProductId)">
+                            Approve
+                        </button>
+
+                        <button class="btn btn-danger btn-sm"
+                                onclick="openRejectModal(@p.ProductId)">
+                            Reject
+                        </button>
+                    }
+                    else
+                    {
+                        <span class="badge bg-success ms-1">Approved</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Reject Modal -->
+<div class="modal fade" id="rejectModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Reject Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" id="rejectProductId" />
+
+                <label class="form-label">Rejection Reason</label>
+                <textarea id="rejectReason"
+                          class="form-control"
+                          rows="4"
+                          placeholder="Enter reason"></textarea>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-danger" onclick="submitReject()">Reject</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    const API_BASE = window.API_BASE;
+
+    if (!API_BASE) {
+        alert("API_BASE is not defined. Check _Layout.cshtml.");
+    }
+
+    let rejectModal;
+
+    document.addEventListener("DOMContentLoaded", function () {
+        rejectModal = new bootstrap.Modal(
+            document.getElementById('rejectModal')
+        );
+    });
+
+    function openRejectModal(productId) {
+        document.getElementById('rejectProductId').value = productId;
+        document.getElementById('rejectReason').value = '';
+        rejectModal.show();
+    }
+
+    async function approveProduct(productId) {
+        const remark = prompt(
+            "Approval remark:",
+            "Images uploaded and verified"
+        );
+
+        if (remark === null) return;
+
+        const res = await fetch(`${API_BASE}/api/admin/products/${productId}/approve`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ remark })
+        });
+
+        if (res.ok) {
+            location.reload();
+        } else {
+            const text = await res.text();
+            alert(`Approve failed (${res.status}): ${text}`);
+        }
+    }
+
+    async function submitReject() {
+        const productId = document.getElementById('rejectProductId').value;
+        const reason = document.getElementById('rejectReason').value.trim();
+
+        if (!reason) {
+            alert('Reject reason is required');
+            return;
+        }
+
+        const res = await fetch(`${API_BASE}/api/admin/products/${productId}/reject`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ reason })
+        });
+
+        if (res.ok) {
+            rejectModal.hide();
+            location.reload();
+        } else {
+            const text = await res.text();
+            alert(`Reject failed (${res.status}): ${text}`);
+        }
+    }
+
+    async function toggleActive(productId) {
+        if (!confirm("Are you sure you want to change active status?"))
+            return;
+
+        const res = await fetch(
+            `${API_BASE}/api/admin/products/${productId}/toggle-active`,
+            {
+                method: 'POST',
+                credentials: 'include'
+            }
+        );
+
+        if (res.ok) {
+            location.reload();
+        } else {
+            const text = await res.text();
+            alert(`Failed to update status (${res.status}): ${text}`);
+        }
+    }
+</script>

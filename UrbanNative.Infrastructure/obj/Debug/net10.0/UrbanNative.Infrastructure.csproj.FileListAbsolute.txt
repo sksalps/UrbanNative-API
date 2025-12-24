@@ -1,6 +1,0 @@
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net10.0\UrbanNative.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net10.0\UrbanNative.Infrastructure.AssemblyInfoInputs.cache
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net10.0\UrbanNative.Infrastructure.AssemblyInfo.cs
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net10.0\UrbanNative.Infrastructure.csproj.CoreCompileInputs.cache
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net10.0\UrbanNative.Infrastructure.sourcelink.json
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net10.0\UrbanNative.Infrastructure.csproj.AssemblyReference.cache
