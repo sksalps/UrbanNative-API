@@ -296,3 +296,11 @@ body.dark {
     body.dark .notification-badge {
         background-color: #ef4444;
     }
+
+/* Sticky Filter Bar on admin list pages */
+.sticky-filter {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 10;
+}

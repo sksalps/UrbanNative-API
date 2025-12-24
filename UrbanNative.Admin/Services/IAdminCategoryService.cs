@@ -21,6 +21,12 @@ namespace UrbanNative.Admin.Services
 
         Task<string?> UpdateAsync(int categoryId, AdminCategorySaveDto dto);
 
+
+        Task<List<CategoryBreadcrumbDto>> GetBreadcrumbAsync(int categoryId);
+
+        Task<AdminCategoryDetailsDto> GetCategoryDetailsAsync(int categoryId);
+        Task<List<AdminCategoryFlatDto>> GetFlatCategoriesAsync();
+
         // =========================
         // Admin – Activate / Deactivate
         // =========================

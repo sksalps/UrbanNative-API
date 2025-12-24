@@ -7,6 +7,7 @@
 }
 
 <h3>Category Details</h3>
+<partial name="_CategoryBreadcrumb" model="Model.Breadcrumb" />
 
 @if (TempData["Error"] != null)
 {
@@ -34,7 +35,6 @@ else
 
     <div class="card mb-4">
         <div class="card-body">
-
             <form method="post" asp-page-handler="Update">
 
                 <input type="hidden"
@@ -99,12 +99,12 @@ else
                     </form>
 
                    
-                    <button type="button"
-                            class="btn btn-success"
-                            data-bs-toggle="modal"
-                            data-bs-target="#categoryModal">
-                        Add Child Category
-                    </button>
+                    <a asp-page="/Categories/Index"
+                       asp-page-handler="AddSub"
+                       asp-route-id="@Model.Category.CategoryID"
+                       class="btn btn-success">
+                        Add Subcategory
+                    </a>
 
 
                     <a asp-page="./Index"
@@ -119,14 +119,7 @@ else
         </div>
     </div>
 
-    <!-- ================= ADD CHILD CATEGORY MODAL ================= -->
-    @await Html.PartialAsync(
-    "_CreateEditModal",
-        new AdminCategorySaveDto
-        {
-            ParentCategoryID = Model.Category.CategoryID
-        }
-    )
+
 }
 
 @section Scripts {

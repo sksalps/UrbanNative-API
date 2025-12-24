@@ -48,4 +48,35 @@
         public string Message { get; set; } = string.Empty;
     }
 
+    public class CategoryBreadcrumbDto
+    {
+        public int CategoryID { get; set; }
+        public string Name { get; set; } = null!;
+    }
+
+    public class CategoryFlatDto
+    {
+        public int CategoryID { get; set; }
+        public string DisplayName { get; set; } = null!;
+    }
+
+    public class AdminCategoryDetailsDto
+    {
+        public int CategoryID { get; set; }
+        public string CategoryName { get; set; } = null!;
+        public string? Description { get; set; }
+        public int Level { get; set; }
+        public bool IsActive { get; set; }
+
+        public int? ParentCategoryID { get; set; }
+
+        // 🔹 Breadcrumb
+        public List<CategoryBreadcrumbDto> Breadcrumb { get; set; } = new();
+    }
+    public class AdminCategoryFlatDto
+    {
+        public int CategoryID { get; set; }
+        public string DisplayName { get; set; } = null!;
+    }
+
 }

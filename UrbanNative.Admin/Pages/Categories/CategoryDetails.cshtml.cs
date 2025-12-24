@@ -10,12 +10,15 @@ namespace UrbanNative.Admin.Pages.Categories
         private readonly IAdminCategoryService _service;
 
         public AdminCategoryDetailDto Category { get; set; } = null!;
+        public List<CategoryBreadcrumbDto> Breadcrumb { get; set; } = new();
 
         public CategoryDetailsModel(IAdminCategoryService service)
         {
             _service = service;
         }
 
+
+  
         public async Task<IActionResult> OnGetAsync(int id)
         {
             var data = await _service.GetByIdAsync(id);
@@ -24,6 +27,8 @@ namespace UrbanNative.Admin.Pages.Categories
                 return NotFound();
 
             Category = data;
+            var category = await _service.GetCategoryDetailsAsync(id);
+            Breadcrumb = category.Breadcrumb;
             return Page();
         }
 

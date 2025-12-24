@@ -1,0 +1,19 @@
+﻿@model List<UrbanNative.Application.DTOs.AdminCategory.CategoryBreadcrumbDto>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-page="/Index">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a asp-page="/Categories/Index">Categories</a>
+        </li>
+
+        @foreach (var item in Model)
+        {
+            <li class="breadcrumb-item active">
+                @item.Name
+            </li>
+        }
+    </ol>
+</nav>
