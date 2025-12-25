@@ -328,6 +328,27 @@
   },
   {
     "ContainingType": "UrbanNative.Api.Controllers.AdminVariantValuesController",
+    "Method": "UpdateVariantValue",
+    "RelativePath": "api/admin/variant-values/{variantValueId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "variantValueId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "UrbanNative.Application.DTOs.AdminVariant.UpdateVariantValueDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.AdminVariantValuesController",
     "Method": "ToggleVariantValueStatus",
     "RelativePath": "api/admin/variant-values/{variantValueId}/toggle",
     "HttpMethod": "PATCH",

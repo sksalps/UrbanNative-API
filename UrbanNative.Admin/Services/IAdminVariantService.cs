@@ -6,6 +6,7 @@ namespace UrbanNative.Admin.Services
     {
         Task<IEnumerable<AdminVariantListDto>> GetVariantsAsync(string? search, bool? isActive);
         Task<AdminVariantDetailsDto> GetVariantAsync(int variantId);
+        Task UpdateVariantValueAsync(int variantValueId, string valueName);
 
         Task CreateVariantAsync(string variantName);
         Task UpdateVariantAsync(int variantId, string variantName);   // ✅ ADDED

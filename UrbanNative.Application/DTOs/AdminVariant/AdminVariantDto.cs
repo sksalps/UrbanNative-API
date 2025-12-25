@@ -16,6 +16,10 @@
         public bool IsActive { get; set; }
         public DateTime CreatedAt { get; set; }
     }
+    public class UpdateVariantValueDto
+    {
+        public string ValueName { get; set; } = null!;
+    }
 
     public class AdminVariantValueDto
     {

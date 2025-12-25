@@ -95,6 +95,26 @@ namespace UrbanNative.Admin.Services
             response.EnsureSuccessStatusCode();
         }
 
+        //UpdateVariantValueAsync
+        public async Task UpdateVariantValueAsync(int variantValueId, string valueName)
+        {
+            var response = await _http.PutAsJsonAsync(
+                $"api/admin/variant-values/{variantValueId}",
+                new { ValueName = valueName });
+
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                throw new ApplicationException(
+                    string.IsNullOrWhiteSpace(error)
+                        ? "Variant value already exists."
+                        : error);
+            }
+
+            response.EnsureSuccessStatusCode();
+        }
+
+
 
         // =========================
         // Toggle Variant

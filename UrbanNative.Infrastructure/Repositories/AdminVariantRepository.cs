@@ -15,6 +15,19 @@ namespace UrbanNative.Infrastructure.Repositories
         {
             _connectionFactory = connectionFactory;
         }
+        public async Task UpdateVariantValueAsync(int variantValueId, string valueName)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            await conn.ExecuteAsync(
+                "sp_AdminVariantValues_Update",
+                new
+                {
+                    VariantValueID = variantValueId,
+                    ValueName = valueName
+                },
+                commandType: CommandType.StoredProcedure);
+        }
 
 
         public async Task<IEnumerable<AdminVariantListDto>> GetVariantsAsync(

@@ -53,6 +53,28 @@ namespace UrbanNative.Api.Controllers
             }
         }
 
+        //Update Variant Value
+        [HttpPut("{variantValueId:int}")]
+        public async Task<IActionResult> UpdateVariantValue(int variantValueId,  [FromBody] UpdateVariantValueDto dto)
+        {
+            try
+            {
+                await _variantRepository.UpdateVariantValueAsync(
+                    variantValueId,
+                    dto.ValueName);
+
+                return Ok(new { message = "Variant value updated successfully." });
+            }
+            catch (SqlException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An unexpected error occurred.");
+            }
+        }
+
         // =========================
         // PATCH: Activate / Inactivate Variant Value
         // =========================
@@ -64,3 +86,4 @@ namespace UrbanNative.Api.Controllers
         }
     }
 }
+

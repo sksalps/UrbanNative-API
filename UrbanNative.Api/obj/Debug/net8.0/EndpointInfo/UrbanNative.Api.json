@@ -711,6 +711,48 @@
         }
       }
     },
+    "/api/admin/variant-values/{variantValueId}": {
+      "put": {
+        "tags": [
+          "AdminVariantValues"
+        ],
+        "parameters": [
+          {
+            "name": "variantValueId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVariantValueDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVariantValueDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVariantValueDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/admin/variant-values/{variantValueId}/toggle": {
       "patch": {
         "tags": [
@@ -1752,6 +1794,16 @@
         "type": "object",
         "properties": {
           "reason": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateVariantValueDto": {
+        "type": "object",
+        "properties": {
+          "valueName": {
             "type": "string",
             "nullable": true
           }

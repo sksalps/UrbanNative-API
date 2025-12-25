@@ -4,10 +4,30 @@
     ViewData["Title"] = "Variant Details";
 }
 
+@if (Model.Variant == null)
+{
+    <div class="alert alert-danger">
+        Variant data could not be loaded.
+    </div>
+    return;
+}
+
+
 <h3>Variant Details</h3>
 <a asp-page="Index" class="btn btn-secondary mb-3">← Back to Variant</a>
 
+
 <!-- ===== Alerts ===== -->
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        @TempData["Success"]
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"></button>
+    </div>
+}
+
 @if (!ViewData.ModelState.IsValid)
 {
     <div class="alert alert-danger">
@@ -18,49 +38,42 @@
     </div>
 }
 
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success">
-        @TempData["Success"]
-    </div>
-}
-
 <!-- ===== Variant Info ===== -->
 <div class="card mb-4">
     <div class="card-body">
-        <div class="row">
+
+        <!-- Row 1 : Info -->
+        <div class="row mb-3">
             <div class="col-md-4">
                 <strong>Variant Name</strong><br />
                 @Model.Variant.VariantName
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <strong>Status</strong><br />
                 <span class="badge @(Model.Variant.IsActive ? "bg-success" : "bg-secondary")">
                     @(Model.Variant.IsActive ? "Active" : "Inactive")
                 </span>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <strong>Created At</strong><br />
                 @Model.Variant.CreatedAt.ToString("dd MMM yyyy")
             </div>
+        </div>
 
-            <div class="col-md-2 text-end">
-                <form method="post" asp-page-handler="ToggleVariant">
-                    <button class="btn btn-sm @(Model.Variant.IsActive ? "btn-warning" : "btn-success")">
-                        @(Model.Variant.IsActive ? "Inactivate" : "Activate")
-                    </button>
-                </form>
+        <!-- Row 2 : Actions -->
+        <div class="row">
+            <div class="col-md-12">
 
                 <a asp-page="./CreateEditVariant"
                    asp-route-variantId="@Model.Variant.VariantID"
-                   class="btn btn-sm btn-info mt-2">
+                   class="btn btn-info">
                     Edit
                 </a>
-
             </div>
         </div>
+
     </div>
 </div>
 
@@ -73,7 +86,7 @@
             <th width="80">ID</th>
             <th>Value Name</th>
             <th width="120">Status</th>
-            <th width="150">Action</th>
+            <th width="200">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -87,34 +100,62 @@
                         @(v.IsActive ? "Active" : "Inactive")
                     </span>
                 </td>
+
                 <td>
-                    <form method="post"
-                          asp-page-handler="ToggleValue"
-                          asp-route-valueId="@v.VariantValueID">
-                        <button class="btn btn-sm @(v.IsActive ? "btn-warning" : "btn-success")">
-                            @(v.IsActive ? "Inactivate" : "Activate")
-                        </button>
-                    </form>
+                    <div class="d-inline-flex flex-nowrap gap-2">
+                        <form method="post"
+                              asp-page-handler="EditValue"
+                              asp-route-variantId="@Model.Variant.VariantID"
+                              asp-route-valueId="@v.VariantValueID"
+                              asp-route-valueName="@v.ValueName">
+                            <button class="btn btn-sm btn-info">Edit</button>
+                        </form>
+
+                        <form method="post"
+                              asp-page-handler="ToggleValue"
+                              asp-route-valueId="@v.VariantValueID">
+                            <button class="btn btn-sm @(v.IsActive ? "btn-warning" : "btn-success")">
+                                @(v.IsActive ? "Inactivate" : "Activate")
+                            </button>
+                        </form>
+                    </div>
                 </td>
+
             </tr>
         }
     </tbody>
 </table>
 
 <!-- ===== Add New Value ===== -->
+
 <hr />
 
-<h5>Add New Variant Value</h5>
+<h5>
+    @(Model.EditingValueId.HasValue
+        ? "Edit Variant Value"
+        : "Add New Variant Value")
+</h5>
+
 
 <form method="post" asp-page-handler="AddValue">
+    <input type="hidden" asp-for="EditingValueId" />
+    <input type="hidden" asp-for="IsEditMode" />
+    <input type="hidden" name="variantId" value="@Model.Variant.VariantID" />
+
     <div class="row">
         <div class="col-md-6">
             <input asp-for="NewValueName"
                    class="form-control"
                    placeholder="Enter value name" />
         </div>
+
         <div class="col-md-3">
-            <button class="btn btn-primary">Add Value</button>
+            <button class="btn btn-primary">
+                @(Model.EditingValueId.HasValue ? "Update Value" : "Add Value")
+            </button>
         </div>
     </div>
 </form>
+
+
+
