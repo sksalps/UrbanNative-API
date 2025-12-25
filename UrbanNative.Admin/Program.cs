@@ -12,6 +12,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<JwtTokenHandler>();
 
+
 // Authentication: cookie for Admin Razor UI
 builder.Services.AddAuthentication("AdminCookie")
     .AddCookie("AdminCookie", options =>
@@ -62,6 +63,7 @@ builder.Services.AddScoped<IAdminProductService, AdminProductService>();
 builder.Services.AddScoped<IAdminVendorService, AdminVendorService>();
 // register AdminCategoryService which implements IAdminCategoryService
 builder.Services.AddScoped<IAdminCategoryService, AdminCategoryService>();
+builder.Services.AddScoped<IAdminVariantService, AdminVariantService>();
 
 
 

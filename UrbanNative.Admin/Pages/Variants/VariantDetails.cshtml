@@ -1,0 +1,120 @@
+﻿@page "{variantId:int}"
+@model UrbanNative.Admin.Pages.Variants.VariantDetailsModel
+@{
+    ViewData["Title"] = "Variant Details";
+}
+
+<h3>Variant Details</h3>
+<a asp-page="Index" class="btn btn-secondary mb-3">← Back to Variant</a>
+
+<!-- ===== Alerts ===== -->
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var err in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div>@err.ErrorMessage</div>
+        }
+    </div>
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+
+<!-- ===== Variant Info ===== -->
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <strong>Variant Name</strong><br />
+                @Model.Variant.VariantName
+            </div>
+
+            <div class="col-md-3">
+                <strong>Status</strong><br />
+                <span class="badge @(Model.Variant.IsActive ? "bg-success" : "bg-secondary")">
+                    @(Model.Variant.IsActive ? "Active" : "Inactive")
+                </span>
+            </div>
+
+            <div class="col-md-3">
+                <strong>Created At</strong><br />
+                @Model.Variant.CreatedAt.ToString("dd MMM yyyy")
+            </div>
+
+            <div class="col-md-2 text-end">
+                <form method="post" asp-page-handler="ToggleVariant">
+                    <button class="btn btn-sm @(Model.Variant.IsActive ? "btn-warning" : "btn-success")">
+                        @(Model.Variant.IsActive ? "Inactivate" : "Activate")
+                    </button>
+                </form>
+
+                <a asp-page="./CreateEditVariant"
+                   asp-route-variantId="@Model.Variant.VariantID"
+                   class="btn btn-sm btn-info mt-2">
+                    Edit
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== Variant Values ===== -->
+<h5>Variant Values</h5>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th width="80">ID</th>
+            <th>Value Name</th>
+            <th width="120">Status</th>
+            <th width="150">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in Model.Values)
+        {
+            <tr>
+                <td>@v.VariantValueID</td>
+                <td>@v.ValueName</td>
+                <td>
+                    <span class="badge @(v.IsActive ? "bg-success" : "bg-secondary")">
+                        @(v.IsActive ? "Active" : "Inactive")
+                    </span>
+                </td>
+                <td>
+                    <form method="post"
+                          asp-page-handler="ToggleValue"
+                          asp-route-valueId="@v.VariantValueID">
+                        <button class="btn btn-sm @(v.IsActive ? "btn-warning" : "btn-success")">
+                            @(v.IsActive ? "Inactivate" : "Activate")
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- ===== Add New Value ===== -->
+<hr />
+
+<h5>Add New Variant Value</h5>
+
+<form method="post" asp-page-handler="AddValue">
+    <div class="row">
+        <div class="col-md-6">
+            <input asp-for="NewValueName"
+                   class="form-control"
+                   placeholder="Enter value name" />
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-primary">Add Value</button>
+        </div>
+    </div>
+</form>
