@@ -4,86 +4,112 @@
 
 @{
     ViewData["Title"] = "Categories";
+
+    var isTreeMode =
+    string.IsNullOrEmpty(Request.Query["categoryId"])  // default root view
+    || int.TryParse(Request.Query["categoryId"], out _); // specific category
+
 }
+
+@{
+    
+    bool disableExpand =
+    !isTreeMode
+    || !string.IsNullOrEmpty(Request.Query["search"])
+    || (int.TryParse(Request.Query["level"], out var lvl) && lvl >= 3);
+
+}
+
+
+
 
 <h3>Categories</h3>
 
+<!-- ================= ALERTS ================= -->
 @if (TempData["Error"] != null)
 {
-    <div class="alert alert-danger">@TempData["Error"]</div>
+    <div class="alert alert-danger alert-dismissible fade show">
+        @TempData["Error"]
+    </div>
 }
 
 @if (TempData["Success"] != null)
 {
-    <div class="alert alert-success">@TempData["Success"]</div>
+    <div class="alert alert-success alert-dismissible fade show">
+        @TempData["Success"]
+    </div>
 }
 
-
+<!-- ================= FILTER BAR ================= -->
 <form method="get" class="row g-2 mb-3 align-items-end">
 
-    <div class="col-md-4">
+    <!-- Search -->
+    <div class="col-md-3">
         <label class="form-label">Search</label>
         <input type="text"
-               name="search"
-               value="@Request.Query["search"]"
+               name="Search"
+               value="@Model.Search"
                class="form-control"
                placeholder="Category name..." />
     </div>
-    
-    <div class="col-md-3">
-        <label class="form-label">Level</label>
-        <select name="level" class="form-select">
-            <option value="">All</option>
-            <option value="0" selected="@(Request.Query["level"] == "0")">Root</option>
-            <option value="1" selected="@(Request.Query["level"] == "1")">Child</option>
-        </select>
-    </div>
 
-
-    <div class="col-md-3">
-        <label class="form-label">Active</label>
-        <select name="isActive" class="form-select">
-            <option value="">All</option>
-            <option value="true" selected="@(Request.Query["isActive"] == "true")">Active</option>
-            <option value="false" selected="@(Request.Query["isActive"] == "false")">Inactive</option>
-        </select>
-    </div>
-    <div class="col-md-3">
+    <!-- Category Dropdown -->
+    <div class="col-md-4">
         <label class="form-label">Category</label>
-        <select name="categoryId" class="form-select">
+        <select name="CategoryId" class="form-select">
             <option value="">All Categories</option>
-            @foreach (var cat in Model.FlatCategories)
+            @foreach (var cat in Model.AllCategories.OrderBy(x => x.CategoryName))
             {
                 <option value="@cat.CategoryID"
-                        selected="@(Request.Query["categoryId"] == cat.CategoryID.ToString())">
-                    @cat.DisplayName
+                        selected="@(Model.CategoryId == cat.CategoryID)">
+                    @cat.CategoryName
                 </option>
             }
         </select>
     </div>
 
-
-    <div class="col-md-2 d-flex gap-2">
-        <button type="submit" class="btn btn-primary flex-fill">
-            <i class="bi bi-search"></i>
-        </button>
-
-        <!-- ADD ROOT CATEGORY -->
-        <a asp-page-handler="AddRoot"
-           class="btn btn-success flex-fill"
-           title="Add Root Category">
-            <i class="bi bi-plus-lg"></i>
-        </a>
-
-
+    <!-- Level Filter -->
+    <div class="col-md-2">
+        <label class="form-label">Level</label>
+        <select name="Level" class="form-select">
+            <option value="">All</option>
+            @foreach (var lvl in Model.Categories
+                        .Select(x => x.Level)
+                        .Distinct()
+                        .OrderBy(x => x))
+            {
+                <option value="@lvl" selected="@(Model.Level == lvl)">
+                    Level @lvl
+                </option>
+            }
+        </select>
     </div>
 
+    <!-- Search + Add Root -->
+    <div class="col-md-3 d-flex gap-2">
+        <button type="submit" class="btn btn-primary flex-fill" title="Search">
+            🔍
+        </button>
+
+       
+        <button type="button"
+                class="btn btn-success"
+                data-bs-toggle="modal"
+                data-bs-target="#categoryModal"
+                data-parent-id="">
+            + Root
+        </button>
+
+    </div>
 </form>
 
+<!-- ================= CATEGORY TABLE ================= -->
 <table class="table table-bordered table-hover">
+
     <thead>
         <tr>
             <th>Category</th>
+            <th>Parent</th>
             <th>Description</th>
             <th>Level</th>
             <th>Children</th>
@@ -92,129 +118,240 @@
             <th>Add Child</th>
         </tr>
     </thead>
+
     <tbody>
-        @foreach (var root in Model.Categories.Where(x => x.Level == 0))
+        @foreach (var item in Model.Categories)
         {
-            <tr class="category-root" data-category-id="@root.CategoryID">
-                <td>
-                    <span class="toggle-icon"><span class="icon">▶</span></span>
-                    @root.CategoryName
-                </td>
-                <td>@root.Description</td>
-                <td>@root.Level</td>
-                <td>@root.ChildCount</td>
-                <td>
-                    <span class="badge @(root.IsActive ? "bg-success" : "bg-secondary")">
-                        @(root.IsActive ? "Active" : "Inactive")
+
+            var canExpand =
+            isTreeMode &&
+            item.ChildCount > 0 &&
+            item.Level < 3; // root → child → grandchild
+
+            <tr class="category-row @(item.Level == 0 ? "level-root" : "level-child")"
+                data-category-id="@item.CategoryID"
+                data-parent-id="@item.ParentCategoryID"
+                data-level="@item.Level">
+
+                <!-- CATEGORY NAME (CLICK TARGET) -->
+                <td class="category-cell">
+
+                    @* Expand / Collapse icon *@
+                    
+                    @if (canExpand && !disableExpand)
+                    {
+                        
+                        <span class="expand-icon expand-trigger" data-expanded="false">▶</span>
+
+                    }
+                    else
+                    {
+                        <span class="expand-icon-placeholder"></span>
+                    }
+
+
+                    <span class="category-name expand-trigger">
+                        @item.CategoryName
                     </span>
+
                 </td>
+
+
+
+                <!-- PARENT CATEGORY -->
+                <td>
+                    @(item.Level == 0 ? "-" : item.ParentCategoryName)
+                </td>
+
+                <!-- DESCRIPTION -->
+                <td>
+                    @{
+                        var desc = item.Description ?? "";
+                        var shortDesc = desc.Length > 50
+                        ? desc.Substring(0, 50) + "..."
+                        : desc;
+                    }
+                    <span title="@desc">@shortDesc</span>
+                </td>
+
+                <td>@item.Level</td>
+                <td>@item.ChildCount</td>
+
+                <!-- ACTIVE -->
+                <td>
+                    <button class="btn btn-sm @(item.IsActive ? "btn-warning" : "btn-secondary")"
+                            onclick="toggleVendorActive(@item.CategoryID)">
+                        <span class="badge @(item.IsActive ? "bg-success" : "bg-secondary")">
+                            @(item.IsActive ? "Deactivate" : "Activate")
+                        </span>
+                        
+                    </button>
+                </td>
+
+                <!-- ACTION -->
                 <td>
                     <a asp-page="CategoryDetails"
-                       asp-route-id="@root.CategoryID"
-                       class="btn btn-sm btn-info">View</a>
-                </td>
-
-                <td class="text-center">
-                    <!-- ADD SUB CATEGORY -->
-                    <a asp-page-handler="AddSub"
-                       asp-route-id="@root.CategoryID"
-                       class="btn btn-outline-success btn-sm">
-                        ➕
+                       asp-route-id="@item.CategoryID"
+                       class="btn btn-sm btn-info">
+                        View
                     </a>
                 </td>
-            </tr>
 
-            @foreach (var child in Model.Categories
-                    .Where(x => x.ParentCategoryID == root.CategoryID))
-            {
-                <tr class="category-child" data-parent-id="@root.CategoryID">
-                    <td style="padding-left:40px">@child.CategoryName</td>
-                    <td>@child.Description</td>
-                    <td>@child.Level</td>
-                    <td>@child.ChildCount</td>
-                    <td>
-                        <span class="badge @(child.IsActive ? "bg-success" : "bg-secondary")">
-                            @(child.IsActive ? "Active" : "Inactive")
-                        </span>
-                    </td>
-                    <td>
-                        <a asp-page="CategoryDetails"
-                           asp-route-id="@child.CategoryID"
-                           class="btn btn-sm btn-info">View</a>
-                    </td>
-                    <td class="text-center">
-                        <a asp-page-handler="AddSub"
-                           asp-route-id="@child.CategoryID"
-                           class="btn btn-sm btn-outline-success">
-                            ➕
-                        </a>
-                    </td>
-                </tr>
-            }
+                <!-- ADD CHILD -->
+                <td class="text-center">
+
+                    <button type="button"
+                            class="btn btn-sm btn-outline-success"
+                            data-bs-toggle="modal"
+                            data-bs-target="#categoryModal"
+                            data-parent-id="@item.CategoryID"
+                            data-breadcrumb="@item.CategoryName">
+                        ➕
+                    </button>
+
+                </td>
+            </tr>
         }
     </tbody>
 </table>
 
-<button class="btn btn-success"
-        data-bs-toggle="modal"
-        data-bs-target="#categoryModal">
-    Add Root Category
-</button>
+<!-- ================= CREATE / EDIT MODAL ================= -->
+@await Html.PartialAsync("_CreateEditModal", new AdminCategorySaveDto())
 
-@await Html.PartialAsync("_CreateEditModal", Model)
+<!-- ================= SCRIPTS ================= -->
+@section Scripts {
 
-
-
-@if (Model.OpenCategoryModal)
-{
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const modalEl = document.getElementById("categoryModal");
-            if (modalEl) {
-                const modal = new bootstrap.Modal(modalEl);
-                modal.show();
-            }
-        });
-    </script>
-}
+        // Auto dismiss alerts
+        /*setTimeout(() => {
+            document.querySelectorAll('.alert')
+                .forEach(a => a.remove());
+        }, 3000); */
 
 
-<script>
-    document.querySelectorAll('.category-root').forEach(root => {
-        root.addEventListener('click', function (e) {
-            if (e.target.closest('a,button')) return;
+        document.addEventListener('click', function (e) {
 
-            const parentId = this.dataset.categoryId;
-            const icon = this.querySelector('.icon');
+            const trigger = e.target.closest('.expand-trigger');
+            if (!trigger) return;
 
-            let show = true;
+            const row = trigger.closest('tr');
+            const icon = row.querySelector('.expand-icon');
+            if (!icon) return;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            const parentId = row.dataset.categoryId;
+            const parentLevel = parseInt(row.dataset.level);
+            const expanded = icon.dataset.expanded === 'true';
+
             document.querySelectorAll(
-                `.category-child[data-parent-id='${parentId}']`
+                `.category-row[data-parent-id='${parentId}']`
             ).forEach(child => {
-                show = child.style.display === 'none';
-                child.style.display = show ? 'table-row' : 'none';
+
+                const childLevel = parseInt(child.dataset.level);
+
+                // allow only child + grandchild
+                if (childLevel <= parentLevel + 2) {
+                    child.classList.toggle('d-none', expanded);
+                }
             });
 
-            if (icon) icon.textContent = show ? '▼' : '▶';
+            icon.textContent = expanded ? '▶' : '▼';
+            icon.dataset.expanded = (!expanded).toString();
         });
-    });
-</script>
 
-<style>
-    .category-root {
-        cursor: pointer;
-        font-weight: 600;
-    }
+        // Set ParentCategoryID in modal
+        document.getElementById('categoryModal')
+            .addEventListener('show.bs.modal', function (event) {
 
-    .category-child {
-        display: none;
-        background-color: #fafafa;
-    }
+                const button = event.relatedTarget;
+                const parentId = button?.getAttribute('data-parent-id') || '';
+                const parentName = button?.getAttribute('data-breadcrumb');
 
-    .toggle-icon {
-        width: 16px;
-        display: inline-block;
-        text-align: center;
-        margin-right: 6px;
-    }
-</style>
+                // Set hidden ParentCategoryID
+                document.getElementById('ParentCategoryID').value = parentId;
+
+                const title = document.getElementById('categoryModalLabel');
+                const breadcrumbContainer = document.getElementById('categoryBreadcrumbContainer');
+                const breadcrumb = document.getElementById('categoryBreadcrumb');
+
+                breadcrumb.innerHTML = '';
+
+                if (!parentId) {
+                    // Root category
+                    title.textContent = 'Add Root Category';
+                    breadcrumbContainer.classList.add('d-none');
+                } else {
+                    title.textContent = 'Add Subcategory';
+                    breadcrumbContainer.classList.remove('d-none');
+
+                    breadcrumb.innerHTML = `
+                        <li class="breadcrumb-item">
+                            <span>${parentName}</span>
+                        </li>
+                    `;
+                }
+            });
+
+
+            async function toggleVendorActive(categoryid) {
+            if (!confirm("Are you sure you want to change active status?"))
+                return;
+
+            const res = await fetch(`${API_BASE}/api/admin/categories/activate`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify(categoryid)   // 🔥 IMPORTANT
+            });
+
+            if (res.ok) {
+                location.reload();
+            } else {
+                const text = await res.text();
+                alert(`Failed to update status (${res.status}): ${text}`);
+            }
+        }
+
+    </script>
+
+    <style>
+        .category-child {
+            background-color: #fafafa;
+        }
+
+        .category-cell {
+            white-space: nowrap;
+        }
+
+        .expand-icon {
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 6px;
+            color: #0d6efd;
+            display: inline-block;
+            width: 16px;
+        }
+
+        .expand-icon-placeholder {
+            display: inline-block;
+            width: 16px;
+            margin-right: 6px;
+        }
+
+        .category-root {
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .category-row.level-child {
+            display: none;
+        }
+
+        .category-row.d-none {
+            display: none !important;
+        }
+
+    </style>
+}

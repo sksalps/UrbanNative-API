@@ -1,4 +1,5 @@
-﻿@model UrbanNative.Admin.Pages.Categories.IndexModel
+﻿@model UrbanNative.Application.DTOs.AdminCategory.AdminCategorySaveDto
+
 <div class="modal fade"
      id="categoryModal"
      tabindex="-1"
@@ -9,39 +10,34 @@
         <div class="modal-content">
 
             <!-- MODAL HEADER -->
+
             <div class="modal-header">
                 <h5 class="modal-title" id="categoryModalLabel">
-                    @(
-                                        Model.ParentCategoryID.HasValue
-                                        ? $"Add Subcategory under {Model.Breadcrumb.Last().Name}"
-                                        : "Add Root Category"
-                                        )
+                    Add Category
                 </h5>
 
-                <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-            </div>
-
-            <!-- OPTIONAL BREADCRUMB -->
-            @if (Model.ParentCategoryID.HasValue)
-            {
-                <div class="px-3 pt-2">
-                    <partial name="_CategoryBreadcrumb"
-                             model="Model.Breadcrumb" />
+                <div id="categoryBreadcrumbContainer" class="px-3 pt-2 d-none">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0" id="categoryBreadcrumb">
+                        </ol>
+                    </nav>
                 </div>
-            }
 
+            </div>
             <!-- FORM -->
             <form method="post" asp-page-handler="Create">
 
                 <div class="modal-body">
+                    <div id="categoryBreadcrumb"
+                         class="alert alert-secondary py-2 mb-3"
+                         style="display:none">
+                    </div>
 
-                    <!-- IMPORTANT -->
-                    <input type="hidden"
+                    <!-- ParentCategoryID (set via JS) -->
+                                      <input type="hidden"
                            name="ParentCategoryID"
-                           value="@Model.ParentCategoryID" />
+                           id="ParentCategoryID" />
+
 
                     <div class="mb-3">
                         <label class="form-label">Category Name</label>

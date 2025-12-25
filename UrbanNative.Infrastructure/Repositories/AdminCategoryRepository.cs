@@ -26,6 +26,8 @@ namespace UrbanNative.Infrastructure.Repositories
                 commandType: CommandType.StoredProcedure);
         }
 
+
+
         // =========================
         // Admin – Category Details
         // =========================

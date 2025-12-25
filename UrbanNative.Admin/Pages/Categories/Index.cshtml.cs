@@ -9,146 +9,141 @@ namespace UrbanNative.Admin.Pages.Categories
     {
         private readonly IAdminCategoryService _service;
 
-        public IEnumerable<AdminCategoryListDto> Categories { get; set; } = [];
-
-        public int? ParentCategoryID { get; set; }
-
-        public List<CategoryBreadcrumbDto> Breadcrumb { get; set; } = new();
-        public List<AdminCategoryFlatDto> FlatCategories { get; set; } = new();
-
-
-        public bool OpenCategoryModal { get; set; }
-
         public IndexModel(IAdminCategoryService service)
         {
             _service = service;
         }
 
-        // ======================
-        // NORMAL PAGE LOAD
-        // ======================
-        public async Task OnGetAsync(
-            string? search, int? level,bool? isActive,int? categoryId)
+        // =========================
+        // DATA FOR UI
+        // =========================
+        public IEnumerable<AdminCategoryListDto> Categories { get; set; } = [];
+        public IEnumerable<AdminCategoryListDto> AllCategories { get; set; } = [];
+
+        // =========================
+        // FILTER INPUTS
+        // =========================
+        [BindProperty(SupportsGet = true)]
+        public string? Search { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public int? CategoryId { get; set; }   // dropdown selection
+
+        [BindProperty(SupportsGet = true)]
+        public int? Level { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public bool? IsActive { get; set; }
+
+        // =========================
+        // GET
+        // =========================
+        public async Task OnGetAsync()
         {
-            ParentCategoryID = null;
-            Breadcrumb = new();
-            OpenCategoryModal = false;
-            FlatCategories = await _service.GetFlatCategoriesAsync();
-            await LoadCategoriesAsync(search, level, isActive, categoryId);
+            // Load once
+            AllCategories = (await _service.GetCategoriesAsync()).ToList();
+
+            IEnumerable<AdminCategoryListDto> result = AllCategories;
+
+            // =========================
+            // CATEGORY DROPDOWN LOGIC
+            // =========================
+
+            if (CategoryId.HasValue && CategoryId.Value > 0)
+            {
+                var selected = AllCategories
+                    .FirstOrDefault(x => x.CategoryID == CategoryId.Value);
+
+                if (selected != null)
+                {
+                    int baseLevel = selected.Level;
+
+                    // relative depth = max 2
+                    result = AllCategories.Where(x =>
+                        x.CategoryID == selected.CategoryID ||
+                        (x.ParentCategoryID == selected.CategoryID) ||
+                        (x.Level == baseLevel + 2 &&
+                         AllCategories.Any(p =>
+                             p.CategoryID == x.ParentCategoryID &&
+                             p.ParentCategoryID == selected.CategoryID))
+                    );
+                }
+                else
+                {
+                    result = Enumerable.Empty<AdminCategoryListDto>();
+                }
+            }
+            else
+            {
+                // All Categories selected → flat mode
+                result = AllCategories;
+            }
+
+            // =========================
+            // SEARCH FILTER
+            // =========================
+            if (!string.IsNullOrWhiteSpace(Search))
+            {
+                result = result.Where(x =>
+                    x.CategoryName.Contains(Search,
+                        StringComparison.OrdinalIgnoreCase));
+            }
+
+            // =========================
+            // ACTIVE FILTER
+            // =========================
+            if (IsActive.HasValue)
+            {
+                result = result.Where(x => x.IsActive == IsActive.Value);
+            }
+
+            // =========================
+            // LEVEL FILTER (contextual)
+            // =========================
+            if (Level.HasValue)
+            {
+                result = result.Where(x => x.Level == Level.Value);
+            }
+
+            // =========================
+            // FINAL ORDERING
+            // =========================
+            Categories = result
+                .OrderBy(x => x.Level)
+                .ThenBy(x => x.SortOrder)
+                .ToList();
         }
 
-
-
-        // ====================== 
-        // ADD ROOT CATEGORY
-        // ======================
-        public async Task<IActionResult> OnGetAddRootAsync()
-        {
-            ParentCategoryID = null;
-            Breadcrumb = new();
-            OpenCategoryModal = true;
-
-            await LoadCategoriesAsync(null,null, null, null);
-            return Page();
-        }
-
-        // ======================
-        // ADD SUB CATEGORY
-        // ======================
-        public async Task<IActionResult> OnGetAddSubAsync(int id)
-        {
-            ParentCategoryID = id;
-            Breadcrumb = await _service.GetBreadcrumbAsync(id);
-            OpenCategoryModal = true;
-
-            await LoadCategoriesAsync(null,null, null, null);
-            return Page();
-        }
-
-        // ======================
-        // CREATE CATEGORY
-        // ======================
+        // =========================
+        // POST: CREATE CATEGORY
+        // =========================
         public async Task<IActionResult> OnPostCreateAsync(AdminCategorySaveDto dto)
         {
-            var error = await _service.CreateAsync(dto);
+            if (!ModelState.IsValid)
+            {
+                TempData["Error"] = "Invalid category data";
+                return RedirectToPage();
+            }
 
-            if (!string.IsNullOrEmpty(error))
-                TempData["Error"] = error;
-            else
-                TempData["Success"] = "Category created successfully";
+            await _service.CreateAsync(dto);
 
+            TempData["Success"] = "Category created successfully";
             return RedirectToPage();
         }
 
-        // ======================
-        // TOGGLE ACTIVE
-        // ======================
+        // =========================
+        // POST: TOGGLE ACTIVE
+        // =========================
         public async Task<IActionResult> OnPostToggleActiveAsync(int categoryId)
         {
             var error = await _service.ToggleActiveAsync(categoryId);
 
-            if (!string.IsNullOrEmpty(error))
+            if (!string.IsNullOrWhiteSpace(error))
                 TempData["Error"] = error;
             else
-                TempData["Success"] = "Category status updated successfully";
+                TempData["Success"] = "Category status updated";
 
             return RedirectToPage();
-        }
-
-        // ======================
-        // HELPERS
-        // ======================
-        private async Task LoadCategoriesAsync(
-            string? search,
-            int? level,
-            bool? isActive,
-            int? categoryId)
-        {
-            var all = await _service.GetCategoriesAsync();
-
-            if (!string.IsNullOrWhiteSpace(search))
-                all = all.Where(x =>
-                    x.CategoryName.Contains(search,
-                    StringComparison.OrdinalIgnoreCase));
-
-            if (isActive.HasValue)
-                all = all.Where(x => x.IsActive == isActive.Value);
-
-            //  CATEGORY FILTER (KEY PART)
-            if (categoryId.HasValue)
-            {
-                // FLAT MODE
-                Categories = all
-                    .Where(x =>
-                        x.CategoryID == categoryId.Value ||
-                        x.ParentCategoryID == categoryId.Value)
-                    .OrderBy(x => x.SortOrder);
-
-                return; // NO TREE
-            }
-
-            // DEFAULT → TREE MODE
-            Categories = level.HasValue
-                ? all.OrderBy(x => x.Level).ThenBy(x => x.SortOrder)
-                : BuildTree(all);
-        }
-        private IEnumerable<AdminCategoryListDto> BuildTree(
-            IEnumerable<AdminCategoryListDto> source)
-        {
-            var lookup = source.ToLookup(x => x.ParentCategoryID);
-            var result = new List<AdminCategoryListDto>();
-
-            void AddChildren(int? parentId)
-            {
-                foreach (var item in lookup[parentId].OrderBy(x => x.SortOrder))
-                {
-                    result.Add(item);
-                    AddChildren(item.CategoryID);
-                }
-            }
-
-            AddChildren(null);
-            return result;
         }
     }
 }
