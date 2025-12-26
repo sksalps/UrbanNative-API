@@ -657,6 +657,412 @@
         }
       }
     },
+    "/api/admin/variant-sets/{variantSetId}/categories": {
+      "get": {
+        "tags": [
+          "AdminVariantSetCategories"
+        ],
+        "parameters": [
+          {
+            "name": "variantSetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "AdminVariantSetCategories"
+        ],
+        "parameters": [
+          {
+            "name": "variantSetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignVariantSetCategoryRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignVariantSetCategoryRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignVariantSetCategoryRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/variant-set-variants/{id}/move": {
+      "post": {
+        "tags": [
+          "AdminVariantSetCategories"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MoveVariantRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MoveVariantRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MoveVariantRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/variant-sets/{variantSetId}/categories/available": {
+      "get": {
+        "tags": [
+          "AdminVariantSetCategories"
+        ],
+        "parameters": [
+          {
+            "name": "variantSetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/variant-set-categories/{categoryVariantSetId}": {
+      "delete": {
+        "tags": [
+          "AdminVariantSetCategories"
+        ],
+        "parameters": [
+          {
+            "name": "categoryVariantSetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/variant-sets": {
+      "get": {
+        "tags": [
+          "AdminVariantSets"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "AdminVariantSets"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVariantSetDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVariantSetDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVariantSetDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/variant-sets/{variantSetId}": {
+      "get": {
+        "tags": [
+          "AdminVariantSets"
+        ],
+        "parameters": [
+          {
+            "name": "variantSetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "AdminVariantSets"
+        ],
+        "parameters": [
+          {
+            "name": "variantSetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVariantSetDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVariantSetDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVariantSetDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/variant-sets/{variantSetId}/toggle": {
+      "post": {
+        "tags": [
+          "AdminVariantSets"
+        ],
+        "parameters": [
+          {
+            "name": "variantSetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/variant-sets/{variantSetId}/variants": {
+      "get": {
+        "tags": [
+          "AdminVariantSetVariants"
+        ],
+        "parameters": [
+          {
+            "name": "variantSetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "AdminVariantSetVariants"
+        ],
+        "parameters": [
+          {
+            "name": "variantSetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddVariantToSetRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddVariantToSetRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddVariantToSetRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/variant-set-variants/{variantSetVariantId}": {
+      "delete": {
+        "tags": [
+          "AdminVariantSetVariants"
+        ],
+        "parameters": [
+          {
+            "name": "variantSetVariantId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/variant-set-variants/{variantSetVariantId}/order": {
+      "put": {
+        "tags": [
+          "AdminVariantSetVariants"
+        ],
+        "parameters": [
+          {
+            "name": "variantSetVariantId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVariantOrderRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVariantOrderRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVariantOrderRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/admin/variant-values/by-variant/{variantId}": {
       "get": {
         "tags": [
@@ -1658,6 +2064,16 @@
   },
   "components": {
     "schemas": {
+      "AddVariantToSetRequestDto": {
+        "type": "object",
+        "properties": {
+          "variantID": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "AdminCategorySaveDto": {
         "type": "object",
         "properties": {
@@ -1723,10 +2139,30 @@
         },
         "additionalProperties": false
       },
+      "AssignVariantSetCategoryRequestDto": {
+        "type": "object",
+        "properties": {
+          "categoryID": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateVariantDto": {
         "type": "object",
         "properties": {
           "variantName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateVariantSetDto": {
+        "type": "object",
+        "properties": {
+          "variantSetName": {
             "type": "string",
             "nullable": true
           }
@@ -1751,6 +2187,16 @@
         "type": "object",
         "properties": {
           "mobile": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MoveVariantRequestDto": {
+        "type": "object",
+        "properties": {
+          "direction": {
             "type": "string",
             "nullable": true
           }
@@ -1794,6 +2240,26 @@
         "type": "object",
         "properties": {
           "reason": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateVariantOrderRequestDto": {
+        "type": "object",
+        "properties": {
+          "sortOrder": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateVariantSetDto": {
+        "type": "object",
+        "properties": {
+          "variantSetName": {
             "type": "string",
             "nullable": true
           }

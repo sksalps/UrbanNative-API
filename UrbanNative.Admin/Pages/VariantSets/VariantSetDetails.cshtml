@@ -1,0 +1,250 @@
+﻿@page "{variantSetId:int}"
+@model UrbanNative.Admin.Pages.VariantSets.VariantSetDetailsModel
+
+@{
+    ViewData["Title"] = "Variant Set Details";
+
+    if (Model.VariantSet == null)
+    {
+        <div class="alert alert-danger">
+            Variant Set could not be loaded.
+        </div>
+        return;
+    }
+
+    bool isDisabled = !Model.VariantSet.IsActive;
+}
+
+
+
+<h3>Variant Set Details</h3>
+
+<a asp-page="Index" class="btn btn-secondary mb-3">← Back to Variant Set</a>
+
+<!-- ================= SET INFO ================= -->
+<div class="card mb-4">
+    <div class="card-body">
+        <strong>Name:</strong> @Model.VariantSet.VariantSetName <br />
+        <strong>Status:</strong>
+        <span class="badge @(Model.VariantSet.IsActive ? "bg-success" : "bg-secondary")">
+            @(Model.VariantSet.IsActive ? "Active" : "Inactive")
+        </span>
+    </div>
+</div>
+
+<!-- ================= VARIANTS IN SET ================= -->
+<h5>
+    Variants in Set
+    <span class="badge bg-secondary">@Model.Variants.Count()</span>
+</h5>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Variant</th>
+            <th width="120" class="text-center">Order</th>
+            <th width="120">Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (!Model.Variants.Any())
+        {
+            <tr>
+                <td colspan="3" class="text-center text-muted">
+                    No variants added to this set.
+                </td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var v in Model.Variants)
+            {
+                var confirmVariantMsg =
+                $"Are you sure you want to remove variant \"{v.VariantName}\" from this variant set?";
+
+                <tr>
+                    <td>@v.VariantName</td>
+
+                    <td class="text-center">
+                        <div class="btn-group btn-group-sm" role="group">
+                            <form method="post"
+                                  asp-page-handler="MoveVariant"
+                                  asp-route-variantSetVariantId="@v.VariantSetVariantID"
+                                  asp-route-direction="UP"
+                                  asp-route-variantSetId="@Model.VariantSet.VariantSetID">
+                                @Html.AntiForgeryToken()
+                                <button class="btn btn-outline-secondary"
+                                        title="Move Up"
+                                        disabled="@(v.SortOrder == 1)">
+                                    ↑
+                                </button>
+                            </form>
+
+                            <span class="px-2 fw-bold">@v.SortOrder</span>
+
+                            <form method="post"
+                                  asp-page-handler="MoveVariant"
+                                  asp-route-variantSetVariantId="@v.VariantSetVariantID"
+                                  asp-route-direction="DOWN"
+                                  asp-route-variantSetId="@Model.VariantSet.VariantSetID">
+                                @Html.AntiForgeryToken()
+                                <button class="btn btn-outline-secondary"
+                                        title="Move Down"
+                                        disabled="@(v.SortOrder == Model.Variants.Count())">
+                                    ↓
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+
+                    <td>
+                        <form method="post"
+                              asp-page-handler="RemoveVariant"
+                              asp-route-variantSetVariantId="@v.VariantSetVariantID"
+                              asp-route-variantSetId="@Model.VariantSet.VariantSetID"
+                              onsubmit="return confirm('Remove this variant from the set?');">
+                            @Html.AntiForgeryToken()
+                            <button class="btn btn-sm btn-outline-danger">
+                                Remove
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+
+            }
+
+
+        }
+    </tbody>
+</table>
+
+<!-- ================= ADD VARIANT ================= -->
+<h6 class="mt-4">Add Variant</h6>
+
+<form method="post" asp-page-handler="AddVariant">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="variantSetId" value="@Model.VariantSet.VariantSetID" />
+
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <select name="variantId" class="form-select" disabled="@isDisabled">
+                @if (!Model.AvailableVariants.Any())
+                {
+                    <option value="">No available variants</option>
+                }
+                else
+                {
+                    @foreach (var v in Model.AvailableVariants)
+                    {
+                        <option value="@v.VariantID">@v.VariantName</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-primary" disabled="@isDisabled">Add</button>
+        </div>
+    </div>
+</form>
+
+<hr />
+
+<!-- ================= CATEGORY ASSIGNMENTS ================= -->
+<h5>
+    Assigned Categories
+    <span class="badge bg-secondary">@Model.AssignedCategories.Count()</span>
+</h5>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th width="120">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.AssignedCategories.Any())
+        {
+            <tr>
+                <td colspan="2" class="text-center text-muted">
+                    No categories assigned yet.
+                </td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var c in Model.AssignedCategories)
+            {
+                var confirmMsg =
+                $"Are you sure you want to remove the variant set \"{Model.VariantSet.VariantSetName}\" from category \"{c.CategoryName}\"?";
+
+                <tr>
+                    <td>@c.CategoryName</td>
+                    <td>
+                        <form method="post"
+                              asp-page-handler="RemoveCategory"
+                              asp-route-categoryVariantSetId="@c.CategoryVariantSetID"
+                              asp-route-variantSetId="@Model.VariantSet.VariantSetID"
+                              onsubmit="return confirm('@confirmMsg');">
+                            @Html.AntiForgeryToken()
+                            <button class="btn btn-sm btn-danger">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>
+
+<!-- ================= ASSIGN CATEGORY ================= -->
+<h5>Assign Category</h5>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var e in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div>@e.ErrorMessage</div>
+        }
+    </div>
+}
+
+<form method="post" asp-page-handler="AssignCategory">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="variantSetId" value="@Model.VariantSet.VariantSetID" />
+
+    <div class="row">
+        <div class="col-md-6">
+            <select name="categoryId"
+                    class="form-select"
+                    required
+                    disabled="@isDisabled">
+                <option value="">-- Select Category --</option>
+
+                @if (!Model.AvailableCategories.Any())
+                {
+                    <option value="">No unassigned categories available</option>
+                }
+                else
+                {
+                    @foreach (var c in Model.AvailableCategories)
+                    {
+                        <option value="@c.CategoryID">
+                            @(c.ParentCategoryName != null
+                                                ? $"{c.ParentCategoryName} → {c.CategoryName}"
+                                                : c.CategoryName)
+                        </option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <button class="btn btn-primary" disabled="@isDisabled">
+                Assign
+            </button>
+        </div>
+    </div>
+</form>

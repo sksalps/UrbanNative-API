@@ -1,4 +1,5 @@
-﻿using UrbanNative.Application.DTOs.AdminVariant;
+﻿using UrbanNative.Application.DTOs.AdminCategory;
+using UrbanNative.Application.DTOs.AdminVariant;
 
 namespace UrbanNative.Application.Interfaces
 {

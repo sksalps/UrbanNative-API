@@ -1,0 +1,52 @@
+﻿@page
+@model UrbanNative.Admin.Pages.VariantSets.IndexModel
+@{
+    ViewData["Title"] = "Variant Sets";
+}
+
+<h3>Variant Sets</h3>
+
+<a asp-page="CreateEditVariantSet" class="btn btn-success mb-3">
+    + Add Variant Set
+</a>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th width="120">Variants</th>
+            <th width="120">Status</th>
+            <th width="220">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model.VariantSets)
+        {
+            <tr>
+                <td>@s.VariantSetName</td>
+                <td>@s.TotalVariants</td>
+                <td>
+                    <span class="badge @(s.IsActive ? "bg-success" : "bg-secondary")">
+                        @(s.IsActive ? "Active" : "Inactive")
+                    </span>
+                </td>
+                <td class="text-nowrap">
+                    <a asp-page="VariantSetDetails"
+                       asp-route-variantSetId="@s.VariantSetID"
+                       class="btn btn-sm btn-primary me-1">
+                        View
+                    </a>
+
+                    <form method="post"
+                          asp-page-handler="Toggle"
+                          asp-route-variantSetId="@s.VariantSetID"
+                          class="d-inline">
+                        <button class="btn btn-sm @(s.IsActive ? "btn-warning" : "btn-success")">
+                            @(s.IsActive ? "Inactivate" : "Activate")
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table> 

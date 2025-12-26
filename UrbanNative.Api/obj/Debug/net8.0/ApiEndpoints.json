@@ -311,6 +311,249 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "UrbanNative.API.Controllers.AdminVariantSetCategoriesController",
+    "Method": "RemoveCategory",
+    "RelativePath": "api/admin/variant-set-categories/{categoryVariantSetId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoryVariantSetId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.API.Controllers.AdminVariantSetCategoriesController",
+    "Method": "MoveVariant",
+    "RelativePath": "api/admin/variant-set-variants/{id}/move",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "UrbanNative.Application.DTOs.AdminVariantSet.MoveVariantRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.API.Controllers.AdminVariantSetVariantsController",
+    "Method": "RemoveVariant",
+    "RelativePath": "api/admin/variant-set-variants/{variantSetVariantId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "variantSetVariantId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.API.Controllers.AdminVariantSetVariantsController",
+    "Method": "UpdateOrder",
+    "RelativePath": "api/admin/variant-set-variants/{variantSetVariantId}/order",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "variantSetVariantId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "UrbanNative.Application.DTOs.AdminVariantSet.UpdateVariantOrderRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.API.Controllers.AdminVariantSetsController",
+    "Method": "GetAll",
+    "RelativePath": "api/admin/variant-sets",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.API.Controllers.AdminVariantSetsController",
+    "Method": "Create",
+    "RelativePath": "api/admin/variant-sets",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "UrbanNative.Application.DTOs.AdminVariantSet.CreateVariantSetDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.API.Controllers.AdminVariantSetsController",
+    "Method": "GetById",
+    "RelativePath": "api/admin/variant-sets/{variantSetId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "variantSetId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.API.Controllers.AdminVariantSetsController",
+    "Method": "Update",
+    "RelativePath": "api/admin/variant-sets/{variantSetId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "variantSetId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "UrbanNative.Application.DTOs.AdminVariantSet.UpdateVariantSetDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.API.Controllers.AdminVariantSetCategoriesController",
+    "Method": "GetCategories",
+    "RelativePath": "api/admin/variant-sets/{variantSetId}/categories",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "variantSetId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.API.Controllers.AdminVariantSetCategoriesController",
+    "Method": "AssignCategory",
+    "RelativePath": "api/admin/variant-sets/{variantSetId}/categories",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "variantSetId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "UrbanNative.Application.DTOs.AdminVariantSet.AssignVariantSetCategoryRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.API.Controllers.AdminVariantSetCategoriesController",
+    "Method": "GetAvailableCategories",
+    "RelativePath": "api/admin/variant-sets/{variantSetId}/categories/available",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "variantSetId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.API.Controllers.AdminVariantSetsController",
+    "Method": "Toggle",
+    "RelativePath": "api/admin/variant-sets/{variantSetId}/toggle",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "variantSetId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.API.Controllers.AdminVariantSetVariantsController",
+    "Method": "GetVariants",
+    "RelativePath": "api/admin/variant-sets/{variantSetId}/variants",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "variantSetId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.API.Controllers.AdminVariantSetVariantsController",
+    "Method": "AddVariant",
+    "RelativePath": "api/admin/variant-sets/{variantSetId}/variants",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "variantSetId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "UrbanNative.Application.DTOs.AdminVariantSet.AddVariantToSetRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "UrbanNative.Api.Controllers.AdminVariantValuesController",
     "Method": "CreateVariantValue",
     "RelativePath": "api/admin/variant-values",

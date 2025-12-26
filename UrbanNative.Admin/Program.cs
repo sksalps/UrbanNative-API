@@ -64,8 +64,7 @@ builder.Services.AddScoped<IAdminVendorService, AdminVendorService>();
 // register AdminCategoryService which implements IAdminCategoryService
 builder.Services.AddScoped<IAdminCategoryService, AdminCategoryService>();
 builder.Services.AddScoped<IAdminVariantService, AdminVariantService>();
-
-
+builder.Services.AddScoped<IAdminVariantSetService, AdminVariantSetService>();
 
 // register SqlHelpers example
 

@@ -1,0 +1,29 @@
+﻿@page "{variantSetId:int?}"
+@model UrbanNative.Admin.Pages.VariantSets.CreateEditVariantSetModel
+
+<h3>
+    @(Model.VariantSetId.HasValue ? "Edit Variant Set" : "Create Variant Set")
+</h3>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var e in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div>@e.ErrorMessage</div>
+        }
+    </div>
+}
+
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label">Variant Set Name</label>
+        <input asp-for="VariantSetName" class="form-control" />
+    </div>
+
+    <button class="btn btn-primary">
+        @(Model.VariantSetId.HasValue ? "Update" : "Create")
+    </button>
+
+    <a asp-page="Index" class="btn btn-secondary ms-2">Cancel</a>
+</form>

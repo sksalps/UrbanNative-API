@@ -1,0 +1,5 @@
+﻿@await Html.PartialAsync("_CreateEditModal", new AdminCategorySaveDto())
+✅ REPLACE with this (correct)
+razor
+Copy code
+@await Html.PartialAsync("_CreateEditModal", Model)
