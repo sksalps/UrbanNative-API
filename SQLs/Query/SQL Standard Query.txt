@@ -1,5 +1,83 @@
-﻿@await Html.PartialAsync("_CreateEditModal", new AdminCategorySaveDto())
-✅ REPLACE with this (correct)
-razor
-Copy code
-@await Html.PartialAsync("_CreateEditModal", Model)
+﻿EXEC sp_AdminVariantSetCategories_Assign
+    @VariantSetID = 1,
+    @CategoryID = 2;
+	
+	
+SELECT name
+FROM sys.tables
+WHERE name LIKE '%Variant%'
+
+SELECT name, type_desc
+FROM sys.objects
+WHERE name LIKE '%SKU%'
+ORDER BY type_desc, name;
+
+
+SELECT
+    fk.name AS FK_Name,
+    tp.name AS ParentTable,
+    cp.name AS ParentColumn,
+    tr.name AS ReferencedTable,
+    cr.name AS ReferencedColumn
+FROM sys.foreign_keys fk
+JOIN sys.foreign_key_columns fkc
+    ON fk.object_id = fkc.constraint_object_id
+JOIN sys.tables tp
+    ON fkc.parent_object_id = tp.object_id
+JOIN sys.columns cp
+    ON fkc.parent_object_id = cp.object_id
+   AND fkc.parent_column_id = cp.column_id
+JOIN sys.tables tr
+    ON fkc.referenced_object_id = tr.object_id
+JOIN sys.columns cr
+    ON fkc.referenced_object_id = cr.object_id
+   AND fkc.referenced_column_id = cr.column_id
+WHERE tr.name = 'ProductVariantSet';
+
+ALTER TABLE ProductSKUImages
+DROP CONSTRAINT FK_ProductImages_ProductVariants;
+
+VariantMaster
+VariantValues
+VariantSets
+VariantSetVariants => VariantInsideVariantSet
+CategoryVariantSets => VariantSetCategories
+
+VariantInsideVariantSet
+VariantSetCategories
+VariantSets
+
+
+sp_AssignVariantToCategory removed
+
+sp_AdminVariantSets_GetAll GetAllBySynch
+
+sp_AdminVariantSets_GetById 	GetByIdAsynch
+
+sp_AdminVariantSets_Create CreateAsync
+
+sp_AdminVariantSets_Update	UpdateAsynch
+
+sp_AdminVariantSets_ToggleStatus 	ToggleStatusAsync
+
+Variants Inside Variant Set
+
+sp_AdminVariantSetVariants_GetBySetId  	GetVariantsBySetIdAsync
+
+sp_AdminVariantSetVariants_Add	AddVariantToSetAsync
+
+sp_AdminVariantSetVariants_Remove		RemoveVariantFromSetAsync
+
+sp_AdminVariantSetVariants_UpdateOrder	UpdateVariantOrderAsync
+
+Category Assignment
+
+sp_AdminVariantSetCategories_GetBySetId 	GetCategoriesBySetIdAsync
+
+sp_AdminVariantSetCategories_Assign		AssignCategoryAsync
+
+sp_AdminVariantSetCategories_Remove		RemoveCategoryAsync
+
+sp_AdminVariantSetCategories_GetAvailable
+
+
