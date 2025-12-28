@@ -4,12 +4,9 @@ namespace UrbanNative.Infrastructure.Repository
 {
     internal static class SkuCombinationGenerator
     {
-        public static List<SkuSignatureDto> Generate(
-            List<VariantSelectionDto> selections)
+        public static List<SkuSignatureDto> Generate(List<VariantSelectionDto> selections)
         {
-            var ordered = selections
-                .OrderBy(v => v.VariantId)
-                .ToList();
+            var ordered = selections                .OrderBy(v => v.VariantId)                .ToList();
 
             var combinations = new List<string> { string.Empty };
 
@@ -38,3 +35,4 @@ namespace UrbanNative.Infrastructure.Repository
         }
     }
 }
+

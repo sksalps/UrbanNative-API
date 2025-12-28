@@ -1,0 +1,30 @@
+﻿@page
+@model UrbanNative.Admin.Pages.SKUEngine.ProductSkusModel
+
+<h3>Product SKUs</h3>
+<a asp-page="Index" class="btn btn-secondary">←Back to SKU Engine</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>SKU Code</th>
+            <th>Variant Combination</th>
+            <th>Vendor</th>
+			<th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var sku in Model.Skus)
+        {
+            <tr>
+                <td>@sku.SKUCode</td>
+                <td>@sku.ValueSignature</td>
+                <td>@sku.VendorName</td>
+                <td>
+                    @(sku.IsActive ? "Active" : "Inactive")
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

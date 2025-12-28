@@ -86,6 +86,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/SKUEngine/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU0tVRW5naW5lXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/SKUEngine/ProductSKUs.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU0tVRW5naW5lXFByb2R1Y3RTS1VzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/SKUEngine/VendorCoverage/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU0tVRW5naW5lXFZlbmRvckNvdmVyYWdlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Test.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGVzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

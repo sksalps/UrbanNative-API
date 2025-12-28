@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using UrbanNative.Application.Interfaces;
 using UrbanNative.Infrastructure.Repositories;
+using UrbanNative.Infrastructure.Repository;
 using UrbanNative.Infrastructure.Services;
 
 namespace UrbanNative.Infrastructure
@@ -21,6 +22,7 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<IAdminCategoryRepository, AdminCategoryRepository>();
             services.AddScoped<IAdminVariantRepository, AdminVariantRepository>();
             services.AddScoped<IAdminVariantSetRepository, AdminVariantSetRepository>();
+            services.AddScoped<IAdminSkuRepository, AdminSkuRepository>();
 
 
 

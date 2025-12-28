@@ -215,7 +215,39 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "UrbanNative.API.Controllers.AdminProductSKUController",
+    "ContainingType": "AdminProductSKUController",
+    "Method": "GetProductSkus",
+    "RelativePath": "api/admin/products/{productId}/skus",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AdminProductSKUController",
+    "Method": "GetCoverageHeader",
+    "RelativePath": "api/admin/products/{productId}/skus/coverage-header",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AdminProductSKUController",
     "Method": "GenerateSkus",
     "RelativePath": "api/admin/products/{productId}/skus/generate",
     "HttpMethod": "POST",
@@ -246,6 +278,64 @@
         "Name": "returnPolicyId",
         "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AdminProductSKUController",
+    "Method": "GetOverview",
+    "RelativePath": "api/admin/products/{productId}/skus/overview",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AdminProductSKUController",
+    "Method": "GetVendorCoverage",
+    "RelativePath": "api/admin/products/{productId}/skus/vendor-coverage",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "includeInactiveVendors",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AdminProductSKUController",
+    "Method": "GetVendorCoverageDetail",
+    "RelativePath": "api/admin/products/{productId}/skus/vendor-coverage/{vendorId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "vendorId",
+        "Type": "System.Int32",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

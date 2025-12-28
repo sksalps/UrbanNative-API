@@ -1,0 +1,43 @@
+﻿@page
+@model UrbanNative.Admin.Pages.SKUEngine.IndexModel
+
+<h3>SKU Engine Overview</h3>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Category</th>
+            
+			<th>Vendors</th>
+			<th>Has Variants</th>
+            <th>Total SKUs</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.ProductName</td>
+                <td>@item.CategoryName</td>
+                <td>@item.VendorCount</td>
+                <td>@(item.HasVariants ? "Yes" : "No")</td>
+                <td>@item.TotalSkus</td>
+                <td>
+                    <span class="badge bg-@item.StatusCss">
+                        @item.Status
+                    </span>
+                </td>
+                <td>
+                    <a asp-page="ProductSkus"
+                       asp-route-productId="@item.ProductID"
+                       class="btn btn-sm btn-primary">
+                        View
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

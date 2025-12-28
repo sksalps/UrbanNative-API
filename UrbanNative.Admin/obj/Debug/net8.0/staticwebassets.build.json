@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ucHjm6eKqucZifqyn6i6LW6I5QUMfQOm4iXtIUiBnHE=",
+  "Hash": "bZdE5M1Yir8WmcKQLOj1mN3DOu+q2xQF/rVdc+/wZEY=",
   "Source": "UrbanNative.Admin",
   "BasePath": "_content/UrbanNative.Admin",
   "Mode": "Default",
@@ -186,6 +186,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\urban_logo2.png"
+    },
+    {
+      "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\wwwroot\\js\\api.cs",
+      "SourceId": "UrbanNative.Admin",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\wwwroot\\",
+      "BasePath": "_content/UrbanNative.Admin",
+      "RelativePath": "js/api.cs",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\api.cs"
     },
     {
       "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\wwwroot\\js\\site.js",

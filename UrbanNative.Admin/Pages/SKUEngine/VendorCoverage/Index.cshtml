@@ -1,0 +1,161 @@
+﻿@page
+@model UrbanNative.Admin.Pages.SKUEngine.VendorCoverage.IndexModel
+
+<h3>Vendor SKU Coverage</h3>
+
+<div class="card mb-3">
+    <div class="card-body py-2">
+        <strong>Product:</strong> @Model.ProductHeader.ProductName
+        &nbsp; | &nbsp;
+        <strong>Category:</strong> @Model.ProductHeader.CategoryPath
+        &nbsp; | &nbsp;
+        <strong>Total Combinations:</strong> @Model.ProductHeader.TotalCombinations
+    </div>
+</div>
+
+
+<form method="get" class="mb-3">
+    <input type="hidden" name="ProductId" value="@Model.ProductId" />
+
+    <div class="form-check">
+        <input class="form-check-input"
+               type="checkbox"
+               name="IncludeInactiveVendors"
+               value="true"
+               @(Model.IncludeInactiveVendors ? "checked" : "") />
+        <label class="form-check-label">
+            Include Inactive Vendors
+        </label>
+    </div>
+
+    <button type="submit" class="btn btn-sm btn-primary mt-2">
+        Apply
+    </button>
+</form>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Vendor</th>
+            <th>SKUs</th>
+            <th>Coverage %</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in Model.Vendors)
+        {
+            <tr>
+                <td>@v.VendorName</td>
+                <td>@v.VendorSkuCount / @v.TotalCombinations</td>
+                <td>@v.CoveragePercent %</td>
+                <td>
+                    <span class="badge bg-@v.StatusCss">@v.Status</span>
+                </td>
+                <td>
+                    
+                    <button type="button"        class="btn btn-sm btn-outline-primary"
+                            data-vendor-id="@v.VendorID"
+                            @(Model.ProductHeader.TotalCombinations == 0 ? "disabled" : "")>
+                        View
+                    </button>
+
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Vendor Coverage Modal -->
+<div class="modal fade" id="vendorCoverageModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    SKU Coverage Details
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <div id="vendorCoverageContent">
+                    Loading...
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    <script>
+
+
+
+                document.addEventListener("DOMContentLoaded", function () {
+
+            const API_BASE = window.API_BASE;
+
+            document.addEventListener('click', async function (e) {
+
+                const btn = e.target.closest('[data-vendor-id]');
+                if (!btn) return;   // ignore other clicks
+
+                e.preventDefault();
+
+                const vendorId = btn.dataset.vendorId;
+                const productId = '@Model.ProductId';
+
+                console.log("Vendor clicked:", vendorId);
+                const res = await apiFetch(`/api/admin/products/${productId}/skus/vendor-coverage/${vendorId}` );
+
+                alert (res);
+                //const url = `${API_BASE}/api/admin/products/${productId}/skus/vendor-coverage/${vendorId}`;
+				//alert (url);
+                //const res = await fetch(url, { credentials: "include" });
+                alert ('ok1');
+                if (!res.ok) {
+                    alert("Failed to load SKU coverage");
+                    return;
+                }
+                const data = await res.json();
+
+                let html = '<table class="table table-bordered">';
+                                                alert (html);
+
+                html += '<tr><th>Variant Combination</th><th>Status</th></tr>';
+
+                data.forEach(row => {
+                    html += `<tr>
+                        <td>${row.valueSignature}</td>
+                        <td>${row.isPresent ? '✅' : '❌'}</td>
+                    </tr>`;
+                });
+
+                html += '</table>';
+
+                const modalEl = document.getElementById('vendorCoverageModal');
+                document.getElementById('vendorCoverageContent').innerHTML = html;
+
+                // ensure modal is attached to body (safe for admin layouts)
+                document.body.appendChild(modalEl);
+
+                const modal = new bootstrap.Modal(modalEl);
+                modal.show();
+            });
+        });
+
+    </script>
+
+
+}
+
+
+
+
+
+

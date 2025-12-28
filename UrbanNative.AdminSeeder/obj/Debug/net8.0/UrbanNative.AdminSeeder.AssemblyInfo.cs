@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UrbanNative.AdminSeeder")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ae3dbc03ad6783c342948e53f5c7a02c130b2204")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c5bba433eba1f69538348b0af2afef180cdb03b1")]
 [assembly: System.Reflection.AssemblyProductAttribute("UrbanNative.AdminSeeder")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UrbanNative.AdminSeeder")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

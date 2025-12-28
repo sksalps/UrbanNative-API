@@ -15,6 +15,9 @@ namespace UrbanNative.Infrastructure.Repository
             _connectionFactory = connectionFactory;
         }
 
+        // =====================================================
+        // 1️⃣ GENERATE + SAVE SKUs (Admin Action)
+        // =====================================================
         public async Task GenerateAndSaveSkusAsync(
             int productId,
             List<VariantSelectionDto> selections,
@@ -22,13 +25,13 @@ namespace UrbanNative.Infrastructure.Repository
             int stock,
             int? returnPolicyId)
         {
-            // 1️⃣ Generate SKU combinations (C#)
+            // Generate combinations in C#
             var skuSignatures = SkuCombinationGenerator.Generate(selections);
 
             if (!skuSignatures.Any())
                 throw new Exception("No SKU combinations generated.");
 
-            // 2️⃣ Prepare TVP
+            // Prepare TVP
             var table = new DataTable();
             table.Columns.Add("SeqNo", typeof(int));
             table.Columns.Add("ValueSignature", typeof(string));
@@ -36,7 +39,6 @@ namespace UrbanNative.Infrastructure.Repository
             foreach (var sku in skuSignatures)
                 table.Rows.Add(sku.SeqNo, sku.ValueSignature);
 
-            // 3️⃣ Call SQL SP
             using var conn = _connectionFactory.CreateConnection();
 
             var param = new DynamicParameters();
@@ -52,5 +54,79 @@ namespace UrbanNative.Infrastructure.Repository
                 commandType: CommandType.StoredProcedure
             );
         }
+
+        // =====================================================
+        // 2️⃣ ADMIN SKU OVERVIEW (READ-ONLY)
+        // =====================================================
+        public async Task<List<AdminSkuOverviewDto>> GetSkuOverviewAsync()
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            var result = await conn.QueryAsync<AdminSkuOverviewDto>(
+                "SP_AdminSKU_GetOverview",
+                commandType: CommandType.StoredProcedure
+            );
+
+            return result.ToList();
+        }
+
+        public async Task<List<ProductSkuDetailDto>> GetProductSkusAsync(int productId)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            var result = await conn.QueryAsync<ProductSkuDetailDto>(
+                "SP_AdminSKU_GetProductSkus",
+                new { ProductID = productId },
+                commandType: CommandType.StoredProcedure
+            );
+
+            return result.ToList();
+        }
+
+        public async Task<List<AdminVendorSkuCoverageDto>> GetVendorCoverageAsync(int productId,bool includeInactiveVendors)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            var result = await conn.QueryAsync<AdminVendorSkuCoverageDto>(
+                "SP_AdminSKU_GetVendorCoverage",
+                new
+                {
+                    ProductID = productId,
+                    IncludeInactiveVendors = includeInactiveVendors
+                },
+                commandType: CommandType.StoredProcedure
+            );
+
+            return result.ToList();
+        }
+        public async Task<ProductSkuCoverageHeaderDto> GetCoverageHeaderAsync(int productId)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            return await conn.QuerySingleOrDefaultAsync<ProductSkuCoverageHeaderDto>(
+                "SP_AdminSKU_GetCoverageHeader",
+                new { ProductID = productId },
+                commandType: CommandType.StoredProcedure
+            );
+        }
+        public async Task<List<VendorSkuCoverageDetailDto>> GetVendorCoverageDetailAsync(
+    int productId,
+    int vendorId)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            var result = await conn.QueryAsync<VendorSkuCoverageDetailDto>(
+                "SP_AdminSKU_GetVendorCoverageDetail",
+                new
+                {
+                    ProductID = productId,
+                    VendorID = vendorId
+                },
+                commandType: CommandType.StoredProcedure
+            );
+
+            return result.ToList();
+        }
+
     }
 }
