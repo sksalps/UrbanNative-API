@@ -1,4 +1,5 @@
-﻿using UrbanNative.Application.DTOs.AdminSKU;
+﻿using System.Data;
+using UrbanNative.Application.DTOs.AdminSKU;
 
 namespace UrbanNative.Application.Interfaces
 {
@@ -13,7 +14,13 @@ namespace UrbanNative.Application.Interfaces
         Task<List<AdminVendorSkuCoverageDto>> GetVendorCoverageAsync(int productId, bool includeInactiveVendors);
 
         Task<ProductSkuCoverageHeaderDto> GetCoverageHeaderAsync(int productId);
-        Task<List<VendorSkuCoverageDetailDto>> GetVendorCoverageDetailAsync(int productId,    int vendorId);
+        Task<List<VendorSkuCoverageDetailDto>> GetVendorCoverageDetailAsync(int productId,  int vendorId       );
+
+
+
+
+
+
 
     }
 }

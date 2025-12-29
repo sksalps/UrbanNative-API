@@ -78,5 +78,26 @@ namespace UrbanNative.Admin.Pages.SKUEngine.VendorCoverage
                 }
             }
         }
+
+        // =========================
+        // AJAX : Vendor Coverage Detail (MODAL)
+        // =========================
+        public async Task<IActionResult> OnGetVendorCoverageAsync(
+            int productId,
+            int vendorId)
+        {
+            if (productId <= 0 || vendorId <= 0)
+                return BadRequest();
+
+            var result =
+                await _http.GetFromJsonAsync<List<VendorSkuCoverageDetailDto>>(
+                    $"api/admin/products/{productId}/skus/vendor-coverage/{vendorId}"
+                );
+
+            return new JsonResult(result ?? new());
+        }
+
+
+
     }
 }

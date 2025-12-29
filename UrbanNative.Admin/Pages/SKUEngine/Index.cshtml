@@ -20,7 +20,14 @@
         @foreach (var item in Model.Items)
         {
             <tr>
-                <td>@item.ProductName</td>
+                <td>
+                    <a asp-page="/SKUEngine/VendorCoverage/Index"
+                       asp-route-ProductId="@item.ProductID"
+                       class="fw-semibold text-decoration-none">
+                        @item.ProductName
+                    </a>
+                </td>
+
                 <td>@item.CategoryName</td>
                 <td>@item.VendorCount</td>
                 <td>@(item.HasVariants ? "Yes" : "No")</td>

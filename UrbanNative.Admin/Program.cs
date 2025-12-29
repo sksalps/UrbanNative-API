@@ -46,7 +46,7 @@ builder.Services.AddHttpClient("ApiClient", client =>
     var baseUrl = builder.Configuration["ApiSettings:BaseUrl"];
 
     if (string.IsNullOrWhiteSpace(baseUrl))
-        baseUrl = "http://localhost:5128";
+        baseUrl = "https://localhost:5127";
 
     client.BaseAddress = new Uri(baseUrl);
     client.Timeout = TimeSpan.FromSeconds(30);

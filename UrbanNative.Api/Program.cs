@@ -63,6 +63,14 @@ if (string.IsNullOrWhiteSpace(jwtKey))
 }
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+     .AddCookie(options =>
+    {
+        options.Cookie.Name = "UrbanNative.Auth";
+        options.Cookie.HttpOnly = true;
+        options.Cookie.SameSite = SameSiteMode.None;   // 🔑 REQUIRED
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // 🔑 REQUIRED
+    })
+
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -80,6 +88,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             )
         };
 
+
         // 🔥 THIS IS THE KEY FIX
         options.Events = new JwtBearerEvents
         {
@@ -96,22 +105,24 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AdminCors", policy =>
     {
         policy
-            .WithOrigins("http://localhost:5249") // Admin UI
+            .WithOrigins("https://localhost:5145") // Admin UI
             .AllowAnyHeader()
             .AllowAnyMethod()
-            .AllowCredentials();
+            .AllowCredentials(); // 🔑 REQUIRED
     });
 });
+
 
 builder.Services.AddAuthorization();
 
 
-var app = builder.Build();   // ✔ Build only once
+var app = builder.Build();   // ✔ Build only once 
 app.UseCors("AdminCors");
 app.UseAuthentication();   // ⬅️ MUST COME FIRST
 app.UseAuthorization();

@@ -1,6 +1,0 @@
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.AdminSeeder\obj\Debug\net8.0\UrbanNative.AdminSeeder.csproj.AssemblyReference.cache
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.AdminSeeder\obj\Debug\net8.0\UrbanNative.AdminSeeder.GeneratedMSBuildEditorConfig.editorconfig
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.AdminSeeder\obj\Debug\net8.0\UrbanNative.AdminSeeder.AssemblyInfoInputs.cache
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.AdminSeeder\obj\Debug\net8.0\UrbanNative.AdminSeeder.AssemblyInfo.cs
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.AdminSeeder\obj\Debug\net8.0\UrbanNative.AdminSeeder.csproj.CoreCompileInputs.cache
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.AdminSeeder\obj\Debug\net8.0\UrbanNative.AdminSeeder.sourcelink.json

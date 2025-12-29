@@ -1,6 +1,6 @@
 {
-  "profiles": {
-    "http": {
+    "profiles": {
+        /* "http": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
@@ -18,21 +18,31 @@
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7104;http://localhost:5146"
     },
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+    */
+        "UrbanNative.Admin": {
+            "commandName": "Project",
+            "dotnetRunMessages": true,
+            "applicationUrl": "http://localhost:5146;https://localhost:5145",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        },
+        "IIS Express": {
+            "commandName": "IISExpress",
+            "launchBrowser": true,
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        }
+    },
+    "$schema": "http://json.schemastore.org/launchsettings.json",
+    "iisSettings": {
+        "windowsAuthentication": false,
+        "anonymousAuthentication": true,
+        "iisExpress": {
+            "applicationUrl": "http://localhost:62741/",
+            "sslPort": 44391
+        }
     }
-  },
-  "$schema": "http://json.schemastore.org/launchsettings.json",
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:62741/",
-      "sslPort": 44391
-    }
-  }
 }
+

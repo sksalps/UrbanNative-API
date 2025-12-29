@@ -1,6 +1,6 @@
 ﻿{
-  "$schema": "https://json.schemastore.org/launchsettings.json",
-  "profiles": {
+    "$schema": "https://json.schemastore.org/launchsettings.json",
+    /*"profiles": {
     "http": {
       "commandName": "Project",
       "dotnetRunMessages": true,
@@ -19,5 +19,15 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
-  }
+  }*/
+    "profiles": {
+        "UrbanNative.Api": {
+            "commandName": "Project",
+            "dotnetRunMessages": true,
+            "applicationUrl": "https://localhost:5127",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        }
+    }
 }

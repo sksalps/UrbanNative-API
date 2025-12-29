@@ -70,10 +70,14 @@ public class SkuSignatureDto
         public string ProductName { get; set; } = "";
         public string VendorName { get; set; } = "";
     }
+   
+
     public class VendorSkuCoverageDetailDto
     {
-        public string ValueSignature { get; set; } = "";
+        public string ValueSignature { get; set; }   // optional (for debug)
+        public string DisplayText { get; set; }      // Color: Blue, Size: M
         public bool IsPresent { get; set; }
     }
+
 
 }

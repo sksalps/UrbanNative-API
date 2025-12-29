@@ -70,19 +70,27 @@
 
 <!-- Vendor Coverage Modal -->
 <div class="modal fade" id="vendorCoverageModal" tabindex="-1">
+    
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">
-                    SKU Coverage Details
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-                <div id="vendorCoverageContent">
-                    Loading...
+                <div>
+                    <h5 class="modal-title mb-1">SKU Coverage Details</h5>
+                    <div class="text-muted small">
+                        <strong>Product:</strong> <span id="modalProductName"></span>
+                        &nbsp; | &nbsp;
+                        <strong>Vendor:</strong> <span id="modalVendorName"></span>
+                    </div>
                 </div>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="vendorCoverageContent" class="text-center py-4 text-muted">
+                    Select a vendor to view SKU coverage
+                </div>
+
             </div>
         </div>
     </div>
@@ -93,66 +101,95 @@
 
 @section Scripts {
     <script>
+        document.addEventListener("click", async function (e) {
 
+            const btn = e.target.closest("[data-vendor-id]");
+            if (!btn) return;
 
+            e.preventDefault();
 
-                document.addEventListener("DOMContentLoaded", function () {
+            const vendorId = btn.dataset.vendorId;
+            const productId = "@Model.ProductId";
 
-            const API_BASE = window.API_BASE;
+            const modalEl = document.getElementById("vendorCoverageModal");
+            const contentEl = document.getElementById("vendorCoverageContent");
 
-            document.addEventListener('click', async function (e) {
+            // --------- HEADER CONTEXT ----------
+            const productName = "@Model.ProductHeader.ProductName";
+            const vendorName = btn.closest("tr")
+                .querySelector("td:first-child")
+                .innerText;
 
-                const btn = e.target.closest('[data-vendor-id]');
-                if (!btn) return;   // ignore other clicks
+            document.getElementById("modalProductName").innerText = productName;
+            document.getElementById("modalVendorName").innerText = vendorName;
 
-                e.preventDefault();
+            // --------- LOADER ----------
+            contentEl.innerHTML = `
+                <div class="text-center py-4">
+                    <div class="spinner-border"></div>
+                    <div class="mt-2">Loading SKU coverage…</div>
+                </div>`;
 
-                const vendorId = btn.dataset.vendorId;
-                const productId = '@Model.ProductId';
+            new bootstrap.Modal(modalEl).show();
 
-                console.log("Vendor clicked:", vendorId);
-                const res = await apiFetch(`/api/admin/products/${productId}/skus/vendor-coverage/${vendorId}` );
+            try {
+                const res = await fetch(
+                    `?handler=VendorCoverage&productId=${productId}&vendorId=${vendorId}`
+                );
 
-                alert (res);
-                //const url = `${API_BASE}/api/admin/products/${productId}/skus/vendor-coverage/${vendorId}`;
-				//alert (url);
-                //const res = await fetch(url, { credentials: "include" });
-                alert ('ok1');
-                if (!res.ok) {
-                    alert("Failed to load SKU coverage");
-                    return;
-                }
+                if (!res.ok)
+                    throw new Error("Failed to load");
+
                 const data = await res.json();
 
-                let html = '<table class="table table-bordered">';
-                                                alert (html);
+                if (!data || data.length === 0) {
+                    contentEl.innerHTML =
+                        `<div class="alert alert-warning">No SKU data found</div>`;
+                    return;
+                }
 
-                html += '<tr><th>Variant Combination</th><th>Status</th></tr>';
+                // --------- TABLE ----------
+                let html = `
+                <table class="table table-bordered table-sm">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width:60px">#</th>
+                            <th>Variant Combination</th>
+                            <th style="width:120px">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                `;
 
-                data.forEach(row => {
-                    html += `<tr>
-                        <td>${row.valueSignature}</td>
-                        <td>${row.isPresent ? '✅' : '❌'}</td>
-                    </tr>`;
+                data.forEach((row, index) => {
+                    html += `
+                        <tr>
+                            <td class="text-center">${index + 1}</td>
+                            <td>${row.displayText}</td>
+                            <td>
+                                <span class="badge ${row.isPresent ? "bg-success" : "bg-danger"}">
+                                    ${row.isPresent ? "Present" : "Missing"}
+                                </span>
+                            </td>
+                        </tr>
+                    `;
                 });
 
-                html += '</table>';
+                html += "</tbody></table>";
+                contentEl.innerHTML = html;
 
-                const modalEl = document.getElementById('vendorCoverageModal');
-                document.getElementById('vendorCoverageContent').innerHTML = html;
-
-                // ensure modal is attached to body (safe for admin layouts)
-                document.body.appendChild(modalEl);
-
-                const modal = new bootstrap.Modal(modalEl);
-                modal.show();
-            });
+            } catch (err) {
+                console.error(err);
+                contentEl.innerHTML =
+                    `<div class="alert alert-danger">Failed to load SKU coverage</div>`;
+            }
         });
-
     </script>
-
-
 }
+
+
+
+
 
 
 
