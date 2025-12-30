@@ -8,17 +8,22 @@ namespace UrbanNative.Admin.Pages.Categories
     public class IndexModel : PageModel
     {
         private readonly IAdminCategoryService _service;
+        private readonly IAdminCategoryHSNService _categoryHsnService;
 
-        public IndexModel(IAdminCategoryService service)
+        public IndexModel(IAdminCategoryService categoryService, IAdminCategoryHSNService categoryHsnService)
         {
-            _service = service;
+            _service = categoryService;
+            _categoryHsnService = categoryHsnService;
         }
+        
 
         // =========================
         // DATA FOR UI
         // =========================
         public IEnumerable<AdminCategoryListDto> Categories { get; set; } = [];
         public IEnumerable<AdminCategoryListDto> AllCategories { get; set; } = [];
+
+        public Dictionary<int, string?> CategoryHSNMap { get; set; } = new();
 
         // =========================
         // FILTER INPUTS
@@ -112,6 +117,12 @@ namespace UrbanNative.Admin.Pages.Categories
                 .OrderBy(x => x.Level)
                 .ThenBy(x => x.SortOrder)
                 .ToList();
+
+            foreach (var cat in Categories)
+            {
+                var hsn = await _categoryHsnService.GetByCategoryIdAsync(cat.CategoryID);
+                CategoryHSNMap[cat.CategoryID] = hsn?.HSNCode;
+            }
         }
 
         // =========================

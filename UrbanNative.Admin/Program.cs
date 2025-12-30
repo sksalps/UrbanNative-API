@@ -68,6 +68,7 @@ builder.Services.AddScoped<IAdminVariantSetService, AdminVariantSetService>();
 builder.Services.AddScoped<AdminGSTService>();
 builder.Services.AddScoped<IAdminGSTService, AdminGSTService>();
 builder.Services.AddScoped<IAdminHSNService, AdminHSNService>();
+builder.Services.AddScoped<IAdminCategoryHSNService, AdminCategoryHSNService>();
 
 // register SqlHelpers example
 

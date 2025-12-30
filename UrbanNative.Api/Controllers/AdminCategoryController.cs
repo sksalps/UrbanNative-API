@@ -11,11 +11,14 @@ namespace UrbanNative.API.Controllers.Admin
     public class AdminCategoriesController : ControllerBase
     {
         private readonly IAdminCategoryRepository _categoryRepository;
-
-        public AdminCategoriesController(IAdminCategoryRepository categoryRepository)
+        private readonly IAdminCategoryHSNRepository _categoryHsnRepository;
+        public AdminCategoriesController(IAdminCategoryRepository categoryRepository,
+    IAdminCategoryHSNRepository categoryHsnRepository)
         {
             _categoryRepository = categoryRepository;
+            _categoryHsnRepository = categoryHsnRepository;
         }
+
 
         // =========================
         // Admin – Category Listing
@@ -110,6 +113,49 @@ namespace UrbanNative.API.Controllers.Admin
                 return BadRequest(new { message });
 
             return Ok(new { message });
+        }
+
+
+        // ========== Category HSN Linking===============//
+      
+        [HttpGet("{categoryId:int}/hsn")]
+        public async Task<IActionResult> GetCategoryHSN(int categoryId)
+        {
+            var result = await _categoryHsnRepository.GetByCategoryIdAsync(categoryId);
+
+            // Always return valid JSON
+            return Ok(result);   // result is DTO or null → both serialize correctly
+        }
+
+
+        [HttpPost("{categoryId:int}/hsn")]
+        public async Task<IActionResult> LinkOrUpdateHSN(int categoryId,[FromBody] int hsnId)
+        {
+            int adminId = int.Parse(
+                User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)!.Value
+            );
+
+            await _categoryHsnRepository.LinkOrUpdateAsync(
+                new CategoryHSNLinkDto
+                {
+                    CategoryId = categoryId,
+                    HSNId = hsnId,
+                    AdminId = adminId
+                }
+            );
+
+            return Ok();
+        }
+
+        [HttpDelete("{categoryId:int}/hsn")]
+        public async Task<IActionResult> RemoveHSN(int categoryId)
+        {
+            int adminId = int.Parse(
+                User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)!.Value
+            );
+
+            await _categoryHsnRepository.RemoveAsync(categoryId, adminId);
+            return Ok();
         }
 
     }

@@ -80,6 +80,59 @@
   },
   {
     "ContainingType": "UrbanNative.API.Controllers.Admin.AdminCategoriesController",
+    "Method": "GetCategoryHSN",
+    "RelativePath": "api/admin/categories/{categoryId}/hsn",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoryId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.API.Controllers.Admin.AdminCategoriesController",
+    "Method": "LinkOrUpdateHSN",
+    "RelativePath": "api/admin/categories/{categoryId}/hsn",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoryId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "hsnId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.API.Controllers.Admin.AdminCategoriesController",
+    "Method": "RemoveHSN",
+    "RelativePath": "api/admin/categories/{categoryId}/hsn",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoryId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.API.Controllers.Admin.AdminCategoriesController",
     "Method": "GetCategoryById",
     "RelativePath": "api/admin/categories/{id}",
     "HttpMethod": "GET",

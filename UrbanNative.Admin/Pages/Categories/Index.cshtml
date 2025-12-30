@@ -113,6 +113,7 @@
             <th>Description</th>
             <th>Level</th>
             <th>Children</th>
+            <th>HSN</th>
             <th>Active</th>
             <th>Actions</th>
             <th>Add Child</th>
@@ -177,6 +178,25 @@
                 <td>@item.Level</td>
                 <td>@item.ChildCount</td>
 
+                <td>
+                    @if (Model.CategoryHSNMap[item.CategoryID] != null)
+                    {
+                        <a href="javascript:void(0)"
+                           class="text-primary fw-bold"
+                           onclick="openHsnModal(@item.CategoryID)">
+                            @Model.CategoryHSNMap[item.CategoryID]
+                        </a>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger"
+                              style="cursor:pointer"
+                              onclick="openHsnModal(@item.CategoryID)">
+                            Not Linked
+                        </span>
+                    }
+                </td>
+
                 <!-- ACTIVE -->
                 <td>
                     <button class="btn btn-sm @(item.IsActive ? "btn-warning" : "btn-secondary")"
@@ -214,13 +234,43 @@
         }
     </tbody>
 </table>
+<!--HSN Modal to Assign or Change HSN Code to category-->
+
+<!-- HSN Link / Change Modal -->
+<div class="modal fade" id="hsnModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Link HSN to Category</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" id="categoryId" />
+
+                <div class="mb-3">
+                    <label class="form-label">Select HSN</label>
+                    <select id="hsnSelect" class="form-select">
+                        <option value="">-- Select HSN --</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="saveCategoryHsn()">Save</button>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <!-- ================= CREATE / EDIT MODAL ================= -->
 @await Html.PartialAsync("_CreateEditModal", new AdminCategorySaveDto())
 
 <!-- ================= SCRIPTS ================= -->
 @section Scripts {
-
     <script>
         // Auto dismiss alerts
         /*setTimeout(() => {
@@ -312,6 +362,63 @@
                 const text = await res.text();
                 alert(`Failed to update status (${res.status}): ${text}`);
             }
+        }
+
+    </script>
+
+    <script>
+        // Open HSN Modal to assign / change HSN Code
+                function openHsnModal(categoryId) {
+            document.getElementById('categoryId').value = categoryId;
+
+            fetch(`${API_BASE}/api/admin/hsn`, {
+                credentials: 'include'
+            })
+            .then(r => {
+                if (!r.ok) throw new Error('API error');
+                return r.json();
+            })
+            .then(data => {
+                const ddl = document.getElementById('hsnSelect');
+                ddl.innerHTML = '<option value="">-- Select HSN --</option>';
+
+                data.forEach(h => {
+                    ddl.innerHTML += `<option value="${h.hsnId}">
+                        ${h.hsnCode} (${h.gstPercentage}%)
+                    </option>`;
+                });
+
+                new bootstrap.Modal(document.getElementById('hsnModal')).show();
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Unable to load HSN list');
+            });
+        }
+
+        function saveCategoryHsn() {
+            const categoryId = document.getElementById('categoryId').value;
+            const hsnId = document.getElementById('hsnSelect').value;
+
+            if (!hsnId) {
+                alert('Please select HSN');
+                return;
+            }
+
+            fetch(`${API_BASE}/api/admin/categories/${categoryId}/hsn`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',   // 🔥 REQUIRED
+                body: JSON.stringify(parseInt(hsnId))
+            })
+            .then(res => {
+                if (!res.ok) throw new Error('Save failed');
+                location.reload();
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Failed to save HSN mapping');
+            });
         }
 
     </script>
