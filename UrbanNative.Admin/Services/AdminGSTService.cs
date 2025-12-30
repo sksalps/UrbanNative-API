@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace UrbanNative.Admin.Services
 {
-    public class AdminGSTService
+    public class AdminGSTService : IAdminGSTService
     {
         private readonly HttpClient _http;
 

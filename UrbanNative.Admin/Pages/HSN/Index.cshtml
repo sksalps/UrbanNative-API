@@ -1,0 +1,71 @@
+﻿@page
+@model UrbanNative.Admin.Pages.HSN.IndexModel
+
+<h3>HSN Management</h3>
+
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-4">
+        <input name="search" value="@Model.Search"
+               class="form-control"
+               placeholder="Search HSN" />
+    </div>
+
+    <div class="col-md-3">
+        <select name="isActive" class="form-select">
+            <option value="">All</option>
+            <option value="true">Active</option>
+            <option value="false">Inactive</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <button class="btn btn-primary">Filter</button>
+    </div>
+
+    <div class="col-md-3 text-end">
+        <a asp-page="CreateHSN" class="btn btn-success">
+            + Add HSN
+        </a>
+    </div>
+</form>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>HSN Code</th>
+            <th>Description</th>
+            <th>GST %</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.HSNId</td>
+                <td>@item.HSNCode</td>
+                <td>@item.Description</td>
+                <td>@item.GSTPercentage%</td>
+                <td>
+                    <span class="badge bg-@(item.IsActive ? "success" : "secondary")">
+                        @(item.IsActive ? "Active" : "Inactive")
+                    </span>
+                </td>
+                <td>
+                    <a asp-page="EditHSN"asp-route-hsnId="@item.HSNId" class="btn btn-sm btn-info">
+                        Edit
+                    </a>
+
+                    <form method="post" asp-page-handler="Toggle" asp-route-hsnId="@item.HSNId"
+                          class="d-inline">
+                        <button class="btn btn-sm btn-warning">
+                            @(item.IsActive ? "Inactivate" : "Activate")
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,32 @@
+﻿@page "{hsnId:int}"
+@model UrbanNative.Admin.Pages.HSN.EditHSNModel
+
+<h3>Edit HSN</h3>
+
+<form method="post" class="col-md-6">
+
+    <!-- ✅ REQUIRED -->
+    <input type="hidden" asp-for="HSN.HSNId" />
+
+    <div class="mb-3">
+        <label class="form-label">HSN Code</label>
+        <input asp-for="HSN.HSNCode" class="form-control" />
+        <span asp-validation-for="HSN.HSNCode" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea asp-for="HSN.Description" class="form-control"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">GST %</label>
+        <select asp-for="HSN.GSTId"
+                asp-items="Model.GSTList"
+                class="form-select">
+        </select>
+    </div>
+
+    <button class="btn btn-primary">Update</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>
