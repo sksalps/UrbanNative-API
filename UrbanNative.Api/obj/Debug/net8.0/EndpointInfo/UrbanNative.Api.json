@@ -302,6 +302,58 @@
         }
       }
     },
+    "/api/admin/gst": {
+      "get": {
+        "tags": [
+          "AdminGST"
+        ],
+        "parameters": [
+          {
+            "name": "gstPercentage",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "isActive",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/gst/{gstId}/toggle": {
+      "post": {
+        "tags": [
+          "AdminGST"
+        ],
+        "parameters": [
+          {
+            "name": "gstId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/admin/notifications/unread": {
       "get": {
         "tags": [
@@ -1744,6 +1796,89 @@
         }
       }
     },
+    "/api/address/save": {
+      "post": {
+        "tags": [
+          "MasterAddress"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressCreateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressCreateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressCreateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/address": {
+      "get": {
+        "tags": [
+          "MasterAddress"
+        ],
+        "parameters": [
+          {
+            "name": "entityType",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "entityId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/address/deactivate/{addressId}": {
+      "post": {
+        "tags": [
+          "MasterAddress"
+        ],
+        "parameters": [
+          {
+            "name": "addressId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/product/{productId}": {
       "get": {
         "tags": [
@@ -2276,6 +2411,65 @@
           "variantID": {
             "type": "integer",
             "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AddressCreateDto": {
+        "type": "object",
+        "properties": {
+          "entityType": {
+            "type": "string",
+            "nullable": true
+          },
+          "entityID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "addressLine1": {
+            "type": "string",
+            "nullable": true
+          },
+          "addressLine2": {
+            "type": "string",
+            "nullable": true
+          },
+          "landmark": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "stateID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cityID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pincode": {
+            "type": "string",
+            "nullable": true
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "addressType": {
+            "type": "string",
+            "nullable": true
+          },
+          "isPrimary": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

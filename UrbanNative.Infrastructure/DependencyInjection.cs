@@ -23,6 +23,8 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<IAdminVariantRepository, AdminVariantRepository>();
             services.AddScoped<IAdminVariantSetRepository, AdminVariantSetRepository>();
             services.AddScoped<IAdminSkuRepository, AdminSkuRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IAdminGSTRepository, AdminGSTRepository>();
 
 
 

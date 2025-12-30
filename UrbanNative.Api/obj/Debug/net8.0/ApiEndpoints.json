@@ -1,5 +1,58 @@
 [
   {
+    "ContainingType": "UrbanNative.Api.Controllers.MasterAddressController",
+    "Method": "GetAddresses",
+    "RelativePath": "api/address",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "entityType",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "entityId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.MasterAddressController",
+    "Method": "DeactivateAddress",
+    "RelativePath": "api/address/deactivate/{addressId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "addressId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.MasterAddressController",
+    "Method": "SaveAddress",
+    "RelativePath": "api/address/save",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "UrbanNative.Application.DTOs.Address.AddressCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "UrbanNative.API.Controllers.Admin.AdminCategoriesController",
     "Method": "GetCategories",
     "RelativePath": "api/admin/categories",
@@ -72,6 +125,43 @@
     "Parameters": [
       {
         "Name": "categoryId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AdminGSTController",
+    "Method": "Get",
+    "RelativePath": "api/admin/gst",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "gstPercentage",
+        "Type": "System.Nullable\u00601[[System.Decimal, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "isActive",
+        "Type": "System.Nullable\u00601[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AdminGSTController",
+    "Method": "Toggle",
+    "RelativePath": "api/admin/gst/{gstId}/toggle",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "gstId",
         "Type": "System.Int32",
         "IsRequired": true
       }

@@ -1,0 +1,67 @@
+﻿@page
+@model UrbanNative.Admin.Pages.GST.IndexModel
+
+<h3>GST Management</h3>
+
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-3">
+        <input class="form-control"
+               placeholder="GST %"
+               asp-for="GSTPercentage" />
+    </div>
+
+    <div class="col-md-3">
+        <select class="form-select" asp-for="IsActive">
+            <option value="">All</option>
+            <option value="true">Active</option>
+            <option value="false">Inactive</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <button class="btn btn-primary">Filter</button>
+    </div>
+</form>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>GST Name</th>
+            <th>%</th>
+            <th>Type</th>
+            <th>Source</th>
+            <th>Exempt</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var gst in Model.GSTList)
+        {
+            <tr>
+                <td>@gst.GSTName</td>
+                <td>@gst.GSTPercentage</td>
+                <td>@gst.GSTType</td>
+                <td>
+                    <span class="badge bg-secondary">@gst.Source</span>
+                </td>
+                <td>@(gst.IsExempt ? "Yes" : "No")</td>
+                <td>
+                    <span class="badge bg-@(gst.IsActive ? "success" : "danger")">
+                        @(gst.IsActive ? "Active" : "Inactive")
+                    </span>
+                </td>
+                <td>
+                    <form method="post" asp-page-handler="Toggle">
+                        <input type="hidden" name="gstId" value="@gst.GSTID" />
+                        <button class="btn btn-sm btn-warning">
+                            @(gst.IsActive ? "Deactivate" : "Activate")
+                        </button>
+                    </form>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
