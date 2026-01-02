@@ -1,0 +1,118 @@
+Products
+ProductID	int	Unchecked
+CategoryID	int	Unchecked
+ProductName	varchar(200)	Unchecked
+MRP	decimal(10, 2)	Unchecked
+DiscountPrice	decimal(10, 2)	Checked
+Description	text	Checked
+Stock	int	Unchecked
+Status	bit	Checked
+CreatedAt	datetime	Checked
+VendorID	int	Unchecked
+IsPriceInclusive	bit	Checked
+GSTPercentage	decimal(5, 2)	Unchecked
+CGST	decimal(5, 2)	Checked
+SGST	decimal(5, 2)	Checked
+IGST	decimal(5, 2)	Checked
+ApprovalStatus	varchar(20)	Checked
+ApprovedBy	int	Checked
+ApprovedAt	datetime	Checked
+RejectedReason	nvarchar(500)	Checked
+IsActive	bit	Checked
+UpdatedAt	datetime	Checked
+HasVariants	bit	Unchecked
+ReturnPolicyID	int	Checked
+		
+VariantMaster
+VariantID	int	Unchecked
+VariantName	nvarchar(100)	Unchecked
+IsActive	bit	Checked
+CreatedAt	datetime	Checked
+
+ProductSKUValueSignature
+SKUId	int	Unchecked
+ValueSignature	nvarchar(500)	Unchecked
+
+ProductSKUVariantValues
+SKUVariantValueID	int	Unchecked
+SKUId	int	Unchecked
+VariantID	int	Unchecked
+VariantValueID	int	Unchecked
+
+VariantValues
+VariantValueID	int	Unchecked
+VariantID	int	Unchecked
+ValueName	nvarchar(100)	Unchecked
+IsActive	bit	Checked
+		
+VariantSet
+VariantSetID	int	Unchecked
+VariantSetName	nvarchar(150)	Unchecked
+IsActive	bit	Unchecked
+CreatedAt	datetime2(7)	Unchecked
+
+VariantInsideVariantSet
+VariantSetVariantID	int	Unchecked
+VariantSetID	int	Unchecked
+VariantID	int	Unchecked
+SortOrder	int	Unchecked
+isActive	nchar(10)	Unchecked
+
+
+ReturnPolicyMaster
+ReturnPolicyID	int	Unchecked
+PolicyName	varchar(100)	Unchecked
+ReturnDays	int	Unchecked
+IsActive	bit	Unchecked
+CreatedAt	datetime	Unchecked
+Categories
+CategoryID	int	Unchecked
+CategoryName	varchar(150)	Unchecked
+ImageURL	varchar(255)	Checked
+Status	bit	Checked
+CreatedAt	datetime	Checked
+IsACtive	bit	Checked
+ParentCategoryID	int	Checked
+Description	nvarchar(500)	Checked
+[Level]	int	Checked
+SortOrder	int	Checked
+UpdatedAt	datetime	Checked
+UpdatedBy	int	Checked
+CreatedBy	int	Checked
+ReturnPolicyID	int	Checked
+		
+
+CategoryHSNMapping
+CategoryHSNMappingId	int	Unchecked
+CategoryId	int	Unchecked
+HSNId	int	Unchecked
+CreatedBy	int	Unchecked
+CreatedAt	datetime2(7)	Unchecked
+UpdatedBy	int	Checked
+UpdatedAt	datetime2(7)	Checked
+		
+
+ProductSKUImages
+ProductImageID	int	Unchecked
+ProductID	int	Unchecked
+ProductVariantID	int	Checked
+ImageUrl	nvarchar(500)	Unchecked
+IsPrimary	bit	Unchecked
+SortOrder	int	Unchecked
+CreatedAt	datetime	Unchecked
+SKUId	int	Checked
+isActive	bit	Unchecked
+
+InventoryLogs
+LogID	int	Unchecked
+VariantSetID	int	Unchecked
+ChangeType	varchar(20)	Unchecked
+Quantity	int	Unchecked
+OldStock	int	Unchecked
+NewStock	int	Unchecked
+CreatedAt	datetime	Checked
+CreatedBy	int	Checked
+
+		
+		
+		

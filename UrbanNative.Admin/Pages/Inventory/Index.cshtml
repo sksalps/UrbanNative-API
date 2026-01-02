@@ -1,0 +1,87 @@
+﻿@page
+@model UrbanNative.Admin.Pages.Inventory.IndexModel
+
+@{
+    ViewData["Title"] = "Inventory";
+}
+
+<h3>Inventory</h3>
+
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-3">
+        <input class="form-control"
+               placeholder="Search product..."
+               name="Search"
+               value="@Model.Search" />
+    </div>
+
+    <div class="col-md-2">
+        <select class="form-select" name="LowStockOnly">
+            <option value="">All Stock</option>
+            <option value="true">Low Stock Only</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <select class="form-select" name="IsActive">
+            <option value="">All Status</option>
+            <option value="true">Active</option>
+            <option value="false">Inactive</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <button class="btn btn-primary w-100">Filter</button>
+    </div>
+</form>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Vendors</th>
+            <th>Total SKUs</th>
+            <th>Total Stock</th>
+            <th>Low Stock</th>
+            <th>Status</th>
+            <th style="width:90px">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.ProductName</td>
+                <td>@item.CategoryName</td>
+                <td>@item.VendorCount</td>
+                <td>@item.TotalSKUs</td>
+                <td>@item.TotalStock</td>
+                <td>
+                    @if (item.LowStockSKUCount > 0)
+                    {
+                        <span class="badge bg-danger">
+                            @item.LowStockSKUCount
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-success">OK</span>
+                    }
+                </td>
+                <td>
+                    <span class="badge bg-@(item.IsActive ? "success" : "secondary")">
+                        @(item.IsActive ? "Active" : "Inactive")
+                    </span>
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-outline-primary"
+                       asp-page="InventoryDetails"
+                       asp-route-productId="@item.ProductID">
+                        View
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

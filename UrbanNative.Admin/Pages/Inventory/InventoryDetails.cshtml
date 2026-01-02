@@ -1,0 +1,47 @@
+﻿@page "{productId:int}"
+@model UrbanNative.Admin.Pages.Inventory.InventoryDetailsModel
+
+@{
+    ViewData["Title"] = "Inventory Details";
+}
+
+<h3>@Model.Summary!.ProductName</h3>
+
+<div class="mb-3">
+    <span class="me-3"><strong>Category:</strong> @Model.Summary.CategoryName</span>
+    <span class="me-3"><strong>Total SKUs:</strong> @Model.Summary.TotalSKUs</span>
+    <span class="me-3"><strong>Total Stock:</strong> @Model.Summary.TotalStock</span>
+    <span class="badge bg-@(Model.Summary.IsActive ? "success" : "secondary")">
+        @(Model.Summary.IsActive ? "Active" : "Inactive")
+    </span>
+</div>
+
+<table class="table table-bordered">
+    <thead class="table-light">
+        <tr>
+            <th>SKU ID</th>
+            <th>Variant</th>
+            <th>Vendor</th>
+            <th>Stock</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var sku in Model.Skus)
+        {
+            <tr>
+                <td>@sku.SKUId</td>
+                <td>@(sku.VariantSignature ?? "-")</td>
+                <td>@sku.VendorName</td>
+                <td>@sku.Stock</td>
+                <td>
+                    <span class="badge bg-@(sku.IsActive ? "success" : "secondary")">
+                        @(sku.IsActive ? "Active" : "Inactive")
+                    </span>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-page="Index" class="btn btn-secondary">← Back</a>
