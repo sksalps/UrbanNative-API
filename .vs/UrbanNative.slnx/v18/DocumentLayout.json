@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.admin\\services\\admincategoryhsnservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|solutionrelative:urbannative.admin\\services\\admincategoryhsnservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.admin\\pages\\hsn\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|solutionrelative:urbannative.admin\\pages\\hsn\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.admin\\pages\\categories\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|solutionrelative:urbannative.admin\\pages\\categories\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.admin\\pages\\gst\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|solutionrelative:urbannative.admin\\pages\\gst\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CA4A5139-0EC7-5A64-B20F-3729BD95A448}|UrbanNative.Api\\UrbanNative.Api.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.api\\controllers\\admincategorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CA4A5139-0EC7-5A64-B20F-3729BD95A448}|UrbanNative.Api\\UrbanNative.Api.csproj|solutionrelative:urbannative.api\\controllers\\admincategorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\dtos\\admingst\\admingstdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\dtos\\admingst\\admingstdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.admin\\pages\\categories\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|solutionrelative:urbannative.admin\\pages\\categories\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.admin\\pages\\gst\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|solutionrelative:urbannative.admin\\pages\\gst\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -39,53 +39,53 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AdminCategoryHSNService.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Services\\AdminCategoryHSNService.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Admin\\Services\\AdminCategoryHSNService.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Services\\AdminCategoryHSNService.cs",
-              "RelativeToolTip": "UrbanNative.Admin\\Services\\AdminCategoryHSNService.cs",
-              "ViewState": "AgIAABkAAAAAAgAAAAAWwA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-30T18:21:22.722Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "AdminCategoryController.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\Controllers\\AdminCategoryController.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Api\\Controllers\\AdminCategoryController.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\Controllers\\AdminCategoryController.cs",
-              "RelativeToolTip": "UrbanNative.Api\\Controllers\\AdminCategoryController.cs",
-              "ViewState": "AgIAAHMAAAAAmJmZmZkNwHcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-30T16:40:36.348Z",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\HSN\\Index.cshtml",
+              "RelativeDocumentMoniker": "UrbanNative.Admin\\Pages\\HSN\\Index.cshtml",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\HSN\\Index.cshtml",
+              "RelativeToolTip": "UrbanNative.Admin\\Pages\\HSN\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-02T16:41:25.701Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\Categories\\Index.cshtml",
-              "RelativeDocumentMoniker": "UrbanNative.Admin\\Pages\\Categories\\Index.cshtml",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\Categories\\Index.cshtml",
-              "RelativeToolTip": "UrbanNative.Admin\\Pages\\Categories\\Index.cshtml",
-              "ViewState": "AgIAALAAAAAAyMzMzEwcwLcAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-30T16:58:04.689Z",
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\GST\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Admin\\Pages\\GST\\Index.cshtml.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\GST\\Index.cshtml.cs",
+              "RelativeToolTip": "UrbanNative.Admin\\Pages\\GST\\Index.cshtml.cs",
+              "ViewState": "AgIAABkAAADAAAAAAIAdwCAAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T16:15:56.527Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Index.cshtml.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\Categories\\Index.cshtml.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Admin\\Pages\\Categories\\Index.cshtml.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\Categories\\Index.cshtml.cs",
-              "RelativeToolTip": "UrbanNative.Admin\\Pages\\Categories\\Index.cshtml.cs",
-              "ViewState": "AgIAAG0AAAAAzczMzAwiwKAAAAAAAAAAAAAAAA==",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\GST\\Index.cshtml",
+              "RelativeDocumentMoniker": "UrbanNative.Admin\\Pages\\GST\\Index.cshtml",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\GST\\Index.cshtml",
+              "RelativeToolTip": "UrbanNative.Admin\\Pages\\GST\\Index.cshtml",
+              "ViewState": "AgIAADcAAAAA8M3MzMzUvzwAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-02T16:15:52.815Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AdminGSTDto.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\DTOs\\AdminGST\\AdminGSTDto.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Application\\DTOs\\AdminGST\\AdminGSTDto.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\DTOs\\AdminGST\\AdminGSTDto.cs",
+              "RelativeToolTip": "UrbanNative.Application\\DTOs\\AdminGST\\AdminGSTDto.cs",
+              "ViewState": "AgIAAAMAAABgMjMzM/MowAUAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-30T16:58:08.482Z",
+              "WhenOpened": "2026-01-02T16:13:34.021Z",
               "EditorCaption": ""
             }
           ]

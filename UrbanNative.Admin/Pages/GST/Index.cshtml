@@ -37,6 +37,7 @@
             <th>Type</th>
             <th>Source</th>
             <th>Exempt</th>
+            <th>HSN Count</th>
             <th>Status</th>
             <th>Action</th>
         </tr>
@@ -53,6 +54,21 @@
                     <span class="badge bg-secondary">@gst.Source</span>
                 </td>
                 <td>@(gst.IsExempt ? "Yes" : "No")</td>
+                <td>
+                    @if (gst.HSNCount > 0)
+                    {
+                        <a asp-page="/HSN/Index"
+                           asp-route-gstId="@gst.GSTID"
+                           class="fw-bold text-primary">
+                            @gst.HSNCount
+                        </a>
+                    }
+                    else
+                    {
+                        <span class="text-muted">0</span>
+                    }
+                </td>
+
                 <td>
                     <span class="badge bg-@(gst.IsActive ? "success" : "danger")">
                         @(gst.IsActive ? "Active" : "Inactive")

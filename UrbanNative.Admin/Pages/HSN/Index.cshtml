@@ -2,32 +2,62 @@
 @model UrbanNative.Admin.Pages.HSN.IndexModel
 
 <h3>HSN Management</h3>
+<a asp-page="/GST/Index" class="btn btn-secondary mb-3">← Back to GST Management</a>
 
-<form method="get" class="row g-2 mb-3">
+
+<form method="get" class="row g-2 mb-3 align-items-end">
+
+    <!-- 🔍 Search -->
     <div class="col-md-4">
-        <input name="search" value="@Model.Search"
+        <label class="form-label">Search</label>
+        <input name="search"
+               value="@Model.Search"
                class="form-control"
-               placeholder="Search HSN" />
+               placeholder="HSN Code or Description" />
     </div>
 
+    <!-- 📊 GST % Filter -->
     <div class="col-md-3">
-        <select name="isActive" class="form-select">
-            <option value="">All</option>
-            <option value="true">Active</option>
-            <option value="false">Inactive</option>
+        <label class="form-label">GST %</label>
+        <select name="gstId" class="form-select">
+            <option value="">All GST</option>
+            @foreach (var gst in Model.GstList)
+            {
+                <option value="@gst.Value" selected="@gst.Selected">
+                    @gst.Text
+                </option>
+            }
         </select>
     </div>
 
+    <!-- ✅ Status Filter -->
     <div class="col-md-2">
-        <button class="btn btn-primary">Filter</button>
+        <label class="form-label">Status</label>
+        <select name="isActive" class="form-select">
+            <option value="">All</option>
+            <option value="true" selected="@(Model.IsActive == true)">
+                Active
+            </option>
+            <option value="false" selected="@(Model.IsActive == false)">
+                Inactive
+            </option>
+        </select>
     </div>
 
-    <div class="col-md-3 text-end">
+    <!-- 🔘 Actions -->
+    <div class="col-md-3 d-flex gap-2">
+        <button type="submit" class="btn btn-primary">
+            Filter
+        </button>
+
         <a asp-page="CreateHSN" class="btn btn-success">
             + Add HSN
         </a>
     </div>
+
 </form>
+
+
 
 <table class="table table-bordered">
     <thead>

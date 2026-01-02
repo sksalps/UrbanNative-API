@@ -7,7 +7,7 @@ namespace UrbanNative.Application.Interfaces
         Task<int> CreateAsync(AdminHSNCreateDto dto);
         Task UpdateAsync(AdminHSNUpdateDto dto);
 
-        Task<IEnumerable<AdminHSNListDto>> GetAllAsync();
+        Task<IEnumerable<AdminHSNListDto>> GetFilterAsync(string? search,int? gstId,bool? isActive);
         Task<AdminHSNDetailDto?> GetByIdAsync(int hsnId);
 
         Task ToggleActiveAsync(int hsnId, int updatedBy);

@@ -19,6 +19,33 @@ namespace UrbanNative.Admin.Services
             ) ?? Enumerable.Empty<AdminHSNListDto>();
         }
 
+        public async Task<IEnumerable<AdminHSNListDto>> GetFilterAsync(string? search,
+    int? gstId,
+    bool? isActive)
+        {
+            var query = new List<string>();
+
+            if (!string.IsNullOrWhiteSpace(search))
+                query.Add($"search={Uri.EscapeDataString(search)}");
+
+            if (gstId.HasValue)
+                query.Add($"gstId={gstId.Value}");
+
+            if (isActive.HasValue)
+                query.Add($"isActive={isActive.Value}");
+
+            var url = "api/admin/hsn";
+
+            if (query.Any())
+                url += "?" + string.Join("&", query);
+
+            return await _http.GetFromJsonAsync<IEnumerable<AdminHSNListDto>>(url)
+                   ?? Enumerable.Empty<AdminHSNListDto>();
+        }
+
+
+
+
         public async Task<AdminHSNDetailDto?> GetByIdAsync(int hsnId)
         {
             return await _http.GetFromJsonAsync<AdminHSNDetailDto>(

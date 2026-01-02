@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using UrbanNative.Admin.Services;
 using UrbanNative.Application.DTOs.AdminGST;
@@ -26,6 +26,12 @@ namespace UrbanNative.Admin.Pages.GST
         public async Task OnGetAsync()
         {
             GSTList = await _service.GetGSTAsync(GSTPercentage, IsActive);
+
+            foreach (var g in GSTList)
+            {
+                Console.WriteLine($"GST {g.GSTPercentage}% → HSNCount = {g.HSNCount}");
+            }
+
         }
 
         public async Task<IActionResult> OnPostToggleAsync(
@@ -33,6 +39,8 @@ namespace UrbanNative.Admin.Pages.GST
             bool isActive)
         {
             await _service.ToggleGSTAsync(gstId, isActive);
+          
+
             return RedirectToPage();
         }
     }

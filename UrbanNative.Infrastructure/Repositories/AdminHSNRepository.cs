@@ -49,16 +49,23 @@ namespace UrbanNative.Infrastructure.Repositories
                 commandType: CommandType.StoredProcedure
             );
         }
-
-        public async Task<IEnumerable<AdminHSNListDto>> GetAllAsync()
+        public async Task<IEnumerable<AdminHSNListDto>> GetFilterAsync(string? search, int? gstId,  bool? isActive)
         {
             using var conn = _connectionFactory.CreateConnection();
 
             return await conn.QueryAsync<AdminHSNListDto>(
-                "sp_HSN_GetAll",
+                "sp_AdminHSN_GetAll",
+                new
+                {
+                    Search = search,
+                    GSTId = gstId,
+                    IsActive = isActive
+                },
                 commandType: CommandType.StoredProcedure
             );
         }
+
+     
 
         public async Task<AdminHSNDetailDto?> GetByIdAsync(int hsnId)
         {

@@ -20,12 +20,15 @@ namespace UrbanNative.Api.Controllers
         // ========================
         // GET: List all HSNs
         // ========================
+        
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(string? search,int? gstId,bool? isActive)
         {
-            var result = await _hsnRepository.GetAllAsync();
+            var result = await _hsnRepository.GetFilterAsync(search,gstId,     isActive  );
+
             return Ok(result);
         }
+
 
         // ========================
         // GET: HSN by Id

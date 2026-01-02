@@ -12,5 +12,10 @@
         public string Source { get; set; }
         public string? GovtGSTCode { get; set; }
         public bool IsActive { get; set; }
+        // 🔹 NEW (STEP-2)
+        public int HSNCount { get; set; }
     }
+
+   
+
 }
