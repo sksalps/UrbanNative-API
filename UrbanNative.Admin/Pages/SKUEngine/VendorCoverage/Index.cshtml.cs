@@ -26,11 +26,9 @@ namespace UrbanNative.Admin.Pages.SKUEngine.VendorCoverage
         // =========================
         // View Models
         // =========================
-        public ProductSkuCoverageHeaderDto ProductHeader { get; set; }
-            = new();
+        public ProductSkuCoverageHeaderDto ProductHeader { get; set; }          = new();
 
-        public List<AdminVendorSkuCoverageDto> Vendors { get; set; }
-            = new();
+        public List<AdminVendorSkuCoverageDto> Vendors { get; set; }            = new();
 
         // =========================
         // GET

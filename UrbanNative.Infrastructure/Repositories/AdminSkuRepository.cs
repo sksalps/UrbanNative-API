@@ -110,9 +110,9 @@ namespace UrbanNative.Infrastructure.Repository
                 commandType: CommandType.StoredProcedure
             );
         }
-        public async Task<List<VendorSkuCoverageDetailDto>> GetVendorCoverageDetailAsync(
-            int productId,
-            int vendorId)
+
+        // =========================Variant & Value of a SKU============================
+        public async Task<List<VendorSkuCoverageDetailDto>> GetVendorCoverageDetailAsync(int productId, int vendorId)
         {
             using var conn = _connectionFactory.CreateConnection();
 
@@ -129,11 +129,7 @@ namespace UrbanNative.Infrastructure.Repository
 
             foreach (var row in list)
             {
-                row.DisplayText = DecodeSignature(
-                    row.ValueSignature,
-                    variantNames,
-                    valueNames
-                );
+                row.DisplayText = DecodeSignature( row.ValueSignature,   variantNames,  valueNames         );
             }
 
             return list; // 👈 List<T>, not IEnumerable<T>
@@ -179,7 +175,7 @@ namespace UrbanNative.Infrastructure.Repository
             var rows = await conn.QueryAsync<(int VariantValueID, string ValueName)>(sql);
             return rows.ToDictionary(x => x.VariantValueID, x => x.ValueName);
         }
-
+        // =========================Variant Value End============================
 
     }
 }

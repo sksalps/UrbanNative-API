@@ -24,6 +24,7 @@
             <th>Vendor</th>
             <th>Stock</th>
             <th>Status</th>
+            <th>Logs</th>
         </tr>
     </thead>
     <tbody>
@@ -31,13 +32,36 @@
         {
             <tr>
                 <td>@sku.SKUId</td>
+
                 <td>@(sku.VariantSignature ?? "-")</td>
+                
                 <td>@sku.VendorName</td>
-                <td>@sku.Stock</td>
+                <td>
+                    <a asp-page="SkuInventoryLogs"
+                       asp-route-skuId="@sku.SKUId">
+                        <i class="badge bg-light text-dark"></i>
+                        <span class="badge bg-light text-dark">
+                            <i class="bi bi-box-seam"></i>
+                            @sku.Stock
+                        </span>
+                    </a>
+                    
+                 </td>
+
                 <td>
                     <span class="badge bg-@(sku.IsActive ? "success" : "secondary")">
                         @(sku.IsActive ? "Active" : "Inactive")
                     </span>
+                </td>
+                <td> 
+                    <a asp-page="SkuInventoryLogs"
+                       asp-route-skuId="@sku.SKUId">
+                        <span class="bi bi-activity">
+                            <i class="bi bi-box-seam"></i>
+                            Logs
+                        </span>
+                    </a>
+
                 </td>
             </tr>
         }

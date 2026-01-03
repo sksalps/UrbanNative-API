@@ -1,3 +1,21 @@
+Part-13: Confirmation — Is your understanding correct?
+YES. Fully correct. No correction needed. Regarding below tables
+
+VariantMaster =>	Table store Color Size Memory type of feature based variants. 
+VariantValues =>	Table store the variant master value like color may have 
+					multiple values like Red Green Blue. 
+VariantSets	=>		Name of Variant set, this is only name going to use with product variety
+VariantInsideVariantSet =>Now assign Variant (from variant master) inside the variant set name
+Above four table is only store master value
+
+VariantSetCategories =>	Now link the VariantSet to categories, to create the product variant of the product based on variant set properties. Variant set will select as per category of the product.
+
+ProductSKUVariantValues => This table store variants of a particular product which can be exist physically with value like Color (Variant) Black (value) Size (Variant) M (value). this combination make a SKU of this product 
+
+ProductSKUValueSignature => Color [1] (Variant) Black[1] (value) Size [2] (Variant) M [1] (value) means 1:1|2:1|
+ProductSKUs => Stock of a Variant based SKU
+
+
 Products
 ProductID	int	Unchecked
 CategoryID	int	Unchecked
@@ -91,6 +109,7 @@ CreatedAt	datetime2(7)	Unchecked
 UpdatedBy	int	Checked
 UpdatedAt	datetime2(7)	Checked
 		
+ProductSKU
 
 ProductSKUImages
 ProductImageID	int	Unchecked

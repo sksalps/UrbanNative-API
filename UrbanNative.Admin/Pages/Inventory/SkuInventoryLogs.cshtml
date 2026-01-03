@@ -1,0 +1,109 @@
+﻿@page
+@model UrbanNative.Admin.Pages.Inventory.SkuInventoryLogsModel
+
+@{
+    ViewData["Title"] = "SKU Inventory Logs";
+}
+
+<h3>SKU Inventory Logs</h3>
+
+<!-- ================= FILTER BAR ================= -->
+<form method="get" class="row g-2 mb-3">
+    <input type="hidden" name="SkuId" value="@Model.SkuId" />
+
+    <div class="col-md-3">
+        <label>From</label>
+        <input type="date"
+               class="form-control"
+               name="FromDate"
+               value="@Model.FromDate.ToString("yyyy-MM-dd")" />
+    </div>
+
+    <div class="col-md-3">
+        <label>To</label>
+        <input type="date"
+               class="form-control"
+               name="ToDate"
+               value="@Model.ToDate.ToString("yyyy-MM-dd")" />
+    </div>
+
+    <div class="col-md-2 d-flex align-items-end">
+        <button class="btn btn-primary w-100">Apply</button>
+    </div>
+
+    @if (Model.Report?.Logs.Any() == true)
+    {
+        <div class="col-md-2 d-flex align-items-end">
+            <a class="btn btn-outline-success w-100"
+               asp-page-handler="DownloadCsv"
+               asp-route-skuId="@Model.SkuId"
+               asp-route-fromDate="@Model.FromDate"
+               asp-route-toDate="@Model.ToDate">
+                <i class="bi bi-download"></i> CSV
+            </a>
+        </div>
+    }
+</form>
+
+<!-- ================= PRODUCT SUMMARY HEADER ================= -->
+@if (Model.Report != null)
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title mb-2">@Model.Report.ProductName</h5>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <strong>Vendor:</strong> @Model.Report.VendorName
+                </div>
+                <div class="col-md-4">
+                    <strong>Variant:</strong>
+                    @(Model.Report.VariantSignature ?? "N/A")
+                </div>
+                <div class="col-md-4">
+                    <strong>Opening Stock:</strong> @Model.Report.OpeningStock |
+                    <strong>Closing Stock:</strong> @Model.Report.ClosingStock
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- ================= LOG TABLE ================= -->
+@if (Model.Report?.Logs.Any() == true)
+{
+    <table class="table table-bordered table-hover">
+        <thead class="table-light">
+            <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Qty</th>
+                <th>Old</th>
+                <th>New</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var log in Model.Report.Logs)
+            {
+                <tr>
+                    <td>@log.CreatedAt.ToString("dd-MMM-yyyy")</td>
+                    <td>@log.ChangeType</td>
+                    <td>@log.Quantity</td>
+                    <td>@log.OldStock</td>
+                    <td>@log.NewStock</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">
+        No inventory movements found for selected period.
+    </div>
+}
+
+<a asp-page="InventoryDetails"
+   class="btn btn-secondary">
+    ← Back
+</a>

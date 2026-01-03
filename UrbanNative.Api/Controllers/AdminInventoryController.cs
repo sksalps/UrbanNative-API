@@ -10,10 +10,11 @@ namespace UrbanNative.Api.Controllers
     public class AdminInventoryController : ControllerBase
     {
         private readonly IAdminInventoryRepository _inventoryRepository;
-
-        public AdminInventoryController(IAdminInventoryRepository inventoryRepository)
+        private readonly IAdminInventoryLogRepository _logRepository;
+        public AdminInventoryController(IAdminInventoryRepository inventoryRepository, IAdminInventoryLogRepository logRepository)
         {
             _inventoryRepository = inventoryRepository;
+            _logRepository = logRepository;
         }
 
         // =================================================
@@ -60,5 +61,20 @@ namespace UrbanNative.Api.Controllers
 
             return Ok(skus);
         }
+
+        // =================================================
+        // GET: Inventory SKU Log Period
+        // =================================================
+        
+        [HttpGet("{skuId:int}/logs")]
+        public async Task<IActionResult> GetSkuLogs(  int skuId,    [FromQuery] DateTime fromDate,   [FromQuery] DateTime toDate)
+        {
+            var result = await _logRepository.GetLogsBySkuPeriodAsync(
+                skuId, fromDate, toDate);
+
+            return Ok(result);
+        }
+
+
     }
 }

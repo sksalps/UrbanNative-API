@@ -1,13 +1,13 @@
-﻿using UrbanNative.Api.Services;
-using UrbanNative.Infrastructure.Database;
-using UrbanNative.Infrastructure;
-using UrbanNative.Application.Interfaces;
-using UrbanNative.Infrastructure.Repositories;
-
-
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using UrbanNative.Api.Services;
+using UrbanNative.Application.GlobalCall.VariantValueSignature;
+using UrbanNative.Application.Interfaces;
+using UrbanNative.Infrastructure;
+using UrbanNative.Infrastructure.Caching;
+using UrbanNative.Infrastructure.Database;
+using UrbanNative.Infrastructure.Repositories;
 
 
 
@@ -49,6 +49,9 @@ builder.Services.AddScoped<IInventoryService, InventoryService>();
 
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 builder.Services.AddScoped<IAdminNotificationRepository, AdminNotificationRepository>();
+
+// register loader
+builder.Services.AddScoped<VariantMasterCacheLoader>();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 
@@ -104,6 +107,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+// build provider temporarily
+using (var scope = builder.Services.BuildServiceProvider().CreateScope())
+{
+    var loader = scope.ServiceProvider
+        .GetRequiredService<VariantMasterCacheLoader>();
+
+    var cache = await loader.LoadAsync();
+
+    builder.Services.AddSingleton(cache);
+}
+// decoder
+builder.Services.AddSingleton<IVariantSignatureDecoder, VariantSignatureDecoder>();
 
 
 builder.Services.AddCors(options =>
@@ -141,6 +156,10 @@ app.UseHttpsRedirection();
 app.MapControllers();
 
 app.Run();
+
+
+
+
 
 
 

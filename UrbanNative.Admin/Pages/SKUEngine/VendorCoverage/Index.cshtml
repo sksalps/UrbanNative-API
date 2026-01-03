@@ -82,15 +82,12 @@
                         <strong>Vendor:</strong> <span id="modalVendorName"></span>
                     </div>
                 </div>
-                <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"></button>
+                <button type="button" class="btn-close"    data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <div id="vendorCoverageContent" class="text-center py-4 text-muted">
                     Select a vendor to view SKU coverage
                 </div>
-
             </div>
         </div>
     </div>
@@ -116,9 +113,7 @@
 
             // --------- HEADER CONTEXT ----------
             const productName = "@Model.ProductHeader.ProductName";
-            const vendorName = btn.closest("tr")
-                .querySelector("td:first-child")
-                .innerText;
+            const vendorName = btn.closest("tr").querySelector("td:first-child").innerText;
 
             document.getElementById("modalProductName").innerText = productName;
             document.getElementById("modalVendorName").innerText = vendorName;
