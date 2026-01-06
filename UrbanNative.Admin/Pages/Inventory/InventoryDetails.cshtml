@@ -33,8 +33,14 @@
             <tr>
                 <td>@sku.SKUId</td>
 
-                <td>@(sku.VariantSignature ?? "-")</td>
                 
+
+
+                <td>
+                    @(string.IsNullOrWhiteSpace(sku.VariantDisplay) ? "-" : sku.VariantDisplay)
+                </td>
+
+
                 <td>@sku.VendorName</td>
                 <td>
                     <a asp-page="SkuInventoryLogs"

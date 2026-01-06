@@ -18,7 +18,11 @@
         {
             <tr>
                 <td>@sku.SKUCode</td>
-                <td>@sku.ValueSignature</td>
+                <td>
+                    @(string.IsNullOrWhiteSpace(sku.VariantDisplay)
+                                    ? "-"
+                                    : sku.VariantDisplay)
+                </td>
                 <td>@sku.VendorName</td>
                 <td>
                     @(sku.IsActive ? "Active" : "Inactive")

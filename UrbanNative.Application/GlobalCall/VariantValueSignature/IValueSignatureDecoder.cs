@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UrbanNative.Application.GlobalCall.VariantValueSignature
 {
-    public interface IVariantSignatureDecoder
+    public interface IValueSignatureDecoder
     {
         string Decode(string? valueSignature);
     }

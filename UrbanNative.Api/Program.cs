@@ -117,8 +117,6 @@ using (var scope = builder.Services.BuildServiceProvider().CreateScope())
 
     builder.Services.AddSingleton(cache);
 }
-// decoder
-builder.Services.AddSingleton<IVariantSignatureDecoder, VariantSignatureDecoder>();
 
 
 builder.Services.AddCors(options =>

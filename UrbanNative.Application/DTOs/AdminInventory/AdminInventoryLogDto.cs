@@ -10,22 +10,36 @@
         public DateTime CreatedAt { get; set; }
         public int? CreatedBy { get; set; }
 
-        public string? VariantSignature { get; set; }
+        public string? ValueSignature { get; set; }
         public string ProductName { get; set; } = null!;
         public string VendorName { get; set; } = null!;
     }
 
     public class AdminInventoryLogPeriodResultDto
     {
-        public int OpeningStock { get; set; }
-        public int ClosingStock { get; set; }
+        // 🔹 Header (SINGLE object)
+        public AdminInventoryLogHeaderDto Header { get; set; }
+            = new AdminInventoryLogHeaderDto();
 
+        // 🔹 Logs
         public IEnumerable<AdminInventoryLogDto> Logs { get; set; }
             = Enumerable.Empty<AdminInventoryLogDto>();
-        public string ProductName { get; set; } = string.Empty;
-        public string VendorName { get; set; } = string.Empty;
-        public string? VariantSignature { get; set; }
+    }
 
+
+
+    public class AdminInventoryLogHeaderDto
+    {
+        public string ProductName { get; set; } = "";
+        public string VendorName { get; set; } = "";
+
+        public string? ValueSignature { get; set; }
+
+        // 🔹 HUMAN READABLE
+        public string VariantDisplay { get; set; } = "";
+
+        public int OpeningStock { get; set; }
+        public int ClosingStock { get; set; }
     }
 
 }

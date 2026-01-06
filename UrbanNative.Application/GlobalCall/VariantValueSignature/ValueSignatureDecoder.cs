@@ -1,21 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UrbanNative.Application.GlobalCall.VariantValueSignature
+﻿namespace UrbanNative.Application.GlobalCall.VariantValueSignature
 {
-    public class VariantSignatureDecoder : IVariantSignatureDecoder
+    public static class ValueSignatureDecoder
     {
-        private readonly VariantMasterCache _cache;
-
-        public VariantSignatureDecoder(VariantMasterCache cache)
-        {
-            _cache = cache;
-        }
-
-        public string Decode(string? signature)
+        public static string Decode(
+            string? signature,
+            Dictionary<int, string> variantNames,
+            Dictionary<int, string> valueNames)
         {
             if (string.IsNullOrWhiteSpace(signature))
                 return string.Empty;
@@ -31,8 +21,8 @@ namespace UrbanNative.Application.GlobalCall.VariantValueSignature
                 if (!int.TryParse(ids[0], out var variantId)) continue;
                 if (!int.TryParse(ids[1], out var valueId)) continue;
 
-                if (!_cache.VariantNames.TryGetValue(variantId, out var variantName)) continue;
-                if (!_cache.VariantValueNames.TryGetValue(valueId, out var valueName)) continue;
+                if (!variantNames.TryGetValue(variantId, out var variantName)) continue;
+                if (!valueNames.TryGetValue(valueId, out var valueName)) continue;
 
                 readable.Add($"{variantName}: {valueName}");
             }
@@ -40,5 +30,4 @@ namespace UrbanNative.Application.GlobalCall.VariantValueSignature
             return string.Join(", ", readable);
         }
     }
-
 }

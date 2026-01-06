@@ -32,13 +32,17 @@ namespace UrbanNative.Application.DTOs.AdminInventory
     public class AdminInventorySkuDto
     {
         public int SKUId { get; set; }
-        public string VendorName { get; set; } = null!;
+
+        // 🔒 AUTHORITATIVE SKU IDENTITY
+        public string? ValueSignature { get; set; }
+        public string VariantDisplay { get; set; } = "";
+
         public int Stock { get; set; }
         public bool IsActive { get; set; }
-
-        public string? VariantSignature { get; set; }
+        public string VendorName { get; set; } = null!;
     }
-    
+
+
 }
 
 

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using UrbanNative.Admin.Services;
 using UrbanNative.Application.DTOs.AdminInventory;
@@ -15,6 +15,8 @@ namespace UrbanNative.Admin.Pages.Inventory
             _logService = logService;
         }
 
+        // ================= QUERY PARAMS =================
+
         [BindProperty(SupportsGet = true)]
         public int SkuId { get; set; }
 
@@ -24,11 +26,15 @@ namespace UrbanNative.Admin.Pages.Inventory
         [BindProperty(SupportsGet = true)]
         public DateTime ToDate { get; set; }
 
-        public AdminInventoryLogPeriodResultDto? Report { get; set; }
+        // ================= RESULT =================
+
+        public AdminInventoryLogPeriodResultDto? Report { get; private set; }
+
+        // ================= PAGE LOAD =================
 
         public async Task<IActionResult> OnGetAsync()
         {
-            // Default = current month
+            // 🔹 Default period = current month
             if (FromDate == default || ToDate == default)
             {
                 var now = DateTime.Now;
@@ -37,23 +43,23 @@ namespace UrbanNative.Admin.Pages.Inventory
             }
 
             Report = await _logService.GetSkuLogsByPeriodAsync(
-                SkuId, FromDate, ToDate);
+                SkuId,
+                FromDate,
+                ToDate
+            );
 
-            // Populate header summary from first log
-            var firstLog = Report?.Logs.FirstOrDefault();
-            if (firstLog != null)
-            {
-                Report!.ProductName = firstLog.ProductName;
-                Report.VendorName = firstLog.VendorName;
-                Report.VariantSignature = firstLog.VariantSignature;
-            }
+            if (Report == null)
+                return NotFound();
 
             return Page();
         }
 
         // ================= CSV EXPORT =================
+
         public IActionResult OnGetDownloadCsv(
-            int skuId, DateTime fromDate, DateTime toDate)
+            int skuId,
+            DateTime fromDate,
+            DateTime toDate)
         {
             if (Report == null || !Report.Logs.Any())
                 return BadRequest("No data to export");
@@ -75,7 +81,7 @@ namespace UrbanNative.Admin.Pages.Inventory
             return File(
                 Encoding.UTF8.GetBytes(sb.ToString()),
                 "text/csv",
-                $"SKU_{skuId}_InventoryLogs.csv"
+                $"SKU_{skuId}_InventoryLogs_{fromDate:yyyyMMdd}_{toDate:yyyyMMdd}.csv"
             );
         }
     }

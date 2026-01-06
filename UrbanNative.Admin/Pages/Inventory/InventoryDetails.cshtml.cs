@@ -2,12 +2,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using UrbanNative.Admin.Services;
 using UrbanNative.Application.DTOs.AdminInventory;
+using UrbanNative.Application.GlobalCall.VariantValueSignature;
 
 namespace UrbanNative.Admin.Pages.Inventory
 {
     public class InventoryDetailsModel : PageModel
     {
         private readonly IAdminInventoryService _inventoryService;
+
 
         public InventoryDetailsModel(IAdminInventoryService inventoryService)
         {

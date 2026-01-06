@@ -6,6 +6,8 @@
 }
 
 <h3>SKU Inventory Logs</h3>
+<a asp-page="Index"   class="btn btn-secondary">   ← Back
+</a>
 
 <!-- ================= FILTER BAR ================= -->
 <form method="get" class="row g-2 mb-3">
@@ -50,19 +52,23 @@
 {
     <div class="card mb-3">
         <div class="card-body">
-            <h5 class="card-title mb-2">@Model.Report.ProductName</h5>
+            <h5 class="card-title mb-2">@Model.Report.Header.ProductName</h5>
 
             <div class="row">
                 <div class="col-md-4">
-                    <strong>Vendor:</strong> @Model.Report.VendorName
+                    <strong>Vendor:</strong> @Model.Report.Header.VendorName
                 </div>
                 <div class="col-md-4">
+                    
                     <strong>Variant:</strong>
-                    @(Model.Report.VariantSignature ?? "N/A")
+                    @(string.IsNullOrWhiteSpace(Model.Report.Header.VariantDisplay)
+                                    ? "-"
+                                    : Model.Report.Header.VariantDisplay)
+
                 </div>
                 <div class="col-md-4">
-                    <strong>Opening Stock:</strong> @Model.Report.OpeningStock |
-                    <strong>Closing Stock:</strong> @Model.Report.ClosingStock
+                    <strong>Opening Stock:</strong> @Model.Report.Header.OpeningStock |
+                    <strong>Closing Stock:</strong> @Model.Report.Header.ClosingStock
                 </div>
             </div>
         </div>
@@ -103,7 +109,4 @@ else
     </div>
 }
 
-<a asp-page="InventoryDetails"
-   class="btn btn-secondary">
-    ← Back
-</a>
+

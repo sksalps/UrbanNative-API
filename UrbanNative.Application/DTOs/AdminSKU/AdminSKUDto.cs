@@ -39,6 +39,7 @@ public class SkuSignatureDto
         public int SKUId { get; set; }
         public string SKUCode { get; set; } = string.Empty;
         public string ValueSignature { get; set; } = string.Empty;
+        public string VariantDisplay { get; set; } = "";
         public string VendorName { get; set; } = string.Empty;
         public bool IsActive { get; set; }
     }

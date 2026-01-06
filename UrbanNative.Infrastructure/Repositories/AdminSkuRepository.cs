@@ -71,18 +71,33 @@ namespace UrbanNative.Infrastructure.Repository
             return result.ToList();
         }
 
+
         public async Task<List<ProductSkuDetailDto>> GetProductSkusAsync(int productId)
         {
             using var conn = _connectionFactory.CreateConnection();
 
-            var result = await conn.QueryAsync<ProductSkuDetailDto>(
+            var variantNames = await GetVariantNamesAsync(conn);
+            var valueNames = await GetVariantValueNamesAsync(conn);
+
+            var result = (await conn.QueryAsync<ProductSkuDetailDto>(
                 "SP_AdminSKU_GetProductSkus",
                 new { ProductID = productId },
                 commandType: CommandType.StoredProcedure
-            );
+            )).ToList();
 
-            return result.ToList();
+            foreach (var sku in result)
+            {
+                sku.VariantDisplay =
+                    DecodeSignature(
+                        sku.ValueSignature,
+                        variantNames,
+                        valueNames
+                    );
+            }
+
+            return result;
         }
+
 
         public async Task<List<AdminVendorSkuCoverageDto>> GetVendorCoverageAsync(int productId,bool includeInactiveVendors)
         {

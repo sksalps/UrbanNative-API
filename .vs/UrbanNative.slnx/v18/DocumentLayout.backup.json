@@ -3,56 +3,28 @@
   "WorkspaceRootPath": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.admin\\pages\\inventory\\inventorydetails.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|solutionrelative:urbannative.admin\\pages\\inventory\\inventorydetails.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.admin\\pages\\inventory\\inventorydetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|solutionrelative:urbannative.admin\\pages\\inventory\\inventorydetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\globalcall\\variantvaluesignature\\variantmastercache.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\globalcall\\variantvaluesignature\\variantmastercache.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.admin\\pages\\inventory\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|solutionrelative:urbannative.admin\\pages\\inventory\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.admin\\pages\\skuengine\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|solutionrelative:urbannative.admin\\pages\\skuengine\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.admin\\pages\\skuengine\\vendorcoverage\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|solutionrelative:urbannative.admin\\pages\\skuengine\\vendorcoverage\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CA4A5139-0EC7-5A64-B20F-3729BD95A448}|UrbanNative.Api\\UrbanNative.Api.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CA4A5139-0EC7-5A64-B20F-3729BD95A448}|UrbanNative.Api\\UrbanNative.Api.csproj|solutionrelative:urbannative.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FA427025-7986-0D14-9B0E-52112EF7A820}|UrbanNative.Infrastructure\\UrbanNative.Infrastructure.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.infrastructure\\caching\\variantmastercacheloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FA427025-7986-0D14-9B0E-52112EF7A820}|UrbanNative.Infrastructure\\UrbanNative.Infrastructure.csproj|solutionrelative:urbannative.infrastructure\\caching\\variantmastercacheloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\globalcall\\variantvaluesignature\\ivariantsignaturedecoder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\globalcall\\variantvaluesignature\\ivariantsignaturedecoder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\urbannative.application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\urbannative.application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.admin\\pages\\skuengine\\productskus.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|solutionrelative:urbannative.admin\\pages\\skuengine\\productskus.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FA427025-7986-0D14-9B0E-52112EF7A820}|UrbanNative.Infrastructure\\UrbanNative.Infrastructure.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.infrastructure\\repositories\\adminskurepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FA427025-7986-0D14-9B0E-52112EF7A820}|UrbanNative.Infrastructure\\UrbanNative.Infrastructure.csproj|solutionrelative:urbannative.infrastructure\\repositories\\adminskurepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CA4A5139-0EC7-5A64-B20F-3729BD95A448}|UrbanNative.Api\\UrbanNative.Api.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.api\\controllers\\adminproductskucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CA4A5139-0EC7-5A64-B20F-3729BD95A448}|UrbanNative.Api\\UrbanNative.Api.csproj|solutionrelative:urbannative.api\\controllers\\adminproductskucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\dtos\\adminsku\\adminskudto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\dtos\\adminsku\\adminskudto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.admin\\pages\\skuengine\\vendorcoverage\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|solutionrelative:urbannative.admin\\pages\\skuengine\\vendorcoverage\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FA427025-7986-0D14-9B0E-52112EF7A820}|UrbanNative.Infrastructure\\UrbanNative.Infrastructure.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.infrastructure\\repositories\\admininventoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FA427025-7986-0D14-9B0E-52112EF7A820}|UrbanNative.Infrastructure\\UrbanNative.Infrastructure.csproj|solutionrelative:urbannative.infrastructure\\repositories\\admininventoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\dtos\\admininventory\\admininventorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\dtos\\admininventory\\admininventorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.admin\\pages\\inventory\\inventorydetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{832F4330-9322-F691-81F5-F9414365389D}|UrbanNative.Admin\\UrbanNative.Admin.csproj|solutionrelative:urbannative.admin\\pages\\inventory\\inventorydetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -62,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -74,171 +46,80 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "InventoryDetails.cshtml.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\Inventory\\InventoryDetails.cshtml.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Admin\\Pages\\Inventory\\InventoryDetails.cshtml.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\Inventory\\InventoryDetails.cshtml.cs",
-              "RelativeToolTip": "UrbanNative.Admin\\Pages\\Inventory\\InventoryDetails.cshtml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-03T18:46:06.665Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "VariantMasterCache.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\GlobalCall\\VariantValueSignature\\VariantMasterCache.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Application\\GlobalCall\\VariantValueSignature\\VariantMasterCache.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\GlobalCall\\VariantValueSignature\\VariantMasterCache.cs",
-              "RelativeToolTip": "UrbanNative.Application\\GlobalCall\\VariantValueSignature\\VariantMasterCache.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-03T18:07:19.516Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\SKUEngine\\VendorCoverage\\Index.cshtml",
-              "RelativeDocumentMoniker": "UrbanNative.Admin\\Pages\\SKUEngine\\VendorCoverage\\Index.cshtml",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\SKUEngine\\VendorCoverage\\Index.cshtml",
-              "RelativeToolTip": "UrbanNative.Admin\\Pages\\SKUEngine\\VendorCoverage\\Index.cshtml",
-              "ViewState": "AgIAAEQAAABA2szMzMwXwIQAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-03T17:05:53.118Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "InventoryDetails.cshtml",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\Inventory\\InventoryDetails.cshtml",
-              "RelativeDocumentMoniker": "UrbanNative.Admin\\Pages\\Inventory\\InventoryDetails.cshtml",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\Inventory\\InventoryDetails.cshtml",
-              "RelativeToolTip": "UrbanNative.Admin\\Pages\\Inventory\\InventoryDetails.cshtml",
-              "ViewState": "AgIAABoAAACAmJmZmZkOwCIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-03T14:02:02.058Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\SKUEngine\\Index.cshtml",
-              "RelativeDocumentMoniker": "UrbanNative.Admin\\Pages\\SKUEngine\\Index.cshtml",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\SKUEngine\\Index.cshtml",
-              "RelativeToolTip": "UrbanNative.Admin\\Pages\\SKUEngine\\Index.cshtml",
-              "ViewState": "AgIAABQAAADANDMzM7MSwCcAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-03T18:26:47.091Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\Inventory\\Index.cshtml",
-              "RelativeDocumentMoniker": "UrbanNative.Admin\\Pages\\Inventory\\Index.cshtml",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\Inventory\\Index.cshtml",
-              "RelativeToolTip": "UrbanNative.Admin\\Pages\\Inventory\\Index.cshtml",
-              "ViewState": "AgIAACMAAACAPDMzMzMbwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-03T18:29:14.315Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Program.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\Program.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Api\\Program.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\Program.cs",
-              "RelativeToolTip": "UrbanNative.Api\\Program.cs",
-              "ViewState": "AgIAAGwAAAAA+szMzEwewH8AAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-03T18:15:40.45Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "VariantMasterCacheLoader.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Infrastructure\\Caching\\VariantMasterCacheLoader.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Infrastructure\\Caching\\VariantMasterCacheLoader.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Infrastructure\\Caching\\VariantMasterCacheLoader.cs",
-              "RelativeToolTip": "UrbanNative.Infrastructure\\Caching\\VariantMasterCacheLoader.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-03T18:14:02.203Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "IVariantSignatureDecoder.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\GlobalCall\\VariantValueSignature\\IVariantSignatureDecoder.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Application\\GlobalCall\\VariantValueSignature\\IVariantSignatureDecoder.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\GlobalCall\\VariantValueSignature\\IVariantSignatureDecoder.cs",
-              "RelativeToolTip": "UrbanNative.Application\\GlobalCall\\VariantValueSignature\\IVariantSignatureDecoder.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-03T18:06:36.51Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "UrbanNative.Application",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\UrbanNative.Application.csproj",
-              "RelativeDocumentMoniker": "UrbanNative.Application\\UrbanNative.Application.csproj",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\UrbanNative.Application.csproj",
-              "RelativeToolTip": "UrbanNative.Application\\UrbanNative.Application.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-01-03T18:05:08.649Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
               "Title": "AdminSkuRepository.cs",
               "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Infrastructure\\Repositories\\AdminSkuRepository.cs",
               "RelativeDocumentMoniker": "UrbanNative.Infrastructure\\Repositories\\AdminSkuRepository.cs",
               "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Infrastructure\\Repositories\\AdminSkuRepository.cs",
               "RelativeToolTip": "UrbanNative.Infrastructure\\Repositories\\AdminSkuRepository.cs",
-              "ViewState": "AgIAAKYAAAAAAAAAAAAcwLIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEQAAAAAAgAAAAD0v0kAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-03T17:43:03.716Z",
+              "WhenOpened": "2026-01-06T21:49:35.579Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "AdminProductSKUController.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\Controllers\\AdminProductSKUController.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Api\\Controllers\\AdminProductSKUController.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\Controllers\\AdminProductSKUController.cs",
-              "RelativeToolTip": "UrbanNative.Api\\Controllers\\AdminProductSKUController.cs",
-              "ViewState": "AgIAAEcAAAAA08zMzIwuwFEAAAAyAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "AdminSKUDto.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\DTOs\\AdminSKU\\AdminSKUDto.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Application\\DTOs\\AdminSKU\\AdminSKUDto.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\DTOs\\AdminSKU\\AdminSKUDto.cs",
+              "RelativeToolTip": "UrbanNative.Application\\DTOs\\AdminSKU\\AdminSKUDto.cs",
+              "ViewState": "AgIAAB4AAACAAQAAAEAmwCgAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-03T17:40:30.024Z",
+              "WhenOpened": "2026-01-06T21:47:29.383Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Index.cshtml.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\SKUEngine\\VendorCoverage\\Index.cshtml.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Admin\\Pages\\SKUEngine\\VendorCoverage\\Index.cshtml.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\SKUEngine\\VendorCoverage\\Index.cshtml.cs",
-              "RelativeToolTip": "UrbanNative.Admin\\Pages\\SKUEngine\\VendorCoverage\\Index.cshtml.cs",
-              "ViewState": "AgIAACAAAABgzszMzEwwwFIAAAA8AAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "ProductSKUs.cshtml",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\SKUEngine\\ProductSKUs.cshtml",
+              "RelativeDocumentMoniker": "UrbanNative.Admin\\Pages\\SKUEngine\\ProductSKUs.cshtml",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\SKUEngine\\ProductSKUs.cshtml",
+              "RelativeToolTip": "UrbanNative.Admin\\Pages\\SKUEngine\\ProductSKUs.cshtml",
+              "ViewState": "AgIAAAUAAACAAgAAAAABwBwAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-06T21:46:14.845Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AdminInventoryDto.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\DTOs\\AdminInventory\\AdminInventoryDto.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Application\\DTOs\\AdminInventory\\AdminInventoryDto.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\DTOs\\AdminInventory\\AdminInventoryDto.cs",
+              "RelativeToolTip": "UrbanNative.Application\\DTOs\\AdminInventory\\AdminInventoryDto.cs",
+              "ViewState": "AgIAABkAAABAmpmZmZk6wCUAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-03T17:06:05.111Z",
+              "WhenOpened": "2026-01-06T21:44:47.37Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AdminInventoryRepository.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Infrastructure\\Repositories\\AdminInventoryRepository.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Infrastructure\\Repositories\\AdminInventoryRepository.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Infrastructure\\Repositories\\AdminInventoryRepository.cs",
+              "RelativeToolTip": "UrbanNative.Infrastructure\\Repositories\\AdminInventoryRepository.cs",
+              "ViewState": "AgIAAE4AAAAAFgAAAAABwFQAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T21:43:48.167Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "InventoryDetails.cshtml",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\Inventory\\InventoryDetails.cshtml",
+              "RelativeDocumentMoniker": "UrbanNative.Admin\\Pages\\Inventory\\InventoryDetails.cshtml",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Admin\\Pages\\Inventory\\InventoryDetails.cshtml",
+              "RelativeToolTip": "UrbanNative.Admin\\Pages\\Inventory\\InventoryDetails.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-06T21:43:27.433Z",
               "EditorCaption": ""
             }
           ]
