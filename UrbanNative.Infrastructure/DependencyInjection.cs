@@ -29,7 +29,8 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<IAdminCategoryHSNRepository, AdminCategoryHSNRepository>();
             services.AddScoped<IAdminInventoryRepository, AdminInventoryRepository>();
             services.AddScoped<IAdminInventoryLogRepository, AdminInventoryLogRepository>();
-
+            services.AddScoped<IAdminOrderRepository, AdminOrderRepository>();
+                
 
             return services;
         }

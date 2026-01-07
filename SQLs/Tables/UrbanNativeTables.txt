@@ -14,33 +14,7 @@ ProductSKUVariantValues => This table store variants of a particular product whi
 
 ProductSKUValueSignature => Color [1] (Variant) Black[1] (value) Size [2] (Variant) M [1] (value) means 1:1|2:1|
 ProductSKUs => Stock of a Variant based SKU
-
-
-Products
-ProductID	int	Unchecked
-CategoryID	int	Unchecked
-ProductName	varchar(200)	Unchecked
-MRP	decimal(10, 2)	Unchecked
-DiscountPrice	decimal(10, 2)	Checked
-Description	text	Checked
-Stock	int	Unchecked
-Status	bit	Checked
-CreatedAt	datetime	Checked
-VendorID	int	Unchecked
-IsPriceInclusive	bit	Checked
-GSTPercentage	decimal(5, 2)	Unchecked
-CGST	decimal(5, 2)	Checked
-SGST	decimal(5, 2)	Checked
-IGST	decimal(5, 2)	Checked
-ApprovalStatus	varchar(20)	Checked
-ApprovedBy	int	Checked
-ApprovedAt	datetime	Checked
-RejectedReason	nvarchar(500)	Checked
-IsActive	bit	Checked
-UpdatedAt	datetime	Checked
-HasVariants	bit	Unchecked
-ReturnPolicyID	int	Checked
-		
+	
 VariantMaster
 VariantID	int	Unchecked
 VariantName	nvarchar(100)	Unchecked
@@ -83,7 +57,51 @@ PolicyName	varchar(100)	Unchecked
 ReturnDays	int	Unchecked
 IsActive	bit	Unchecked
 CreatedAt	datetime	Unchecked
-Categories
+	
+
+CategoryHSNMapping
+CategoryHSNMappingId	int	Unchecked
+CategoryId	int	Unchecked
+HSNId	int	Unchecked
+CreatedBy	int	Unchecked
+CreatedAt	datetime2(7)	Unchecked
+UpdatedBy	int	Checked
+UpdatedAt	datetime2(7)	Checked
+		
+ProductSKUImages
+ProductImageID	int	Unchecked
+ProductID	int	Unchecked
+ProductVariantID	int	Checked
+ImageUrl	nvarchar(500)	Unchecked
+IsPrimary	bit	Unchecked
+SortOrder	int	Unchecked
+CreatedAt	datetime	Unchecked
+SKUId	int	Checked
+isActive	bit	Unchecked
+
+ProductSKUs
+SKUId	int	Unchecked
+ProductID	int	Unchecked
+SKUCode	nvarchar(100)	Unchecked
+Price	decimal(10, 2)	Unchecked
+DiscountPrice	decimal(10, 2)	Checked
+Stock	int	Unchecked
+ReorderLevel	int	Checked
+ReturnPolicyID	int	Checked
+IsActive	bit	Unchecked
+CreatedAt	datetime	Unchecked
+
+InventoryLogs
+LogID	int	Unchecked
+SKUId	int	Unchecked
+ChangeType	varchar(20)	Unchecked
+Quantity	int	Unchecked
+OldStock	int	Unchecked
+NewStock	int	Unchecked
+CreatedAt	datetime	Unchecked
+CreatedBy	int	Checked
+	
+Categories	
 CategoryID	int	Unchecked
 CategoryName	varchar(150)	Unchecked
 ImageURL	varchar(255)	Checked
@@ -98,40 +116,94 @@ UpdatedAt	datetime	Checked
 UpdatedBy	int	Checked
 CreatedBy	int	Checked
 ReturnPolicyID	int	Checked
-		
+SharedMargin	decimal(10, 2)	Unchecked
 
-CategoryHSNMapping
-CategoryHSNMappingId	int	Unchecked
-CategoryId	int	Unchecked
-HSNId	int	Unchecked
-CreatedBy	int	Unchecked
-CreatedAt	datetime2(7)	Unchecked
-UpdatedBy	int	Checked
-UpdatedAt	datetime2(7)	Checked
-		
-ProductSKU
-
-ProductSKUImages
-ProductImageID	int	Unchecked
+Products
 ProductID	int	Unchecked
-ProductVariantID	int	Checked
-ImageUrl	nvarchar(500)	Unchecked
-IsPrimary	bit	Unchecked
-SortOrder	int	Unchecked
-CreatedAt	datetime	Unchecked
-SKUId	int	Checked
-isActive	bit	Unchecked
-
-InventoryLogs
-LogID	int	Unchecked
-VariantSetID	int	Unchecked
-ChangeType	varchar(20)	Unchecked
-Quantity	int	Unchecked
-OldStock	int	Unchecked
-NewStock	int	Unchecked
+CategoryID	int	Unchecked
+ProductName	varchar(200)	Unchecked
+MRP	decimal(10, 2)	Unchecked
+DiscountPrice	decimal(10, 2)	Checked
+VendorSharedMargin	decimal(10, 2)	Unchecked
+Description	text	Checked
+Stock	int	Unchecked
+Status	bit	Checked
 CreatedAt	datetime	Checked
-CreatedBy	int	Checked
+VendorID	int	Unchecked
+IsPriceInclusive	bit	Checked
+GSTPercentage	decimal(5, 2)	Unchecked
+CGST	decimal(5, 2)	Checked
+SGST	decimal(5, 2)	Checked
+IGST	decimal(5, 2)	Checked
+ApprovalStatus	varchar(20)	Checked
+ApprovedBy	int	Checked
+ApprovedAt	datetime	Checked
+RejectedReason	nvarchar(500)	Checked
+IsActive	bit	Checked
+UpdatedAt	datetime	Checked
+HasVariants	bit	Unchecked
+ReturnPolicyID	int	Checked
 
+Orders
+OrderID	int	Unchecked
+OrderNo	nvarchar(50)	Unchecked
+UserID	int	Unchecked
+BillAddressID	int	Unchecked
+ShipAddressID	int	Unchecked
+SubTotalAmount	decimal(10, 2)	Unchecked
+GSTAmount	decimal(10, 2)	Unchecked
+WalletUsedAmount	decimal(10, 2)	Unchecked
+TotalAmount	decimal(10, 2)	Unchecked
+PayableAmount	decimal(10, 2)	Unchecked
+VendorSharedMargin	decimal(10, 2)	Unchecked
+PlatformCommission	decimal(10, 2)	Unchecked
+PaymentMode	varchar(20)	Unchecked
+PaymentStatus	varchar(20)	Unchecked
+PaymentTxnID	nvarchar(100)	Checked
+OrderStatus	varchar(30)	Unchecked
+CancelReason	nvarchar(300)	Checked
+CreatedAt	datetime	Unchecked
+UpdatedAt	datetime	Checked
+
+OrderItems
+OrderItemID	int	Unchecked
+OrderID	int	Unchecked
+ProductID	int	Unchecked
+SKUId	int	Unchecked
+VendorID	int	Unchecked
+ProductName	nvarchar(200)	Unchecked
+SKUCode	nvarchar(100)	Unchecked
+Quantity	int	Unchecked
+UnitPrice	decimal(10, 2)	Unchecked
+SubTotal	decimal(10, 2)	Unchecked
+HSNCode	nvarchar(20)	Unchecked
+CGSTPercent	decimal(5, 2)	Unchecked
+SGSTPercent	decimal(5, 2)	Unchecked
+IGSTPercent	decimal(5, 2)	Unchecked
+CGSTAmount	decimal(10, 2)	Unchecked
+SGSTAmount	decimal(10, 2)	Unchecked
+IGSTAmount	decimal(10, 2)	Unchecked
+GSTAmount	decimal(10, 2)	Unchecked
+ItemStatus	varchar(30)	Unchecked
+ReturnReason	nvarchar(300)	Checked
+CreatedAt	datetime	Unchecked
 		
-		
-		
+OrderShipments
+ShipmentID	int	Unchecked
+OrderID	int	Unchecked
+VendorID	int	Unchecked
+LogisticsProviderID	int	Unchecked
+TrackingNo	varchar(100)	Checked
+AWBLabelURL	varchar(255)	Checked
+ShipmentType	varchar(30)	Unchecked
+ShipmentStatus	varchar(30)	Unchecked
+ShippedAt	datetime	Checked
+DeliveredAt	datetime	Checked
+ReceivedBy	varchar(30)	Checked
+CreatedAt	datetime	Unchecked
+
+OrderShipmentDetailsID	int	Unchecked
+ShipmentID	int	Unchecked
+OrderItemID	int	Unchecked
+ShippedQuantity	int	Unchecked
+		Unchecked

@@ -1,4 +1,4 @@
-﻿
+﻿//Admin project for UrbanNative application Program.cs
 using UrbanNative.Admin.Security;
 using UrbanNative.Admin.Services;
 using UrbanNative.Application.Interfaces;
@@ -71,7 +71,7 @@ builder.Services.AddScoped<IAdminHSNService, AdminHSNService>();
 builder.Services.AddScoped<IAdminCategoryHSNService, AdminCategoryHSNService>();
 builder.Services.AddScoped<IAdminInventoryService, AdminInventoryService>();
 builder.Services.AddScoped<IAdminInventoryLogService, AdminInventoryLogService>();
-
+builder.Services.AddScoped<IAdminOrderService, AdminOrderService>();
 
 // register SqlHelpers example
 

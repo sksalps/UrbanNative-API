@@ -1,0 +1,31 @@
+﻿@page "{id:int}"
+@model UrbanNative.Admin.Pages.Orders.OrderDetailsModel
+
+<h3>Order @Model.Order.OrderNo</h3>
+
+<h5>Items</h5>
+<table class="table">
+    @foreach (var i in Model.Order.Items)
+    {
+        <tr>
+            <td>@i.ProductName</td>
+            <td>@i.SKUCode</td>
+            <td>@i.Quantity</td>
+            <td>@i.GSTAmount</td>
+            <td>@i.ItemStatus</td>
+        </tr>
+    }
+</table>
+
+<h5>Shipments</h5>
+<table class="table">
+    @foreach (var s in Model.Order.Shipments)
+    {
+        <tr>
+            <td>@s.ShipmentID</td>
+            <td>@s.TrackingNo</td>
+            <td>@s.ShipmentStatus</td>
+            <td>@s.ReceivedBy</td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,34 @@
+﻿@page
+@model UrbanNative.Admin.Pages.Orders.IndexModel
+
+<h3>Orders</h3>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Order No</th>
+            <th>Date</th>
+            <th>Total</th>
+            <th>Payable</th>
+            <th>Status</th>
+            <th>Shipments</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var o in Model.Orders)
+        {
+            <tr>
+                <td>@o.OrderNo</td>
+                <td>@o.CreatedAt</td>
+                <td>@o.TotalAmount</td>
+                <td>@o.PayableAmount</td>
+                <td>@o.OrderStatus</td>
+                <td>@o.ShipmentCount</td>
+                <td>
+                    <a asp-page="Details" asp-route-id="@o.OrderID">View</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

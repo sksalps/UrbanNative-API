@@ -37,15 +37,19 @@ WHERE tr.name = 'ProductVariantSet';
 ALTER TABLE ProductSKUImages
 DROP CONSTRAINT FK_ProductImages_ProductVariants;
 
-VariantMaster
-VariantValues
-VariantSets
-VariantSetVariants => VariantInsideVariantSet
-CategoryVariantSets => VariantSetCategories
+--For list the FK constraint from given tables
+SELECT 
+    fk.name AS FK_Name,
+    tp.name AS ParentTable,
+    tr.name AS ReferencedTable
+FROM sys.foreign_keys fk
+JOIN sys.tables tp ON fk.parent_object_id = tp.object_id
+JOIN sys.tables tr ON fk.referenced_object_id = tr.object_id
+WHERE tr.name IN ('Orders', 'OrderItems', 'OrderShipments');
 
-VariantInsideVariantSet
-VariantSetCategories
-VariantSets
+
+
+
 
 
 sp_AssignVariantToCategory removed
