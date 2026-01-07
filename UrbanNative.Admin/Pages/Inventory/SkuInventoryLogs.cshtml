@@ -36,13 +36,19 @@
     @if (Model.Report?.Logs.Any() == true)
     {
         <div class="col-md-2 d-flex align-items-end">
-            <a class="btn btn-outline-success w-100"
-               asp-page-handler="DownloadCsv"
+            
+
+
+            <a asp-page-handler="DownloadCsv"
                asp-route-skuId="@Model.SkuId"
-               asp-route-fromDate="@Model.FromDate"
-               asp-route-toDate="@Model.ToDate">
+               asp-route-fromDate="@Model.FromDate.ToString("yyyy-MM-dd")"
+               asp-route-toDate="@Model.ToDate.ToString("yyyy-MM-dd")"
+               onclick="showCsvToast()"
+               class="btn btn-outline-success">
                 <i class="bi bi-download"></i> CSV
             </a>
+
+
         </div>
     }
 </form>

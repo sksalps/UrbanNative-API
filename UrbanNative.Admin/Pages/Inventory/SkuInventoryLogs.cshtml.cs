@@ -56,18 +56,54 @@ namespace UrbanNative.Admin.Pages.Inventory
 
         // ================= CSV EXPORT =================
 
-        public IActionResult OnGetDownloadCsv(
-            int skuId,
-            DateTime fromDate,
-            DateTime toDate)
+        private static string Escape(string? value)
         {
-            if (Report == null || !Report.Logs.Any())
+            if (string.IsNullOrWhiteSpace(value))
+                return "";
+
+            if (value.Contains(',') || value.Contains('"'))
+                return $"\"{value.Replace("\"", "\"\"")}\"";
+
+            return value;
+        }
+
+
+        public async Task<IActionResult> OnGetDownloadCsvAsync( int skuId,    DateTime fromDate,    DateTime toDate)
+        {
+            if (skuId <= 0)
+                return BadRequest("Invalid SKU");
+
+
+            // 🔹 Always fetch fresh data (CSV is a new request)
+            var report = await _logService.GetSkuLogsByPeriodAsync(
+                skuId,
+                fromDate,
+                toDate
+            );
+
+
+
+            if (report == null || !report.Logs.Any())
                 return BadRequest("No data to export");
 
+            var h = report.Header;
             var sb = new StringBuilder();
+
+            // ================= CSV HEADER =================
+            sb.AppendLine($"Product,{Escape(h.ProductName)}");
+            sb.AppendLine($"Vendor,{Escape(h.VendorName)}");
+            sb.AppendLine($"Variant,{Escape(h.VariantDisplay)}");
+            sb.AppendLine($"From Date,{fromDate:yyyy-MM-dd}");
+            sb.AppendLine($"To Date,{toDate:yyyy-MM-dd}");
+            sb.AppendLine($"Opening Stock,{h.OpeningStock}");
+            sb.AppendLine($"Closing Stock,{h.ClosingStock}");
+            sb.AppendLine(); // empty line
+
+            // ================= TABLE HEADER =================
             sb.AppendLine("Date,ChangeType,Quantity,OldStock,NewStock");
 
-            foreach (var log in Report.Logs)
+            // ================= DATA =================
+            foreach (var log in report.Logs)
             {
                 sb.AppendLine(
                     $"{log.CreatedAt:yyyy-MM-dd}," +
@@ -78,11 +114,17 @@ namespace UrbanNative.Admin.Pages.Inventory
                 );
             }
 
+            var fileName =
+                $"SKU_{skuId}_InventoryLogs_" +
+                $"{fromDate:yyyyMMdd}_to_{toDate:yyyyMMdd}.csv";
+
             return File(
                 Encoding.UTF8.GetBytes(sb.ToString()),
                 "text/csv",
-                $"SKU_{skuId}_InventoryLogs_{fromDate:yyyyMMdd}_{toDate:yyyyMMdd}.csv"
+                fileName
             );
         }
+
+
     }
 }
