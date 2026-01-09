@@ -2,17 +2,90 @@
 @model UrbanNative.Admin.Pages.Orders.IndexModel
 
 <h3>Orders</h3>
+<div class="card card-body mb-3">
+<form method="get" class="mb-3">
 
-<table class="table table-bordered">
+    <!-- 🔹 Row 1: Text Inputs -->
+    <div class="row g-2 mb-2">
+        <div class="col-md-3">
+            <input name="OrderNo"
+                   value="@Model.Filter.OrderNo"
+                   class="form-control"
+                   placeholder="Order No" />
+        </div>
+        <div class="col-md-2">
+            <input name="UserID"
+                   value="@Model.Filter.UserID"
+                   class="form-control"
+                   placeholder="User ID" />
+        </div>
+
+        <div class="col-md-3">
+            <input name="VendorID"
+                   value="@Model.Filter.VendorID"
+                   class="form-control"
+                   placeholder="Vendor ID" />
+        </div>
+        <div class="col-md-2">
+            <input type="date"
+                   name="FromDate"
+                   value="@Model.Filter.FromDate?.ToString("yyyy-MM-dd")"
+                   class="form-control" />
+        </div>
+
+        <div class="col-md-2">
+            <input type="date"
+                   name="ToDate"
+                   value="@Model.Filter.ToDate?.ToString("yyyy-MM-dd")"
+                   class="form-control" />
+        </div>
+
+        
+    </div>
+
+    <!-- 🔹 Row 2: Dropdowns + Button -->
+    <div class="row g-2 align-items-end">
+        <div class="col-md-3">
+            <select name="PaymentStatus" class="form-select">
+                <option value="">Payment Status</option>
+                <option value="PAID" selected="@(Model.Filter.PaymentStatus == "PAID")">PAID</option>
+                <option value="PENDING" selected="@(Model.Filter.PaymentStatus == "PENDING")">PENDING</option>
+                <option value="FAILED" selected="@(Model.Filter.PaymentStatus == "FAILED")">FAILED</option>
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <select name="OrderStatus" class="form-select">
+                <option value="">Order Status</option>
+                <option value="PLACED" selected="@(Model.Filter.OrderStatus == "PLACED")">PLACED</option>
+                <option value="SHIPPED" selected="@(Model.Filter.OrderStatus == "SHIPPED")">SHIPPED</option>
+                <option value="DELIVERED" selected="@(Model.Filter.OrderStatus == "DELIVERED")">DELIVERED</option>
+                <option value="CANCELLED" selected="@(Model.Filter.OrderStatus == "CANCELLED")">CANCELLED</option>
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">
+                Filter
+            </button>
+        </div>
+    </div>
+
+</form>
+</div>
+
+<table class="table table-bordered table-hover">
     <thead>
         <tr>
             <th>Order No</th>
-            <th>Date</th>
+            <th>Order Date</th>
+            <th>User</th>
             <th>Total</th>
             <th>Payable</th>
+            <th>Payment</th>
             <th>Status</th>
             <th>Shipments</th>
-            <th></th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -20,13 +93,19 @@
         {
             <tr>
                 <td>@o.OrderNo</td>
-                <td>@o.CreatedAt</td>
+                <td>@o.CreatedAt.ToString("dd-MMM-yyyy")</td>
+                <td>@o.UserName (@o.UserID)</td> 
                 <td>@o.TotalAmount</td>
                 <td>@o.PayableAmount</td>
+                <td>@o.PaymentStatus</td>
                 <td>@o.OrderStatus</td>
-                <td>@o.ShipmentCount</td>
                 <td>
-                    <a asp-page="Details" asp-route-id="@o.OrderID">View</a>
+                    <a asp-page="Shipments" asp-route-orderId="@o.OrderID">
+                        @o.ShipmentCount
+                    </a>
+                </td>
+                <td>
+                    <a asp-page="OrderDetails" asp-route-orderId="@o.OrderID">View</a>
                 </td>
             </tr>
         }

@@ -171,6 +171,7 @@ OrderID	int	Unchecked
 ProductID	int	Unchecked
 SKUId	int	Unchecked
 VendorID	int	Unchecked
+VendorSharedMargin	decimal(10, 2)	Unchecked
 ProductName	nvarchar(200)	Unchecked
 SKUCode	nvarchar(100)	Unchecked
 Quantity	int	Unchecked
@@ -202,8 +203,51 @@ DeliveredAt	datetime	Checked
 ReceivedBy	varchar(30)	Checked
 CreatedAt	datetime	Unchecked
 
+OrderShipmentDetails
 OrderShipmentDetailsID	int	Unchecked
 ShipmentID	int	Unchecked
 OrderItemID	int	Unchecked
 ShippedQuantity	int	Unchecked
-		Unchecked
+
+AddressMaster
+AddressID	int	Unchecked
+EntityType	nvarchar(30)	Unchecked
+EntityID	int	Unchecked
+AddressLine1	nvarchar(200)	Unchecked
+AddressLine2	nvarchar(200)	Checked
+Landmark	nvarchar(150)	Checked
+CountryID	int	Unchecked
+StateID	int	Unchecked
+CityID	int	Unchecked
+Pincode	nvarchar(10)	Unchecked
+Latitude	decimal(10, 7)	Checked
+Longitude	decimal(10, 7)	Checked
+AddressType	nvarchar(30)	Unchecked
+IsPrimary	bit	Unchecked
+IsActive	bit	Unchecked
+CreatedAt	datetime2(7)	Unchecked
+UpdatedAt	datetime2(7)	Checked
+
+CountryMaster
+CountryID	int	Unchecked
+CountryCode	nvarchar(5)	Unchecked
+CountryName	nvarchar(100)	Unchecked
+IsActive	bit	Unchecked
+CreatedAt	datetime2(7)	Unchecked		
+
+StateMaster
+StateID	int	Unchecked
+CountryID	int	Unchecked
+StateName	nvarchar(100)	Unchecked
+StateCode	nvarchar(10)	Checked
+GSTCode	nvarchar(5)	Checked
+IsActive	bit	Unchecked
+CreatedAt	datetime2(7)	Unchecked
+
+CityMaster
+CityID	int	Unchecked
+StateID	int	Unchecked
+CityName	nvarchar(100)	Unchecked
+IsActive	bit	Unchecked
+CreatedAt	datetime2(7)	Unchecked
+		

@@ -5,6 +5,13 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Pages\NewFolder1\**" />
+    <Content Remove="Pages\NewFolder1\**" />
+    <EmbeddedResource Remove="Pages\NewFolder1\**" />
+    <None Remove="Pages\NewFolder1\**" />
+  </ItemGroup>
 <!-- 
   DO NOT disable RazorCompileOnBuild / Publish /false
   This breaks Razor Pages discovery and causes 404
@@ -22,11 +29,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UrbanNative.Application\UrbanNative.Application.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Pages\NewFolder1\" />
-    <Folder Include="Pages\NewFolder\" />
   </ItemGroup>
 </Project>
 

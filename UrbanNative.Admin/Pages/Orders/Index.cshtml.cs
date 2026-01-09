@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using UrbanNative.Admin.Models;
 using UrbanNative.Admin.Services;
 using UrbanNative.Application.DTOs.AdminOrders;
 
@@ -13,29 +14,21 @@ namespace UrbanNative.Admin.Pages.Orders
             _orderService = orderService;
         }
 
-
         public List<AdminOrderListDto> Orders { get; set; } = new();
+        public OrderFilterModel Filter { get; set; } = new();
 
-        // Optional filters (Phase-1 safe)
-        public DateTime? FromDate { get; set; }
-        public DateTime? ToDate { get; set; }
-        public string OrderStatus { get; set; }
+        public int TotalRecords { get; set; }
+        public int TotalPages =>
+            (int)Math.Ceiling((double)TotalRecords / Filter.PageSize);
 
-        public async Task OnGetAsync(
-            DateTime? fromDate,
-            DateTime? toDate,
-            string orderStatus
-        )
+        public async Task OnGetAsync(OrderFilterModel filter)
         {
-            FromDate = fromDate;
-            ToDate = toDate;
-            OrderStatus = orderStatus;
+            Filter = filter;
 
-            Orders = await _orderService.GetOrdersAsync(
-                fromDate,
-                toDate,
-                orderStatus
-            );
+            var result = await _orderService.GetOrdersAsync(filter);
+
+            Orders = result.Orders;
+            TotalRecords = result.TotalRecords;
         }
     }
 }

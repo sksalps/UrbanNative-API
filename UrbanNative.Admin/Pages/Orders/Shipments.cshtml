@@ -1,0 +1,63 @@
+﻿@page
+@model UrbanNative.Admin.Pages.Orders.ShipmentsModel
+
+<h3>Shipments – Order @Model.Data.Header.OrderNo</h3>
+
+<a asp-page="Index" class="btn btn-secondary mb-3">← Back to Orders</a>
+
+<!-- 🔹 HEADER -->
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="row mb-2">
+            <div class="col-md-4"><strong>User:</strong> @Model.Data.Header.UserName (@Model.Data.Header.UserID)</div>
+            <div class="col-md-4"><strong>Order Date:</strong> @Model.Data.Header.CreatedAt.ToString("dd-MMM-yyyy")</div>
+            <div class="col-md-4"><strong>Status:</strong> @Model.Data.Header.OrderStatus</div>
+        </div>
+
+        <div class="row mb-2">
+            <div class="col-md-4"><strong>Payment:</strong> @Model.Data.Header.PaymentStatus</div>
+            <div class="col-md-4"><strong>Total:</strong> ₹@Model.Data.Header.TotalAmount</div>
+            <div class="col-md-4"><strong>Payable:</strong> ₹@Model.Data.Header.PayableAmount</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <strong>Shipping Address:</strong><br />
+                @Model.Data.Header.ShipAddress
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 🔹 SHIPMENT GRID -->
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Shipment ID</th>
+            <th>Vendor</th>
+            <th>Logistics</th>
+            <th>Tracking No</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Received By</th>
+            <th>Shipped At</th>
+            <th>Delivered At</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model.Data.Shipments)
+        {
+            <tr>
+                <td>@s.ShipmentID</td>
+                <td>@s.VendorName (@s.VendorID)</td>
+                <td>@s.LogisticsProviderName</td>
+                <td>@s.TrackingNo</td>
+                <td>@s.ShipmentType</td>
+                <td>@s.ShipmentStatus</td>
+                <td>@s.ReceivedBy</td>
+                <td>@(s.ShippedAt?.ToString("dd-MMM-yyyy") ?? "-")</td>
+                <td>@(s.DeliveredAt?.ToString("dd-MMM-yyyy") ?? "-")</td>
+            </tr>
+        }
+    </tbody>
+</table>

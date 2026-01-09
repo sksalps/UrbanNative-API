@@ -1,4 +1,4 @@
-﻿using System.Net.Http.Json;
+﻿using UrbanNative.Admin.Models;
 using UrbanNative.Application.DTOs.AdminOrders;
 
 namespace UrbanNative.Admin.Services
@@ -12,36 +12,67 @@ namespace UrbanNative.Admin.Services
             _httpClient = httpClientFactory.CreateClient("ApiClient");
         }
 
-        public async Task<List<AdminOrderListDto>> GetOrdersAsync(
-    DateTime? fromDate,
-    DateTime? toDate,
-    string orderStatus)
+        
+        public async Task<AdminOrderPagedResultDto> GetOrdersAsync(OrderFilterModel filter)
         {
-            var query = new List<string>();
+            var queryParts = new List<string>();
 
-            if (fromDate.HasValue)
-                query.Add($"fromDate={Uri.EscapeDataString(fromDate.Value.ToString("O"))}");
+            if (!string.IsNullOrWhiteSpace(filter.OrderNo))
+                queryParts.Add($"orderNo={Uri.EscapeDataString(filter.OrderNo)}");
 
-            if (toDate.HasValue)
-                query.Add($"toDate={Uri.EscapeDataString(toDate.Value.ToString("O"))}");
+            if (filter.FromDate.HasValue)
+                queryParts.Add($"fromDate={filter.FromDate.Value:O}");
 
-            if (!string.IsNullOrWhiteSpace(orderStatus))
-                query.Add($"orderStatus={Uri.EscapeDataString(orderStatus)}");
+            if (filter.ToDate.HasValue)
+                queryParts.Add($"toDate={filter.ToDate.Value:O}");
 
-            var url = "api/admin/orders";
+            if (!string.IsNullOrWhiteSpace(filter.PaymentStatus))
+                queryParts.Add($"paymentStatus={filter.PaymentStatus}");
 
-            if (query.Any())
-                url += "?" + string.Join("&", query);
+            if (!string.IsNullOrWhiteSpace(filter.OrderStatus))
+                queryParts.Add($"orderStatus={filter.OrderStatus}");
 
-            return await _httpClient.GetFromJsonAsync<List<AdminOrderListDto>>(url);
+            if (filter.UserID.HasValue)
+                queryParts.Add($"userId={filter.UserID.Value}");
+
+            if (filter.VendorID.HasValue)
+                queryParts.Add($"vendorId={filter.VendorID.Value}");
+
+            queryParts.Add($"pageNumber={filter.PageNumber}");
+            queryParts.Add($"pageSize={filter.PageSize}");
+
+            var query = queryParts.Any()
+                ? "?" + string.Join("&", queryParts)
+                : string.Empty;
+
+            var url = $"api/admin/orders{query}";
+
+            return await _httpClient.GetFromJsonAsync<AdminOrderPagedResultDto>(url);
         }
-
+        
+        public async Task<AdminOrderShipmentDetailsDto> GetOrderShipmentDetailsAsync(int orderId)
+        {
+            return await _httpClient.GetFromJsonAsync<AdminOrderShipmentDetailsDto>($"api/admin/orders/{orderId}/shipments");
+        }
 
         public async Task<AdminOrderDetailsDto> GetOrderDetailsAsync(int orderId)
         {
             return await _httpClient.GetFromJsonAsync<AdminOrderDetailsDto>(
-                $"api/admin/orders/{orderId}");
+                $"api/admin/orders/{orderId}/Orderdetails"
+            );
         }
+
+        public async Task<byte[]> DownloadOrderPdfAsync(int orderId)
+        {
+            var response = await _httpClient.GetAsync(
+                $"api/admin/orders/{orderId}/pdf"
+            );
+
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadAsByteArrayAsync();
+        }
+
     }
 }
 

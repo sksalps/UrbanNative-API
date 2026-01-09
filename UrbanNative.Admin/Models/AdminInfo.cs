@@ -7,4 +7,6 @@
         public string Email { get; set; } = string.Empty;
         // Add other admin fields you need (DisplayName, Roles, etc.)
     }
+
+
 }

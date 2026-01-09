@@ -119,3 +119,8 @@ main {
     object-fit: contain;
     background-color: #f8f9fa;
 }
+
+tr:target {
+    background-color: #fff3cd !important; /* Bootstrap warning bg */
+    transition: background-color 0.8s ease;
+}

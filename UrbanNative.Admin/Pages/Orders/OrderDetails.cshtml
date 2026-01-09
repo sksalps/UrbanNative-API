@@ -1,31 +1,186 @@
-﻿@page "{id:int}"
+﻿@page
 @model UrbanNative.Admin.Pages.Orders.OrderDetailsModel
 
-<h3>Order @Model.Order.OrderNo</h3>
+<h3>Order Details – @Model.Order.Header.OrderNo</h3>
 
+<a asp-page="Index" class="btn btn-secondary mb-3">← Back to Orders</a>
+<a asp-page-handler="DownloadPdf"
+   asp-route-orderId="@Model.Order.Header.OrderID"
+   class="btn btn-secondary mb-3">
+    Download PDF
+</a>
+
+<!-- =======================
+     ORDER HEADER
+     ======================= -->
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="row mb-2">
+            <div class="col-md-4">
+                <strong>User:</strong><br />
+                @Model.Order.Header.UserName (@Model.Order.Header.UserID)
+            </div>
+            <div class="col-md-4">
+                <strong>Order Date:</strong><br />
+                @Model.Order.Header.CreatedAt.ToString("dd-MMM-yyyy")
+            </div>
+            <div class="col-md-4">
+                <strong>Order Status:</strong><br />
+                @Model.Order.Header.OrderStatus
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <div class="col-md-4">
+                <strong>Payment Status:</strong><br />
+                @Model.Order.Header.PaymentStatus
+            </div>
+            <div class="col-md-4">
+                <strong>Total Amount:</strong><br />
+                ₹@Model.Order.Header.TotalAmount
+            </div>
+            <div class="col-md-4">
+                <strong>Payable Amount:</strong><br />
+                ₹@Model.Order.Header.PayableAmount
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <strong>Shipping Address:</strong><br />
+                @Model.Order.Header.ShipAddress
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- =======================
+     ITEM GRID
+     ======================= -->
 <h5>Items</h5>
-<table class="table">
-    @foreach (var i in Model.Order.Items)
-    {
+
+<table class="table table-bordered table-hover mb-4">
+    <thead class="table-light">
         <tr>
-            <td>@i.ProductName</td>
-            <td>@i.SKUCode</td>
-            <td>@i.Quantity</td>
-            <td>@i.GSTAmount</td>
-            <td>@i.ItemStatus</td>
+            <th>SKU</th>
+            <th>Product</th>
+            <th>Vendor</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
+            <th>Subtotal</th>
+            <th>GST</th>
+            <th>Shared Margin</th>
+            <th>Shipment ID</th>
+            <th>Status</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Order.Items)
+        {
+            <tr>
+                <td>@item.SKUCode</td>
+                <td>@item.ProductName</td>
+                <td>@item.VendorName</td>
+                <td>@item.Quantity</td>
+                <td class="text-end">₹@item.UnitPrice</td>
+                <td class="text-end">₹@item.SubTotal</td>
+                <td>
+                    CGST: ₹@item.CGSTAmount<br />
+                    SGST: ₹@item.SGSTAmount<br />
+                    IGST: ₹@item.IGSTAmount
+                    <hr class="my-1" />
+                    <strong>Total: ₹@item.GSTAmount</strong>
+                </td>
+
+                <td class="text-end">₹@item.VendorSharedMargin</td>
+
+
+
+
+                <td class="text-center">
+                    @if (item.ShipmentID > 0)
+                    {
+                        <a href="#shipment-@item.ShipmentID"
+                           class="fw-semibold text-decoration-none">
+                            @item.ShipmentID
+                        </a>
+                    }
+                    else
+                    {
+                        <span class="text-muted">-</span>
+                    }
+                </td>
+
+
+
+                <td>
+                    <span class="badge
+                        @(item.ItemStatus switch
+                          {
+                              "DELIVERED" => "bg-success",
+                              "IN TRANSIT" => "bg-warning text-dark",
+                              "SHIPPED" => "bg-primary",
+                              _ => "bg-secondary"
+                          })">
+                        @item.ItemStatus
+                    </span>
+                </td>
+
+            </tr>
+        }
+    </tbody>
 </table>
 
+<!-- =======================
+     SHIPMENT GRID
+     ======================= -->
 <h5>Shipments</h5>
-<table class="table">
-    @foreach (var s in Model.Order.Shipments)
-    {
+
+<table class="table table-bordered table-hover">
+    <thead class="table-light">
         <tr>
-            <td>@s.ShipmentID</td>
-            <td>@s.TrackingNo</td>
-            <td>@s.ShipmentStatus</td>
-            <td>@s.ReceivedBy</td>
+            <th>Shipment ID</th>
+            <th>Vendor</th>
+            <th>Logistics By</th>
+            <th>Tracking No</th>
+            <th>Type</th>
+            <th>NOP</th>
+            <th>Status</th>
+            <th>Shipped At</th>
+            <th>Delivered At</th>
+            <th>Received By</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var s in Model.Order.Shipments)
+        {
+            <tr id="shipment-@s.ShipmentID">
+
+                <td>@s.ShipmentID</td>
+
+                <td>@s.VendorName</td>
+                <td>@(s.LogisticsProviderName ?? $"LP-{s.LogisticsProviderID}")</td>
+                <td>@s.TrackingNo</td>
+                <td>@s.ShipmentType</td>
+                <td>@s.NumberOfPackages</td>
+                <td>
+                    <span class="badge
+                        @(s.ShipmentStatus switch
+                          {
+                              "DELIVERED" => "bg-success",
+                              "SHIPPED" => "bg-primary",
+                              "RTO" => "bg-danger",
+                              _ => "bg-secondary"
+                          })">
+                        @s.ShipmentStatus
+                    </span>
+                </td>
+                <td>@(s.ShippedAt?.ToString("dd-MMM-yyyy") ?? "-")</td>
+                <td>@(s.DeliveredAt?.ToString("dd-MMM-yyyy") ?? "-")</td>
+                <td>@s.ReceivedBy</td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+

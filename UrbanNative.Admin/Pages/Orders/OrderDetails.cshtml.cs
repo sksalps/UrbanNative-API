@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using UrbanNative.Admin.Services;
 using UrbanNative.Application.DTOs.AdminOrders;
 
-
-
 namespace UrbanNative.Admin.Pages.Orders
 {
     public class OrderDetailsModel : PageModel
@@ -18,17 +16,28 @@ namespace UrbanNative.Admin.Pages.Orders
 
         public AdminOrderDetailsDto Order { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int id)
+        public async Task<IActionResult> OnGetAsync(int orderId)
         {
-            if (id <= 0)
+            if (orderId <= 0)
                 return NotFound();
 
-            Order = await _orderService.GetOrderDetailsAsync(id);
+            Order = await _orderService.GetOrderDetailsAsync(orderId);
 
             if (Order == null)
                 return NotFound();
 
             return Page();
+        }
+
+        public async Task<IActionResult> OnGetDownloadPdfAsync(int orderId)
+        {
+            var pdfBytes = await _orderService.DownloadOrderPdfAsync(orderId);
+
+            return File(
+                pdfBytes,
+                "application/pdf",
+                $"Order_{orderId}.pdf"
+            );
         }
     }
 }
