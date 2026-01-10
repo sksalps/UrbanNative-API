@@ -1,5 +1,5 @@
 ﻿@page "{returnId:int}"
-@model UrbanNative.Admin.Pages.ReturnsOrder.ReturnsDetailsModel
+@model UrbanNative.Admin.Pages.ReturnsOrder.ReturnDetailsModel
 @{
     ViewData["Title"] = "Return Details";
 }
@@ -30,15 +30,36 @@
     </div>
 </div>
 
+<h5>Return Images</h5>
+
+<div class="row">
+    @foreach (var img in Model.Return.Images)
+    {
+        <div class="col-md-3 mb-2">
+            <img src="@img.ImageUrl"
+                 class="img-fluid border"
+                 style="max-height:150px;" />
+
+            <div><small>@img.UploadedBy</small></div>
+            
+        </div>
+    }
+</div>
+
 <hr />
 
 <h5>Remarks Timeline</h5>
 <pre class="bg-light p-2">@Model.Return.Remarks</pre>
 
-@if (Model.Return.ReturnStatus == "REQUESTED")
+
+@if (
+    Model.Return.ReturnStatus == "REQUESTED"
+    || Model.Return.ReturnStatus == "NEEDS_INFO"
+    || Model.Return.ReturnStatus == "APPROVED"
+)
 {
     <hr />
-    <h5>Admin Decision</h5>
+    <h5>Admin Action</h5>
 
     <form method="post" asp-page-handler="Decision">
         <input type="hidden" name="ReturnId" value="@Model.Return.ReturnId" />
@@ -53,10 +74,13 @@
             <textarea class="form-control" name="RemarkText" required></textarea>
         </div>
 
-        <button name="IsApproved" value="true" class="btn btn-success">Approve</button>
-        <button name="IsApproved" value="false" class="btn btn-danger">Reject</button>
+        <button name="NewStatus" value="APPROVED" class="btn btn-success">Approve</button>
+        <button name="NewStatus" value="REJECTED" class="btn btn-danger">Reject</button>
+        <button name="NewStatus" value="NEEDS_INFO" class="btn btn-warning">Request Info</button>
     </form>
 }
+
+
 
 @if (Model.Return.ReturnStatus == "APPROVED")
 {
@@ -67,32 +91,34 @@
         <input type="hidden" name="ReturnId" value="@Model.Return.ReturnId" />
 
         <div class="mb-2">
-            <input name="CourierName" class="form-control" placeholder="Courier" required />
+            <label>Logistics Provider</label>
+            <select name="LogisticsProviderID" class="form-control" required>
+                <option value="">-- Select Courier --</option>
+                @foreach (var lp in Model.LogisticsProviders)
+                {
+                    <option value="@lp.LogisticsProviderID">@lp.ProviderName</option>
+                }
+            </select>
         </div>
 
         <div class="mb-2">
-            <input name="TrackingNumber" class="form-control" placeholder="Tracking No" required />
-        </div>
-
-        <div class="mb-2">
-            <textarea name="PickupAddress" class="form-control" placeholder="Pickup Address" required></textarea>
-        </div>
-
-        <div class="mb-2">
-            <textarea name="DeliveryAddress" class="form-control" placeholder="Delivery Address" required></textarea>
+            <label>Tracking / AWB</label>
+            <input name="TrackingNumber" class="form-control" required />
         </div>
 
         <button class="btn btn-primary">Create Pickup</button>
     </form>
 }
 
+
 @if (Model.Return.ReturnShipmentId != null)
 {
     <hr />
     <h5>Shipment</h5>
     <table class="table table-sm">
-        <tr><th>Courier</th><td>@Model.Return.CourierName</td></tr>
+        <tr><th>Courier</th><td>@Model.Return.LogisticsProviderName</td></tr>
         <tr><th>Tracking</th><td>@Model.Return.TrackingNumber</td></tr>
         <tr><th>Status</th><td>@Model.Return.ShipmentStatus</td></tr>
     </table>
 }
+

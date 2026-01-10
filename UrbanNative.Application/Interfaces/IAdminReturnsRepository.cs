@@ -9,8 +9,12 @@ namespace UrbanNative.Application.Interfaces
             int? vendorId,
             DateTime? fromDate,
             DateTime? toDate);
+        Task<bool> UpdateStatusAsync(   int returnId,    int adminId,    string newStatus,    string adminComment,    string remarkText);
+        Task<IEnumerable<ReturnImageDto>> GetReturnImagesAsync(int returnId);
+        Task<bool> AddReturnImageAsync(int returnId, string imageUrl, string uploadedBy, bool isPrimary);
 
         Task<AdminReturnDetailsDto?> GetReturnDetailsAsync(int returnId);
+        Task<IEnumerable<LogisticsProviderDto>> GetLogisticsProvidersAsync();
 
         Task<bool> ApproveRejectAsync(
             int returnId,
@@ -20,10 +24,8 @@ namespace UrbanNative.Application.Interfaces
             string remarkText);
 
         Task<bool> CreateReturnShipmentAsync(
-            int returnId,
-            string courierName,
-            string trackingNumber,
-            string pickupAddress,
-            string deliveryAddress);
+            int returnId, int logisticsProviderID,
+            string trackingNumber);
+
     }
 }

@@ -68,13 +68,34 @@ namespace UrbanNative.Infrastructure.Repositories
 
             return rows > 0;
         }
+        public async Task<bool> UpdateStatusAsync(
+    int returnId,
+    int adminId,
+    string newStatus,
+    string adminComment,
+    string remarkText)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            var rows = await conn.ExecuteAsync(
+                "sp_AdminReturns_UpdateStatus",
+                new
+                {
+                    ReturnId = returnId,
+                    AdminId = adminId,
+                    NewStatus = newStatus,
+                    AdminComment = adminComment,
+                    RemarkText = remarkText
+                },
+                commandType: CommandType.StoredProcedure);
+
+            return rows > 0;
+        }
 
         public async Task<bool> CreateReturnShipmentAsync(
-            int returnId,
-            string courierName,
-            string trackingNumber,
-            string pickupAddress,
-            string deliveryAddress)
+    int returnId,
+    int logisticsProviderID,
+    string trackingNumber)
         {
             using var conn = _connectionFactory.CreateConnection();
 
@@ -83,14 +104,51 @@ namespace UrbanNative.Infrastructure.Repositories
                 new
                 {
                     ReturnId = returnId,
-                    CourierName = courierName,
-                    TrackingNumber = trackingNumber,
-                    PickupAddress = pickupAddress,
-                    DeliveryAddress = deliveryAddress
+                    LogisticsProviderID = logisticsProviderID,
+                    TrackingNumber = trackingNumber
                 },
                 commandType: CommandType.StoredProcedure);
 
             return rows > 0;
         }
+        public async Task<IEnumerable<LogisticsProviderDto>> GetLogisticsProvidersAsync()
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            return await conn.QueryAsync<LogisticsProviderDto>(
+                "sp_LogisticsProviders_GetAll",
+                commandType: CommandType.StoredProcedure);
+        }
+
+
+
+        public async Task<IEnumerable<ReturnImageDto>> GetReturnImagesAsync(int returnId)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            return await conn.QueryAsync<ReturnImageDto>(
+                "sp_ReturnImages_GetByReturn",
+                new { ReturnId = returnId },
+                commandType: CommandType.StoredProcedure);
+        }
+
+        public async Task<bool> AddReturnImageAsync(int returnId, string imageUrl, string uploadedBy, bool isPrimary)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            var rows = await conn.ExecuteAsync(
+                "sp_ReturnImages_Insert",
+                new
+                {
+                    ReturnId = returnId,
+                    ImageUrl = imageUrl,
+                    UploadedBy = uploadedBy,
+                    IsPrimary = isPrimary
+                },
+                commandType: CommandType.StoredProcedure);
+
+            return rows > 0;
+        }
+
     }
 }

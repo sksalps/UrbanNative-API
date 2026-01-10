@@ -36,7 +36,7 @@ namespace UrbanNative.Admin.Services
             if (toDate.HasValue)
                 query.Add($"toDate={toDate:yyyy-MM-dd}");
 
-            var url = "api/admin/returns";
+            var url = "api/admin/returnsorder";
             if (query.Any())
                 url += "?" + string.Join("&", query);
 
@@ -49,24 +49,44 @@ namespace UrbanNative.Admin.Services
         // ===============================
         public async Task<AdminReturnDetailsDto?> GetReturnDetailsAsync(int returnId)
         {
-            return await _http.GetFromJsonAsync<AdminReturnDetailsDto>(
-                $"api/admin/returns/{returnId}");
+            return await _http.GetFromJsonAsync<AdminReturnDetailsDto>($"api/admin/returnsorder/{returnId}");
+
         }
 
+        
         // ===============================
         // Approve / Reject
         // ===============================
-        public async Task<bool> ApproveRejectAsync(
-            int returnId,
-            bool isApproved,
-            string adminComment,
-            string remarkText)
+        /*     public async Task<bool> ApproveRejectAsync(
+                 int returnId,
+                 bool isApproved,
+                 string adminComment,
+                 string remarkText)
+             {
+                 var response = await _http.PostAsJsonAsync(
+                     $"api/admin/returnsorder/{returnId}/decision",
+                     new
+                     {
+                         IsApproved = isApproved,
+                         AdminComment = adminComment,
+                         RemarkText = remarkText
+                     });
+
+                 return response.IsSuccessStatusCode;
+             }
+
+             */
+        public async Task<bool> UpdateStatusAsync(
+    int returnId,
+    string newStatus,
+    string adminComment,
+    string remarkText)
         {
             var response = await _http.PostAsJsonAsync(
-                $"api/admin/returns/{returnId}/decision",
+                $"api/admin/returnsorder/{returnId}/status",
                 new
                 {
-                    IsApproved = isApproved,
+                    NewStatus = newStatus,
                     AdminComment = adminComment,
                     RemarkText = remarkText
                 });
@@ -77,24 +97,35 @@ namespace UrbanNative.Admin.Services
         // ===============================
         // Create Return Shipment
         // ===============================
-        public async Task<bool> CreateReturnShipmentAsync(
-            int returnId,
-            string courierName,
-            string trackingNumber,
-            string pickupAddress,
-            string deliveryAddress)
+     
+
+        public async Task<bool> CreateReturnShipmentAsync(int returnId,int logisticsProviderID,
+            string trackingNumber)
         {
             var response = await _http.PostAsJsonAsync(
-                $"api/admin/returns/{returnId}/shipment",
+                $"api/admin/returnsorder/{returnId}/shipment",
                 new
                 {
-                    CourierName = courierName,
-                    TrackingNumber = trackingNumber,
-                    PickupAddress = pickupAddress,
-                    DeliveryAddress = deliveryAddress
+                    LogisticsProviderID = logisticsProviderID,
+                    TrackingNumber = trackingNumber
                 });
 
             return response.IsSuccessStatusCode;
         }
+
+
+        public async Task<List<ReturnImageDto>> GetImagesAsync(int returnId)
+        {
+            return await _http.GetFromJsonAsync<List<ReturnImageDto>>(
+                $"api/admin/returnsorder/{returnId}/images") ?? new();
+        }
+        public async Task<IEnumerable<LogisticsProviderDto>> GetLogisticsProvidersAsync()
+        {
+            return await _http.GetFromJsonAsync<IEnumerable<LogisticsProviderDto>>(
+                "api/admin/returnsorder/logisticsproviders") ?? Enumerable.Empty<LogisticsProviderDto>();
+        }
+
+
+
     }
 }

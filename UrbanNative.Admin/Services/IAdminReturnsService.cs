@@ -9,19 +9,11 @@ namespace UrbanNative.Admin.Services
             DateTime? toDate);
 
         Task<AdminReturnDetailsDto?> GetReturnDetailsAsync(int returnId);
-
-        Task<bool> ApproveRejectAsync(
-            int returnId,
-            bool isApproved,
-            string adminComment,
-            string remarkText);
-
-        Task<bool> CreateReturnShipmentAsync(
-            int returnId,
-            string courierName,
-            string trackingNumber,
-            string pickupAddress,
-            string deliveryAddress);
+        Task<List<ReturnImageDto>> GetImagesAsync(int returnId);
+        // Task<bool> ApproveRejectAsync(       int returnId,            bool isApproved,     string adminComment,            string remarkText);
+        Task<IEnumerable<LogisticsProviderDto>> GetLogisticsProvidersAsync();
+        Task<bool> CreateReturnShipmentAsync(int returnId, int logisticsProviderID, string trackingNumber);
+        Task<bool> UpdateStatusAsync( int returnId,  string newStatus, string adminComment,    string remarkText);
     }
 
 }

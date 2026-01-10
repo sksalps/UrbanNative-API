@@ -26,7 +26,23 @@
         public string? TrackingNumber { get; set; }
         public string? ShipmentStatus { get; set; }
     }
+    public class ReturnImageDto
+    {
+        public int ReturnImageId { get; set; }
+        public string ImageUrl { get; set; } = null!;
+        public string UploadedBy { get; set; } = null!;
+        public bool IsPrimary { get; set; }
+        public DateTime UploadedAt { get; set; }
+    }
 
+    public class LogisticsProviderDto
+    {
+        public int ReturnId { get; set; }
+        public int LogisticsProviderID { get; set; }
+        public string ProviderName { get; set; } = null!;
+
+
+    }
     public class AdminReturnDetailsDto
     {
         // ===== Return =====
@@ -39,6 +55,8 @@
         public int? AdminId { get; set; }
         public DateTime? AdminActionAt { get; set; }
         public DateTime RequestedAt { get; set; }
+        public List<ReturnImageDto> Images { get; set; } = new();
+
 
         // ===== Order =====
         public int OrderID { get; set; }
@@ -62,12 +80,14 @@
 
         // ===== Return Shipment =====
         public int? ReturnShipmentId { get; set; }
-        public string? CourierName { get; set; }
+        public string? LogisticsProviderName { get; set; }
+
         public string? TrackingNumber { get; set; }
         public string? ShipmentStatus { get; set; }
         public DateTime? ShipmentCreatedAt { get; set; }
         public DateTime? PickedAt { get; set; }
         public DateTime? DeliveredAt { get; set; }
     }
+
 
 }

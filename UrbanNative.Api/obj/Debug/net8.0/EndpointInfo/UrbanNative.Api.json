@@ -1292,7 +1292,7 @@
         }
       }
     },
-    "/api/admin/returns": {
+    "/api/admin/returnsorder": {
       "get": {
         "tags": [
           "AdminReturns"
@@ -1337,7 +1337,7 @@
         }
       }
     },
-    "/api/admin/returns/{returnId}": {
+    "/api/admin/returnsorder/{returnId}": {
       "get": {
         "tags": [
           "AdminReturns"
@@ -1360,7 +1360,7 @@
         }
       }
     },
-    "/api/admin/returns/{returnId}/decision": {
+    "/api/admin/returnsorder/{returnId}/decision": {
       "post": {
         "tags": [
           "AdminReturns"
@@ -1402,7 +1402,7 @@
         }
       }
     },
-    "/api/admin/returns/{returnId}/shipment": {
+    "/api/admin/returnsorder/{returnId}/shipment": {
       "post": {
         "tags": [
           "AdminReturns"
@@ -1437,6 +1437,123 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/returnsorder/{returnId}/status": {
+      "post": {
+        "tags": [
+          "AdminReturns"
+        ],
+        "parameters": [
+          {
+            "name": "returnId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReturnStatusRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReturnStatusRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReturnStatusRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/returnsorder/{returnId}/images": {
+      "get": {
+        "tags": [
+          "AdminReturns"
+        ],
+        "parameters": [
+          {
+            "name": "returnId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "AdminReturns"
+        ],
+        "parameters": [
+          {
+            "name": "returnId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReturnImageRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReturnImageRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReturnImageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/returnsorder/logisticsproviders": {
+      "get": {
+        "tags": [
+          "AdminReturns"
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -3272,19 +3389,11 @@
       "CreateReturnShipmentRequest": {
         "type": "object",
         "properties": {
-          "courierName": {
-            "type": "string",
-            "nullable": true
+          "logisticsProviderID": {
+            "type": "integer",
+            "format": "int32"
           },
           "trackingNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "pickupAddress": {
-            "type": "string",
-            "nullable": true
-          },
-          "deliveryAddress": {
             "type": "string",
             "nullable": true
           }
@@ -3393,6 +3502,41 @@
         "properties": {
           "isApproved": {
             "type": "boolean"
+          },
+          "adminComment": {
+            "type": "string",
+            "nullable": true
+          },
+          "remarkText": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReturnImageRequest": {
+        "type": "object",
+        "properties": {
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "uploadedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "isPrimary": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReturnStatusRequest": {
+        "type": "object",
+        "properties": {
+          "newStatus": {
+            "type": "string",
+            "nullable": true
           },
           "adminComment": {
             "type": "string",

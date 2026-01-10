@@ -114,8 +114,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmV0dXJuc09yZGVyXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/ReturnsOrder/ReturnsDetail.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmV0dXJuc09yZGVyXFJldHVybnNEZXRhaWwuY3NodG1s
+[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/ReturnsOrder/ReturnDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmV0dXJuc09yZGVyXFJldHVybkRldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Shared/_Footer.cshtml]

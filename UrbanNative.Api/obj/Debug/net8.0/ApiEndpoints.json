@@ -774,7 +774,7 @@
   {
     "ContainingType": "UrbanNative.Api.Controllers.AdminReturnsController",
     "Method": "GetReturns",
-    "RelativePath": "api/admin/returns",
+    "RelativePath": "api/admin/returnsorder",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -805,7 +805,7 @@
   {
     "ContainingType": "UrbanNative.Api.Controllers.AdminReturnsController",
     "Method": "GetReturnDetails",
-    "RelativePath": "api/admin/returns/{returnId}",
+    "RelativePath": "api/admin/returnsorder/{returnId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -821,7 +821,7 @@
   {
     "ContainingType": "UrbanNative.Api.Controllers.AdminReturnsController",
     "Method": "ApproveReject",
-    "RelativePath": "api/admin/returns/{returnId}/decision",
+    "RelativePath": "api/admin/returnsorder/{returnId}/decision",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -833,7 +833,44 @@
       },
       {
         "Name": "request",
-        "Type": "UrbanNative.Api.Controllers.ReturnDecisionRequest",
+        "Type": "UrbanNative.Api.Controllers.AdminReturnsController\u002BReturnDecisionRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.AdminReturnsController",
+    "Method": "GetImages",
+    "RelativePath": "api/admin/returnsorder/{returnId}/images",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "returnId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.AdminReturnsController",
+    "Method": "UploadImage",
+    "RelativePath": "api/admin/returnsorder/{returnId}/images",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "returnId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "UrbanNative.Api.Controllers.AdminReturnsController\u002BReturnImageRequest",
         "IsRequired": true
       }
     ],
@@ -842,7 +879,7 @@
   {
     "ContainingType": "UrbanNative.Api.Controllers.AdminReturnsController",
     "Method": "CreateReturnShipment",
-    "RelativePath": "api/admin/returns/{returnId}/shipment",
+    "RelativePath": "api/admin/returnsorder/{returnId}/shipment",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -854,10 +891,41 @@
       },
       {
         "Name": "request",
-        "Type": "UrbanNative.Api.Controllers.CreateReturnShipmentRequest",
+        "Type": "UrbanNative.Api.Controllers.AdminReturnsController\u002BCreateReturnShipmentRequest",
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.AdminReturnsController",
+    "Method": "UpdateStatus",
+    "RelativePath": "api/admin/returnsorder/{returnId}/status",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "returnId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "UrbanNative.Api.Controllers.AdminReturnsController\u002BReturnStatusRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.AdminReturnsController",
+    "Method": "GetLogisticsProviders",
+    "RelativePath": "api/admin/returnsorder/logisticsproviders",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
