@@ -1533,6 +1533,62 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "UrbanNative.Api.Controllers.AdminWalletController",
+    "Method": "GetLedger",
+    "RelativePath": "api/admin/wallet/ledger",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ownerType",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ownerId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "walletType",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "accHead",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "txnType",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "sourceType",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "sourceId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "from",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "to",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "UrbanNative.Api.Controllers.CategoryVariantController",
     "Method": "GetByCategory",
     "RelativePath": "api/categoryvariant/{categoryId}",

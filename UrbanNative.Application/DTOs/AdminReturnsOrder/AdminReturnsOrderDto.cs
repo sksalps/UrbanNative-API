@@ -23,6 +23,7 @@
         public DateTime RequestedAt { get; set; }
 
         public string? CourierName { get; set; }
+        public string ProviderName { get; set; } = null!;
         public string? TrackingNumber { get; set; }
         public string? ShipmentStatus { get; set; }
     }

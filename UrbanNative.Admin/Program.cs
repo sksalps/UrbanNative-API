@@ -73,6 +73,7 @@ builder.Services.AddScoped<IAdminInventoryService, AdminInventoryService>();
 builder.Services.AddScoped<IAdminInventoryLogService, AdminInventoryLogService>();
 builder.Services.AddScoped<IAdminOrderService, AdminOrderService>();
 builder.Services.AddScoped<IAdminReturnsService, AdminReturnsService>();
+builder.Services.AddScoped<IAdminWalletService, AdminWalletService>();
 
 // register SqlHelpers example
 

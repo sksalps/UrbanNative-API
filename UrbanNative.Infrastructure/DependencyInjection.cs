@@ -31,6 +31,7 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<IAdminInventoryLogRepository, AdminInventoryLogRepository>();
             services.AddScoped<IAdminOrderRepository, AdminOrderRepository>();
             services.AddScoped<IAdminReturnsRepository, AdminReturnsRepository>();
+            services.AddScoped<IAdminWalletRepository, AdminWalletRepository>();
 
 
             return services;

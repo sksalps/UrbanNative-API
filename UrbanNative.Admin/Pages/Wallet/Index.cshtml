@@ -1,0 +1,89 @@
+﻿@page
+@model UrbanNative.Admin.Pages.Wallet.IndexModel
+
+<h3>Wallet Ledger</h3>
+
+<form method="get" class="row g-2 mb-3">
+    <div class="col">
+        <select name="OwnerType" class="form-select">
+            <option value="VENDOR">Vendor</option>
+            <option value="USER">Sathi / Affiliate</option>
+            <option value="COMPANY">Company</option>
+        </select>
+    </div>
+
+    <div class="col">
+        <input name="OwnerId" class="form-control" placeholder="Owner ID" />
+    </div>
+
+    <div class="col">
+        <select name="WalletType" class="form-select">
+            <option value="">All Wallets</option>
+            <option value="MAIN">Main</option>
+            <option value="GST">GST</option>
+            <option value="COMMISSION">Commission</option>
+        </select>
+    </div>
+
+    <div class="col">
+        <select name="AccHead" class="form-select">
+            <option value="">All Heads</option>
+            <option value="SHARED_MARGIN">Shared Margin</option>
+            <option value="PLATFORM_COMMISSION">Platform</option>
+            <option value="AFFILIATE_COMMISSION">Affiliate</option>
+            <option value="VENDOR_REFERRAL_COMMISSION">Vendor Referral</option>
+            <option value="PRODUCT_GST">Product GST</option>
+        </select>
+    </div>
+
+    <div class="col">
+        <select name="TxnType" class="form-select">
+            <option value="">All</option>
+            <option value="CREDIT">Credit</option>
+            <option value="DEBIT">Debit</option>
+        </select>
+    </div>
+
+    <div class="col">
+        <select name="SourceType" class="form-select">
+            <option value="">All</option>
+            <option value="ORDER">Order</option>
+            <option value="RTO">RTO</option>
+        </select>
+    </div>
+
+    <div class="col">
+        <input name="SourceId" class="form-control" placeholder="Order / RTO ID" />
+    </div>
+
+    <div class="col">
+        <button class="btn btn-primary">Filter</button>
+    </div>
+</form>
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Txn</th>
+            <th>Amount</th>
+            <th>Source</th>
+            <th>Ref</th>
+            <th>Narration</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.Ledger)
+        {
+            <tr>
+                <td>@x.CreatedAt</td>
+                <td>@x.TxnType</td>
+                <td>@x.Amount</td>
+                <td>@x.SourceType</td>
+                <td>@x.SourceId</td>
+                <td>@x.Narration</td>
+            </tr>
+        }
+    </tbody>
+</table>

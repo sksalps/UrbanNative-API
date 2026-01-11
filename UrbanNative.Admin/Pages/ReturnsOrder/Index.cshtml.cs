@@ -13,17 +13,11 @@ namespace UrbanNative.Admin.Pages.ReturnsOrder
             _returnsService = returnsService;
         }
 
-        public IEnumerable<AdminReturnListDto> Returns { get; set; }
-            = new List<AdminReturnListDto>();
+        public IEnumerable<AdminReturnListDto> Returns { get; set; }   = new List<AdminReturnListDto>();
 
-        public async Task OnGetAsync(
-            string? status,
-            DateTime? fromDate,
-            DateTime? toDate)
+        public async Task OnGetAsync(   string? status,         DateTime? fromDate,       DateTime? toDate)
         {
-            Returns = await _returnsService.GetReturnsAsync(
-                status,
-                null,       // Vendor filter later
+            Returns = await _returnsService.GetReturnsAsync( status,     null,       // Vendor filter later
                 fromDate,
                 toDate);
         }

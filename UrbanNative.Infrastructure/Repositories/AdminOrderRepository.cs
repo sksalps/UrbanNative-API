@@ -67,6 +67,7 @@ namespace UrbanNative.Infrastructure.Repositories
                 commandType: CommandType.StoredProcedure
             );
 
+
             var header = await multi.ReadSingleAsync<AdminOrderDetailsHeaderDto>();
             var items = (await multi.ReadAsync<AdminOrderDetailsItemDto>()).ToList();
             var shipments = (await multi.ReadAsync<AdminOrderDetailsShipmentDto>()).ToList();

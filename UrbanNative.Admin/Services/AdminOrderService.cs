@@ -58,9 +58,9 @@ namespace UrbanNative.Admin.Services
         public async Task<AdminOrderDetailsDto> GetOrderDetailsAsync(int orderId)
         {
             return await _httpClient.GetFromJsonAsync<AdminOrderDetailsDto>(
-                $"api/admin/orders/{orderId}/Orderdetails"
-            );
+                $"api/admin/orders/{orderId}/Orderdetails"           );
         }
+
 
         public async Task<byte[]> DownloadOrderPdfAsync(int orderId)
         {

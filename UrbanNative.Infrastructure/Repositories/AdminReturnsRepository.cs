@@ -114,7 +114,6 @@ namespace UrbanNative.Infrastructure.Repositories
         public async Task<IEnumerable<LogisticsProviderDto>> GetLogisticsProvidersAsync()
         {
             using var conn = _connectionFactory.CreateConnection();
-
             return await conn.QueryAsync<LogisticsProviderDto>(
                 "sp_LogisticsProviders_GetAll",
                 commandType: CommandType.StoredProcedure);

@@ -15,18 +15,18 @@
             <tr><th>SKU</th><td>@Model.Return.SKUCode</td></tr>
             <tr><th>Qty</th><td>@Model.Return.Quantity</td></tr>
             <tr><th>Price</th><td>₹@Model.Return.UnitPrice</td></tr>
-            <tr><th>Vendor</th><td>@Model.Return.VendorName</td></tr>
         </table>
     </div>
 
     <div class="col-md-6">
         <h5>Return Info</h5>
         <table class="table table-sm">
+            <tr><th>Vendor</th><td>@Model.Return.VendorName</td></tr>
             <tr><th>Type</th><td>@Model.Return.ReturnType</td></tr>
-            <tr><th>Status</th><td>@Model.Return.ReturnStatus</td></tr>
+            <tr><th>Status</th><td class="badge bg-light text-dark">@Model.Return.ReturnStatus (@Model.Return.AdminActionAt)</td></tr>
             <tr><th>Reason</th><td>@Model.Return.CustomerReason</td></tr>
-            <tr><th>Requested</th><td>@Model.Return.RequestedAt</td></tr>
-        </table>
+            <tr><th>Requested</th><td >@Model.Return.RequestedAt</td></tr>
+        </table> 
     </div>
 </div>
 
