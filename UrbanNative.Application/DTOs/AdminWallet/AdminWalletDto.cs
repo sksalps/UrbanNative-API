@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 namespace UrbanNative.Application.DTOs.AdminWallet
 {
 
+    public class WalletBalanceSummaryDto
+    {
+        public decimal OpeningBalance { get; set; }
+        public decimal PeriodCredit { get; set; }
+        public decimal PeriodDebit { get; set; }
+        public decimal ClosingBalance { get; set; }
+    }
+
     public class WalletLedgerDto
     {
         public long LedgerId { get; set; }

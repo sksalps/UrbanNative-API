@@ -46,6 +46,33 @@ namespace UrbanNative.Api.Controllers
 
             return Ok(data);
         }
+        [HttpGet("balance-summary")]
+        public async Task<IActionResult> GetBalanceSummary(
+    string ownerType,
+    int ownerId,
+    string? walletType,
+    string? accHead,
+    string? txnType,
+    string? sourceType,
+    int? sourceId,
+    DateTime? from,
+    DateTime? to)
+        {
+            var data = await _repo.GetBalanceSummaryAsync(
+                ownerType,
+                ownerId,
+                walletType,
+                accHead,
+                txnType,
+                sourceType,
+                sourceId,
+                from,
+                to
+            );
+
+            return Ok(data);
+        }
+
     }
 
 

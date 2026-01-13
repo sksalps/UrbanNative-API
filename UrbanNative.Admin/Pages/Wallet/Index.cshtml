@@ -3,63 +3,122 @@
 
 <h3>Wallet Ledger</h3>
 
-<form method="get" class="row g-2 mb-3">
-    <div class="col">
-        <select name="OwnerType" class="form-select">
-            <option value="VENDOR">Vendor</option>
-            <option value="USER">Sathi / Affiliate</option>
-            <option value="COMPANY">Company</option>
-        </select>
+<form method="get" class="card p-5 mb-5">
+
+    <!-- ================= ROW 1 : Mandatory ================= -->
+    <div class="row g-3 align-items-end mb-3">
+
+        <!-- Owner Type -->
+        <div class="col-md-2">
+            <select id="ownerType" name="OwnerType" class="form-select">
+
+                <option value="">OwnerType</option>
+                <option value="VENDOR" selected="@(Model.OwnerType == "VENDOR")">Vendor</option>
+                <option value="USER" selected="@(Model.OwnerType == "USER")">Sathi</option>
+                <option value="COMPANY" selected="@(Model.OwnerType == "COMPANY")">Company</option>
+            </select>
+        </div>
+
+
+        <!-- Owner ID -->
+        <div class="col-md-2">
+            
+            <input id="ownerId" name="OwnerId" class="form-control" value="@Model.OwnerId" required />
+        </div>
+
+        <!-- Order / RTO Type -->
+        <div class="col-md-2">
+            <select id="sourceType" name="SourceType" class="form-select" >
+                <option value="">Source Type</option>
+                <option value="">All</option>
+                <option value="ORDER" selected="@(Model.SourceType == "ORDER")">Order</option>
+                <option value="RTO" selected="@(Model.SourceType == "RTO")">RTO</option>
+            </select>
+        </div>
+
+        <!-- Source ID -->
+        <div class="col-md-2">
+            <input id="sourceId" name="SourceId" value="@Model.SourceId" class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <input type="date" name="FromDate" class="form-control" value="@(Model.FromDate?.ToString("yyyy-MM-dd"))" />
+        </div>
+        <div class="col-md-2">
+            <input type="date" name="ToDate" class="form-control" value="@(Model.ToDate?.ToString("yyyy-MM-dd"))" />
+        </div>
+
     </div>
 
-    <div class="col">
-        <input name="OwnerId" class="form-control" placeholder="Owner ID" />
-    </div>
+    <!-- ================= ROW 2 : Optional ================= -->
+    <div class="row g-2 mb-2">
 
-    <div class="col">
-        <select name="WalletType" class="form-select">
-            <option value="">All Wallets</option>
-            <option value="MAIN">Main</option>
-            <option value="GST">GST</option>
-            <option value="COMMISSION">Commission</option>
-        </select>
-    </div>
+        <div class="col-md-3">
+            <select name="WalletType" class="form-select">
+                <option value="">All Wallets</option>
+                <option value="MAIN" selected="@(Model.WalletType == "MAIN")">Main</option>
+                <option value="GST" selected="@(Model.WalletType == "GST")">GST</option>
+                <option value="COMMISSION" selected="@(Model.WalletType == "COMMISSION")">Commission</option>
+            </select>
+        </div>
 
-    <div class="col">
-        <select name="AccHead" class="form-select">
-            <option value="">All Heads</option>
-            <option value="SHARED_MARGIN">Shared Margin</option>
-            <option value="PLATFORM_COMMISSION">Platform</option>
-            <option value="AFFILIATE_COMMISSION">Affiliate</option>
-            <option value="VENDOR_REFERRAL_COMMISSION">Vendor Referral</option>
-            <option value="PRODUCT_GST">Product GST</option>
-        </select>
-    </div>
+        <div class="col-md-3">
+            <select name="AccHead" class="form-select">
+                <option value="">All Heads</option>
+                <option value="SM" selected="@(Model.AccHead == "SM")">Shared Margin</option>
+                <option value="PC" selected="@(Model.AccHead == "PC")">Platform</option>
+                <option value="AC" selected="@(Model.AccHead == "AC")">Affiliate</option>
+                <option value="VRC" selected="@(Model.AccHead == "SMVRC")">Vendor Referral</option>
+                <option value="SGST" selected="@(Model.AccHead == "SGST")">Product GST</option>
+            </select>
+        </div>
 
-    <div class="col">
-        <select name="TxnType" class="form-select">
-            <option value="">All</option>
-            <option value="CREDIT">Credit</option>
-            <option value="DEBIT">Debit</option>
-        </select>
-    </div>
+        <div class="col-md-3">
+            <select name="TxnType" class="form-select">
+                <option value="" >All Transactions</option>
+                <option value="CREDIT" selected="@(Model.TxnType == "CREDIT")" > Credit</option>
+                <option value="DEBIT" selected="@(Model.TxnType == "DEBIT")" > Debit</option>
+            </select>
+        </div>
 
-    <div class="col">
-        <select name="SourceType" class="form-select">
-            <option value="">All</option>
-            <option value="ORDER">Order</option>
-            <option value="RTO">RTO</option>
-        </select>
-    </div>
+        <div class="col-md-3 d-flex gap-2">
+            <button class="btn btn-primary w-100">Filter</button>
+            <a href="/Wallet" class="btn btn-outline-secondary w-100">Reset</a>
+        </div>
 
-    <div class="col">
-        <input name="SourceId" class="form-control" placeholder="Order / RTO ID" />
-    </div>
-
-    <div class="col">
-        <button class="btn btn-primary">Filter</button>
     </div>
 </form>
+@if (Model.Balance != null)
+{
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <div class="card p-2">
+                <strong>Opening (B/F)</strong>
+                <div>₹ @Model.Balance.OpeningBalance</div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-2 text-success">
+                <strong>Credit</strong>
+                <div>₹ @Model.Balance.PeriodCredit</div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-2 text-danger">
+                <strong>Debit</strong>
+                <div>₹ @Model.Balance.PeriodDebit</div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-2 bg-light">
+                <strong>Closing (C/F)</strong>
+                <div><b>₹ @Model.Balance.ClosingBalance</b></div>
+            </div>
+        </div>
+    </div>
+}
 
 
 <table class="table table-bordered">
@@ -87,3 +146,59 @@
         }
     </tbody>
 </table>
+
+<script>
+    const ownerType = document.getElementById("ownerType");
+    const ownerId = document.getElementById("ownerId");
+    const sourceType = document.getElementById("sourceType");
+    const sourceId = document.getElementById("sourceId");
+    const form = ownerType.closest("form");
+
+    function refreshUI() {
+        ownerId.required = true;
+
+        // Owner placeholder
+        if (ownerType.value === "VENDOR")
+            ownerId.placeholder = "Enter Vendor ID *";
+        else if (ownerType.value === "USER")
+            ownerId.placeholder = "Enter Sathi / Affiliate ID *";
+        else if (ownerType.value === "COMPANY")
+            ownerId.placeholder = "Enter Company ID (0) *";
+        else
+            ownerId.placeholder = "Enter Owner ID *";
+
+        // Source placeholder (optional)
+        if (sourceType.value === "ORDER")
+            sourceId.placeholder = "Enter Order ID";
+        else if (sourceType.value === "RTO")
+            sourceId.placeholder = "Enter RTO ID";
+        else
+            sourceId.placeholder = "Order / RTO ID";
+    }
+
+    ownerType.addEventListener("change", refreshUI);
+    sourceType.addEventListener("change", refreshUI);
+
+    form.addEventListener("submit", function (e) {
+        if (!ownerType.value) {
+            alert("Please select Owner Type");
+            e.preventDefault();
+            return;
+        }
+
+        if (!ownerId.value.trim()) {
+            alert("Please enter Owner ID");
+            e.preventDefault();
+            return;
+        }
+
+        // If SourceType selected, SourceId must be provided
+        if (sourceType.value && !sourceId.value.trim()) {
+            alert("Please enter Order / RTO ID");
+            e.preventDefault();
+            return;
+        }
+    });
+
+    refreshUI();
+</script>

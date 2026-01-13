@@ -48,6 +48,35 @@ namespace UrbanNative.Admin.Services
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
 
+        public async Task<WalletBalanceSummaryDto> GetBalanceSummaryAsync(
+    string ownerType,
+    int ownerId,
+    string walletType,
+    string accHead,
+    string txnType,
+    string sourceType,
+    int? sourceId,
+    DateTime? from,
+    DateTime? to)
+        {
+            var query = new List<string>
+    {
+        $"ownerType={ownerType}",
+        $"ownerId={ownerId}"
+    };
+
+            if (!string.IsNullOrEmpty(walletType)) query.Add($"walletType={walletType}");
+            if (!string.IsNullOrEmpty(accHead)) query.Add($"accHead={accHead}");
+            if (!string.IsNullOrEmpty(txnType)) query.Add($"txnType={txnType}");
+            if (!string.IsNullOrEmpty(sourceType)) query.Add($"sourceType={sourceType}");
+            if (sourceId.HasValue) query.Add($"sourceId={sourceId}");
+            if (from.HasValue) query.Add($"from={from:yyyy-MM-dd}");
+            if (to.HasValue) query.Add($"to={to:yyyy-MM-dd}");
+
+            var url = "api/admin/wallet/balance-summary?" + string.Join("&", query);
+
+            return await _http.GetFromJsonAsync<WalletBalanceSummaryDto>(url);
+        }
 
     }
 
