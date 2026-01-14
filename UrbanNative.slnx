@@ -3,9 +3,10 @@
     <File Path="global.json" />
   </Folder>
   <Project Path="E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/UrbanNative.Admin.csproj" />
+  <Project Path="E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.AdminSeeder/UrbanNative.AdminSeeder.csproj" Id="0f8a7390-5b82-47dd-b356-289821457c6f" />
   <Project Path="E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Api/UrbanNative.Api.csproj" />
   <Project Path="E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Application/UrbanNative.Application.csproj" />
   <Project Path="E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Domain/UrbanNative.Domain.csproj" />
   <Project Path="E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Infrastructure/UrbanNative.Infrastructure.csproj" />
-  <Project Path="UrbanNative.AdminSeeder/UrbanNative.AdminSeeder.csproj" Id="0f8a7390-5b82-47dd-b356-289821457c6f" />
+  <Project Path="E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Vendors/UrbanNative.Vendors.csproj" Id="8c8510ab-2631-4cbd-a2a4-c1733fb5ffa5" />
 </Solution>

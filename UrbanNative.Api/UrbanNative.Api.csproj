@@ -31,4 +31,8 @@
 		<ProjectReference Include="..\UrbanNative.Infrastructure\UrbanNative.Infrastructure.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Models\" />
+	</ItemGroup>
+
 </Project>
