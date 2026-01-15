@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -37,7 +36,8 @@ namespace UrbanNative.Api.Controllers
             var admin = await _repo.GetByUsernameOrEmailAsync(req.Identifier.Trim());
             if (admin == null) return Unauthorized();
 
-            var verified = PasswordHelper.VerifyPassword(      req.Password,     admin.PasswordHash,          admin.PasswordSalt);
+            var verified = PasswordHelper.VerifyPassword(  
+                req.Password,     admin.PasswordHash,          admin.PasswordSalt);
 
             if (!verified) return Unauthorized();
 

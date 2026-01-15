@@ -7,10 +7,6 @@
         "Action": "Start"
       },
       {
-        "Path": "UrbanNative.Admin\\UrbanNative.Admin.csproj",
-        "Action": "Start"
-      },
-      {
         "Path": "UrbanNative.Vendors\\UrbanNative.Vendors.csproj",
         "Action": "Start"
       }

@@ -19,7 +19,8 @@ namespace UrbanNative.Vendors.Security
 
             if (context != null && context.User.Identity?.IsAuthenticated == true)
             {
-                var token = context.User.FindFirst("access_token")?.Value;
+                //var token = context.User.FindFirst("access_token")?.Value;
+                var token = context.User.FindFirst("JWT")?.Value;
 
                 if (!string.IsNullOrEmpty(token))
                 {

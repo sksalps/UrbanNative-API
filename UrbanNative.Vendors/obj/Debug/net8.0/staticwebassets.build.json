@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "UqqSjLIdvHfYkcnehPvdDgVcoNk6FY5lZVdy0OitpnE=",
+  "Hash": "LjKi4hyk6kPdNbSRbtjlMTTaeKU2q6+eprexJoJBo5o=",
   "Source": "UrbanNative.Vendors",
   "BasePath": "_content/UrbanNative.Vendors",
   "Mode": "Default",
@@ -55,6 +55,25 @@
       "OriginalItemSpec": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\UrbanNative.Vendors.bundle.scp.css"
     },
     {
+      "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\wwwroot\\css\\sidebar.css",
+      "SourceId": "UrbanNative.Vendors",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\wwwroot\\",
+      "BasePath": "_content/UrbanNative.Vendors",
+      "RelativePath": "css/sidebar.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\sidebar.css"
+    },
+    {
       "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\wwwroot\\css\\site.css",
       "SourceId": "UrbanNative.Vendors",
       "SourceType": "Discovered",
@@ -72,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\wwwroot\\css\\vendor-layout.css",
+      "SourceId": "UrbanNative.Vendors",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\wwwroot\\",
+      "BasePath": "_content/UrbanNative.Vendors",
+      "RelativePath": "css/vendor-layout.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\vendor-layout.css"
     },
     {
       "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\wwwroot\\css\\vendor-theme.css",

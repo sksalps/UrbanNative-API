@@ -1,0 +1,61 @@
+﻿@page
+@model UrbanNative.Vendors.Pages.LoginModel
+@{
+    ViewData["Title"] = "Vendor Login";
+    Layout = "_PublicLayout";
+}
+
+
+<div class="d-flex justify-content-center align-items-center" style="min-height:100vh;">
+    <div class="vendor-login-card p-4">
+
+        <div class="d-flex align-items-center justify-content-center gap-3 mb-4">
+
+            <div class="vendor-brand-logo d-flex align-items-center justify-content-center">
+                <img src="~/images/urban_logo2.png"
+                     alt="UrbanNative"
+                     class="vendor-logo-img" />
+            </div>
+
+            <div>
+                <h4 class="fw-bold mb-1">UrbanNative Vendor</h4>
+                <small class="vendor-muted">Login to your business dashboard</small>
+            </div>
+
+        </div>
+
+
+        
+
+        @if (!string.IsNullOrEmpty(Model.Error))
+        {
+            <div class="alert alert-danger text-center py-2">
+                @Model.Error
+            </div>
+        }
+
+        <form method="post">
+
+            <div class="mb-3">
+                <label class="form-label">Mobile or Email</label>
+                <input asp-for="Identifier" class="form-control vendor-input" placeholder="Enter mobile or email" />
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">Password</label>
+                <input asp-for="Password" type="password" class="form-control vendor-input" placeholder="Enter password" />
+            </div>
+
+            <button class="btn btn-primary w-100 vendor-btn">
+                Login
+            </button>
+        </form>
+
+        <div class="text-center mt-4">
+            <small class="vendor-muted">
+                Only approved vendors can login
+            </small>
+        </div>
+
+    </div>
+</div>

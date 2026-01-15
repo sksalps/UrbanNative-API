@@ -1,0 +1,131 @@
+﻿@page
+@{
+    Layout = "_VendorLayout";
+}
+@model UrbanNative.Vendors.Pages.Dashboard.IndexModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="mb-4">
+    <h4 class="fw-bold">Welcome, @User.Identity?.Name 👋</h4>
+    <p class="text-muted mb-0">Here is a quick snapshot of your business today.</p>
+</div>
+
+<!-- ================= KPI CARDS ================= -->
+<div class="row g-4 mb-4">
+
+    <!-- My Products -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card shadow-sm h-100 kpi-card">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="text-muted small">My Products</div>
+                    <div class="fs-3 fw-bold">@Model.Stats?.MyProducts</div>
+                </div>
+                <div class="icon-circle bg-primary-subtle text-primary">
+                    <i class="bi bi-box-seam fs-4"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pending Approval -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="text-muted small">Pending Approval</div>
+                    <div class="fs-3 fw-bold">@Model.Stats?.PendingProducts</div>
+                </div>
+                <div class="icon-circle bg-warning-subtle text-warning">
+                    <i class="bi bi-hourglass-split fs-4"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Low Stock -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="text-muted small">Low Stock SKUs</div>
+                    <div class="fs-3 fw-bold">@Model.Stats?.LowStockSkus</div>
+                </div>
+                <div class="icon-circle bg-danger-subtle text-danger">
+                    <i class="bi bi-exclamation-triangle fs-4"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Orders -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="text-muted small">Active Orders</div>
+                    <div class="fs-3 fw-bold">@Model.Stats?.ActiveOrders</div>
+                </div>
+                <div class="icon-circle bg-success-subtle text-success">
+                    <i class="bi bi-truck fs-4"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ================= QUICK ACTIONS ================= -->
+<div class="row g-4">
+
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <h6 class="fw-bold mb-3">Quick Actions</h6>
+
+                <div class="d-grid gap-2">
+                    <a asp-page="/Products/Create" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i> Add New Product
+                    </a>
+
+                    <a asp-page="/Orders/New" class="btn btn-outline-primary">
+                        <i class="bi bi-bag"></i> View New Orders
+                    </a>
+
+                    <a asp-page="/Wallet/Index" class="btn btn-outline-success">
+                        <i class="bi bi-wallet2"></i> Go to Wallet
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Business Health -->
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <h6 class="fw-bold mb-3">Business Health</h6>
+
+                <div class="row text-center mt-4">
+                    <div class="col-md-4">
+                        <div class="business-metric text-primary">@Model.Stats?.MyProducts</div>
+                        <div class="text-muted small">Products Live</div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="business-metric text-primary">@Model.Stats?.ActiveOrders</div>
+                        <div class="text-muted small">Orders in Process</div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="business-metric text-primary">@Model.Stats?.LowStockSkus</div>
+                        <div class="text-muted small">Need Restock</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

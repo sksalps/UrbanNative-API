@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using System;
 using System.Security.Cryptography;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using UrbanNative.Domain.Entities;
 
 namespace UrbanNative.Infrastructure.Security
 {
@@ -40,7 +41,38 @@ namespace UrbanNative.Infrastructure.Security
 
             return CryptographicOperations.FixedTimeEquals(hashToCheck, storedHash);
         }
+        
 
+    }
 
+    public static class PasswordHasher
+    {
+        private const int SaltSize = 16;   // 128-bit
+        private const int HashSize = 32;   // 256-bit
+        private const int Iterations = 100000;
+
+        // Generate salt
+        public static byte[] GenerateSalt()
+        {
+            return RandomNumberGenerator.GetBytes(SaltSize);
+        }
+
+        // Hash password
+        public static byte[] HashPassword(string password, byte[] salt)
+        {
+            using var pbkdf2 = new Rfc2898DeriveBytes(password, salt, Iterations, HashAlgorithmName.SHA256);
+            return pbkdf2.GetBytes(HashSize);
+        }
+
+        // Verify password
+        public static bool VerifyPassword(string password, string storedHashBase64, string storedSaltBase64)
+        {
+            var storedHash = Convert.FromBase64String(storedHashBase64);
+            var storedSalt = Convert.FromBase64String(storedSaltBase64);
+
+            var computed = HashPassword(password, storedSalt);
+
+            return CryptographicOperations.FixedTimeEquals(computed, storedHash);
+        }
     }
 }

@@ -1,0 +1,128 @@
+﻿@* UrbanNative Vendor Sidebar *@
+
+<aside class="vendor-sidebar">
+
+    <!-- LOGO -->
+    <div class="vendor-logo">
+        <img src="~/images/urban_logo2.png" />
+        <span>UrbanNative</span>
+    </div>
+
+    <!-- MENU -->
+    <ul class="vendor-menu">
+
+        <!-- Dashboard -->
+        <li class="menu-item">
+            <a asp-page="/Dashboard/Index">
+                <i class="bi bi-speedometer2"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <!-- Products -->
+        <li class="menu-item has-sub">
+            <a href="#">
+                <i class="bi bi-box-seam"></i>
+                <span>Products</span>
+                <i class="bi bi-chevron-down"></i>
+            </a>
+            <ul class="submenu">
+                <li><a asp-page="/Products/Index">All Products</a></li>
+                <li><a asp-page="/Products/Create">Add Product</a></li>
+            </ul>
+        </li>
+
+        <!-- SKUs -->
+        <li class="menu-item has-sub">
+            <a href="#">
+                <i class="bi bi-grid"></i>
+                <span>SKUs</span>
+                <i class="bi bi-chevron-down"></i>
+            </a>
+            <ul class="submenu">
+                <li><a asp-page="/Skus/Index">SKU Manager</a></li>
+                <li><a asp-page="/Inventory/Index">Inventory</a></li>
+            </ul>
+        </li>
+
+        <!-- Orders -->
+        <li class="menu-item has-sub">
+            <a href="#">
+                <i class="bi bi-bag-check"></i>
+                <span>Orders</span>
+                <i class="bi bi-chevron-down"></i>
+            </a>
+            <ul class="submenu">
+                <li><a asp-page="/Orders/New">New Orders</a></li>
+                <li><a asp-page="/Orders/InTransit">In Transit</a></li>
+                <li><a asp-page="/Orders/Delivered">Delivered</a></li>
+                <li><a asp-page="/Orders/Returns">Returns / RTO</a></li>
+            </ul>
+        </li>
+
+        <!-- Wallet -->
+        <li class="menu-item has-sub">
+            <a href="#">
+                <i class="bi bi-wallet2"></i>
+                <span>Wallet</span>
+                <i class="bi bi-chevron-down"></i>
+            </a>
+            <ul class="submenu">
+                <li><a asp-page="/Wallet/Index">Wallet Balance</a></li>
+                <li><a asp-page="/Wallet/Transactions">Transactions</a></li>
+                <li><a asp-page="/Wallet/Payouts">Payouts</a></li>
+            </ul>
+        </li>
+
+        <!-- My Business -->
+        <li class="menu-item has-sub">
+            <a href="#">
+                <i class="bi bi-building"></i>
+                <span>My Business</span>
+                <i class="bi bi-chevron-down"></i>
+            </a>
+            <ul class="submenu">
+                <li><a asp-page="/Business/Profile">Profile</a></li>
+                <li><a asp-page="/Business/Warehouse">Warehouse</a></li>
+                <li><a asp-page="/Business/Bank">Bank</a></li>
+                <li><a asp-page="/Business/Documents">Documents</a></li>
+            </ul>
+        </li>
+
+        <!-- Reports -->
+        <li class="menu-item has-sub">
+            <a href="#">
+                <i class="bi bi-graph-up"></i>
+                <span>Reports</span>
+                <i class="bi bi-chevron-down"></i>
+            </a>
+            <ul class="submenu">
+                <li><a asp-page="/Reports/Sales">Sales</a></li>
+                <li><a asp-page="/Reports/Gst">GST Summary</a></li>
+            </ul>
+        </li>
+
+        <!-- Settings -->
+        <li class="menu-item has-sub">
+            <a href="#">
+                <i class="bi bi-gear"></i>
+                <span>Settings</span>
+                <i class="bi bi-chevron-down"></i>
+            </a>
+            <ul class="submenu">
+                <li><a asp-page="/Settings/Password">Change Password</a></li>
+                <li><a asp-page="/Settings/Notifications">Notifications</a></li>
+            </ul>
+        </li>
+
+        <!-- Logout -->
+        <li class="menu-item">
+            <a asp-page="/Logout">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+            </a>
+        </li>
+
+    </ul>
+
+</aside>

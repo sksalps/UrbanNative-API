@@ -1,5 +1,4 @@
-﻿
-namespace UrbanNative.Domain.Entities
+﻿namespace UrbanNative.Domain.Entities
 {
     public class Vendor
     {
@@ -15,11 +14,12 @@ namespace UrbanNative.Domain.Entities
         public string? PickupAddress { get; set; }
         public string? State { get; set; }
         public string? StateCode { get; set; }
-        public byte[] PasswordHash { get; set; } = Array.Empty<byte>();
-        public byte[] PasswordSalt { get; set; } = Array.Empty<byte>();
+        
         public string ApprovalStatus { get; set; } = "Pending";
         public DateTime CreatedAt { get; set; }
         public bool IsActive { get; set; } = true;
+        public byte[] PasswordHash { get; set; } = Array.Empty<byte>();
+        public byte[] PasswordSalt { get; set; } = Array.Empty<byte>();
     }
 
 

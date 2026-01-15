@@ -1988,5 +1988,41 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.VendorAuthController",
+    "Method": "Login",
+    "RelativePath": "api/vendor/auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "UrbanNative.Application.DTOs.Vendors.VendorLoginRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "VendorDashboardController",
+    "Method": "Get",
+    "RelativePath": "api/vendor/dashboard",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "UrbanNative.Application.DTOs.Vendors.VendorDashboardDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]
