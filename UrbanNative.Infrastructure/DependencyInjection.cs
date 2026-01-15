@@ -32,7 +32,9 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<IAdminOrderRepository, AdminOrderRepository>();
             services.AddScoped<IAdminReturnsRepository, AdminReturnsRepository>();
             services.AddScoped<IAdminWalletRepository, AdminWalletRepository>();
-
+            //services.AddScoped<IVendorAuthRepository, VendorAuthRepository>();
+            //services.AddScoped<IVendorDashboardRepository, VendorDashboardRepository>();
+            //services.AddScoped<IVendorLoginRepository, VendorLoginRepository>();
 
             return services;
         }

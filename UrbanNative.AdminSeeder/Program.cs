@@ -18,10 +18,15 @@ class Program
         string role = "Admin";
         string password = "Admin@123";   // CHANGE THIS BEFORE PRODUCTION
 
+
         // Generate secure hash + salt
         (byte[] hash, byte[] salt) = PasswordHelper.CreateHash(password);
 
-        const string sql = @"
+        var result = PasswordHelper.CreateHash("Test@123");
+        Console.WriteLine(Convert.ToBase64String(result.hash));
+        Console.WriteLine(Convert.ToBase64String(result.salt));
+
+        /*const string sql = @"
 INSERT INTO dbo.AdminUsers (Username, Email, DisplayName, Role, PasswordHash, PasswordSalt, IsActive, CreatedAt)
 VALUES (@username, @email, @displayName, @role, @passwordHash, @passwordSalt, 1, SYSUTCDATETIME());
 SELECT SCOPE_IDENTITY();
@@ -50,6 +55,6 @@ SELECT SCOPE_IDENTITY();
             Console.WriteLine(ex.ToString());     // ✔ shows full error, not only message
         }
 
-        Console.WriteLine("=== Seeder Completed ===");
+        Console.WriteLine("=== Seeder Completed ===");*/
     }
 }

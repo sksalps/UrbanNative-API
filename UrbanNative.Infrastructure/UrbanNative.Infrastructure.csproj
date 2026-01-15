@@ -26,6 +26,10 @@
   <ItemGroup>
     <ProjectReference Include="..\UrbanNative.Application\UrbanNative.Application.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Repositories\Vendors\" />
+  </ItemGroup>
 	
 
 

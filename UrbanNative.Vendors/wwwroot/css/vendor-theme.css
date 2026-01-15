@@ -1,0 +1,54 @@
+﻿/* ===== Vendor Theme ===== */
+
+body {
+    background: linear-gradient(120deg, #f5f7fb, #eef2f7);
+}
+
+/* Login Card */
+.vendor-login-card {
+    width: 420px;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.08);
+}
+
+/* Brand */
+.vendor-brand-logo {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(13,110,253,0.18);
+    overflow: hidden; /* 👈 this is the fix */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vendor-logo-img {
+    max-width: 66px;
+    max-height: 66px;
+    object-fit: contain;
+}
+
+/* Inputs */
+.vendor-input {
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 15px;
+}
+
+/* Buttons */
+.vendor-btn {
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Small helper text */
+.vendor-muted {
+    color: #7a7a7a;
+    font-size: 13px;
+}
+
+

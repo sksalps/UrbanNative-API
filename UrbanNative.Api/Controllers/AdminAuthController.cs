@@ -37,10 +37,7 @@ namespace UrbanNative.Api.Controllers
             var admin = await _repo.GetByUsernameOrEmailAsync(req.Identifier.Trim());
             if (admin == null) return Unauthorized();
 
-            var verified = PasswordHelper.VerifyPassword(
-                req.Password,
-                admin.PasswordHash,
-                admin.PasswordSalt);
+            var verified = PasswordHelper.VerifyPassword(      req.Password,     admin.PasswordHash,          admin.PasswordSalt);
 
             if (!verified) return Unauthorized();
 
@@ -54,9 +51,7 @@ namespace UrbanNative.Api.Controllers
                 new Claim(ClaimTypes.Role, admin.Role ?? "Admin") // 🔑 REQUIRED
             };
 
-            var key = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(jwtSection["Key"]!)
-            );
+            var key = new SymmetricSecurityKey(    Encoding.UTF8.GetBytes(jwtSection["Key"]!)            );
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
@@ -72,8 +67,7 @@ namespace UrbanNative.Api.Controllers
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 
-            return Ok(new
-            {
+            return Ok(new  {
                 token = jwt,
                 admin = new AdminInfoDto
                 {

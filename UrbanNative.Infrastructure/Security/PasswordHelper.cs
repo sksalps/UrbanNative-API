@@ -40,5 +40,7 @@ namespace UrbanNative.Infrastructure.Security
 
             return CryptographicOperations.FixedTimeEquals(hashToCheck, storedHash);
         }
+
+
     }
 }

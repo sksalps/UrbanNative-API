@@ -2,13 +2,11 @@
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using UrbanNative.Api.Services;
-using UrbanNative.Application.GlobalCall.VariantValueSignature;
 using UrbanNative.Application.Interfaces;
 using UrbanNative.Infrastructure;
 using UrbanNative.Infrastructure.Caching;
 using UrbanNative.Infrastructure.Database;
 using UrbanNative.Infrastructure.Repositories;
-
 
 
 
@@ -32,8 +30,6 @@ builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 // Services
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IMessageService, MessageService>();
-builder.Services.AddScoped<IVendorRepository, VendorRepository>();
-builder.Services.AddScoped<IVendorService, VendorService>();
 
 builder.Services.AddScoped<IVariantMasterService, VariantMasterService>();
 builder.Services.AddScoped<IVariantValueService, VariantValueService>();
@@ -66,47 +62,31 @@ if (string.IsNullOrWhiteSpace(jwtKey))
     throw new Exception("JWT Key is missing in appsettings.json (JwtSettings:Key)");
 }
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-     .AddCookie(options =>
-    {
-        options.Cookie.Name = "UrbanNative.Auth";
-        options.Cookie.HttpOnly = true;
-        options.Cookie.SameSite = SameSiteMode.None;   // 🔑 REQUIRED
-        options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // 🔑 REQUIRED
-    })
+var jwt = builder.Configuration.GetSection("JwtSettings");
+var key = Encoding.UTF8.GetBytes(jwt["Key"]!);
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
+            ValidIssuer = jwt["Issuer"],
+
             ValidateAudience = true,
-            ValidateLifetime = true,
+            ValidAudience = jwt["Audience"],
+
             ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
 
-            ValidIssuer = jwtSettings["Issuer"],
-            ValidAudience = jwtSettings["Audience"],
-
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(jwtKey)
-            )
-        };
-
-
-        // 🔥 THIS IS THE KEY FIX
-        options.Events = new JwtBearerEvents
-        {
-            OnMessageReceived = context =>
-            {
-                // Read JWT from cookie instead of header
-                if (context.Request.Cookies.ContainsKey("jwt"))
-                {
-                    context.Token = context.Request.Cookies["jwt"];
-                }
-                return Task.CompletedTask;
-            }
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.Zero
         };
     });
+
 
 // build provider temporarily
 using (var scope = builder.Services.BuildServiceProvider().CreateScope())
@@ -155,6 +135,8 @@ app.UseHttpsRedirection();
 app.MapControllers();
 
 app.Run();
+
+
 
 
 

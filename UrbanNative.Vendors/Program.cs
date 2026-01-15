@@ -1,33 +1,37 @@
-﻿using UrbanNative.Vendors.Security;
-using UrbanNative.Vendors.Services;
-using UrbanNative.Application.Interfaces;
+﻿using UrbanNative.Application.Interfaces;
+using UrbanNative.Vendors.Security;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// =======================
 // Razor Pages
+// =======================
 builder.Services.AddRazorPages();
-
-// Make IHttpContextAccessor available
 builder.Services.AddHttpContextAccessor();
 
-// JWT → Cookie bridge (same pattern as Admin)
+// JWT → Cookie bridge
 builder.Services.AddTransient<JwtTokenHandler>();
 
 
 // =======================
-// 🔐 Vendor Cookie Auth
+// 🔐 Vendor Cookie Auth (ONE scheme only)
 // =======================
-builder.Services.AddAuthentication("VendorCookie")
-    .AddCookie("VendorCookie", options =>
-    {
-        options.LoginPath = "/Login";
-        options.Cookie.Name = "UrbanNative.Vendor";
-        options.ExpireTimeSpan = TimeSpan.FromHours(8);
-        options.SlidingExpiration = true;
-        options.Cookie.HttpOnly = true;
-        options.Cookie.SameSite = SameSiteMode.Lax;
-        // options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // enable in prod
-    });
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = "VendorCookie";
+    options.DefaultSignInScheme = "VendorCookie";
+    options.DefaultChallengeScheme = "VendorCookie";
+})
+.AddCookie("VendorCookie", options =>
+{
+    options.LoginPath = "/Login";
+    options.AccessDeniedPath = "/Login";
+    options.Cookie.Name = "UrbanNative.Vendor";
+    options.ExpireTimeSpan = TimeSpan.FromHours(8);
+    options.SlidingExpiration = true;
+    options.Cookie.HttpOnly = true;
+    options.Cookie.SameSite = SameSiteMode.Lax;
+});
 
 
 // =======================
@@ -39,6 +43,10 @@ builder.Services.AddAuthorization(options =>
         policy.RequireAuthenticatedUser().RequireRole("Vendor"));
 });
 
+
+// =======================
+// Razor authorization
+// =======================
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizeFolder("/Dashboard", "VendorOnly");
@@ -53,7 +61,7 @@ builder.Services.AddHttpClient("ApiClient", client =>
     var baseUrl = builder.Configuration["ApiSettings:BaseUrl"];
 
     if (string.IsNullOrWhiteSpace(baseUrl))
-        baseUrl = "https://localhost:5127";   // same API as Admin
+        baseUrl = "https://localhost:5127";
 
     client.BaseAddress = new Uri(baseUrl);
     client.Timeout = TimeSpan.FromSeconds(30);
@@ -64,9 +72,9 @@ builder.Services.AddHttpClient("ApiClient", client =>
 // =======================
 // 🧩 Vendor Services
 // =======================
-builder.Services.AddScoped<IVendorAuthService, VendorAuthService>();
-builder.Services.AddScoped<IVendorDashboardService, VendorDashboardService>();
-// Later: Orders, Inventory, Wallet, SKUs, etc.
+//builder.Services.AddScoped<IVendorAuthService, VendorAuthService>();
+//builder.Services.AddScoped<IVendorDashboardService, VendorDashboardService>();
+//builder.Services.AddScoped<IVendorService, VendorService>();
 
 
 // =======================
@@ -86,6 +94,12 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapGet("/", context =>
+{
+    context.Response.Redirect("/Login");
+    return Task.CompletedTask;
+});
 
 app.MapRazorPages();
 
