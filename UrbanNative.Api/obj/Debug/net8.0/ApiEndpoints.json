@@ -2024,5 +2024,41 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorProfileController",
+    "Method": "GetProfile",
+    "RelativePath": "api/vendor/profile",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "UrbanNative.Application.DTOs.Vendors.VendorProfileDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorProfileController",
+    "Method": "UpdateProfile",
+    "RelativePath": "api/vendor/profile",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "UrbanNative.Application.DTOs.Vendors.VendorProfileDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

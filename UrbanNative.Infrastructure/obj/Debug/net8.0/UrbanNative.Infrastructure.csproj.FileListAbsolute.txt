@@ -1,9 +1,3 @@
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net8.0\UrbanNative.Infrastructure.csproj.AssemblyReference.cache
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net8.0\UrbanNative.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net8.0\UrbanNative.Infrastructure.AssemblyInfoInputs.cache
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net8.0\UrbanNative.Infrastructure.AssemblyInfo.cs
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net8.0\UrbanNative.Infrastructure.csproj.CoreCompileInputs.cache
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net8.0\UrbanNative.Infrastructure.sourcelink.json
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\bin\Debug\net8.0\LatoFont\Lato-Black.ttf
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\bin\Debug\net8.0\LatoFont\Lato-BlackItalic.ttf
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\bin\Debug\net8.0\LatoFont\Lato-Bold.ttf
@@ -30,6 +24,12 @@ E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infra
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\bin\Debug\net8.0\UrbanNative.Domain.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\bin\Debug\net8.0\UrbanNative.Application.pdb
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\bin\Debug\net8.0\UrbanNative.Domain.pdb
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net8.0\UrbanNative.Infrastructure.csproj.AssemblyReference.cache
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net8.0\UrbanNative.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net8.0\UrbanNative.Infrastructure.AssemblyInfoInputs.cache
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net8.0\UrbanNative.Infrastructure.AssemblyInfo.cs
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net8.0\UrbanNative.Infrastructure.csproj.CoreCompileInputs.cache
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net8.0\UrbanNative.Infrastructure.sourcelink.json
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net8.0\UrbanNat.9A0A6218.Up2Date
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net8.0\UrbanNative.Infrastructure.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net8.0\refint\UrbanNative.Infrastructure.dll

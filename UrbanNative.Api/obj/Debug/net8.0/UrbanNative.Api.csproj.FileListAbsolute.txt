@@ -3,6 +3,7 @@ E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\o
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\obj\Debug\net8.0\UrbanNative.Api.AssemblyInfoInputs.cache
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\obj\Debug\net8.0\UrbanNative.Api.AssemblyInfo.cs
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\obj\Debug\net8.0\UrbanNative.Api.csproj.CoreCompileInputs.cache
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\obj\Debug\net8.0\UrbanNative.Api.MvcApplicationPartsAssemblyInfo.cs
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\obj\Debug\net8.0\UrbanNative.Api.MvcApplicationPartsAssemblyInfo.cache
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\obj\Debug\net8.0\UrbanNative.Api.sourcelink.json
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\appsettings.Development.json

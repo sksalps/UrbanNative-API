@@ -264,4 +264,60 @@ ReferralEntityID	int	Unchecked
 ReferredEntityID	int	Unchecked
 ReferralCode	varchar(50)	Checked
 ReferredAt	datetime	Unchecked
-		Unchecked
+	
+Vendors
+VendorID	int	Unchecked
+VendorName	nvarchar(200)	Unchecked
+ContactPerson	nvarchar(150)	Checked
+Mobile	varchar(20)	Unchecked
+Email	nvarchar(200)	Checked
+BusinessName	nvarchar(200)	Checked
+GSTNumber	varchar(15)	Checked
+PANNumber	varchar(10)	Checked
+BusinessAddress	nvarchar(MAX)	Checked
+PickupAddress	nvarchar(MAX)	Checked
+State	nvarchar(100)	Checked
+StateCode	varchar(5)	Checked
+BankAccountNumber	varchar(30)	Checked
+IFSCCode	varchar(11)	Checked
+BankName	nvarchar(150)	Checked
+PasswordHash	nvarchar(500)	Checked
+PasswordSalt	nvarchar(500)	Checked
+ApprovalStatus	varchar(20)	Checked
+ApprovedBy	int	Checked
+ApprovedAt	datetime	Checked
+RejectionReason	nvarchar(500)	Checked
+CreatedAt	datetime	Checked
+UpdatedAt	datetime	Checked
+IsActive	bit	Checked
+ReferredByUserID	int	Checked
+
+VendorDocuments
+VendorDocumentID	int	Unchecked
+VendorID	int	Unchecked
+DocumentType	nvarchar(50)	Unchecked
+DocumentUrl	nvarchar(300)	Unchecked
+IsVerified	bit	Unchecked
+UploadedAt	datetime	Unchecked
+
+VendorMedia
+VendorMediaID	int	Unchecked
+VendorID	int	Unchecked
+MediaType	varchar(20)	Checked
+MediaUrl	nvarchar(300)	Checked
+Latitude	decimal(9, 6)	Checked
+Longitude	decimal(9, 6)	Checked
+UploadedAt	datetime	Checked
+
+SystemSettingsMaster
+SystemSettingId	int	Unchecked
+SettingKey	varchar(50)	Unchecked
+DisplayName	nvarchar(100)	Unchecked
+Description	nvarchar(300)	Checked
+ValueType	varchar(20)	Unchecked
+IsActive	bit	Unchecked
+CreatedAt	datetime	Unchecked
+SettingsFor	varchar(20)	Unchecked
+OnlyAdminEditable	bit	Unchecked
+		
+		

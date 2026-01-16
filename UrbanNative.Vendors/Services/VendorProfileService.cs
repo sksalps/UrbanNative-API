@@ -16,13 +16,13 @@ namespace UrbanNative.Vendors.Services
 
         public async Task<VendorProfileDto> GetProfileAsync()
         {
-            var data= await _http.GetFromJsonAsync<VendorProfileDto>($"api/vendor/profile");
+            var data= await _http.GetFromJsonAsync<VendorProfileDto>($"/api/vendor/profile");
             return data;
         }
 
         public async Task UpdateProfileAsync(VendorProfileDto dto)
         {
-            var response = await _http.PutAsJsonAsync($"api/vendor/profile", dto);
+            var response = await _http.PutAsJsonAsync($"/api/vendor/profile", dto);
 
             response.EnsureSuccessStatusCode();
         }

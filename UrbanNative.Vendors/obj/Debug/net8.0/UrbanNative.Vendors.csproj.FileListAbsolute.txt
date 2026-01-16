@@ -93,7 +93,6 @@ E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendo
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.UrbanNative.Vendors.props
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.UrbanNative.Vendors.props
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\obj\Debug\net8.0\staticwebassets.pack.json
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\obj\Debug\net8.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\obj\Debug\net8.0\scopedcss\bundle\UrbanNative.Vendors.styles.css
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\obj\Debug\net8.0\scopedcss\projectbundle\UrbanNative.Vendors.bundle.scp.css
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\obj\Debug\net8.0\UrbanNat.E6BD2E50.Up2Date
@@ -102,3 +101,4 @@ E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendo
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\obj\Debug\net8.0\UrbanNative.Vendors.pdb
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\obj\Debug\net8.0\UrbanNative.Vendors.genruntimeconfig.cache
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\obj\Debug\net8.0\ref\UrbanNative.Vendors.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\obj\Debug\net8.0\scopedcss\Pages\Shared\111_Layout.cshtml.rz.scp.css
