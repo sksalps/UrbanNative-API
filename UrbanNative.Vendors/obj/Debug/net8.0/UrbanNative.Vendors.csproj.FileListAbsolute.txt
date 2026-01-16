@@ -17,6 +17,7 @@ E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendo
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\bin\Debug\net8.0\UrbanNative.Vendors.pdb
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\bin\Debug\net8.0\Azure.Core.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\bin\Debug\net8.0\Azure.Identity.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\bin\Debug\net8.0\Microsoft.Bcl.Cryptography.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
@@ -101,4 +102,3 @@ E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendo
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\obj\Debug\net8.0\UrbanNative.Vendors.pdb
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\obj\Debug\net8.0\UrbanNative.Vendors.genruntimeconfig.cache
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\obj\Debug\net8.0\ref\UrbanNative.Vendors.dll
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <Folder Include="Pages\Dashboard\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

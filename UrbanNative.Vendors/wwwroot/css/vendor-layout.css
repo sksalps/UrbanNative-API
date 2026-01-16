@@ -1,4 +1,5 @@
-﻿body {
+﻿/* ================= BASE ================= */
+body {
     margin: 0;
     background: #f1f5f9;
 }
@@ -8,22 +9,22 @@
     height: 100vh;
 }
 
-/* Sidebar */
+/* ================= SIDEBAR ================= */
 .vendor-sidebar {
     width: 260px;
-    background: #020617;
+    background: linear-gradient(180deg, #020617, #020617);
     color: #fff;
     display: flex;
     flex-direction: column;
 }
 
+/* Logo */
 .vendor-logo {
     padding: 15px;
     display: flex;
     align-items: center;
     gap: 10px;
     font-weight: 600;
-    background: #020617;
     border-bottom: 1px solid #1e293b;
 }
 
@@ -31,7 +32,7 @@
         height: 30px;
     }
 
-/* Menu */
+/* ================= MENU ================= */
 .vendor-menu {
     list-style: none;
     padding: 0;
@@ -42,21 +43,42 @@
     .vendor-menu li a {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        gap: 12px;
         padding: 12px 18px;
         color: #cbd5e1;
         text-decoration: none;
+        font-weight: 500;
     }
 
-        .vendor-menu li a i {
-            margin-right: 10px;
+        /* Left icon */
+        .vendor-menu li a i:first-child {
+            width: 20px;
+            text-align: center;
         }
 
-        .vendor-menu li a:hover {
-            background: #1e293b;
-            color: white;
+        /* Right arrow */
+        .vendor-menu li a i.bi-chevron-down {
+            margin-left: auto;
+            font-size: 12px;
+            opacity: 0.7;
         }
 
+        .vendor-menu li a:hover,
+        .vendor-menu li.open > a {
+            background: #0f172a;
+            color: #ffffff;
+        }
+
+    /* Active menu */
+    .vendor-menu li.active > a {
+        background: #1e293b;
+        color: #ffffff;
+        font-weight: 600;
+    }
+
+
+
+/* Submenu */
 .submenu {
     display: none;
     background: #020617;
@@ -71,45 +93,50 @@
     display: block;
 }
 
-/* Main */
+/* Active submenu item */
+.submenu a.active {
+    color: #ffffff;
+    background: #0f172a;
+    border-left: 3px solid #3b82f6;
+}
+
+
+/* ================= MAIN ================= */
 .vendor-main {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
 
+/* Topbar */
 .vendor-topbar {
     height: 60px;
-    background: white;
+    background: #ffffff;
     border-bottom: 1px solid #e2e8f0;
     padding: 0 20px;
     display: flex;
     align-items: center;
 }
 
+/* Content */
 .vendor-content {
     flex-grow: 1;
     padding: 20px;
     overflow-y: auto;
 }
 
+/* Footer */
 .vendor-footer {
-    background: white;
+    background: #ffffff;
     padding: 10px 20px;
     border-top: 1px solid #e2e8f0;
     text-align: center;
     font-size: 13px;
 }
-.icon-circle {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
-/* --- Dashboard cards --- */
+/* ================= DASHBOARD ================= */
+
+/* Cards */
 .card {
     border-radius: 12px;
     background: #ffffff;
@@ -135,7 +162,7 @@
         background: linear-gradient(180deg, rgba(37,99,235,0.08), transparent);
     }
 
-/* KPI icon bubble */
+/* Icon Bubble */
 .icon-circle {
     width: 46px;
     height: 46px;
@@ -146,27 +173,37 @@
     font-size: 20px;
 }
 
-.bg-primary-subtle { background: #eef2ff !important; }
-.bg-warning-subtle { background: #fff7ed !important; }
-.bg-danger-subtle  { background: #fef2f2 !important; }
-.bg-success-subtle { background: #ecfdf5 !important; }
+/* Subtle Colors */
+.bg-primary-subtle {
+    background: #eef2ff !important;
+}
 
+.bg-warning-subtle {
+    background: #fff7ed !important;
+}
+
+.bg-danger-subtle {
+    background: #fef2f2 !important;
+}
+
+.bg-success-subtle {
+    background: #ecfdf5 !important;
+}
+
+/* Business Health */
 .business-metric {
     font-size: 26px;
     font-weight: 700;
 }
 
-.vendor-sidebar {
-    background: linear-gradient(180deg, #020617, #020617);
+/* ================= TOPBAR BUTTONS ================= */
+
+.vendor-topbar button.btn-light {
+    border-radius: 8px;
+    background: #f8fafc;
 }
 
-.vendor-menu li a {
-    font-weight: 500;
+.vendor-topbar .dropdown-toggle::after {
+    display: none;
 }
-
-    .vendor-menu li.open > a,
-    .vendor-menu li a:hover {
-        background: #0f172a;
-        color: white;
-    }
 

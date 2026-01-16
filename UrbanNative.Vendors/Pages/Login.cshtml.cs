@@ -47,12 +47,13 @@ namespace UrbanNative.Vendors.Pages
 
 
             var claims = new[]
-{
-    new Claim(ClaimTypes.NameIdentifier, result.VendorID.ToString()), // standard
-    new Claim(ClaimTypes.Role, "Vendor"),
-    new Claim("JWT", result.Token)   // 🔑 THIS is what JwtTokenHandler reads
-};
-
+            {
+                new Claim(ClaimTypes.NameIdentifier, result.VendorID.ToString()), // standard
+                new Claim("VendorID", result.VendorID.ToString()),
+                new Claim(ClaimTypes.Role, "Vendor"),
+                new Claim("JWT", result.Token)   // 🔑 THIS is what JwtTokenHandler reads
+            };
+            
 
             //var identity = new ClaimsIdentity(claims, "VendorCookie");
             // var principal = new ClaimsPrincipal(identity);
@@ -65,15 +66,16 @@ namespace UrbanNative.Vendors.Pages
 
             var identity = new ClaimsIdentity(claims, "VendorCookie");
 
-            await HttpContext.SignInAsync("VendorCookie",
-                new ClaimsPrincipal(identity),
+            await HttpContext.SignInAsync("VendorCookie",   new ClaimsPrincipal(identity),
                 new AuthenticationProperties
                 {
                     IsPersistent = true,
                     ExpiresUtc = DateTimeOffset.UtcNow.AddHours(8)
                 });
 
-            //HttpContext.Session.SetInt32("AdminId", result.Admin.Id);
+
+
+            //HttpContext.Session.SetInt32("VendorID", result.VendorID);
 
             return RedirectToPage("/dashboard/Index");
         }

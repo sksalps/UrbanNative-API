@@ -1,4 +1,15 @@
 ﻿@* UrbanNative Vendor Sidebar *@
+@{
+    var currentPage = ViewContext.RouteData.Values["page"]?.ToString() ?? "";
+
+    var isProducts = currentPage.StartsWith("/Products");
+    var isSkus = currentPage.StartsWith("/Skus") || currentPage.StartsWith("/Inventory");
+    var isOrders = currentPage.StartsWith("/Orders");
+    var isWallet = currentPage.StartsWith("/Wallet");
+    var isBusiness = currentPage.StartsWith("/Business");
+    var isReports = currentPage.StartsWith("/Reports");
+    var isSettings = currentPage.StartsWith("/Settings");
+}
 
 <aside class="vendor-sidebar">
 
@@ -12,7 +23,7 @@
     <ul class="vendor-menu">
 
         <!-- Dashboard -->
-        <li class="menu-item">
+        <li class="menu-item @(currentPage == "/Dashboard/Index" ? "active" : "")">
             <a asp-page="/Dashboard/Index">
                 <i class="bi bi-speedometer2"></i>
                 <span>Dashboard</span>
@@ -20,107 +31,199 @@
         </li>
 
         <!-- Products -->
-        <li class="menu-item has-sub">
+        <li class="menu-item has-sub @(isProducts ? "open active" : "")">
             <a href="#">
                 <i class="bi bi-box-seam"></i>
                 <span>Products</span>
                 <i class="bi bi-chevron-down"></i>
             </a>
             <ul class="submenu">
-                <li><a asp-page="/Products/Index">All Products</a></li>
-                <li><a asp-page="/Products/Create">Add Product</a></li>
+                <li>
+                    <a asp-page="/Products/Index"
+                       class="@(currentPage == "/Products/Index" ? "active" : "")">
+                        All Products
+                    </a>
+                </li>
+                <li>
+                    <a asp-page="/Products/Create"
+                       class="@(currentPage == "/Products/Create" ? "active" : "")">
+                        Add Product
+                    </a>
+                </li>
             </ul>
         </li>
 
         <!-- SKUs -->
-        <li class="menu-item has-sub">
+        <li class="menu-item has-sub @(isSkus ? "open active" : "")">
             <a href="#">
                 <i class="bi bi-grid"></i>
                 <span>SKUs</span>
                 <i class="bi bi-chevron-down"></i>
             </a>
             <ul class="submenu">
-                <li><a asp-page="/Skus/Index">SKU Manager</a></li>
-                <li><a asp-page="/Inventory/Index">Inventory</a></li>
+                <li>
+                    <a asp-page="/Skus/Index"
+                       class="@(currentPage == "/Skus/Index" ? "active" : "")">
+                        SKU Manager
+                    </a>
+                </li>
+                <li>
+                    <a asp-page="/Inventory/Index"
+                       class="@(currentPage == "/Inventory/Index" ? "active" : "")">
+                        Inventory
+                    </a>
+                </li>
             </ul>
         </li>
 
         <!-- Orders -->
-        <li class="menu-item has-sub">
+        <li class="menu-item has-sub @(isOrders ? "open active" : "")">
             <a href="#">
                 <i class="bi bi-bag-check"></i>
                 <span>Orders</span>
                 <i class="bi bi-chevron-down"></i>
             </a>
             <ul class="submenu">
-                <li><a asp-page="/Orders/New">New Orders</a></li>
-                <li><a asp-page="/Orders/InTransit">In Transit</a></li>
-                <li><a asp-page="/Orders/Delivered">Delivered</a></li>
-                <li><a asp-page="/Orders/Returns">Returns / RTO</a></li>
+                <li>
+                    <a asp-page="/Orders/New"
+                       class="@(currentPage == "/Orders/New" ? "active" : "")">
+                        New Orders
+                    </a>
+                </li>
+                <li>
+                    <a asp-page="/Orders/InTransit"
+                       class="@(currentPage == "/Orders/InTransit" ? "active" : "")">
+                        In Transit
+                    </a>
+                </li>
+                <li>
+                    <a asp-page="/Orders/Delivered"
+                       class="@(currentPage == "/Orders/Delivered" ? "active" : "")">
+                        Delivered
+                    </a>
+                </li>
+                <li>
+                    <a asp-page="/Orders/Returns"
+                       class="@(currentPage == "/Orders/Returns" ? "active" : "")">
+                        Returns / RTO
+                    </a>
+                </li>
             </ul>
         </li>
 
         <!-- Wallet -->
-        <li class="menu-item has-sub">
+        <li class="menu-item has-sub @(isWallet ? "open active" : "")">
             <a href="#">
                 <i class="bi bi-wallet2"></i>
                 <span>Wallet</span>
                 <i class="bi bi-chevron-down"></i>
             </a>
             <ul class="submenu">
-                <li><a asp-page="/Wallet/Index">Wallet Balance</a></li>
-                <li><a asp-page="/Wallet/Transactions">Transactions</a></li>
-                <li><a asp-page="/Wallet/Payouts">Payouts</a></li>
+                <li>
+                    <a asp-page="/Wallet/Index"
+                       class="@(currentPage == "/Wallet/Index" ? "active" : "")">
+                        Wallet Balance
+                    </a>
+                </li>
+                <li>
+                    <a asp-page="/Wallet/Transactions"
+                       class="@(currentPage == "/Wallet/Transactions" ? "active" : "")">
+                        Transactions
+                    </a>
+                </li>
+                <li>
+                    <a asp-page="/Wallet/Payouts"
+                       class="@(currentPage == "/Wallet/Payouts" ? "active" : "")">
+                        Payouts
+                    </a>
+                </li>
             </ul>
         </li>
 
         <!-- My Business -->
-        <li class="menu-item has-sub">
+        <li class="menu-item has-sub @(isBusiness ? "open active" : "")">
             <a href="#">
                 <i class="bi bi-building"></i>
                 <span>My Business</span>
                 <i class="bi bi-chevron-down"></i>
             </a>
             <ul class="submenu">
-                <li><a asp-page="/Business/Profile">Profile</a></li>
-                <li><a asp-page="/Business/Warehouse">Warehouse</a></li>
-                <li><a asp-page="/Business/Bank">Bank</a></li>
-                <li><a asp-page="/Business/Documents">Documents</a></li>
+                <li>
+                    <a asp-page="/Business/Profile"
+                       class="@(currentPage == "/Business/Profile" ? "active" : "")">
+                        Profile
+                    </a>
+                </li>
+                <li>
+                    <a asp-page="/Business/Warehouse"
+                       class="@(currentPage == "/Business/Warehouse" ? "active" : "")">
+                        Warehouse
+                    </a>
+                </li>
+                <li>
+                    <a asp-page="/Business/Bank"
+                       class="@(currentPage == "/Business/Bank" ? "active" : "")">
+                        Bank
+                    </a>
+                </li>
+                <li>
+                    <a asp-page="/Business/Documents"
+                       class="@(currentPage == "/Business/Documents" ? "active" : "")">
+                        Documents
+                    </a>
+                </li>
             </ul>
         </li>
 
         <!-- Reports -->
-        <li class="menu-item has-sub">
+        <li class="menu-item has-sub @(isReports ? "open active" : "")">
             <a href="#">
                 <i class="bi bi-graph-up"></i>
                 <span>Reports</span>
                 <i class="bi bi-chevron-down"></i>
             </a>
             <ul class="submenu">
-                <li><a asp-page="/Reports/Sales">Sales</a></li>
-                <li><a asp-page="/Reports/Gst">GST Summary</a></li>
+                <li>
+                    <a asp-page="/Reports/Sales"
+                       class="@(currentPage == "/Reports/Sales" ? "active" : "")">
+                        Sales
+                    </a>
+                </li>
+                <li>
+                    <a asp-page="/Reports/Gst"
+                       class="@(currentPage == "/Reports/Gst" ? "active" : "")">
+                        GST Summary
+                    </a>
+                </li>
             </ul>
         </li>
 
         <!-- Settings -->
-        <li class="menu-item has-sub">
+        <li class="menu-item has-sub @(isSettings ? "open active" : "")">
             <a href="#">
                 <i class="bi bi-gear"></i>
                 <span>Settings</span>
                 <i class="bi bi-chevron-down"></i>
             </a>
             <ul class="submenu">
-                <li><a asp-page="/Settings/Password">Change Password</a></li>
-                <li><a asp-page="/Settings/Notifications">Notifications</a></li>
+                <li>
+                    <a asp-page="/Settings/Password"
+                       class="@(currentPage == "/Settings/Password" ? "active" : "")">
+                        Change Password
+                    </a>
+                </li>
+                <li>
+                    <a asp-page="/Settings/Index"
+                       class="@(currentPage == "/Settings/Index" ? "active" : "")">
+                        Set Options
+                    </a>
+                </li>
+                <li>
+                    <a asp-page="/Logout">
+                        Logout
+                    </a>
+                </li>
             </ul>
-        </li>
-
-        <!-- Logout -->
-        <li class="menu-item">
-            <a asp-page="/Logout">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Logout</span>
-            </a>
         </li>
 
     </ul>

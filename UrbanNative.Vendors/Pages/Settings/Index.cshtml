@@ -1,0 +1,27 @@
+﻿@page
+@model UrbanNative.Vendors.Pages.Settings.IndexModel
+@{
+    ViewData["Title"] = "Set Options";
+}
+
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <h5 class="fw-bold mb-4">Preferences</h5>
+
+        <form method="post">
+
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" asp-for="Options.EmailNotifications">
+                <label class="form-check-label">Email Notifications</label>
+            </div>
+
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" asp-for="Options.OrderAlerts">
+                <label class="form-check-label">Order Alerts</label>
+            </div>
+
+            <button class="btn btn-primary">Save Settings</button>
+
+        </form>
+    </div>
+</div>

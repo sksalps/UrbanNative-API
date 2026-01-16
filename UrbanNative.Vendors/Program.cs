@@ -1,6 +1,8 @@
-﻿using UrbanNative.Vendors.Security;
-using UrbanNative.Vendors.Services;
+﻿using System.Net.Http.Headers;
 using UrbanNative.Application.Interfaces;
+using UrbanNative.Vendors.Security;
+using UrbanNative.Vendors.Services;
+using UrbanNative.Vendors.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,6 +68,8 @@ builder.Services.AddHttpClient("ApiClient", client =>
 // =======================
 builder.Services.AddScoped<IVendorAuthService, VendorAuthService>();
 builder.Services.AddScoped<IVendorDashboardService, VendorDashboardService>();
+builder.Services.AddScoped<IVendorProfileService, VendorProfileService>();
+
 // Later: Orders, Inventory, Wallet, SKUs, etc.
 
 
