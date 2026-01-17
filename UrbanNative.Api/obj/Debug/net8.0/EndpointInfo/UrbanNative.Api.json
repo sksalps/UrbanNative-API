@@ -3292,6 +3292,70 @@
           }
         }
       }
+    },
+    "/api/vendor/settings": {
+      "get": {
+        "tags": [
+          "VendorSettings"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "VendorSettings"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VendorSystemSettingUpdateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VendorSystemSettingUpdateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/VendorSystemSettingUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendor/settings/{systemSettingId}/history": {
+      "get": {
+        "tags": [
+          "VendorSettings"
+        ],
+        "parameters": [
+          {
+            "name": "systemSettingId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -3787,6 +3851,24 @@
           "mobile": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "VendorSystemSettingUpdateDto": {
+        "type": "object",
+        "properties": {
+          "systemSettingId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "newValue": {
+            "type": "number",
+            "format": "double"
+          },
+          "effectiveFrom": {
+            "type": "string",
+            "format": "date-time"
           }
         },
         "additionalProperties": false

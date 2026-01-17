@@ -48,8 +48,8 @@ namespace UrbanNative.Api.Controllers.Vendors
         
         private int GetVendorId()
         {
-            var vendorIdClaim = "1";// User.FindFirst("VendorID")?.Value;
-
+            var vendorIdClaim= User.FindFirst("VendorId")?.Value;
+            //vendorIdClaim = "1";
             if (string.IsNullOrWhiteSpace(vendorIdClaim))
                 throw new UnauthorizedAccessException("VendorID claim missing");
 

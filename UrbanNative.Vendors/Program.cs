@@ -69,6 +69,7 @@ builder.Services.AddHttpClient("ApiClient", client =>
 builder.Services.AddScoped<IVendorAuthService, VendorAuthService>();
 builder.Services.AddScoped<IVendorDashboardService, VendorDashboardService>();
 builder.Services.AddScoped<IVendorProfileService, VendorProfileService>();
+builder.Services.AddScoped<IVendorSettingsService, VendorSettingsService>();    
 
 // Later: Orders, Inventory, Wallet, SKUs, etc.
 

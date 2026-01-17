@@ -1,10 +1,12 @@
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using UrbanNative.Application.DTOs.Vendors;
-using UrbanNative.Domain.Entities;
+using UrbanNative.Vendors.Services.Interfaces;
 
 namespace UrbanNative.Vendors.Pages.Settings
 {
+    [Authorize(Policy = "VendorOnly")]
     public class IndexModel : PageModel
     {
         private readonly IVendorSettingsService _service;
@@ -14,22 +16,48 @@ namespace UrbanNative.Vendors.Pages.Settings
             _service = service;
         }
 
-        [BindProperty]
-        public VendorSettingsDto Options { get; set; }
+        // =========================
+        // 📋 SETTINGS LIST
+        // =========================
+        public List<VendorSystemSettingDto> Settings { get; set; } = new();
 
         public async Task OnGetAsync()
         {
-            int vendorId = int.Parse(User.FindFirst("VendorID")!.Value);
-            Options = await _service.GetSettingsAsync(vendorId);
+            Settings = await _service.GetAsync();
         }
 
-        public async Task<IActionResult> OnPostAsync()
-        {
-            int vendorId = int.Parse(User.FindFirst("VendorID")!.Value);
-            await _service.SaveSettingsAsync(vendorId, Options);
+        // =========================
+        // ✏ UPDATE SETTING
+        // =========================
+        [BindProperty]
+        public VendorSystemSettingUpdateDto EditModel { get; set; } = new();
 
-            TempData["Success"] = "Settings saved";
+        public async Task<IActionResult> OnPostUpdateAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["Error"] = "Invalid input";
+                return RedirectToPage();
+            }
+
+            await _service.UpdateAsync(EditModel);
+
+            TempData["Success"] = "Setting updated successfully";
             return RedirectToPage();
+        }
+
+        // =========================
+        // 🕒 HISTORY (AJAX)
+        // =========================
+        public async Task<IActionResult> OnGetHistoryAsync(int settingId)
+        {
+            // Safety guard
+            if (settingId <= 0)
+                return BadRequest("Invalid setting id");
+
+            var history = await _service.GetHistoryAsync(settingId);
+
+            return new JsonResult(history);
         }
     }
 }

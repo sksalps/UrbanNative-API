@@ -32,7 +32,11 @@ exec sp_AdminReturnShipment_Create 1,1,'22423'
 EXEC sp_AdminVariantSetCategories_Assign
     @VariantSetID = 1,
     @CategoryID = 2;
-	
+
+--Enforce at DB level (when ready)
+CREATE UNIQUE INDEX UX_SystemSettingValues_Active
+ON SystemSettingValues (SystemSettingId)
+WHERE IsActive = 1 AND EffectiveTo IS NULL;
 	
 SELECT name
 FROM sys.tables

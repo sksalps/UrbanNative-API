@@ -2060,5 +2060,47 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorSettingsController",
+    "Method": "Get",
+    "RelativePath": "api/vendor/settings",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorSettingsController",
+    "Method": "Update",
+    "RelativePath": "api/vendor/settings",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "UrbanNative.Application.DTOs.Vendors.VendorSystemSettingUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorSettingsController",
+    "Method": "GetHistory",
+    "RelativePath": "api/vendor/settings/{systemSettingId}/history",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "systemSettingId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

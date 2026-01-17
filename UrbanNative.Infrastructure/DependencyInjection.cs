@@ -2,19 +2,19 @@
 using Microsoft.Extensions.DependencyInjection;
 using UrbanNative.Application.Interfaces;
 using UrbanNative.Application.Interfaces.UseCases;
-using UrbanNative.Infrastructure.Repositories.Vendors;
-using UrbanNative.Infrastructure.Repositories;
-using UrbanNative.Infrastructure.Services;
-using UrbanNative.Infrastructure.Repository;
+using UrbanNative.Application.Interfaces.Vendors;
 using UrbanNative.Application.UseCases.Vendors;
+using UrbanNative.Infrastructure.Repositories;
+using UrbanNative.Infrastructure.Repositories.Vendors;
+using UrbanNative.Infrastructure.Repository;
+using UrbanNative.Infrastructure.Services;
 
 namespace UrbanNative.Infrastructure
 {
     public static class DependencyInjection
     {
 
-        public static IServiceCollection AddInfrastructure(
-            this IServiceCollection services,
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services,
             IConfiguration configuration)
         {
             services.AddScoped<IAdminRepository, AdminRepository>();
@@ -40,6 +40,14 @@ namespace UrbanNative.Infrastructure
             //services.AddScoped<IVendorLoginRepository, VendorLoginRepository>();
             services.AddScoped<IVendorProfileUseCase, VendorProfileUseCase>();
             services.AddScoped<IVendorProfileRepository, VendorProfileRepository>();
+
+            // UseCases
+            services.AddScoped<IVendorSettingsUseCase, VendorSettingsUseCase>();
+
+            // Repositories
+            services.AddScoped<IVendorSettingsRepository, VendorSettingsRepository>();
+
+
             return services;
         }
     }
