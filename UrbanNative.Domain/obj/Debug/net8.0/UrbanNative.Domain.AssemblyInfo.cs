@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UrbanNative.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a22ba6e4d43ce6cf96dbe757b6c454476efd2275")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3e11f12ba0d105da4fef7d519a48c537da419295")]
 [assembly: System.Reflection.AssemblyProductAttribute("UrbanNative.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UrbanNative.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -104,3 +104,10 @@ E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendo
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\obj\Debug\net8.0\UrbanNative.Vendors.pdb
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\obj\Debug\net8.0\UrbanNative.Vendors.genruntimeconfig.cache
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\obj\Debug\net8.0\ref\UrbanNative.Vendors.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\bin\Debug\net8.0\UrbanNatice.Shared.staticwebassets.runtime.json
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\bin\Debug\net8.0\Microsoft.AspNetCore.Authorization.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\bin\Debug\net8.0\Microsoft.AspNetCore.Components.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\bin\Debug\net8.0\Microsoft.AspNetCore.Components.Forms.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\bin\Debug\net8.0\Microsoft.AspNetCore.Components.Web.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\bin\Debug\net8.0\Microsoft.AspNetCore.Metadata.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors\bin\Debug\net8.0\Microsoft.JSInterop.dll

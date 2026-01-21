@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\UrbanNatice.Shared.bundle.scp.css",
+      "PackagePath": "staticwebassets\\UrbanNatice.Shared.bundle.scp.css"
+    },
+    {
+      "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\wwwroot\\background.png",
+      "PackagePath": "staticwebassets\\background.png"
+    },
+    {
+      "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\wwwroot\\exampleJsInterop.js",
+      "PackagePath": "staticwebassets\\exampleJsInterop.js"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.UrbanNatice.Shared.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.UrbanNatice.Shared.props",
+      "PackagePath": "build\\UrbanNatice.Shared.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.UrbanNatice.Shared.props",
+      "PackagePath": "buildMultiTargeting\\UrbanNatice.Shared.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.UrbanNatice.Shared.props",
+      "PackagePath": "buildTransitive\\UrbanNatice.Shared.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

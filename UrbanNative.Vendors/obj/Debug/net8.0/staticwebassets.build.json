@@ -1,12 +1,31 @@
 {
   "Version": 1,
-  "Hash": "LjKi4hyk6kPdNbSRbtjlMTTaeKU2q6+eprexJoJBo5o=",
+  "Hash": "NXEaAdyfvwFYq7Q6Uj9QqbTwi9eTB+/fq89HEt1er0M=",
   "Source": "UrbanNative.Vendors",
   "BasePath": "_content/UrbanNative.Vendors",
   "Mode": "Default",
   "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\UrbanNatice.Shared.csproj",
+      "Version": 2,
+      "Source": "UrbanNatice.Shared",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained"
+    }
+  ],
   "DiscoveryPatterns": [
+    {
+      "Name": "UrbanNatice.Shared\\wwwroot",
+      "Source": "UrbanNatice.Shared",
+      "ContentRoot": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\wwwroot\\",
+      "BasePath": "_content/UrbanNatice.Shared",
+      "Pattern": "**"
+    },
     {
       "Name": "UrbanNative.Vendors\\wwwroot",
       "Source": "UrbanNative.Vendors",
@@ -16,6 +35,63 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\UrbanNatice.Shared.bundle.scp.css",
+      "SourceId": "UrbanNatice.Shared",
+      "SourceType": "Project",
+      "ContentRoot": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "BasePath": "_content/UrbanNatice.Shared",
+      "RelativePath": "UrbanNatice.Shared.bundle.scp.css",
+      "AssetKind": "All",
+      "AssetMode": "Reference",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "ScopedCss",
+      "AssetTraitValue": "ProjectBundle",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\UrbanNatice.Shared.bundle.scp.css"
+    },
+    {
+      "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\wwwroot\\background.png",
+      "SourceId": "UrbanNatice.Shared",
+      "SourceType": "Project",
+      "ContentRoot": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\wwwroot\\",
+      "BasePath": "_content/UrbanNatice.Shared",
+      "RelativePath": "background.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\background.png"
+    },
+    {
+      "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\wwwroot\\exampleJsInterop.js",
+      "SourceId": "UrbanNatice.Shared",
+      "SourceType": "Project",
+      "ContentRoot": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\wwwroot\\",
+      "BasePath": "_content/UrbanNatice.Shared",
+      "RelativePath": "exampleJsInterop.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\exampleJsInterop.js"
+    },
     {
       "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\obj\\Debug\\net8.0\\scopedcss\\bundle\\UrbanNative.Vendors.styles.css",
       "SourceId": "UrbanNative.Vendors",
