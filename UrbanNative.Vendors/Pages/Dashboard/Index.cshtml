@@ -7,9 +7,22 @@
 @{
     ViewData["Title"] = "Dashboard";
 }
+@{
+    
+    //var vendorId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+    var businessName = User.FindFirst("BusinessName")?.Value;
+    var vendorName = User.Identity?.Name;
+    var contactPerson = User.FindFirst("ContactPerson")?.Value;
+}
 
 <div class="mb-4">
-    <h4 class="fw-bold">Welcome, @User.Identity?.Name 👋</h4>
+    <h4 class="fw-bold mb-0">
+        Welcome, @vendorName (@contactPerson) 👋
+    </h4>
+    <small class="text-muted">
+        @businessName
+    </small>
+
     <p class="text-muted mb-0">Here is a quick snapshot of your business today.</p>
 </div>
 
@@ -127,5 +140,6 @@
             </div>
         </div>
     </div>
-
 </div>
+
+

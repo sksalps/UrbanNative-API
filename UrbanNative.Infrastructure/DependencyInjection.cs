@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UrbanNative.Application.Interfaces;
-using UrbanNative.Application.Interfaces.UseCases;
+using UrbanNative.Application.Interfaces.UseCases; 
 using UrbanNative.Application.Interfaces.Vendors;
 using UrbanNative.Application.UseCases.Vendors;
 using UrbanNative.Infrastructure.Repositories;
@@ -46,7 +46,7 @@ namespace UrbanNative.Infrastructure
 
             // Repositories
             services.AddScoped<IVendorSettingsRepository, VendorSettingsRepository>();
-
+            services.AddScoped<IVendorChangePasswordUseCase, VendorChangePasswordUseCase>();
 
             return services;
         }

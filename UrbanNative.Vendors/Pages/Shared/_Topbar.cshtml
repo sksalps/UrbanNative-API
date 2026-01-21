@@ -18,17 +18,20 @@
                     2
                 </span>
             </button>
+            <div class="vendor-avatar">
+                @AvatarHelper.GetInitials(User.Identity?.Name)
+            </div>
 
             <!-- Profile Dropdown -->
             <div class="dropdown">
-                <button class="btn btn-light d-flex align-items-center gap-2"
-                        type="button"
+                
+                <button class="btn profile-btn dropdown-toggle d-flex align-items-center"
                         data-bs-toggle="dropdown"
                         aria-expanded="false">
-
-                    <span class="fs-5">🙂</span>
-                    <span class="fw-semibold">@User.Identity?.Name</span>
+                    <span class="me-1">🙂</span>
+                    <i class="bi bi-caret-down-fill profile-caret"></i>
                 </button>
+
 
                 <ul class="dropdown-menu dropdown-menu-end shadow-sm">
 
@@ -52,7 +55,7 @@
 
                     <!-- Change Password -->
                     <li>
-                        <a class="dropdown-item" asp-page="/Settings/Password">
+                        <a class="dropdown-item" asp-page="/Settings/ChangePassword">
                             <i class="bi bi-key me-2"></i> Change Password
                         </a>
                     </li>
@@ -62,7 +65,7 @@
                     <!-- Logout -->
                     <li>
                         <a class="dropdown-item text-danger" asp-page="/Logout">
-                            <i class="bi bi-box-arrow-right me-2"></i> Logout1
+                            <i class="bi bi-box-arrow-right me-2"></i> Logout
                         </a>
                     </li>
 

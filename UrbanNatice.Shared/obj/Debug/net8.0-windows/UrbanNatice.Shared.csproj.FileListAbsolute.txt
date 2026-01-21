@@ -1,0 +1,12 @@
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNatice.Shared\bin\Debug\net8.0-windows\UrbanNatice.Shared.deps.json
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNatice.Shared\bin\Debug\net8.0-windows\UrbanNatice.Shared.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNatice.Shared\bin\Debug\net8.0-windows\UrbanNatice.Shared.pdb
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNatice.Shared\obj\Debug\net8.0-windows\UrbanNatice.Shared.GeneratedMSBuildEditorConfig.editorconfig
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNatice.Shared\obj\Debug\net8.0-windows\UrbanNatice.Shared.AssemblyInfoInputs.cache
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNatice.Shared\obj\Debug\net8.0-windows\UrbanNatice.Shared.AssemblyInfo.cs
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNatice.Shared\obj\Debug\net8.0-windows\UrbanNatice.Shared.csproj.CoreCompileInputs.cache
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNatice.Shared\obj\Debug\net8.0-windows\UrbanNatice.Shared.sourcelink.json
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNatice.Shared\obj\Debug\net8.0-windows\UrbanNatice.Shared.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNatice.Shared\obj\Debug\net8.0-windows\refint\UrbanNatice.Shared.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNatice.Shared\obj\Debug\net8.0-windows\UrbanNatice.Shared.pdb
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNatice.Shared\obj\Debug\net8.0-windows\ref\UrbanNatice.Shared.dll

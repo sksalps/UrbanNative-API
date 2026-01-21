@@ -1,3 +1,4 @@
+select * from AdminUsers
 select * from Products
 select * from Vendors
 select * from InventoryLogs
@@ -26,9 +27,10 @@ EXEC sp_ReturnImages_GetByReturn 1;
 EXEC sp_AdminReturns_GetDetails 1
 exec sp_LogisticsProviders_GetAll
 exec sp_AdminReturnShipment_Create 1,1,'22423'
-
+exec sp_Vendor_GetPassword 1002
 
 EXEC sp_AdminVariantSetCategories_Assign
     @VariantSetID = 1,
     @CategoryID = 2;
 	
+exec sp_Vendor_ChangePassword  1002

@@ -13,7 +13,7 @@ namespace UrbanNative.Infrastructure.Security
             int saltSize = 16,
             int hashSize = 32,
             int iterations = 100_000)
-            {
+        {
             var salt = RandomNumberGenerator.GetBytes(saltSize);
 
             var hash = KeyDerivation.Pbkdf2(
@@ -39,9 +39,10 @@ namespace UrbanNative.Infrastructure.Security
                 iterationCount: 100_000,
                 numBytesRequested: storedHash.Length);
 
+            //return true;
             return CryptographicOperations.FixedTimeEquals(hashToCheck, storedHash);
         }
-        
+
 
     }
 

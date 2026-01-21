@@ -16,9 +16,7 @@ namespace UrbanNative.Api.Controllers
         private readonly IAdminRepository _repo;
         private readonly IConfiguration _configuration;
 
-        public AdminAuthController(
-            IAdminRepository repo,
-            IConfiguration configuration)
+        public AdminAuthController(            IAdminRepository repo,            IConfiguration configuration)
         {
             _repo = repo;
             _configuration = configuration;

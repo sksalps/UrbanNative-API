@@ -26,6 +26,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\UrbanNatice.Shared\UrbanNatice.Shared.csproj" />
     <ProjectReference Include="..\UrbanNative.Application\UrbanNative.Application.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
-﻿using UrbanNative.Application.DTOs.Vendors;
+﻿using UrbanNative.Application.DTOs.Common;
+using UrbanNative.Application.DTOs.Vendors;
 
 namespace UrbanNative.Application.Interfaces.UseCases
 {

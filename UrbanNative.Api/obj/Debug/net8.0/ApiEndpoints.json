@@ -1990,6 +1990,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "VendorAccountController",
+    "Method": "ChangePassword",
+    "RelativePath": "api/vendor/account/change-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "UrbanNative.Application.DTOs.Common.ChangePasswordRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "UrbanNative.Api.Controllers.VendorAuthController",
     "Method": "Login",
     "RelativePath": "api/vendor/auth/login",

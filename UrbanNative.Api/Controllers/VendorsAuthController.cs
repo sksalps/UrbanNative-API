@@ -44,13 +44,13 @@ namespace UrbanNative.Api.Controllers
                 return Unauthorized("Vendor is disabled");
 
             // 🔐 Password check
-            /*var verified = PasswordHelper.VerifyPassword(
+            var verified = PasswordHelper.VerifyPassword(
                 req.Password,
                 vendor.PasswordHash,
                 vendor.PasswordSalt
-            );*/
-            var verified = PasswordHasher.VerifyPassword(
-                req.Password, vendor.PasswordHash,    vendor.PasswordSalt      );
+            );
+           /* var verified = PasswordHasher.VerifyPassword(
+                req.Password, vendor.PasswordHash,    vendor.PasswordSalt      );*/
             //verified=true; // Temporarily bypassing password verification for testing purposes.
 
             if (!verified)
@@ -66,9 +66,12 @@ namespace UrbanNative.Api.Controllers
                 new Claim("VendorId", vendor.VendorID.ToString()),      // 🔥 MUST MATCH API USAGE
                 new Claim(ClaimTypes.NameIdentifier, vendor.VendorID.ToString()),
                 new Claim(ClaimTypes.Name, vendor.VendorName ?? ""),
-                new Claim(ClaimTypes.Email, vendor.Email ?? ""),
+                new Claim("BusinessName", vendor.BusinessName ?? ""),
+                new Claim("ContactPerson", vendor.ContactPerson ??  ""),
+                new Claim(ClaimTypes.Email, vendor.Email ?? ""), 
                 new Claim(ClaimTypes.MobilePhone, vendor.Mobile ?? ""),
                 new Claim(ClaimTypes.Role, "Vendor")
+
             };
 
             var key = new SymmetricSecurityKey(
@@ -98,6 +101,7 @@ namespace UrbanNative.Api.Controllers
                 VendorID = vendor.VendorID,
                 VendorName = vendor.VendorName,
                 BusinessName = vendor.BusinessName,
+                ContactPerson=vendor.ContactPerson,
                 Mobile = vendor.Mobile
             });
         }

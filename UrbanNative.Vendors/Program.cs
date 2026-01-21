@@ -15,7 +15,6 @@ builder.Services.AddHttpContextAccessor();
 // JWT → Cookie bridge (same pattern as Admin)
 builder.Services.AddTransient<JwtTokenHandler>();
 
-
 // =======================
 // 🔐 Vendor Cookie Auth
 // =======================
@@ -63,13 +62,14 @@ builder.Services.AddHttpClient("ApiClient", client =>
 .AddHttpMessageHandler<JwtTokenHandler>();
 
 
+
 // =======================
 // 🧩 Vendor Services
 // =======================
 builder.Services.AddScoped<IVendorAuthService, VendorAuthService>();
 builder.Services.AddScoped<IVendorDashboardService, VendorDashboardService>();
 builder.Services.AddScoped<IVendorProfileService, VendorProfileService>();
-builder.Services.AddScoped<IVendorSettingsService, VendorSettingsService>();    
+builder.Services.AddScoped<IVendorSettingsService, VendorSettingsService>(); 
 
 // Later: Orders, Inventory, Wallet, SKUs, etc.
 

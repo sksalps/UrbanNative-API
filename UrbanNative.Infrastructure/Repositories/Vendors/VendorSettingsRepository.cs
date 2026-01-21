@@ -56,7 +56,6 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
                 "sp_Vendor_SystemSetting_History",
                 new
                 {
-                   
                     VendorId = vendorId,
                     SystemSettingId = systemSettingId
                 },

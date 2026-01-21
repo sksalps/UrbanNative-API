@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UrbanNative.Application.DTOs.Vendors;
 using UrbanNative.Application.Interfaces.UseCases;
+using UrbanNative.Application.DTOs.Common;
+using UrbanNative.Infrastructure.Security;
+
 
 namespace UrbanNative.Api.Controllers.Vendors
 {
@@ -43,9 +47,10 @@ namespace UrbanNative.Api.Controllers.Vendors
             return Ok(new { message = "Profile updated successfully" });
         }
 
+
         // ================= PRIVATE =================
 
-        
+
         private int GetVendorId()
         {
             var vendorIdClaim= User.FindFirst("VendorId")?.Value;

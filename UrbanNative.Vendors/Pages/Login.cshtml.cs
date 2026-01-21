@@ -49,7 +49,10 @@ namespace UrbanNative.Vendors.Pages
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, result.VendorID.ToString()), // standard
-                new Claim("VendorID", result.VendorID.ToString()),
+                new Claim("VendorId", result.VendorID.ToString()),
+                new Claim(ClaimTypes.Name, result.VendorName),
+                new Claim("BusinessName", result.BusinessName),
+                new Claim("ContactPerson", result.ContactPerson),
                 new Claim(ClaimTypes.Role, "Vendor"),
                 new Claim("JWT", result.Token)   // 🔑 THIS is what JwtTokenHandler reads
             };
