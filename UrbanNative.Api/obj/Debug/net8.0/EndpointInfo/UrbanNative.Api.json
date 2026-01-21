@@ -3266,6 +3266,18 @@
         }
       }
     },
+    "/api/vendors/products": {
+      "get": {
+        "tags": [
+          "VendorProducts"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/vendor/profile": {
       "get": {
         "tags": [

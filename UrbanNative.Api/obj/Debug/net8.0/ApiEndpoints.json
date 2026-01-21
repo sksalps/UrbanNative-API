@@ -2118,5 +2118,15 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorProductsController",
+    "Method": "Get",
+    "RelativePath": "api/vendors/products",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   }
 ]

@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using UrbanNative.Application.Interfaces;
+using UrbanNative.Application.Interfaces.UseCases;
 using UrbanNative.Vendors.Security;
 using UrbanNative.Vendors.Services;
 using UrbanNative.Vendors.Services.Interfaces;
@@ -69,7 +70,10 @@ builder.Services.AddHttpClient("ApiClient", client =>
 builder.Services.AddScoped<IVendorAuthService, VendorAuthService>();
 builder.Services.AddScoped<IVendorDashboardService, VendorDashboardService>();
 builder.Services.AddScoped<IVendorProfileService, VendorProfileService>();
-builder.Services.AddScoped<IVendorSettingsService, VendorSettingsService>(); 
+builder.Services.AddScoped<IVendorSettingsService, VendorSettingsService>();
+builder.Services.AddScoped<IVendorProductService,VendorProductService>();
+
+
 
 // Later: Orders, Inventory, Wallet, SKUs, etc.
 
