@@ -67,6 +67,84 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
             return data.ToList();
         }
 
+        public async Task<int> CreateProductAsync(int vendorId, VendorProductCreateDto dto)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            var p = new DynamicParameters();
+            p.Add("@VendorID", vendorId);
+            p.Add("@CategoryID", dto.CategoryID);
+            p.Add("@ProductName", dto.ProductName);
+            p.Add("@Description", dto.Description);
+            p.Add("@MRP", dto.MRP);
+            p.Add("@DiscountPrice", dto.DiscountPrice);
+            p.Add("@HasVariants", dto.HasVariants);
+            p.Add("@VendorWarehouseAddressID", dto.VendorWarehouseAddressID);
+            p.Add("@NewProductID", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+            await conn.ExecuteAsync(
+                "sp_VendorProduct_Insert",
+                p,
+                commandType: CommandType.StoredProcedure);
+
+            
+            var newId = p.Get<int>("@NewProductID");
+
+            return newId;
+        }
+
+        public async Task<VendorProductEditDto> GetProductForEditAsync(int vendorId, int productId)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            var p = new DynamicParameters();
+            p.Add("@VendorID", vendorId);
+            p.Add("@ProductID", productId);
+
+            return await conn.QuerySingleAsync<VendorProductEditDto>(
+                "sp_VendorProduct_GetForEdit",
+                p,
+                commandType: CommandType.StoredProcedure);
+        }
+
+        public async Task UpdateProductAsync(int vendorId, VendorProductUpdateDto dto)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            var p = new DynamicParameters();
+            p.Add("@VendorID", vendorId);
+            p.Add("@ProductID", dto.ProductID);
+
+            p.Add("@ProductName", dto.ProductName);
+            p.Add("@Description", dto.Description);
+            p.Add("@MRP", dto.MRP);
+            p.Add("@DiscountPrice", dto.DiscountPrice);
+
+            p.Add("@CategoryID", dto.CategoryID);
+            p.Add("@HasVariants", dto.HasVariants);
+            p.Add("@VendorSharedMargin", dto.VendorSharedMargin);
+            p.Add("@VendorWarehouseAddressID", dto.VendorWarehouseAddressID);
+
+            await conn.ExecuteAsync(
+                "sp_VendorProduct_Update",
+                p,
+                commandType: CommandType.StoredProcedure);
+        }
+        public async Task<List<VendorWarehouseDto>> GetVendorWarehousesAsync(int vendorId)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            var p = new DynamicParameters();
+            p.Add("@VendorID", vendorId);
+
+            var data = await conn.QueryAsync<VendorWarehouseDto>(
+                "sp_VendorWarehouses_List",
+                p,
+                commandType: CommandType.StoredProcedure);
+
+            return data.ToList();
+        }
+
 
     }
 }

@@ -4,64 +4,62 @@
     ViewData["Title"] = "My Products";
 }
 
-<form method="get" class="card mb-3 p-3">
-    <div class="row g-2 align-items-end">
+<form method="get" class="card shadow-sm mb-4">
+    <div class="card-body">
+        <div class="row g-3 align-items-end">
 
-        <!-- Search -->
-        <div class="col-md-3">
-            <label class="form-label">Search</label>
-            <input type="text"
-                   name="q"
-                   value="@Model.SearchText"
-                   class="form-control"
-                   placeholder="Product / Category / SKU" />
+            <div class="col-lg-4">
+                <label class="form-label fw-semibold">Search</label>
+                <input type="text"
+                       name="SearchText"
+                       value="@Model.SearchText"
+                       class="form-control"
+                       placeholder="Product / Category / SKU" />
+            </div>
+
+            <div class="col-lg-2">
+                <label class="form-label fw-semibold">Category</label>
+                <select name="categoryId" class="form-select">
+                    <option value="">All</option>
+                    @foreach (var c in Model.CategoryList)
+                    {
+                        <option value="@c.CategoryID"
+                                selected="@(c.CategoryID == Model.CategoryId)">
+                            @c.CategoryName
+                        </option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-lg-2">
+                <label class="form-label fw-semibold">HSN (GST %)</label>
+                <select name="hsnId" class="form-select">
+                    <option value="">All</option>
+                    @foreach (var h in Model.HsnList)
+                    {
+                        <option value="@h.HSNId"
+                                selected="@(h.HSNId == Model.HsnId)">
+                            @h.HSNCode (@h.GSTPercentage%)
+                        </option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-lg-4 text-end">
+                <button type="submit" class="btn btn-primary px-4 me-2">
+                    Search
+                </button>
+
+                <a asp-page="./Index" class="btn btn-outline-secondary me-2">
+                    Reset
+                </a>
+
+                <a asp-page="./Create" class="btn btn-success px-3">
+                    + Add Product
+                </a>
+            </div>
+
         </div>
-
-        <!-- Category -->
-        <div class="col-md-2">
-            <label class="form-label">Category</label>
-            <select name="categoryId" class="form-select">
-                <option value="">All</option>
-                @foreach (var c in Model.CategoryList)
-                {
-                    <option value="@c.CategoryID"
-                            selected="@(c.CategoryID == Model.CategoryId)">
-                        @c.CategoryName
-                    </option>
-                }
-            </select>
-        </div>
-
-        <!-- HSN / GST -->
-        <div class="col-md-2">
-            <label class="form-label">HSN (GST %)</label>
-            <select name="hsnId" class="form-select">
-                <option value="">All</option>
-                @foreach (var h in Model.HsnList)
-                {
-                    <option value="@h.HSNId"
-                            selected="@(h.HSNId == Model.HsnId)">
-                        @h.HSNCode (@h.GSTPercentage%)
-                    </option>
-                }
-            </select>
-        </div>
-
-        <!-- Buttons -->
-        <div class="col-md-5 text-end">
-            <button type="submit" class="btn btn-primary me-2">
-                Search
-            </button>
-
-            <a asp-page="./Index" class="btn btn-outline-secondary me-2">
-                Reset
-            </a>
-
-            <a asp-page="./Create" class="btn btn-success">
-                + Add Product
-            </a>
-        </div>
-
     </div>
 </form>
 

@@ -1,0 +1,92 @@
+﻿@page "{id:int}"
+@model EditModel
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<h4 class="mb-3">Edit Product</h4>
+
+@if (Model.ViewProduct.ApprovalStatus == "APPROVED")
+{
+    <div class="alert alert-info">
+        Only price and description can be edited after approval.
+    </div>
+}
+
+
+<form method="post" class="card shadow-sm">
+    <div class="card-body">
+        <div class="row g-3">
+
+            <!-- Product Name -->
+            <div class="col-md-8">
+                <label class="form-label fw-semibold">Product Name</label>
+                <input asp-for="Product.ProductName"
+                       class="form-control"
+                       disabled="@(Model.IsApproved)" />
+                <input type="hidden" asp-for="Product.ProductID" />
+            </div>
+
+            <!-- Category -->
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Category</label>
+                <select asp-for="Product.CategoryID"
+                        asp-items="Model.CategoryList"
+                        class="form-select"
+                        disabled="@(Model.IsApproved)">
+                </select>
+            </div>
+            <!-- Warehouse -->
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Warehouse</label>
+                <select asp-for="Product.VendorWarehouseAddressID"
+                        asp-items="Model.WarehouseList"
+                        class="form-select">
+                </select>
+            </div>
+
+            <!-- Description -->
+            <div class="col-12">
+                <label class="form-label fw-semibold">Description</label>
+                <textarea asp-for="Product.Description"
+                          class="form-control"
+                          rows="3"></textarea>
+            </div>
+
+            <!-- Price -->
+            <div class="col-md-3">
+                <label class="form-label fw-semibold">MRP</label>
+                <input asp-for="Product.MRP" class="form-control" />
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label fw-semibold">Discount Price</label>
+                <input asp-for="Product.DiscountPrice" class="form-control" />
+            </div>
+
+            <!-- Has Variants -->
+            <div class="col-md-3 d-flex align-items-center">
+                <div class="form-check mt-4">
+                    <input asp-for="Product.HasVariants"
+                           class="form-check-input"
+                           disabled="@(Model.IsApproved)" />
+                    <label class="form-check-label">Has Variants</label>
+                </div>
+            </div>
+
+            <!-- Margin -->
+            <div class="col-md-3">
+                <label class="form-label fw-semibold">Shared Margin (%)</label>
+                <input asp-for="Product.VendorSharedMargin"
+                       class="form-control"
+                       disabled="@(Model.IsApproved)" />
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card-footer text-end">
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>

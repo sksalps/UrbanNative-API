@@ -1,0 +1,81 @@
+﻿@page
+@model UrbanNative.Vendors.Pages.Products.CreateModel
+@{
+    ViewData["Title"] = "Add Product";
+}
+
+<h4 class="mb-3">Add New Product</h4>
+
+<form method="post" class="card shadow-sm">
+    <div class="card-body">
+        <div class="row g-3">
+
+            <!-- Category -->
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Category</label>
+                <select asp-for="Product.CategoryID"
+                        asp-items="Model.CategoryList"
+                        class="form-select">
+                    <option value="">-- Select Category --</option>
+                </select>
+                <span asp-validation-for="Product.CategoryID" class="text-danger"></span>
+            </div>
+
+            <!-- Product Name -->
+            <div class="col-md-8">
+                <label class="form-label fw-semibold">Product Name</label>
+                <input asp-for="Product.ProductName" class="form-control" />
+                <span asp-validation-for="Product.ProductName" class="text-danger"></span>
+            </div>
+
+            <!-- Description -->
+            <div class="col-12">
+                <label class="form-label fw-semibold">Description</label>
+                <textarea asp-for="Product.Description"
+                          class="form-control"
+                          rows="3"></textarea>
+            </div>
+
+            <!-- Price -->
+            <div class="col-md-3">
+                <label class="form-label fw-semibold">MRP</label>
+                <input asp-for="Product.MRP" class="form-control" />
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label fw-semibold">Discount Price</label>
+                <input asp-for="Product.DiscountPrice" class="form-control" />
+            </div>
+
+            <!-- Variants -->
+            <div class="col-md-3 d-flex align-items-center">
+                <div class="form-check mt-4">
+                    <input asp-for="Product.HasVariants" class="form-check-input" />
+                    <label class="form-check-label">Has Variants</label>
+                </div>
+            </div>
+
+            <!-- Warehouse -->
+            <div class="col-md-3">
+                <label class="form-label fw-semibold">Warehouse</label>
+                <select asp-for="Product.VendorWarehouseAddressID"
+                        asp-items="Model.WarehouseList"
+                        class="form-select">
+                    <option value="">-- Select --</option>
+                </select>
+            </div>
+
+            <!-- HSN Preview -->
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">HSN / GST</label>
+                <input class="form-control" value="@Model.HsnPreview" disabled />
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card-footer text-end">
+        <button type="submit" class="btn btn-success">Save</button>
+        <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>

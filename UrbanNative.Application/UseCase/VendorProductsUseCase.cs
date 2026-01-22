@@ -28,6 +28,14 @@ namespace UrbanNative.Application.UseCase
 
         public Task<List<HsnLookupDto>> GetVendorHsnListAsync()
             => _repo.GetVendorHsnListAsync();
+        public Task<int> ExecuteAsync(int vendorId, VendorProductCreateDto dto)
+        => _repo.CreateProductAsync(vendorId, dto);
+        public Task ExecuteAsync(int vendorId, VendorProductUpdateDto dto)
+        => _repo.UpdateProductAsync(vendorId, dto);
+        public Task<VendorProductEditDto> ExecuteAsync(int vendorId, int productId)
+        => _repo.GetProductForEditAsync(vendorId, productId);
+        public Task<List<VendorWarehouseDto>> ExecuteAsync(int vendorId)
+        => _repo.GetVendorWarehousesAsync(vendorId);
     }
 
 }

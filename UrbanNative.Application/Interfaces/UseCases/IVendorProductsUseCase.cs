@@ -13,5 +13,9 @@ namespace UrbanNative.Application.Interfaces.UseCases
         Task<List<VendorProductListDto>> ExecuteAsync( int vendorId,   string? search,    int? categoryId,    int? hsnId);
         Task<List<CategoryLookupDto>> GetVendorCategoriesAsync(int vendorId);
         Task<List<HsnLookupDto>> GetVendorHsnListAsync();
+        Task<int> ExecuteAsync(int vendorId, VendorProductCreateDto dto);
+        Task ExecuteAsync(int vendorId, VendorProductUpdateDto dto);
+        Task<VendorProductEditDto> ExecuteAsync(int vendorId, int productId);
+        Task<List<VendorWarehouseDto>> ExecuteAsync(int vendorId);
     }
 }

@@ -3301,6 +3301,35 @@
             "description": "OK"
           }
         }
+      },
+      "post": {
+        "tags": [
+          "VendorProducts"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VendorProductCreateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VendorProductCreateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/VendorProductCreateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/api/vendors/products/categories": {
@@ -3320,6 +3349,69 @@
         "tags": [
           "VendorProducts"
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendors/products/{id}": {
+      "get": {
+        "tags": [
+          "VendorProducts"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "VendorProducts"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VendorProductUpdateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VendorProductUpdateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/VendorProductUpdateDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -3441,6 +3533,18 @@
               "format": "int32"
             }
           }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendors/warehouses": {
+      "get": {
+        "tags": [
+          "VendorWarehouses"
         ],
         "responses": {
           "200": {
@@ -3935,6 +4039,91 @@
           "password": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "VendorProductCreateDto": {
+        "type": "object",
+        "properties": {
+          "categoryID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "productName": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "mrp": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountPrice": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "hasVariants": {
+            "type": "boolean"
+          },
+          "vendorWarehouseAddressID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "hsnCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "gstPercentage": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "VendorProductUpdateDto": {
+        "type": "object",
+        "properties": {
+          "productID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "productName": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "mrp": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountPrice": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "categoryID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "hasVariants": {
+            "type": "boolean"
+          },
+          "vendorSharedMargin": {
+            "type": "number",
+            "format": "double"
+          },
+          "vendorWarehouseAddressID": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

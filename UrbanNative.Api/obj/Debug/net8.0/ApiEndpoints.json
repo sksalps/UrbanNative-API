@@ -2147,6 +2147,59 @@
   },
   {
     "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorProductsController",
+    "Method": "Create",
+    "RelativePath": "api/vendors/products",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "UrbanNative.Application.DTOs.Vendors.Products.VendorProductCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorProductsController",
+    "Method": "GetById",
+    "RelativePath": "api/vendors/products/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorProductsController",
+    "Method": "Update",
+    "RelativePath": "api/vendors/products/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "UrbanNative.Application.DTOs.Vendors.Products.VendorProductUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorProductsController",
     "Method": "Categories",
     "RelativePath": "api/vendors/products/categories",
     "HttpMethod": "GET",
@@ -2159,6 +2212,16 @@
     "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorProductsController",
     "Method": "Hsn",
     "RelativePath": "api/vendors/products/hsn",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "VendorWarehousesController",
+    "Method": "Get",
+    "RelativePath": "api/vendors/warehouses",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

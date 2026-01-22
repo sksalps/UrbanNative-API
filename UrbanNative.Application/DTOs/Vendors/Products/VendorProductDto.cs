@@ -43,6 +43,74 @@ namespace UrbanNative.Application.DTOs.Vendors.Products
         public decimal GSTPercentage { get; set; }
     }
 
+    public class VendorProductCreateDto
+    {
+        public int CategoryID { get; set; }
+        public string ProductName { get; set; } = string.Empty;
+        public string? Description { get; set; }
+
+        public decimal MRP { get; set; }
+        public decimal? DiscountPrice { get; set; }
+
+        public bool HasVariants { get; set; }
+        public int VendorWarehouseAddressID { get; set; }
+
+        // Read-only (resolved server-side)
+        public string? HSNCode { get; set; }
+        public decimal? GSTPercentage { get; set; }
+    }
+
+    public class VendorProductUpdateDto
+    {
+        public int ProductID { get; set; }
+
+        public string ProductName { get; set; } = string.Empty;
+        public string? Description { get; set; }
+
+        public decimal MRP { get; set; }
+        public decimal? DiscountPrice { get; set; }
+
+        public int CategoryID { get; set; }
+        public bool HasVariants { get; set; }
+
+        public decimal VendorSharedMargin { get; set; }
+        public int VendorWarehouseAddressID { get; set; }
+    }
+
+    public class VendorProductEditDto
+    {
+        public int ProductID { get; set; }
+
+        public string ProductName { get; set; } = string.Empty;
+        public string? Description { get; set; }
+
+        public decimal MRP { get; set; }
+        public decimal? DiscountPrice { get; set; }
+
+        public int CategoryID { get; set; }
+        public bool HasVariants { get; set; }
+
+        public decimal VendorSharedMargin { get; set; }
+
+        public int VendorWarehouseAddressID { get; set; }
+
+        // 🔒 Control flags (UI helpers)
+        public string ApprovalStatus { get; set; } = string.Empty;
+    }
+    public class VendorWarehouseDto
+    {
+        public int VendorWarehouseAddressID { get; set; }
+
+        public string AddressName { get; set; } = string.Empty;
+
+        public string? AddressLine1 { get; set; }
+        public string? City { get; set; }
+        public string? State { get; set; }
+        public string? Pincode { get; set; }
+
+        public bool IsActive { get; set; }
+    }
+
 
     public class ApiResponse<T>
     {
