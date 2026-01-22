@@ -1,5 +1,7 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -12,10 +14,7 @@ html {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
+
 
 body {
   margin-bottom: 60px;
@@ -31,4 +30,20 @@ body {
 .profile-caret {
     font-size: 0.7rem;
     color: #6c757d;
+}
+
+.badge-sku.novariants {
+    background: #6c757d;
+}
+
+.badge-sku.nosku {
+    background: #fd7e14;
+}
+
+.badge-sku.novendors {
+    background: #dc3545;
+}
+
+.badge-sku.active {
+    background: #198754;
 }

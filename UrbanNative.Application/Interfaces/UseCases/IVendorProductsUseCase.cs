@@ -9,6 +9,9 @@ namespace UrbanNative.Application.Interfaces.UseCases
 {
     public interface IVendorProductsUseCase
     {
-        Task<List<VendorProductListDto>> ExecuteAsync(int vendorId);
+        //Task<List<VendorProductListDto>> ExecuteAsync(int vendorId);
+        Task<List<VendorProductListDto>> ExecuteAsync( int vendorId,   string? search,    int? categoryId,    int? hsnId);
+        Task<List<CategoryLookupDto>> GetVendorCategoriesAsync(int vendorId);
+        Task<List<HsnLookupDto>> GetVendorHsnListAsync();
     }
 }

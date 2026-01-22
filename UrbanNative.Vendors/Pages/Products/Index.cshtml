@@ -4,15 +4,77 @@
     ViewData["Title"] = "My Products";
 }
 
+<form method="get" class="card mb-3 p-3">
+    <div class="row g-2 align-items-end">
+
+        <!-- Search -->
+        <div class="col-md-3">
+            <label class="form-label">Search</label>
+            <input type="text"
+                   name="q"
+                   value="@Model.SearchText"
+                   class="form-control"
+                   placeholder="Product / Category / SKU" />
+        </div>
+
+        <!-- Category -->
+        <div class="col-md-2">
+            <label class="form-label">Category</label>
+            <select name="categoryId" class="form-select">
+                <option value="">All</option>
+                @foreach (var c in Model.CategoryList)
+                {
+                    <option value="@c.CategoryID"
+                            selected="@(c.CategoryID == Model.CategoryId)">
+                        @c.CategoryName
+                    </option>
+                }
+            </select>
+        </div>
+
+        <!-- HSN / GST -->
+        <div class="col-md-2">
+            <label class="form-label">HSN (GST %)</label>
+            <select name="hsnId" class="form-select">
+                <option value="">All</option>
+                @foreach (var h in Model.HsnList)
+                {
+                    <option value="@h.HSNId"
+                            selected="@(h.HSNId == Model.HsnId)">
+                        @h.HSNCode (@h.GSTPercentage%)
+                    </option>
+                }
+            </select>
+        </div>
+
+        <!-- Buttons -->
+        <div class="col-md-5 text-end">
+            <button type="submit" class="btn btn-primary me-2">
+                Search
+            </button>
+
+            <a asp-page="./Index" class="btn btn-outline-secondary me-2">
+                Reset
+            </a>
+
+            <a asp-page="./Create" class="btn btn-success">
+                + Add Product
+            </a>
+        </div>
+
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>Product</th>
             <th>Category</th>
+            <th>HSN Code</th>
             <th>SKU Status</th>
             <th>Approval</th>
             <th>Active</th>
-            <th></th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -21,7 +83,16 @@
             <tr>
                 <td>@p.ProductName</td>
                 <td>@p.CategoryName</td>
-                <td><span class="badge">@p.SkuStatus</span></td>
+                <td>
+                    @p.HSNCode
+                    <small class="text-muted">(@p.GSTPercentage%)</small>
+                </td>
+
+                <td>
+                    <span class="badge badge-sku @p.SkuStatus.Replace(" ", "").ToLower()">
+                        @p.SkuStatus
+                    </span>
+                </td>
                 <td>@p.ApprovalStatus</td>
                 <td>@(p.IsActive ? "Yes" : "No")</td>
                 <td>
@@ -32,3 +103,21 @@
         }
     </tbody>
 </table>
+
+<style>
+    .badge-sku.novariants {
+        background: #6c757d;
+    }
+
+    .badge-sku.nosku {
+        background: #fd7e14;
+    }
+
+    .badge-sku.novendors {
+        background: #dc3545;
+    }
+
+    .badge-sku.active {
+        background: #198754;
+    }
+</style>

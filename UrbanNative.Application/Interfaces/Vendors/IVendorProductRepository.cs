@@ -9,7 +9,16 @@ namespace UrbanNative.Application.Interfaces.Vendors
 {
     public interface IVendorProductRepository
     {
-        Task<List<VendorProductListDto>> GetVendorProductsAsync(int vendorId);
+        Task<List<VendorProductListDto>> GetVendorProductsAsync(
+            int vendorId,
+            string? search,
+            int? categoryId,
+            int? hsnId
+        );
 
+        Task<List<CategoryLookupDto>> GetVendorCategoriesAsync(int vendorId);
+
+        Task<List<HsnLookupDto>> GetVendorHsnListAsync();
     }
+
 }

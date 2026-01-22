@@ -3271,6 +3271,55 @@
         "tags": [
           "VendorProducts"
         ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "categoryId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "hsnId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendors/products/categories": {
+      "get": {
+        "tags": [
+          "VendorProducts"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendors/products/hsn": {
+      "get": {
+        "tags": [
+          "VendorProducts"
+        ],
         "responses": {
           "200": {
             "description": "OK"

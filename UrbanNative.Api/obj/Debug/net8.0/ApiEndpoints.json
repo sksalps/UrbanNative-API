@@ -2126,6 +2126,42 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
+    "Parameters": [
+      {
+        "Name": "q",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "categoryId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "hsnId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorProductsController",
+    "Method": "Categories",
+    "RelativePath": "api/vendors/products/categories",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorProductsController",
+    "Method": "Hsn",
+    "RelativePath": "api/vendors/products/hsn",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
     "Parameters": [],
     "ReturnTypes": []
   }

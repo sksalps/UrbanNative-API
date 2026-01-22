@@ -9,17 +9,40 @@ namespace UrbanNative.Api.Controllers.Vendors
     {
         private readonly IVendorProductsUseCase _useCase;
 
-        public VendorProductsController(IVendorProductsUseCase useCase)
+        public VendorProductsController(            IVendorProductsUseCase useCase)
         {
             _useCase = useCase;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(
+            string? q,
+            int? categoryId,
+            int? hsnId)
         {
-            int vendorId = GetVendorId() /* get from auth context */;
-            var result = await _useCase.ExecuteAsync(vendorId);
+            int vendorId = GetVendorId()/* from auth */;
+
+            var result = await _useCase.ExecuteAsync(
+                vendorId,
+                q,
+                categoryId,
+                hsnId
+            );
+
             return Ok(result);
+        }
+
+        [HttpGet("categories")]
+        public async Task<IActionResult> Categories()
+        {
+            int vendorId = GetVendorId()/* from auth */;
+            return Ok(await _useCase.GetVendorCategoriesAsync(vendorId));
+        }
+
+        [HttpGet("hsn")]
+        public async Task<IActionResult> Hsn()
+        {
+            return Ok(await _useCase.GetVendorHsnListAsync());
         }
 
         private int GetVendorId()
@@ -31,6 +54,9 @@ namespace UrbanNative.Api.Controllers.Vendors
 
             return int.Parse(vendorIdClaim);
         }
+
     }
+
+
 
 }
