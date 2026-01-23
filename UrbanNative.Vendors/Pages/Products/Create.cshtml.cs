@@ -25,7 +25,7 @@ namespace UrbanNative.Vendors.Pages.Products
 
         public async Task OnGetAsync()
         {
-            CategoryList = (await _service.GetVendorCategoriesAsync())
+            CategoryList = (await _service.GetVendorActiveCategoriesAsync())
                 .Select(c => new SelectListItem(c.CategoryName, c.CategoryID.ToString()))
                 .ToList();
 

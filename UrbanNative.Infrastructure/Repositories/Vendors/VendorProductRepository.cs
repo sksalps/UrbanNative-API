@@ -41,12 +41,14 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
 
             return data.ToList();
         }
-        public async Task<List<CategoryLookupDto>> GetVendorCategoriesAsync(int vendorId)
+        
+        public async Task<List<CategoryLookupDto>> GetVendorCategoriesAsync(int? vendorId, bool? isActive)
         {
             using var conn = _connectionFactory.CreateConnection();
 
             var param = new DynamicParameters();
             param.Add("@VendorID", vendorId);
+            param.Add("@isActive", isActive);
 
             var data = await conn.QueryAsync<CategoryLookupDto>(
                 "sp_VendorCategories_Lookup",
@@ -130,21 +132,34 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
                 p,
                 commandType: CommandType.StoredProcedure);
         }
-        public async Task<List<VendorWarehouseDto>> GetVendorWarehousesAsync(int vendorId)
+        public async Task<List<VendorWarehouseDto>> GetVendorWarehousesAsync(
+    int? vendorId,
+    bool? isActive)
         {
             using var conn = _connectionFactory.CreateConnection();
 
             var p = new DynamicParameters();
             p.Add("@VendorID", vendorId);
+            p.Add("@IsActive", isActive);
 
-            var data = await conn.QueryAsync<VendorWarehouseDto>(
-                "sp_VendorWarehouses_List",
+            return (await conn.QueryAsync<VendorWarehouseDto>(
+                "sp_VendorWarehouses_Lookup",
                 p,
-                commandType: CommandType.StoredProcedure);
-
-            return data.ToList();
+                commandType: CommandType.StoredProcedure)).ToList();
         }
+        public async Task<List<ReturnPolicyDto>> GetReturnPoliciesAsync(
+    bool? isActive)
+        {
+            using var conn = _connectionFactory.CreateConnection();
 
+            var p = new DynamicParameters();
+            p.Add("@IsActive", isActive);
+
+            return (await conn.QueryAsync<ReturnPolicyDto>(
+                "sp_ReturnPolicy_Lookup",
+                p,
+                commandType: CommandType.StoredProcedure)).ToList();
+        }
 
     }
 }

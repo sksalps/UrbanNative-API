@@ -3237,6 +3237,64 @@
         }
       }
     },
+    "/api/vendors/categories": {
+      "get": {
+        "tags": [
+          "VendorCategories"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendors/categories/create": {
+      "get": {
+        "tags": [
+          "VendorCategories"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendors/categories/filter": {
+      "get": {
+        "tags": [
+          "VendorCategories"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendors/categories/{categoryId}/hsn": {
+      "get": {
+        "tags": [
+          "VendorCategories"
+        ],
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/vendor/dashboard": {
       "get": {
         "tags": [
@@ -3325,18 +3383,6 @@
             }
           }
         },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/vendors/products/categories": {
-      "get": {
-        "tags": [
-          "VendorProducts"
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -3477,6 +3523,42 @@
         }
       }
     },
+    "/api/vendors/return-policies": {
+      "get": {
+        "tags": [
+          "VendorReturnPolicies"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendors/return-policies/create": {
+      "get": {
+        "tags": [
+          "VendorReturnPolicies"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendors/return-policies/vendor": {
+      "get": {
+        "tags": [
+          "VendorReturnPolicies"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/vendor/settings": {
       "get": {
         "tags": [
@@ -3544,7 +3626,31 @@
     "/api/vendors/warehouses": {
       "get": {
         "tags": [
-          "VendorWarehouses"
+          "VendorWarehouse"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendors/warehouses/create": {
+      "get": {
+        "tags": [
+          "VendorWarehouse"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendors/warehouses/vendor": {
+      "get": {
+        "tags": [
+          "VendorWarehouse"
         ],
         "responses": {
           "200": {
@@ -4092,6 +4198,11 @@
           "productID": {
             "type": "integer",
             "format": "int32"
+          },
+          "returnPolicyID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
           },
           "productName": {
             "type": "string",

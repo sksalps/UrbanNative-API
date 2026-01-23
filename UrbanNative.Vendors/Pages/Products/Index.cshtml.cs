@@ -31,7 +31,7 @@ namespace UrbanNative.Vendors.Pages.Products
 
         public async Task OnGetAsync()
         {
-            CategoryList = await _service.GetVendorCategoriesAsync();
+            CategoryList = await _service.GetVendorAllCategoriesAsync();
             HsnList = await _service.GetVendorHsnListAsync();
 
             Products = await _service.GetMyProductsAsync(

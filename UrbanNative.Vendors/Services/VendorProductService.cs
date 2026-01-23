@@ -39,14 +39,32 @@ namespace UrbanNative.Vendors.Services
                 .ReadFromJsonAsync<List<VendorProductListDto>>() ?? new();
         }
 
-        public async Task<List<CategoryLookupDto>> GetVendorCategoriesAsync()
+        public async Task<List<CategoryLookupDto>> GetVendorActiveCategoriesAsync()
         {
-            var res = await _http.GetAsync($"/api/vendors/products/categories");
+            var res = await _http.GetAsync($"/api/vendors/categories/create");
             res.EnsureSuccessStatusCode();
 
             return await res.Content
                 .ReadFromJsonAsync<List<CategoryLookupDto>>() ?? new();
         }
+
+        public async Task<List<CategoryLookupDto>> GetVendorAllCategoriesAsync()
+        {
+            var res = await _http.GetAsync($"/api/vendors/categories/filter");
+            res.EnsureSuccessStatusCode();
+
+            return await res.Content
+                .ReadFromJsonAsync<List<CategoryLookupDto>>() ?? new();
+        }
+        public async Task<List<CategoryLookupDto>> GetCategoriesForCreateAsync()
+        {
+            var res = await _http.GetAsync($"/api/vendors/categories/create");
+            res.EnsureSuccessStatusCode();
+
+            return await res.Content
+                .ReadFromJsonAsync<List<CategoryLookupDto>>() ?? new();
+        }
+
 
         public async Task<List<HsnLookupDto>> GetVendorHsnListAsync()
         {
@@ -100,9 +118,9 @@ namespace UrbanNative.Vendors.Services
         /* =========================================================
            SUPPORT : WAREHOUSE LIST
            ========================================================= */
-        public async Task<List<SelectListItem>> GetVendorWarehousesAsync()
+        public async Task<List<SelectListItem>> GetWarehousesForCreateAsync()
         {
-            var res = await _http.GetAsync($"/api/vendors/warehouses");
+            var res = await _http.GetAsync($"/api/vendors/warehouses/create");
             res.EnsureSuccessStatusCode();
 
             var data = await res.Content
@@ -116,6 +134,49 @@ namespace UrbanNative.Vendors.Services
                     Value = w.VendorWarehouseAddressID.ToString()
                 })
                 .ToList();
+        }
+
+        public async Task<List<SelectListItem>> GetVendorWarehousesAsync()
+        {
+            var res = await _http.GetAsync($"/api/vendors/warehouses/vendor");
+            res.EnsureSuccessStatusCode();
+
+            var data = await res.Content
+                .ReadFromJsonAsync<List<VendorWarehouseDto>>() ?? new();
+
+            return data
+                .Where(w => w.IsActive)
+                .Select(w => new SelectListItem
+                {
+                    Text = w.AddressName,
+                    Value = w.VendorWarehouseAddressID.ToString()
+                })
+                .ToList();
+        }
+        //=====================Return Policy====================================
+        public async Task<List<SelectListItem>> GetVendorReturnPolicyAsync()
+        {
+            var res = await _http.GetAsync("/api/vendors/return-policies");
+            res.EnsureSuccessStatusCode();
+
+            var data = await res.Content
+                .ReadFromJsonAsync<List<ReturnPolicyDto>>() ?? [];
+
+            return data.Select(r => new SelectListItem
+            {
+                Value = r.ReturnPolicyID.ToString(),
+                Text = $"{r.PolicyName} ({r.ReturnDays} day{(r.ReturnDays > 1 ? "s" : "")})"
+            }).ToList();
+        }
+
+        public async Task<List<SelectListItem>> GetCreateReturnPolicyAsync()
+        {
+            var res = await _http.GetAsync($"/api/vendors/return-policies/create");
+            res.EnsureSuccessStatusCode();
+
+            return await res.Content
+                .ReadFromJsonAsync<List<SelectListItem>>() ?? new();
+
         }
 
     }

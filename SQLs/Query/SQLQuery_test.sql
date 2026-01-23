@@ -2,7 +2,7 @@ select * from AdminUsers
 select * from AddressMaster
 select * from Vendors
 
-
+select * from ReturnPolicyMaster
 select * from Categories
 select * from CategoryHSNMapping
 select * from Products
@@ -47,7 +47,7 @@ EXEC sp_AdminVariantSetCategories_Assign
     @VariantSetID = 1,
     @CategoryID = 2;
 	
-exec sp_Vendor_ChangePassword  1002
+exec sp_ReturnPolicy_Lookup  1
 
 
 update categories set SharedMargin=2 

@@ -33,12 +33,7 @@ namespace UrbanNative.Api.Controllers.Vendors
             return Ok(result);
         }
 
-        [HttpGet("categories")]
-        public async Task<IActionResult> Categories()
-        {
-            int vendorId = GetVendorId()/* from auth */;
-            return Ok(await _useCase.GetVendorCategoriesAsync(vendorId));
-        }
+        
 
         [HttpGet("hsn")]
         public async Task<IActionResult> Hsn()

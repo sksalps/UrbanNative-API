@@ -63,7 +63,7 @@ namespace UrbanNative.Application.DTOs.Vendors.Products
     public class VendorProductUpdateDto
     {
         public int ProductID { get; set; }
-
+        public int? ReturnPolicyID { get; set; }
         public string ProductName { get; set; } = string.Empty;
         public string? Description { get; set; }
 
@@ -80,7 +80,7 @@ namespace UrbanNative.Application.DTOs.Vendors.Products
     public class VendorProductEditDto
     {
         public int ProductID { get; set; }
-
+        public int? ReturnPolicyID { get; set; }
         public string ProductName { get; set; } = string.Empty;
         public string? Description { get; set; }
 
@@ -110,7 +110,14 @@ namespace UrbanNative.Application.DTOs.Vendors.Products
 
         public bool IsActive { get; set; }
     }
-
+    public class ReturnPolicyDto
+    {
+        public int ReturnPolicyID { get; set; }
+        public string PolicyName { get; set; } = string.Empty;
+        public int ReturnDays { get; set; }
+        public string Descriptions { get; set; } = string.Empty;
+        public bool IsActive { get; set; }
+    }
 
     public class ApiResponse<T>
     {

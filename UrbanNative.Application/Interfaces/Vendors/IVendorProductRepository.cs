@@ -14,13 +14,15 @@ namespace UrbanNative.Application.Interfaces.Vendors
             string? search,
             int? categoryId,
             int? hsnId
-        );
-        Task<List<CategoryLookupDto>> GetVendorCategoriesAsync(int vendorId);
+        ); 
+        Task<List<CategoryLookupDto>> GetVendorCategoriesAsync(int? vendorId,bool? isActive);
         Task<List<HsnLookupDto>> GetVendorHsnListAsync();
         Task<int> CreateProductAsync(int vendorId, VendorProductCreateDto dto);
         Task UpdateProductAsync(int vendorId, VendorProductUpdateDto dto);
         Task<VendorProductEditDto> GetProductForEditAsync(int vendorId, int productId);
-        Task<List<VendorWarehouseDto>> GetVendorWarehousesAsync(int vendorId);
+        //Task<List<VendorWarehouseDto>> GetVendorWarehousesAsync(int vendorId);
+        Task<List<VendorWarehouseDto>> GetVendorWarehousesAsync( int? vendorId,    bool? isActive);
+        Task<List<ReturnPolicyDto>> GetReturnPoliciesAsync( bool? isActive);
     }
 
 }

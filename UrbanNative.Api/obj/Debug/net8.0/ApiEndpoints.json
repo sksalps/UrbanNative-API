@@ -2120,6 +2120,52 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorCategoriesController",
+    "Method": "Categories",
+    "RelativePath": "api/vendors/categories",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorCategoriesController",
+    "Method": "Hsn",
+    "RelativePath": "api/vendors/categories/{categoryId}/hsn",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoryId",
+        "Type": "",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorCategoriesController",
+    "Method": "GetCategoriesForCreate",
+    "RelativePath": "api/vendors/categories/create",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorCategoriesController",
+    "Method": "GetCategoriesForFilter",
+    "RelativePath": "api/vendors/categories/filter",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorProductsController",
     "Method": "Get",
     "RelativePath": "api/vendors/products",
@@ -2200,16 +2246,6 @@
   },
   {
     "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorProductsController",
-    "Method": "Categories",
-    "RelativePath": "api/vendors/products/categories",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorProductsController",
     "Method": "Hsn",
     "RelativePath": "api/vendors/products/hsn",
     "HttpMethod": "GET",
@@ -2219,9 +2255,59 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "VendorWarehousesController",
-    "Method": "Get",
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorReturnPoliciesController",
+    "Method": "GetAll",
+    "RelativePath": "api/vendors/return-policies",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorReturnPoliciesController",
+    "Method": "GetActive",
+    "RelativePath": "api/vendors/return-policies/create",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorReturnPoliciesController",
+    "Method": "GetAllForVendor",
+    "RelativePath": "api/vendors/return-policies/vendor",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorWarehouseController",
+    "Method": "GetAll",
     "RelativePath": "api/vendors/warehouses",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorWarehouseController",
+    "Method": "GetForCreate",
+    "RelativePath": "api/vendors/warehouses/create",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorWarehouseController",
+    "Method": "GetVendorCat",
+    "RelativePath": "api/vendors/warehouses/vendor",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

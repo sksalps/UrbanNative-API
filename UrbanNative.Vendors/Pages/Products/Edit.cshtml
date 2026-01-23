@@ -44,7 +44,15 @@
                         class="form-select">
                 </select>
             </div>
-
+            <!-- ReturnPolicy -->
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Return Policy</label>
+                <select asp-for="Product.ReturnPolicyID"
+                        asp-items="Model.ReturnPolicyList"
+                        class="form-select">
+                    
+                </select>
+            </div>
             <!-- Description -->
             <div class="col-12">
                 <label class="form-label fw-semibold">Description</label>

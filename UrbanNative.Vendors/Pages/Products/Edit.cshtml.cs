@@ -22,6 +22,7 @@ public class EditModel : PageModel
 
     public List<SelectListItem> CategoryList { get; set; } = [];
     public List<SelectListItem> WarehouseList { get; set; } = [];
+    public List<SelectListItem> ReturnPolicyList { get; set; } = [];
     public bool IsApproved => ViewProduct.ApprovalStatus == "APPROVED";
 
     public async Task OnGetAsync(int id)
@@ -39,14 +40,17 @@ public class EditModel : PageModel
             CategoryID = ViewProduct.CategoryID,
             HasVariants = ViewProduct.HasVariants,
             VendorSharedMargin = ViewProduct.VendorSharedMargin,
-            VendorWarehouseAddressID = ViewProduct.VendorWarehouseAddressID
+            VendorWarehouseAddressID = ViewProduct.VendorWarehouseAddressID,
+            ReturnPolicyID = ViewProduct.ReturnPolicyID
         };
 
-        CategoryList = (await _service.GetVendorCategoriesAsync())
+        CategoryList = (await _service.GetVendorAllCategoriesAsync())
             .Select(c => new SelectListItem(c.CategoryName, c.CategoryID.ToString()))
             .ToList();
 
         WarehouseList = await _service.GetVendorWarehousesAsync();
+        ReturnPolicyList = await _service.GetVendorReturnPolicyAsync();
+
     }
 
     public async Task<IActionResult> OnPostAsync()

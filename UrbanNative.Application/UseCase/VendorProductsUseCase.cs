@@ -23,8 +23,8 @@ namespace UrbanNative.Application.UseCase
             return await _repo.GetVendorProductsAsync(vendorId, search, categoryId, hsnId);
         }
 
-        public Task<List<CategoryLookupDto>> GetVendorCategoriesAsync(int vendorId)
-        => _repo.GetVendorCategoriesAsync(vendorId);
+        public Task<List<CategoryLookupDto>> GetVendorCategoriesAsync(int? vendorId, bool? isActive)
+        => _repo.GetVendorCategoriesAsync(vendorId,isActive);
 
         public Task<List<HsnLookupDto>> GetVendorHsnListAsync()
             => _repo.GetVendorHsnListAsync();
@@ -34,8 +34,10 @@ namespace UrbanNative.Application.UseCase
         => _repo.UpdateProductAsync(vendorId, dto);
         public Task<VendorProductEditDto> ExecuteAsync(int vendorId, int productId)
         => _repo.GetProductForEditAsync(vendorId, productId);
-        public Task<List<VendorWarehouseDto>> ExecuteAsync(int vendorId)
-        => _repo.GetVendorWarehousesAsync(vendorId);
+        public Task<List<VendorWarehouseDto>> ExecuteAsync(int? vendorId,bool?isActive)
+        => _repo.GetVendorWarehousesAsync(vendorId,isActive);
+        public Task<List<ReturnPolicyDto>> GetReturnPoliciesAsync(bool? isActive)
+        => _repo.GetReturnPoliciesAsync(isActive);
     }
 
 }

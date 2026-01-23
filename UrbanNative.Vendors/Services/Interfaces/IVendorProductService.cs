@@ -11,7 +11,8 @@ namespace UrbanNative.Vendors.Services.Interfaces
             int? categoryId,
             int? hsnId);
 
-        Task<List<CategoryLookupDto>> GetVendorCategoriesAsync();
+        Task<List<CategoryLookupDto>> GetVendorActiveCategoriesAsync();
+        Task<List<CategoryLookupDto>> GetVendorAllCategoriesAsync();
         Task<List<HsnLookupDto>> GetVendorHsnListAsync();
 
         /* ---------- CREATE (Step-2.1) ---------- */
@@ -22,7 +23,10 @@ namespace UrbanNative.Vendors.Services.Interfaces
         Task UpdateProductAsync(VendorProductUpdateDto dto);
 
         /* ---------- SUPPORT ---------- */
-        Task<List<SelectListItem>> GetVendorWarehousesAsync();
+        Task<List<SelectListItem>> GetVendorWarehousesAsync(); 
+        Task<List<SelectListItem>> GetWarehousesForCreateAsync();
+        Task<List<SelectListItem>> GetVendorReturnPolicyAsync();
+        Task<List<SelectListItem>> GetCreateReturnPolicyAsync();
     }
 
 
