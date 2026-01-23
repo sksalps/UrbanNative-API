@@ -38,6 +38,13 @@ namespace UrbanNative.Application.UseCase
         => _repo.GetVendorWarehousesAsync(vendorId,isActive);
         public Task<List<ReturnPolicyDto>> GetReturnPoliciesAsync(bool? isActive)
         => _repo.GetReturnPoliciesAsync(isActive);
+
+        public Task<HsnLookupDto> GetHsnByCategoryAsync(int categoryId)
+            => _repo.GetHsnByCategoryAsync(categoryId);
+
+        public Task<VendorWarehouseDto> GetWarehouseByIdAsync(int id)
+            => _repo.GetWarehouseByIdAsync(id);
+
     }
 
 }

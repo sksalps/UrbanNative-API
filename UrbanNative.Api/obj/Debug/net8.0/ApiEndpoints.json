@@ -2131,7 +2131,7 @@
   },
   {
     "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorCategoriesController",
-    "Method": "Hsn",
+    "Method": "GetCategoryHsn",
     "RelativePath": "api/vendors/categories/{categoryId}/hsn",
     "HttpMethod": "GET",
     "IsController": true,
@@ -2139,7 +2139,7 @@
     "Parameters": [
       {
         "Name": "categoryId",
-        "Type": "",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -2292,6 +2292,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorWarehouseController",
+    "Method": "GetWarehouse",
+    "RelativePath": "api/vendors/warehouses/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

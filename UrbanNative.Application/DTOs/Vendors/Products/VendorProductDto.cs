@@ -55,9 +55,8 @@ namespace UrbanNative.Application.DTOs.Vendors.Products
         public bool HasVariants { get; set; }
         public int VendorWarehouseAddressID { get; set; }
 
-        // Read-only (resolved server-side)
-        public string? HSNCode { get; set; }
-        public decimal? GSTPercentage { get; set; }
+        public int? ReturnPolicyID { get; set; }
+        public decimal? SharedMargin { get; set; }
     }
 
     public class VendorProductUpdateDto

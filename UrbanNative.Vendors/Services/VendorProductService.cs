@@ -153,7 +153,18 @@ namespace UrbanNative.Vendors.Services
                 })
                 .ToList();
         }
-        //=====================Return Policy====================================
+        public async Task<VendorWarehouseDto> GetWarehousePreviewAsync(int warehouseId)
+        {
+            var res = await _http.GetAsync($"/api/vendors/warehouses/{warehouseId}");
+            res.EnsureSuccessStatusCode();
+
+            return await res.Content.ReadFromJsonAsync<VendorWarehouseDto>()
+                   ?? throw new Exception("Warehouse not found");
+        }
+
+        /* =========================================================
+           SUPPORT : RETURN POLICY LIST
+           ========================================================= */
         public async Task<List<SelectListItem>> GetVendorReturnPolicyAsync()
         {
             var res = await _http.GetAsync("/api/vendors/return-policies");
@@ -178,7 +189,19 @@ namespace UrbanNative.Vendors.Services
                 .ReadFromJsonAsync<List<SelectListItem>>() ?? new();
 
         }
+        //=============================================================
+        // SUPPORT : CATEGORY HSN PREVIEW
 
+        public async Task<HsnLookupDto> GetCategoryHsnPreviewAsync(int categoryId)
+        {
+            var res = await _http.GetAsync($"/api/vendors/categories/{categoryId}/hsn");
+            res.EnsureSuccessStatusCode();
+
+            return await res.Content.ReadFromJsonAsync<HsnLookupDto>()
+                   ?? throw new Exception("HSN not found");
+        }
+
+        
     }
 
 }

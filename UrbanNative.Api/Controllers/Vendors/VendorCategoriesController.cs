@@ -44,12 +44,16 @@ namespace UrbanNative.Api.Controllers.Vendors
 
             return Ok(data);
         }
+
+        //get hsn by category id
         [HttpGet("{categoryId}/hsn")]
-        public async Task<IActionResult> Hsn()
+        public async Task<IActionResult> GetCategoryHsn(int categoryId)
         {
-            return Ok(await _useCase.GetVendorHsnListAsync());
+            var data = await _useCase.GetHsnByCategoryAsync(categoryId);
+            return Ok(data);
         }
 
+        //Get VendorId from JWT token claims
         private int GetVendorId()
         {
             var vendorIdClaim = User.FindFirst("VendorId")?.Value;

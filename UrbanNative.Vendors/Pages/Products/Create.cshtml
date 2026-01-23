@@ -8,6 +8,10 @@
 
 <form method="post" class="card shadow-sm">
     <div class="card-body">
+
+        <!-- =======================
+             BASIC INFO
+        ======================== -->
         <div class="row g-3">
 
             <!-- Category -->
@@ -15,28 +19,40 @@
                 <label class="form-label fw-semibold">Category</label>
                 <select asp-for="Product.CategoryID"
                         asp-items="Model.CategoryList"
-                        class="form-select">
+                        class="form-select"
+                        id="ddlCategory">
                     <option value="">-- Select Category --</option>
                 </select>
-                <span asp-validation-for="Product.CategoryID" class="text-danger"></span>
+
+                <!-- HSN / GST meta -->
+                <small class="text-muted d-block mt-1" id="hsnMeta">
+                    HSN & GST auto from category
+                </small>
             </div>
 
             <!-- Product Name -->
             <div class="col-md-8">
                 <label class="form-label fw-semibold">Product Name</label>
-                <input asp-for="Product.ProductName" class="form-control" />
-                <span asp-validation-for="Product.ProductName" class="text-danger"></span>
+                <input asp-for="Product.ProductName"
+                       class="form-control"
+                       placeholder="Enter product name" />
             </div>
+        </div>
 
-            <!-- Description -->
-            <div class="col-12">
-                <label class="form-label fw-semibold">Description</label>
-                <textarea asp-for="Product.Description"
-                          class="form-control"
-                          rows="3"></textarea>
-            </div>
+        <!-- Description -->
+        <div class="mt-3">
+            <label class="form-label fw-semibold">Description</label>
+            <textarea asp-for="Product.Description"
+                      class="form-control"
+                      rows="3"
+                      placeholder="Describe your product briefly..."></textarea>
+        </div>
 
-            <!-- Price -->
+        <!-- =======================
+             PRICING & VARIANTS
+        ======================== -->
+        <div class="row g-3 mt-3 align-items-end">
+
             <div class="col-md-3">
                 <label class="form-label fw-semibold">MRP</label>
                 <input asp-for="Product.MRP" class="form-control" />
@@ -47,35 +63,152 @@
                 <input asp-for="Product.DiscountPrice" class="form-control" />
             </div>
 
-            <!-- Variants -->
-            <div class="col-md-3 d-flex align-items-center">
-                <div class="form-check mt-4">
-                    <input asp-for="Product.HasVariants" class="form-check-input" />
-                    <label class="form-check-label">Has Variants</label>
-                </div>
+            <!-- Shared Margin (read-only, transparent) -->
+            <div class="col-md-3">
+                <label class="form-label fw-semibold">Shared Margin</label>
+                <input class="form-control"
+                       value="0"
+                       readonly />
+                <small class="text-muted">Auto from category</small>
             </div>
 
-            <!-- Warehouse -->
             <div class="col-md-3">
-                <label class="form-label fw-semibold">Warehouse</label>
-                <select asp-for="Product.VendorWarehouseAddressID"
-                        asp-items="Model.WarehouseList"
+                <div class="form-check mt-4">
+                    <input asp-for="Product.HasVariants"
+                           class="form-check-input" />
+                    <label class="form-check-label fw-semibold">
+                        Has Variants
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- =======================
+             RETURN POLICY & TAX NOTE
+        ======================== -->
+        <div class="row g-3 mt-3">
+
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Return Policy</label>
+                <select asp-for="Product.ReturnPolicyID"
+                        asp-items="Model.ReturnPolicyList"
                         class="form-select">
                     <option value="">-- Select --</option>
                 </select>
             </div>
 
-            <!-- HSN Preview -->
-            <div class="col-md-6">
-                <label class="form-label fw-semibold">HSN / GST</label>
-                <input class="form-control" value="@Model.HsnPreview" disabled />
+            <div class="col-md-8 d-flex align-items-end">
+                <div class="alert alert-light border mb-0 w-100 py-2">
+                    <small class="text-muted">
+                        Tax is calculated automatically at order time based on HSN.
+                    </small>
+                </div>
             </div>
 
         </div>
+
+        <!-- =======================
+             WAREHOUSE
+        ======================== -->
+        <hr class="my-4" />
+
+        <h6 class="fw-semibold mb-2">Warehouse</h6>
+
+        <div class="row g-3">
+
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">Select Warehouse</label>
+                <select asp-for="Product.VendorWarehouseAddressID"
+                        asp-items="Model.WarehouseList"
+                        class="form-select"
+                        id="ddlWarehouse">
+                    <option value="">-- Select --</option>
+                </select>
+
+                <button type="button"
+                        class="btn btn-sm btn-link ps-0"
+                        data-bs-toggle="modal"
+                        data-bs-target="#warehouseModal">
+                    + Add New Warehouse
+                </button>
+            </div>
+
+            <div class="col-md-6">
+                <div id="warehousePreview"
+                     class="border rounded p-3 bg-light d-none">
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
+    <!-- Footer -->
     <div class="card-footer text-end">
-        <button type="submit" class="btn btn-success">Save</button>
+        <button type="submit" class="btn btn-success px-4">Save</button>
         <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
     </div>
 </form>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const ddlCategory = document.getElementById('ddlCategory');
+            const ddlWarehouse = document.getElementById('ddlWarehouse');
+            const hsnMeta = document.getElementById('hsnMeta');
+            const warehousePreview = document.getElementById('warehousePreview');
+
+            // Category → HSN / GST
+            ddlCategory.addEventListener('change', function () {
+                const categoryId = this.value;
+
+                if (!categoryId) {
+                    hsnMeta.innerText = 'HSN & GST auto from category';
+                    return;
+                }
+
+                fetch(`?handler=CategoryHsn&categoryId=${categoryId}`)
+                    .then(r => {
+                        if (!r.ok) throw new Error();
+                        return r.json();
+                    })
+                    .then(d => {
+                        hsnMeta.innerText =
+                            `HSN ${d.hsnCode} • GST ${d.gstPercentage}%`;
+                    })
+                    .catch(() => {
+                        hsnMeta.innerText = 'HSN / GST not configured';
+                    });
+            });
+
+            // Warehouse → Address preview
+            ddlWarehouse.addEventListener('change', function () {
+                const addressId = this.value;
+
+                if (!addressId) {
+                    warehousePreview.classList.add('d-none');
+                    warehousePreview.innerHTML = '';
+                    return;
+                }
+
+                fetch(`?handler=WarehousePreview&warehouseId=${addressId}`)
+                    .then(r => {
+                        if (!r.ok) throw new Error();
+                        return r.json();
+                    })
+                    .then(w => {
+                        warehousePreview.classList.remove('d-none');
+                        warehousePreview.innerHTML = `
+                            <strong>${w.addressName}</strong><br/>
+                            ${w.addressLine1}<br/>
+                            ${w.addressLine2 ? w.addressLine2 + '<br/>' : ''}
+                            ${w.landmark ? w.landmark + '<br/>' : ''}
+                            ${w.cityName ?? ''}${w.stateName ? ', ' + w.stateName : ''}${w.countryName ? ', ' + w.countryName : ''} – ${w.pincode}
+                        `;
+                    });
+            });
+
+        });
+    </script>
+}

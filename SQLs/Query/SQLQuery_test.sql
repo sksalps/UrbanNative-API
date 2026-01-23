@@ -5,7 +5,9 @@ select * from Vendors
 select * from ReturnPolicyMaster
 select * from Categories
 select * from CategoryHSNMapping
+select * from HSNMaster
 select * from Products
+select * from GSTMaster
 select * from VariantSetCategories
 select * from ProductSKUs
 select * from ProductSKUImages
@@ -42,6 +44,8 @@ EXEC sp_AdminReturns_GetDetails 1
 exec sp_LogisticsProviders_GetAll
 exec sp_AdminReturnShipment_Create 1,1,'22423'
 exec sp_Vendor_GetPassword 1002
+
+exec sp_VendorWarehouse_GetById 1002
 
 EXEC sp_AdminVariantSetCategories_Assign
     @VariantSetID = 1,

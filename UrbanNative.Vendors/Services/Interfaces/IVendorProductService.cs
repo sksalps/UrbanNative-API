@@ -27,6 +27,9 @@ namespace UrbanNative.Vendors.Services.Interfaces
         Task<List<SelectListItem>> GetWarehousesForCreateAsync();
         Task<List<SelectListItem>> GetVendorReturnPolicyAsync();
         Task<List<SelectListItem>> GetCreateReturnPolicyAsync();
+
+        Task<HsnLookupDto> GetCategoryHsnPreviewAsync(int categoryId);
+        Task<VendorWarehouseDto> GetWarehousePreviewAsync(int warehouseId);
     }
 
 

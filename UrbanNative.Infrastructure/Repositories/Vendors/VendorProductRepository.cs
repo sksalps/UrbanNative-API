@@ -21,10 +21,10 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
             _connectionFactory = connectionFactory;
         }
         public async Task<List<VendorProductListDto>> GetVendorProductsAsync(
-    int vendorId,
-    string? search,
-    int? categoryId,
-    int? hsnId)
+            int vendorId,
+            string? search,
+            int? categoryId,
+            int? hsnId)
         {
             using var conn = _connectionFactory.CreateConnection();
 
@@ -159,6 +159,27 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
                 "sp_ReturnPolicy_Lookup",
                 p,
                 commandType: CommandType.StoredProcedure)).ToList();
+        }
+
+        public async Task<HsnLookupDto> GetHsnByCategoryAsync(int categoryId)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            return await conn.QuerySingleAsync<HsnLookupDto>(
+                "sp_Category_HSN_Preview",
+                new { CategoryID = categoryId },
+                commandType: CommandType.StoredProcedure);
+        }
+
+        public async Task<VendorWarehouseDto> GetWarehouseByIdAsync(int addressId)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            return await conn.QuerySingleAsync<VendorWarehouseDto>(
+                "sp_VendorWarehouse_GetById",
+                new { AddressID = addressId },
+                commandType: CommandType.StoredProcedure); 
+
         }
 
     }

@@ -1,3 +1,9 @@
+There are 4 tables for GST Mapping
+CategoryHSNMapping with pk CategoryHSNMappingId
+Categories with PK CategoryID
+HSNMaster	with pk	HSNId
+GSTMaster 	with pk GSTId with field GSTPercentage
+
 Part-13: Confirmation — Is your understanding correct?
 YES. Fully correct. No correction needed. Regarding below tables
 

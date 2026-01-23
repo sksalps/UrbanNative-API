@@ -3284,7 +3284,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -3651,6 +3652,29 @@
       "get": {
         "tags": [
           "VendorWarehouse"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendors/warehouses/{id}": {
+      "get": {
+        "tags": [
+          "VendorWarehouse"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -4180,11 +4204,12 @@
             "type": "integer",
             "format": "int32"
           },
-          "hsnCode": {
-            "type": "string",
+          "returnPolicyID": {
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           },
-          "gstPercentage": {
+          "sharedMargin": {
             "type": "number",
             "format": "double",
             "nullable": true

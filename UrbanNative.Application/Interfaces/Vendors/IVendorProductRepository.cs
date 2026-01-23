@@ -23,6 +23,10 @@ namespace UrbanNative.Application.Interfaces.Vendors
         //Task<List<VendorWarehouseDto>> GetVendorWarehousesAsync(int vendorId);
         Task<List<VendorWarehouseDto>> GetVendorWarehousesAsync( int? vendorId,    bool? isActive);
         Task<List<ReturnPolicyDto>> GetReturnPoliciesAsync( bool? isActive);
+
+        Task<HsnLookupDto> GetHsnByCategoryAsync(int categoryId);
+        Task<VendorWarehouseDto> GetWarehouseByIdAsync(int id);
+
     }
 
 }

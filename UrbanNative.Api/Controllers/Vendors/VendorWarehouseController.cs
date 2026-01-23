@@ -45,6 +45,15 @@ namespace UrbanNative.Api.Controllers.Vendors
                 vendorId,
                 isActive: null));
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetWarehouse(int id)
+        {
+            var data = await _useCase.GetWarehouseByIdAsync(id);
+            return Ok(data);
+        }
+
+        //Get VendorId from JWT token claims
         private int GetVendorId()
         {
             var vendorIdClaim = User.FindFirst("VendorId")?.Value;
