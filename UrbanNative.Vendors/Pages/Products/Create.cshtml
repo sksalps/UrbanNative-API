@@ -3,6 +3,20 @@
 @{
     ViewData["Title"] = "Add Product";
 }
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success fade show" role="alert" id="successAlert">
+        @TempData["SuccessMessage"]
+    </div>
+
+    <script>
+        setTimeout(function () {
+            window.location.href =
+                '@Url.Page("Edit", new { id = TempData["RedirectProductId"] })';
+        }, 1500); // 👈 1.5 seconds delay
+    </script>
+}
+
 
 <h4 class="mb-3">Add New Product</h4>
 
@@ -16,7 +30,10 @@
 
             <!-- Category -->
             <div class="col-md-4">
-                <label class="form-label fw-semibold">Category</label>
+                <label class="form-label fw-semibold">
+                    Category <span class="text-danger">*</span>
+                </label>
+                <span asp-validation-for="Product.CategoryID" class="text-danger"></span>
                 <select asp-for="Product.CategoryID"
                         asp-items="Model.CategoryList"
                         class="form-select"
@@ -32,10 +49,12 @@
 
             <!-- Product Name -->
             <div class="col-md-8">
-                <label class="form-label fw-semibold">Product Name</label>
-                <input asp-for="Product.ProductName"
-                       class="form-control"
-                       placeholder="Enter product name" />
+                <label class="form-label fw-semibold">Product Name
+                    <span class="text-danger">*</span></label>
+                <span asp-validation-for="Product.ProductName" class="text-danger"></span>
+                <input asp-for="Product.ProductName" class="form-control"      placeholder="Enter product name" />
+                
+
             </div>
         </div>
 
@@ -51,28 +70,44 @@
         <!-- =======================
              PRICING & VARIANTS
         ======================== -->
-        <div class="row g-3 mt-3 align-items-end">
+        <div class="row g-3 mt-3 align-items-start">
 
+            <!-- MRP -->
             <div class="col-md-3">
-                <label class="form-label fw-semibold">MRP</label>
+                <label class="form-label fw-semibold">
+                    MRP <span class="text-danger">*</span>
+                </label>
                 <input asp-for="Product.MRP" class="form-control" />
+                <small class="form-text text-muted">&nbsp;</small>
+                <span asp-validation-for="Product.MRP" class="text-danger"></span>
             </div>
 
+            <!-- Discount Price -->
             <div class="col-md-3">
                 <label class="form-label fw-semibold">Discount Price</label>
                 <input asp-for="Product.DiscountPrice" class="form-control" />
+                <small class="form-text text-muted">
+                    If not entered, Discount Price will be same as MRP
+                </small>
+                <span asp-validation-for="Product.DiscountPrice" class="text-danger"></span>
             </div>
 
-            <!-- Shared Margin (read-only, transparent) -->
+            <!-- Shared Margin -->
             <div class="col-md-3">
-                <label class="form-label fw-semibold">Shared Margin</label>
-                <input class="form-control"
-                       value="0"
-                       readonly />
-                <small class="text-muted">Auto from category</small>
+                <label class="form-label fw-semibold">
+                    Shared Margin (%) <span class="text-danger">*</span>
+                </label>
+                <input asp-for="Product.VendorSharedMargin"   class="form-control"                     id="txtSharedMargin" />
+
+                <small class="form-text text-muted">
+                    Default from category
+                </small>
+                <span asp-validation-for="Product.VendorSharedMargin"
+                      class="text-danger"></span>
             </div>
 
-            <div class="col-md-3">
+            <!-- Has Variants -->
+            <div class="col-md-3 d-flex align-items-center">
                 <div class="form-check mt-4">
                     <input asp-for="Product.HasVariants"
                            class="form-check-input" />
@@ -81,6 +116,7 @@
                     </label>
                 </div>
             </div>
+
         </div>
 
         <!-- =======================
@@ -89,7 +125,10 @@
         <div class="row g-3 mt-3">
 
             <div class="col-md-4">
-                <label class="form-label fw-semibold">Return Policy</label>
+                <label class="form-label fw-semibold">
+                    Return Policy<span class="text-danger">*</span>
+                </label>
+                <span asp-validation-for="Product.ReturnPolicyID" class="text-danger"></span>
                 <select asp-for="Product.ReturnPolicyID"
                         asp-items="Model.ReturnPolicyList"
                         class="form-select">
@@ -117,7 +156,10 @@
         <div class="row g-3">
 
             <div class="col-md-6">
-                <label class="form-label fw-semibold">Select Warehouse</label>
+                <label class="form-label fw-semibold">
+                    Select Warehouse<span class="text-danger">*</span>
+                </label>
+                <span asp-validation-for="Product.VendorWarehouseAddressID" class="text-danger"></span>
                 <select asp-for="Product.VendorWarehouseAddressID"
                         asp-items="Model.WarehouseList"
                         class="form-select"
@@ -157,9 +199,12 @@
             const ddlCategory = document.getElementById('ddlCategory');
             const ddlWarehouse = document.getElementById('ddlWarehouse');
             const hsnMeta = document.getElementById('hsnMeta');
+            const txtSharedMargin = document.getElementById('txtSharedMargin');
             const warehousePreview = document.getElementById('warehousePreview');
 
-            // Category → HSN / GST
+            /* ===============================
+               Category → HSN / GST / Margin
+               =============================== */
             ddlCategory.addEventListener('change', function () {
                 const categoryId = this.value;
 
@@ -174,15 +219,23 @@
                         return r.json();
                     })
                     .then(d => {
+                        // HSN / GST
                         hsnMeta.innerText =
                             `HSN ${d.hsnCode} • GST ${d.gstPercentage}%`;
+
+                        // Shared Margin → auto-fill ONLY if empty
+                        if (!txtSharedMargin.value || txtSharedMargin.value === '0') {
+                            txtSharedMargin.value = d.sharedMargin;
+                        }
                     })
                     .catch(() => {
                         hsnMeta.innerText = 'HSN / GST not configured';
                     });
             });
 
-            // Warehouse → Address preview
+            /* ===============================
+               Warehouse → Address Preview
+               =============================== */
             ddlWarehouse.addEventListener('change', function () {
                 const addressId = this.value;
 

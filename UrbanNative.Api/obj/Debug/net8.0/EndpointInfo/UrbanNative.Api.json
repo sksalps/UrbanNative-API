@@ -4174,6 +4174,14 @@
         "additionalProperties": false
       },
       "VendorProductCreateDto": {
+        "required": [
+          "categoryID",
+          "mrp",
+          "productName",
+          "returnPolicyID",
+          "vendorSharedMargin",
+          "vendorWarehouseAddressID"
+        ],
         "type": "object",
         "properties": {
           "categoryID": {
@@ -4181,21 +4189,32 @@
             "format": "int32"
           },
           "productName": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
           },
           "description": {
             "type": "string",
             "nullable": true
           },
           "mrp": {
+            "maximum": 999999,
+            "minimum": 0.01,
             "type": "number",
             "format": "double"
           },
           "discountPrice": {
+            "maximum": 999999,
+            "minimum": 0.01,
             "type": "number",
             "format": "double",
             "nullable": true
+          },
+          "vendorSharedMargin": {
+            "maximum": 100,
+            "minimum": 0,
+            "type": "number",
+            "format": "double"
           },
           "hasVariants": {
             "type": "boolean"
@@ -4206,42 +4225,45 @@
           },
           "returnPolicyID": {
             "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "sharedMargin": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
+            "format": "int32"
           }
         },
         "additionalProperties": false
       },
       "VendorProductUpdateDto": {
+        "required": [
+          "categoryID",
+          "mrp",
+          "productID",
+          "productName",
+          "returnPolicyID",
+          "vendorSharedMargin",
+          "vendorWarehouseAddressID"
+        ],
         "type": "object",
         "properties": {
           "productID": {
             "type": "integer",
             "format": "int32"
           },
-          "returnPolicyID": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
           "productName": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
           },
           "description": {
             "type": "string",
             "nullable": true
           },
           "mrp": {
+            "maximum": 999999,
+            "minimum": 0.01,
             "type": "number",
             "format": "double"
           },
           "discountPrice": {
+            "maximum": 999999,
+            "minimum": 0.01,
             "type": "number",
             "format": "double",
             "nullable": true
@@ -4254,10 +4276,16 @@
             "type": "boolean"
           },
           "vendorSharedMargin": {
+            "maximum": 100,
+            "minimum": 0,
             "type": "number",
             "format": "double"
           },
           "vendorWarehouseAddressID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "returnPolicyID": {
             "type": "integer",
             "format": "int32"
           }

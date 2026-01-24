@@ -13,23 +13,23 @@ public class EditModel : PageModel
         _service = service;
     }
 
-    // 🔵 Used for UI rendering & control
+    // UI reference
     public VendorProductEditDto ViewProduct { get; set; } = new();
 
-    // 🟡 Used for form POST
+    // POST model
     [BindProperty]
     public VendorProductUpdateDto Product { get; set; } = new();
 
     public List<SelectListItem> CategoryList { get; set; } = [];
     public List<SelectListItem> WarehouseList { get; set; } = [];
     public List<SelectListItem> ReturnPolicyList { get; set; } = [];
+
     public bool IsApproved => ViewProduct.ApprovalStatus == "APPROVED";
 
     public async Task OnGetAsync(int id)
     {
         ViewProduct = await _service.GetProductForEditAsync(id);
 
-        // map editable fields into update DTO
         Product = new VendorProductUpdateDto
         {
             ProductID = ViewProduct.ProductID,
@@ -44,21 +44,54 @@ public class EditModel : PageModel
             ReturnPolicyID = ViewProduct.ReturnPolicyID
         };
 
-        CategoryList = (await _service.GetVendorAllCategoriesAsync())
-            .Select(c => new SelectListItem(c.CategoryName, c.CategoryID.ToString()))
+        var categories = IsApproved
+    ? await _service.GetVendorAllCategoriesAsync()
+    : await _service.GetVendorActiveCategoriesAsync();
+
+        CategoryList = categories
+            .Select(c => new SelectListItem
+            {
+                Text = c.CategoryName,
+                Value = c.CategoryID.ToString()
+            })
             .ToList();
+
 
         WarehouseList = await _service.GetVendorWarehousesAsync();
         ReturnPolicyList = await _service.GetVendorReturnPolicyAsync();
-
     }
 
     public async Task<IActionResult> OnPostAsync()
     {
         if (!ModelState.IsValid)
+        {
+            await OnGetAsync(Product.ProductID);
             return Page();
+        }
 
         await _service.UpdateProductAsync(Product);
-        return RedirectToPage("./Index");
+
+        TempData["SuccessMessage"] = "Product updated successfully.";
+        return RedirectToPage("Edit", new { id = Product.ProductID });
     }
+
+
+    // ================================
+    // AJAX: Category → HSN / GST / Margin
+    // ================================
+    public async Task<IActionResult> OnGetCategoryHsnAsync(int categoryId)
+    {
+        var dto = await _service.GetCategoryHsnPreviewAsync(categoryId);
+        return new JsonResult(dto);
+    }
+
+    // ================================
+    // AJAX: Warehouse → Address Preview
+    // ================================
+    public async Task<IActionResult> OnGetWarehousePreviewAsync(int warehouseId)
+    {
+        var dto = await _service.GetWarehousePreviewAsync(warehouseId);
+        return new JsonResult(dto);
+    }
+
 }

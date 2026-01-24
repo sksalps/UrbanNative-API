@@ -38,7 +38,7 @@ namespace UrbanNative.Vendors.Services
             return await res.Content
                 .ReadFromJsonAsync<List<VendorProductListDto>>() ?? new();
         }
-
+        //Active Cat use in product add from vendor side
         public async Task<List<CategoryLookupDto>> GetVendorActiveCategoriesAsync()
         {
             var res = await _http.GetAsync($"/api/vendors/categories/create");
@@ -47,8 +47,8 @@ namespace UrbanNative.Vendors.Services
             return await res.Content
                 .ReadFromJsonAsync<List<CategoryLookupDto>>() ?? new();
         }
-
-        public async Task<List<CategoryLookupDto>> GetVendorAllCategoriesAsync()
+        //Active Inactive use with product list & filete with vendor
+        public async Task<List<CategoryLookupDto>> GetVendorAllCategoriesAsync() 
         {
             var res = await _http.GetAsync($"/api/vendors/categories/filter");
             res.EnsureSuccessStatusCode();
@@ -56,7 +56,7 @@ namespace UrbanNative.Vendors.Services
             return await res.Content
                 .ReadFromJsonAsync<List<CategoryLookupDto>>() ?? new();
         }
-        public async Task<List<CategoryLookupDto>> GetCategoriesForCreateAsync()
+        /*public async Task<List<CategoryLookupDto>> GetCategoriesForCreateAsync()
         {
             var res = await _http.GetAsync($"/api/vendors/categories/create");
             res.EnsureSuccessStatusCode();
@@ -64,7 +64,7 @@ namespace UrbanNative.Vendors.Services
             return await res.Content
                 .ReadFromJsonAsync<List<CategoryLookupDto>>() ?? new();
         }
-
+        */
 
         public async Task<List<HsnLookupDto>> GetVendorHsnListAsync()
         {
@@ -79,15 +79,19 @@ namespace UrbanNative.Vendors.Services
            STEP-2.1 : CREATE PRODUCT
            ========================================================= */
 
-        public async Task CreateProductAsync(VendorProductCreateDto dto)
+
+        public async Task<int> CreateProductAsync(VendorProductCreateDto dto)
         {
             var res = await _http.PostAsJsonAsync(
-                $"/api/vendors/products",
+                "/api/vendors/products",
                 dto);
 
             res.EnsureSuccessStatusCode();
-            var id = await res.Content.ReadFromJsonAsync<int>(); // ✅ now valid
+
+            // API already returns int (NewProductID)
+            return await res.Content.ReadFromJsonAsync<int>();
         }
+
 
         /* =========================================================
            STEP-2.2 : EDIT PRODUCT

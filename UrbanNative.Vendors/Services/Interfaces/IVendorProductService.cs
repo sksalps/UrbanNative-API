@@ -6,17 +6,14 @@ namespace UrbanNative.Vendors.Services.Interfaces
     public interface IVendorProductService
     {
         /* ---------- LIST (Step-1) ---------- */
-        Task<List<VendorProductListDto>> GetMyProductsAsync(
-            string? search,
-            int? categoryId,
-            int? hsnId);
+        Task<List<VendorProductListDto>> GetMyProductsAsync(  string? search,  int? categoryId,    int? hsnId);
 
-        Task<List<CategoryLookupDto>> GetVendorActiveCategoriesAsync();
-        Task<List<CategoryLookupDto>> GetVendorAllCategoriesAsync();
+        Task<List<CategoryLookupDto>> GetVendorActiveCategoriesAsync(); //All active cat only use in create products
+        Task<List<CategoryLookupDto>> GetVendorAllCategoriesAsync(); // //Only active cat use in create
         Task<List<HsnLookupDto>> GetVendorHsnListAsync();
 
         /* ---------- CREATE (Step-2.1) ---------- */
-        Task CreateProductAsync(VendorProductCreateDto dto);
+        Task <int>CreateProductAsync(VendorProductCreateDto dto);
 
         /* ---------- EDIT (Step-2.2) ---------- */
         Task<VendorProductEditDto> GetProductForEditAsync(int productId);

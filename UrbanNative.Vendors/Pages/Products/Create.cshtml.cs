@@ -17,7 +17,6 @@ namespace UrbanNative.Vendors.Pages.Products
 
         [BindProperty]
         public VendorProductCreateDto Product { get; set; } = new();
-
         public List<SelectListItem> CategoryList { get; set; } = new();
         public List<SelectListItem> WarehouseList { get; set; } = new();
         public List<SelectListItem> ReturnPolicyList { get; set; } = new();
@@ -53,14 +52,19 @@ namespace UrbanNative.Vendors.Pages.Products
         {
             if (!ModelState.IsValid)
             {
-                await OnGetAsync(); // rebind dropdowns
+                await OnGetAsync();
                 return Page();
             }
 
-            await _service.CreateProductAsync(Product);
+            var newProductId = await _service.CreateProductAsync(Product);
 
-            TempData["Success"] = "Product created successfully";
-            return RedirectToPage("./Index");
+            TempData["SuccessMessage"] = "Product created successfully. Redirecting…";
+            TempData["RedirectProductId"] = newProductId;
+
+            // 👈 IMPORTANT: return same page
+            return Page();
         }
+
+
     }
 }

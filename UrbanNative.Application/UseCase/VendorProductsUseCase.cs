@@ -30,8 +30,20 @@ namespace UrbanNative.Application.UseCase
             => _repo.GetVendorHsnListAsync();
         public Task<int> ExecuteAsync(int vendorId, VendorProductCreateDto dto)
         => _repo.CreateProductAsync(vendorId, dto);
-        public Task ExecuteAsync(int vendorId, VendorProductUpdateDto dto)
-        => _repo.UpdateProductAsync(vendorId, dto);
+        public async Task ExecuteAsync(int vendorId, VendorProductUpdateDto dto)
+        {
+            var existing = await _repo.GetProductForEditAsync(vendorId, dto.ProductID);
+
+            if (existing.ApprovalStatus == "APPROVED"
+                && existing.CategoryID != dto.CategoryID)
+            {
+                throw new InvalidOperationException(
+                    "Category cannot be changed after approval."
+                );
+            }
+
+            await _repo.UpdateProductAsync(vendorId, dto);
+        }
         public Task<VendorProductEditDto> ExecuteAsync(int vendorId, int productId)
         => _repo.GetProductForEditAsync(vendorId, productId);
         public Task<List<VendorWarehouseDto>> ExecuteAsync(int? vendorId,bool?isActive)
@@ -46,5 +58,7 @@ namespace UrbanNative.Application.UseCase
             => _repo.GetWarehouseByIdAsync(id);
 
     }
+        
 
-}
+
+    }
