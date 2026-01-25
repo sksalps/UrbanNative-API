@@ -13,10 +13,11 @@ select * from ProductSKUs
 select * from ProductSKUImages
 select * from ProductSKUValueSignature
 select * from ProductSKUVariantValues
-select * from VariantInsideVariantSet
-select * from VariantMaster
-select * from VariantSets
-select * from VariantValues
+
+select * from VariantMaster --Varaint Like Color Size Memory Design Shape
+select * from VariantSets   --Name of set which indicateds combination of variant and usage
+select * from VariantInsideVariantSet   --In name of set which variant using
+select * from VariantValues     --Value of Variant
 select * from InventoryLogs
 
 

@@ -2255,6 +2255,69 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorSkuController",
+    "Method": "GetSkuHeader",
+    "RelativePath": "api/vendors/productSKU/{productId}/sku-header",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "UrbanNative.Application.DTOs.Vendors.Products.VendorSkuHeaderDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorSkuController",
+    "Method": "GetSkus",
+    "RelativePath": "api/vendors/productSKU/{productId}/skus",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorSkuController",
+    "Method": "SaveSkus",
+    "RelativePath": "api/vendors/productSKU/{productId}/skus",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "skus",
+        "Type": "System.Collections.Generic.List\u00601[[UrbanNative.Application.DTOs.Vendors.Products.VendorSkuSaveDto, UrbanNative.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorReturnPoliciesController",
     "Method": "GetAll",
     "RelativePath": "api/vendors/return-policies",

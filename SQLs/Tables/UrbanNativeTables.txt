@@ -14,9 +14,10 @@ Product → Master, Products remain base entity, Variants are Admin-defined. Pro
 
 Variant Master => MASTER DATA,Stores types of variants (Color, Size, Fabric, Memory, etc.)
 Variant Values => MASTER DATA, stores values for a variant (Red, Green, Blue, M, L, etc.)
-Variant Sets  => Name of a variant set, used only to define product variety rules, this table does NOT represent a SKU. (Ex. Apparel Basic = Color + Size)
-VariantInsideVariantSet => Which variants are part of a variant set
+Variant Sets  => Name of a variant set, used only to define product variety rules, this table does NOT represent a SKU. (Ex. Apparel Basic = Color + Size). Indicates the usage of set that will assign with Category. 
 VariantSetCategories => Which categories use which variant sets, links variant sets to categories
+
+VariantInsideVariantSet => Which variants are part of a variant set
 ProductSKUs => SKY Engine will create the SKUs as per variant selected by vendor
 ProductSKUImages => A SKU based image can be multiple images
 ProductSKUVariantValues => Actual variant values chosen for a product SKU, physical product exist here. 

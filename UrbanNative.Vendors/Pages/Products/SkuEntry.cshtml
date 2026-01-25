@@ -1,0 +1,119 @@
+﻿@page "{productId:int}"
+@model UrbanNative.Vendors.Pages.Products.SkuEntryModel
+
+@{
+    ViewData["Title"] = "SKU Entry";
+}
+
+
+<!-- ========================= -->
+<!-- PAGE HEADER (READ ONLY)  -->
+<!-- ========================= -->
+<div class="card mb-3">
+    <div class="card-body">
+        <h4 class="mb-1">@Model.Header.ProductName</h4>
+
+        <div class="text-muted mb-2">
+            @Model.Header.CategoryPath
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <strong>Variant Set:</strong><br />
+                @Model.Header.VariantSetName
+            </div>
+            <div class="col-md-4">
+                <strong>Total Possible SKUs:</strong><br />
+                @Model.Header.TotalPossibleSkus
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========================= -->
+<!-- SUCCESS MESSAGE           -->
+<!-- ========================= -->
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+
+<!-- ========================= -->
+<!-- SKU GRID                  -->
+<!-- ========================= -->
+<form method="post">
+    <table class="table table-bordered table-striped align-middle">
+        <thead class="table-light">
+            <tr>
+                <th style="width: 25%">Variant Combination</th>
+                <th style="width: 15%">SKU Code</th>
+                <th style="width: 15%">Price</th>
+                <th style="width: 10%">Stock</th>
+                <th style="width: 10%">Images</th>
+                <th style="width: 10%">Active</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Skus.Count; i++)
+            {
+                <tr>
+                    <td>
+                        @Model.Skus[i].VariantDisplay
+                        <input type="hidden" asp-for="Skus[i].SKUId" />
+                    </td>
+
+                    <td>
+                        <input class="form-control" value="@Model.Skus[i].SKUCode" readonly />
+                    </td>
+
+                    <td>
+                        <input asp-for="Skus[i].Price"
+                               class="form-control"
+                               placeholder="Enter price" />
+                    </td>
+
+                    <td>
+                        <input asp-for="Skus[i].Stock"
+                               class="form-control"
+                               min="0" />
+                    </td>
+
+                    <td class="text-center">
+                        <button type="button"
+                                class="btn btn-sm btn-outline-primary"
+                                data-sku-id="@Model.Skus[i].SKUId">
+                            Manage (@Model.Skus[i].ImageCount)
+                        </button>
+                    </td>
+
+                    <td class="text-center">
+                        <input asp-for="Skus[i].IsActive"
+                               type="checkbox"
+                               class="form-check-input" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="mt-3 text-end">
+        <button type="submit" class="btn btn-success px-4">
+            Save SKUs
+        </button>
+        <a asp-page="/Products/Index" class="btn btn-secondary ms-2">
+            Back
+        </a>
+    </div>
+</form>
+
+<!-- ========================= -->
+<!-- IMAGE MODAL PLACEHOLDER  -->
+<!-- ========================= -->
+<!--
+Modal implementation will be added next:
+- Upload images
+- Set primary
+- Sort order
+-->

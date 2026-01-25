@@ -72,6 +72,7 @@ builder.Services.AddScoped<IVendorDashboardService, VendorDashboardService>();
 builder.Services.AddScoped<IVendorProfileService, VendorProfileService>();
 builder.Services.AddScoped<IVendorSettingsService, VendorSettingsService>();
 builder.Services.AddScoped<IVendorProductService,VendorProductService>();
+builder.Services.AddScoped<IVendorSkuService, VendorSkuService>();
 
 
 

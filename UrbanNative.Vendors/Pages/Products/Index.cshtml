@@ -95,7 +95,7 @@
                 <td>@(p.IsActive ? "Yes" : "No")</td>
                 <td>
                     <a asp-page="Edit" asp-route-id="@p.ProductID">Edit</a> |
-                    <a asp-page="Skus/Index" asp-route-productId="@p.ProductID">SKUs</a>
+                    <a asp-page="SkuEntry" asp-route-productId="@p.ProductID">SKUs</a>
                 </td>
             </tr>
         }

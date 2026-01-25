@@ -45,11 +45,13 @@ namespace UrbanNative.Infrastructure
             // UseCases
             services.AddScoped<IVendorSettingsUseCase, VendorSettingsUseCase>();
             services.AddScoped<IVendorProductsUseCase, VendorProductsUseCase>();
+            services.AddScoped<IVendorSkuUseCase, VendorSkuUseCase>();
 
             // Repositories
             services.AddScoped<IVendorSettingsRepository, VendorSettingsRepository>();
             services.AddScoped<IVendorChangePasswordUseCase, VendorChangePasswordUseCase>();
             services.AddScoped<IVendorProductRepository, VendorProductRepository>();
+            services.AddScoped<IVendorSkuRepository, VendorSkuRepository>();
 
             return services;
         }

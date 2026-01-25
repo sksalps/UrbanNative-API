@@ -6,7 +6,7 @@ namespace UrbanNative.Infrastructure.Repository
     {
         public static List<SkuSignatureDto> Generate(List<VariantSelectionDto> selections)
         {
-            var ordered = selections                .OrderBy(v => v.VariantId)                .ToList();
+            var ordered = selections.OrderBy(v => v.VariantId)  .ToList();
 
             var combinations = new List<string> { string.Empty };
 
