@@ -74,11 +74,34 @@
                                placeholder="Enter price" />
                     </td>
 
-                    <td>
-                        <input asp-for="Skus[i].Stock"
-                               class="form-control"
-                               min="0" />
+                    <td class="text-center">
+                        @if (Model.Skus[i].IsStockLocked)
+                        {
+                            <div class="d-flex align-items-center justify-content-center gap-1">
+                                <input asp-for="Skus[i].Stock"
+                                       class="form-control text-center"
+                                       style="max-width:80px"
+                                       readonly
+                                       disabled />
+
+                                <span class="text-muted"
+                                      data-bs-toggle="tooltip"
+                                      data-bs-placement="top"
+                                      title="Managed via Inventory">
+                                    <i class="bi bi-info-circle"></i>
+                                </span>
+                            </div>
+                        }
+                        else
+                        {
+                            <input asp-for="Skus[i].Stock"
+                                   class="form-control text-center"
+                                   style="max-width:80px"
+                                   min="0" />
+                        }
                     </td>
+
+
 
                     <td class="text-center">
                         <button type="button"

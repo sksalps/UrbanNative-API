@@ -9,7 +9,7 @@ namespace UrbanNative.Application.DTOs.Vendors.Products
     public class VendorSkuGridDto
     {
         public int SKUId { get; set; }
-        public string SKUCode { get; set; } = string.Empty;
+        public string SKUCode { get; set; } = "";
 
         public decimal? Price { get; set; }
         public int Stock { get; set; }
@@ -17,9 +17,12 @@ namespace UrbanNative.Application.DTOs.Vendors.Products
 
         public int ImageCount { get; set; }
 
-        // 🔒 UI Display Only
-        public string VariantDisplay { get; set; } = "Default Product";
+        public string VariantDisplay { get; set; } = "";
+
+        // 🔒 NEW
+        public bool IsStockLocked { get; set; }
     }
+
 
     public class VendorSkuSaveDto
     {
