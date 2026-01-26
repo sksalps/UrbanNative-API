@@ -46,12 +46,14 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<IVendorSettingsUseCase, VendorSettingsUseCase>();
             services.AddScoped<IVendorProductsUseCase, VendorProductsUseCase>();
             services.AddScoped<IVendorSkuUseCase, VendorSkuUseCase>();
+            services.AddScoped<IVendorInventoryUseCase, VendorInventoryUseCase>();
 
             // Repositories
             services.AddScoped<IVendorSettingsRepository, VendorSettingsRepository>();
             services.AddScoped<IVendorChangePasswordUseCase, VendorChangePasswordUseCase>();
             services.AddScoped<IVendorProductRepository, VendorProductRepository>();
             services.AddScoped<IVendorSkuRepository, VendorSkuRepository>();
+            services.AddScoped<IVendorInventoryRepository, VendorInventoryRepository>();
 
             return services;
         }

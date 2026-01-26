@@ -1,0 +1,77 @@
+﻿@page
+@model UrbanNative.Vendors.Pages.Inventory.IndexModel
+@{
+    ViewData["Title"] = "Inventory";
+}
+
+<h4 class="mb-3">Inventory Log View</h4>
+
+<form method="get" class="row g-2 mb-4">
+    <input type="hidden" name="SkuId" value="@Model.SkuId" />
+
+    <div class="col-md-3">
+        <label class="form-label">Warehouse</label>
+        <select class="form-select" name="AddressId" required>
+            <option value="">-- Select --</option>
+            <option value="1002" selected="@((Model.AddressId == 1002))">
+                Default Warehouse
+            </option>
+        </select>
+    </div>
+
+    <div class="col-md-3">
+        <label class="form-label">From Date</label>
+        <input type="date" class="form-control"
+               name="FromDate"
+               value="@Model.FromDate.ToString("yyyy-MM-dd")" />
+    </div>
+
+    <div class="col-md-3">
+        <label class="form-label">To Date</label>
+        <input type="date" class="form-control"
+               name="ToDate"
+               value="@Model.ToDate.ToString("yyyy-MM-dd")" />
+    </div>
+
+    <div class="col-md-3 d-flex align-items-end">
+        <button class="btn btn-primary w-100">Apply</button>
+    </div>
+</form>
+
+<!-- Summary -->
+<div class="row text-center mb-4">
+    <div class="col"><div class="card p-2">Opening<br /><strong>@Model.Summary.OpeningStock</strong></div></div>
+    <div class="col"><div class="card p-2">Total In<br /><strong>@Model.Summary.TotalIn</strong></div></div>
+    <div class="col"><div class="card p-2">Total Out<br /><strong>@Model.Summary.TotalOut</strong></div></div>
+    <div class="col"><div class="card p-2">Closing<br /><strong>@Model.Summary.ClosingStock</strong></div></div>
+    <div class="col"><div class="card p-2">Current<br /><strong>@Model.Summary.CurrentStock</strong></div></div>
+</div>
+
+<!-- Logs -->
+<table class="table table-bordered table-sm">
+    <thead class="table-light">
+        <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Qty</th>
+            <th>Old</th>
+            <th>New</th>
+            <th>Ref</th>
+            <th>Remarks</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var log in Model.Logs)
+        {
+            <tr>
+                <td>@log.CreatedAt</td>
+                <td>@log.ChangeType</td>
+                <td>@log.Quantity</td>
+                <td>@log.OldStock</td>
+                <td>@log.NewStock</td>
+                <td>@log.ReferenceType</td>
+                <td>@log.Remarks</td>
+            </tr>
+        }
+    </tbody>
+</table>

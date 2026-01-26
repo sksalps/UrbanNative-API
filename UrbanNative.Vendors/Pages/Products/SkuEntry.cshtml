@@ -49,13 +49,16 @@
     <table class="table table-bordered table-striped align-middle">
         <thead class="table-light">
             <tr>
-                <th style="width:25%">Variant Combination</th>
-                <th style="width:15%">SKU Code</th>
-                <th style="width:15%">Price (MRP)</th>
-                <th style="width:15%">Discounted Price</th>
+                <th style="width:20%">Variant Combination</th>
+                <th style="width:10%">SKU Code</th>
+                <th style="width:10%">Price (MRP)</th>
+                <th style="width:15%">Discounted1 Price</th>
                 <th style="width:10%">Stock</th>
-                <th style="width:10%">Images</th>
+                <th style="width:15%">Images</th>
+                <th style="width:10%">           Inventory                </th>
                 <th style="width:10%">Active</th>
+
+
             </tr>
         </thead>
 
@@ -141,10 +144,17 @@
                         <button type="button"
                                 class="btn btn-sm btn-outline-primary"
                                 data-sku-id="@Model.Skus[i].SKUId">
-                            Manage (@Model.Skus[i].ImageCount)
+                            Manage1 (@Model.Skus[i].ImageCount)
                         </button>
                     </td>
-
+                    <td>
+                        <a asp-page="/Inventory/Index"
+                           asp-route-skuId="@Model.Skus[i].SKUId">
+                            View Inventory
+                        </a>
+                        |
+                        <a asp-page="/Inventory/Add" asp-route-productId="Skus[i].SKUId">Add</a>
+                    </td>
                     <!-- ========================= -->
                     <!-- Active                    -->
                     <!-- ========================= -->
@@ -178,6 +188,7 @@
                             <span asp-validation-for="Skus[i].IsActive" class="text-danger"></span>
                         }
                     </td>
+                    
                 </tr>
             }
         </tbody>

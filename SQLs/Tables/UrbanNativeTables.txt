@@ -16,13 +16,12 @@ Variant Master => MASTER DATA,Stores types of variants (Color, Size, Fabric, Mem
 Variant Values => MASTER DATA, stores values for a variant (Red, Green, Blue, M, L, etc.)
 Variant Sets  => Name of a variant set, used only to define product variety rules, this table does NOT represent a SKU. (Ex. Apparel Basic = Color + Size). Indicates the usage of set that will assign with Category. 
 VariantSetCategories => Which categories use which variant sets, links variant sets to categories
-
-VariantInsideVariantSet => Which variants are part of a variant set
+VariantInsideVariantSet => Which variants are part of a variant set, So Variant value will auto select as a master value of the set.
 ProductSKUs => SKY Engine will create the SKUs as per variant selected by vendor
 ProductSKUImages => A SKU based image can be multiple images
-ProductSKUVariantValues => Actual variant values chosen for a product SKU, physical product exist here. 
+ProductSKUVariantValues => Actual variant values chosen for a product SKU, physical product exist here. Apparel (Set) => Size (Variant)=> M/L/XL (Values from Variantvalue)
 ProductSKUValueSignature => Materialized / cached identity of a SKU, signature like 1:1|2:1|
-InventoryLogs => Physical inventory entry
+InventoryLogs => Physical inventory entry sample of record (1	21	INIT	10	0	10	2025-12-28 17:59:34.487	0)
 
 Vendor owns:
 SKUs are vendor-dependent
@@ -105,11 +104,7 @@ ReturnPolicyID	int	Checked
 IsActive	bit	Unchecked
 CreatedAt	datetime	Unchecked
 		Unchecked
-ProuctSKUVariantValues
-SKUVariantValueID	int	Unchecked
-SKUId	int	Unchecked
-VariantID	int	Unchecked
-VariantValueID	int	Unchecked
+
 		Unchecked
 ProductSKUValueSignature
 SKUId	int	Unchecked
@@ -192,6 +187,16 @@ IsActive	bit	Checked
 ReferredByUserID	int	Checked
 PasswordHash	varbinary(MAX)	Checked
 PasswordSalt	varbinary(MAX)	Checked
+
+InventoryLogs
+LogID	int	Unchecked
+SKUId	int	Unchecked
+ChangeType	varchar(20)	Unchecked
+Quantity	int	Unchecked
+OldStock	int	Unchecked
+NewStock	int	Unchecked
+CreatedAt	datetime	Unchecked
+CreatedBy	int	Checked
 		Unchecked
 *********
 Orders
