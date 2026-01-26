@@ -4464,6 +4464,11 @@
             "format": "double",
             "nullable": true
           },
+          "dp": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
           "stock": {
             "type": "integer",
             "format": "int32"

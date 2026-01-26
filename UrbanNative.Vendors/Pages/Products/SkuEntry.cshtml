@@ -5,7 +5,6 @@
     ViewData["Title"] = "SKU Entry";
 }
 
-
 <!-- ========================= -->
 <!-- PAGE HEADER (READ ONLY)  -->
 <!-- ========================= -->
@@ -19,16 +18,19 @@
 
         <div class="row">
             <div class="col-md-4">
-                <strong>Variant Set:</strong><br />
-                @Model.Header.VariantSetName
+                <strong>Variant Set:</strong> @Model.Header.VariantSetName
             </div>
             <div class="col-md-4">
-                <strong>Total Possible SKUs:</strong><br />
-                @Model.Header.TotalPossibleSkus
+                <strong>Total Possible SKUs:</strong> @Model.Header.TotalPossibleSkus
             </div>
         </div>
     </div>
 </div>
+
+<!-- ========================= -->
+<!-- VALIDATION SUMMARY       -->
+<!-- ========================= -->
+<div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
 
 <!-- ========================= -->
 <!-- SUCCESS MESSAGE           -->
@@ -47,47 +49,78 @@
     <table class="table table-bordered table-striped align-middle">
         <thead class="table-light">
             <tr>
-                <th style="width: 25%">Variant Combination</th>
-                <th style="width: 15%">SKU Code</th>
-                <th style="width: 15%">Price</th>
-                <th style="width: 10%">Stock</th>
-                <th style="width: 10%">Images</th>
-                <th style="width: 10%">Active</th>
+                <th style="width:25%">Variant Combination</th>
+                <th style="width:15%">SKU Code</th>
+                <th style="width:15%">Price (MRP)</th>
+                <th style="width:15%">Discounted Price</th>
+                <th style="width:10%">Stock</th>
+                <th style="width:10%">Images</th>
+                <th style="width:10%">Active</th>
             </tr>
         </thead>
+
         <tbody>
             @for (int i = 0; i < Model.Skus.Count; i++)
             {
                 <tr>
+                    <!-- ========================= -->
+                    <!-- Variant Combination       -->
+                    <!-- ========================= -->
                     <td>
                         @Model.Skus[i].VariantDisplay
                         <input type="hidden" asp-for="Skus[i].SKUId" />
                     </td>
 
+                    <!-- ========================= -->
+                    <!-- SKU Code                  -->
+                    <!-- ========================= -->
                     <td>
-                        <input class="form-control" value="@Model.Skus[i].SKUCode" readonly />
+                        <input class="form-control"
+                               value="@Model.Skus[i].SKUCode"
+                               readonly />
                     </td>
 
+                    <!-- ========================= -->
+                    <!-- Price (MRP)               -->
+                    <!-- ========================= -->
                     <td>
                         <input asp-for="Skus[i].Price"
                                class="form-control"
-                               placeholder="Enter price" />
+                               placeholder="Enter MRP" />
+                        <span asp-validation-for="Skus[i].Price" class="text-danger"></span>
                     </td>
 
+                    <!-- ========================= -->
+                    <!-- Discount Price            -->
+                    <!-- ========================= -->
+                    <td>
+                        <input asp-for="Skus[i].DP"
+                               class="form-control"
+                               placeholder="Enter DP" />
+                        <span asp-validation-for="Skus[i].DP" class="text-danger"></span>
+                    </td>
+
+                    <!-- ========================= -->
+                    <!-- Stock                     -->
+                    <!-- ========================= -->
                     <td class="text-center">
                         @if (Model.Skus[i].IsStockLocked)
                         {
+                            <!-- 🔒 Preserve stock on POST -->
+                            <input type="hidden"
+                                   asp-for="Skus[i].Stock"
+                                   value="@Model.Skus[i].CurrentStock" />
+
                             <div class="d-flex align-items-center justify-content-center gap-1">
-                                <input asp-for="Skus[i].Stock"
-                                       class="form-control text-center"
+                                <input class="form-control text-center"
                                        style="max-width:80px"
+                                       value="@Model.Skus[i].CurrentStock"
                                        readonly
                                        disabled />
 
                                 <span class="text-muted"
                                       data-bs-toggle="tooltip"
-                                      data-bs-placement="top"
-                                      title="Managed via Inventory">
+                                      title="Managed via Inventory. INIT: @Model.Skus[i].InitStock | Current: @Model.Skus[i].CurrentStock">
                                     <i class="bi bi-info-circle"></i>
                                 </span>
                             </div>
@@ -101,8 +134,9 @@
                         }
                     </td>
 
-
-
+                    <!-- ========================= -->
+                    <!-- Images                    -->
+                    <!-- ========================= -->
                     <td class="text-center">
                         <button type="button"
                                 class="btn btn-sm btn-outline-primary"
@@ -111,10 +145,38 @@
                         </button>
                     </td>
 
+                    <!-- ========================= -->
+                    <!-- Active                    -->
+                    <!-- ========================= -->
                     <td class="text-center">
-                        <input asp-for="Skus[i].IsActive"
-                               type="checkbox"
-                               class="form-check-input" />
+                        @if (
+                                            (Model.Skus[i].IsStockLocked && Model.Skus[i].CurrentStock == 0)
+                                            || Model.Skus[i].Price == 0
+                                            || Model.Skus[i].DP == 0
+                                            )
+                        {
+                            <!-- 🔒 Force false on POST -->
+                            <input type="hidden"
+                                   asp-for="Skus[i].IsActive"
+                                   value="false" />
+
+                            <input type="checkbox"
+                                   class="form-check-input"
+                                   checked="@Model.Skus[i].IsActive"
+                                   disabled
+                                   data-bs-toggle="tooltip"
+                                   title="Cannot activate SKU when stock or price is zero" />
+
+                            <span asp-validation-for="Skus[i].IsActive" class="text-danger"></span>
+                        }
+                        else
+                        {
+                            <input asp-for="Skus[i].IsActive"
+                                   type="checkbox"
+                                   class="form-check-input" />
+
+                            <span asp-validation-for="Skus[i].IsActive" class="text-danger"></span>
+                        }
                     </td>
                 </tr>
             }
@@ -130,13 +192,3 @@
         </a>
     </div>
 </form>
-
-<!-- ========================= -->
-<!-- IMAGE MODAL PLACEHOLDER  -->
-<!-- ========================= -->
-<!--
-Modal implementation will be added next:
-- Upload images
-- Set primary
-- Sort order
--->

@@ -44,11 +44,12 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
             var table = new DataTable();
             table.Columns.Add("SKUId", typeof(int));
             table.Columns.Add("Price", typeof(decimal));
+            table.Columns.Add("DP", typeof(decimal));
             table.Columns.Add("Stock", typeof(int));
             table.Columns.Add("IsActive", typeof(bool));
 
             foreach (var s in skus)
-                table.Rows.Add(s.SKUId, s.Price, s.Stock, s.IsActive);
+                table.Rows.Add(s.SKUId, s.Price, s.DP, s.Stock, s.IsActive);
 
             using var conn = _connectionFactory.CreateConnection();
             await conn.ExecuteAsync(

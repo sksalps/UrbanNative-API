@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using UrbanNative.Application.DTOs.Vendors;
 using UrbanNative.Application.DTOs.Vendors.Products;
@@ -37,23 +37,86 @@ namespace UrbanNative.Vendors.Pages.Products
             return Page();
         }
 
-        // ===============================
-        // POST
-        // ===============================
         public async Task<IActionResult> OnPostAsync(int productId)
         {
-            var saveDtos = Skus.Select(s => new VendorSkuSaveDto
+            for (int i = 0; i < Skus.Count; i++)
+            {
+                var price = Skus[i].Price ?? 0;
+                var dp = Skus[i].DP ?? 0;
+
+                int effectiveStock;
+                if (Skus[i].InitStock.HasValue && Skus[i].InitStock > 0)
+                {
+                    effectiveStock = Skus[i].CurrentStock ?? 0;
+                }
+                else
+                {
+                    effectiveStock = Skus[i].Stock;
+                }
+
+                // 1️⃣ DP must not exceed Price (always validate)
+                if (dp > price)
+                {
+                    ModelState.AddModelError(
+                        $"Skus[{i}].DP",
+                        "Discount Price cannot be greater than Price."
+                    );
+                }
+
+                // 2️⃣ ONLY validate activation rules IF vendor wants it active
+                if (Skus[i].IsActive)
+                {
+                    if (price == 0 || dp == 0)
+                    {
+                        ModelState.AddModelError(
+                            $"Skus[{i}].IsActive",
+                            "SKU cannot be activated when Price or Discount Price is zero."
+                        );
+                    }
+
+                    if (effectiveStock == 0)
+                    {
+                        ModelState.AddModelError(
+                            $"Skus[{i}].IsActive",
+                            "SKU cannot be activated when stock is zero."
+                        );
+                    }
+                }
+            }
+
+            if (!ModelState.IsValid)
+            {
+                Header = await _skuService.GetHeaderAsync(productId);
+
+                // 🔒 Rehydrate display-only fields
+                var dbSkus = await _skuService.GetGridAsync(productId);
+
+                for (int i = 0; i < Skus.Count; i++)
+                {
+                    Skus[i].VariantDisplay = dbSkus[i].VariantDisplay;
+                    Skus[i].ImageCount = dbSkus[i].ImageCount;
+                    Skus[i].InitStock = dbSkus[i].InitStock;
+                    Skus[i].CurrentStock = dbSkus[i].CurrentStock;
+                    Skus[i].IsStockLocked = dbSkus[i].IsStockLocked;
+                }
+
+                return Page();
+            }
+
+
+            await _skuService.SaveAsync(productId, Skus.Select(s => new VendorSkuSaveDto
             {
                 SKUId = s.SKUId,
                 Price = s.Price,
+                DP=s.DP,
                 Stock = s.Stock,
                 IsActive = s.IsActive
-            }).ToList();
-
-            await _skuService.SaveAsync(productId, saveDtos);
+            }).ToList());
 
             TempData["Success"] = "SKU details saved successfully.";
             return RedirectToPage(new { productId });
         }
+
+
     }
 }

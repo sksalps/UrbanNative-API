@@ -12,15 +12,18 @@ namespace UrbanNative.Application.DTOs.Vendors.Products
         public string SKUCode { get; set; } = "";
 
         public decimal? Price { get; set; }
-        public int Stock { get; set; }
+        public decimal? DP { get; set; } //Discounted Price
+        public int Stock { get; set; }          // cached balance
         public bool IsActive { get; set; }
 
         public int ImageCount { get; set; }
-
         public string VariantDisplay { get; set; } = "";
 
-        // 🔒 NEW
         public bool IsStockLocked { get; set; }
+
+        // 🔒 NEW (read-only)
+        public int? InitStock { get; set; }
+        public int? CurrentStock { get; set; }
     }
 
 
@@ -28,6 +31,7 @@ namespace UrbanNative.Application.DTOs.Vendors.Products
     {
         public int SKUId { get; set; }
         public decimal? Price { get; set; }
+        public decimal? DP { get; set; } //Discounted Price
         public int Stock { get; set; }
         public bool IsActive { get; set; }
         public int ImageCount { get; set; }
