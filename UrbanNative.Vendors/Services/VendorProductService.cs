@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Net.Http.Json;
 using UrbanNative.Application.DTOs.Vendors.Products;
+using UrbanNative.Application.DTOs.CommonCrossDashboard;
 using UrbanNative.Vendors.Services.Interfaces;
 
 
@@ -40,7 +41,7 @@ namespace UrbanNative.Vendors.Services
         //Active Cat use in product add from vendor side
         public async Task<List<CategoryLookupDto>> GetVendorActiveCategoriesAsync()
         {
-            var res = await _http.GetAsync($"/api/vendors/skufilter/create");
+            var res = await _http.GetAsync($"/api/skufilter/categories/create");
             res.EnsureSuccessStatusCode();
 
             return await res.Content
@@ -49,7 +50,7 @@ namespace UrbanNative.Vendors.Services
         //Active Inactive use with product list & filete with vendor
         public async Task<List<CategoryLookupDto>> GetVendorAllCategoriesAsync() 
         {
-            var res = await _http.GetAsync($"/api/vendors/skufilter/filter");
+            var res = await _http.GetAsync($"/api/skufilter/categories/filter");
             res.EnsureSuccessStatusCode();
 
             return await res.Content
@@ -197,7 +198,7 @@ namespace UrbanNative.Vendors.Services
 
         public async Task<HsnLookupDto> GetCategoryHsnPreviewAsync(int categoryId)
         {
-            var res = await _http.GetAsync($"/api/vendors/skufilter/{categoryId}/hsn");
+            var res = await _http.GetAsync($"/api/skufilter/{categoryId}/hsn");
             res.EnsureSuccessStatusCode();
 
             return await res.Content.ReadFromJsonAsync<HsnLookupDto>()

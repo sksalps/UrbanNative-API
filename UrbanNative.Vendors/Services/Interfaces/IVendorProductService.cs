@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using UrbanNative.Application.DTOs.Vendors.Products;
+using UrbanNative.Application.DTOs.CommonCrossDashboard;
+
 
 namespace UrbanNative.Vendors.Services.Interfaces
 {

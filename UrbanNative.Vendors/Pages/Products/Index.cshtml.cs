@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using UrbanNative.Application.DTOs.Vendors.Products;
+using UrbanNative.Application.DTOs.CommonCrossDashboard;
 using UrbanNative.Vendors.Services.Interfaces;
 
 namespace UrbanNative.Vendors.Pages.Products

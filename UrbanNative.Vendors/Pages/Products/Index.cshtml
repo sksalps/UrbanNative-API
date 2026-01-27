@@ -23,8 +23,8 @@
                     <option value="">All</option>
                     @foreach (var c in Model.CategoryList)
                     {
-                        <option value="@c.CategoryID"
-                                selected="@(c.CategoryID == Model.CategoryId)">
+                        <option value="@c.CategoryId"
+                                selected="@(c.CategoryId == Model.CategoryId)">
                             @c.CategoryName
                         </option>
                     }

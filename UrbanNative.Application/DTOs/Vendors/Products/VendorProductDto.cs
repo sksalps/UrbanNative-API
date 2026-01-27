@@ -30,7 +30,7 @@ namespace UrbanNative.Application.DTOs.Vendors.Products
         public string? HSNCode { get; set; }
         public decimal? GSTPercentage { get; set; }
     }
-    public class CategoryLookupDto
+    /*public class CategoryLookupDto
     {
         public int CategoryID { get; set; }
         public string CategoryName { get; set; } = string.Empty;
@@ -42,7 +42,7 @@ namespace UrbanNative.Application.DTOs.Vendors.Products
         public decimal GSTPercentage { get; set; }
         public decimal SharedMargin { get; set; }
     }
-
+    */
 
     public class VendorProductCreateDto
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UrbanNative.Application.DTOs.Vendors.Products;
-
+using UrbanNative.Application.DTOs.CommonCrossDashboard;
 namespace UrbanNative.Application.Interfaces.Vendors
 {
     public interface IVendorProductRepository

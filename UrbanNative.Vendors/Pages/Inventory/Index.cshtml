@@ -6,81 +6,193 @@
 
 <h4 class="mb-3">Inventory Log View</h4>
 
-<form method="get" class="row g-2 mb-4">
-    <input type="hidden" name="SkuId" value="@Model.SkuId" />
-    <!--
+<form method="get" class="row g-2 mb-3">
+
+    <!-- Category -->
     <div class="col-md-3">
-        <label class="form-label">Warehouse</label>
-        <select class="form-select" name="AddressId" required>
-            <option value="">-- Select --</option>
-            <option value="1002" selected="@((Model.AddressId == 1002))">
-                Default Warehouse
-            </option>
-        </select>
-    </div>-->
-    <div class="col-md-3">
-        <label class="form-label">Warehouse</label>
-        <select asp-for="AddressId"
-                asp-items="Model.WarehouseList" 
+        <label class="form-label">Category</label>
+        
+        <select asp-for="CategoryId"
+                asp-items="Model.CategoryList"
                 class="form-select"
-                id="ddlWarehouse">
+                onchange="this.form.submit()">
+            <option value="">-- Category --</option>
         </select>
+
+    </div>
+
+    <!-- Product -->
+    <div class="col-md-3">
+        <label class="form-label">Product</label>
+        @if (!Model.HasCategory)
+        {
+            <select class="form-select" disabled>
+                <option>-- Product --</option>
+            </select>
+        }
+        else
+        {
+            <select asp-for="ProductId"
+                    asp-items="Model.ProductList"
+                    class="form-select"
+                    onchange="this.form.submit()">
+                <option value="">-- Product --</option>
+            </select>
+        }
     </div>
 
 
+
+    <!-- SKU (readonly when auto-filled) -->
+    <div class="col-md-3">
+        <label class="form-label">SKU</label>
+        <input type="text"
+               class="form-control"
+               value="@Model.SelectedSkuDisplay"
+               placeholder="Search SKU"
+               readonly />
+        <input type="hidden" name="SkuId" value="@Model.SkuId" />
+
+    </div>
+
+
+    <!-- Warehouse -->
+    <div class="col-md-3">
+        <label class="form-label">Warehouse</label>
+        <select asp-for="AddressId"
+                asp-items="Model.WarehouseList"
+                class="form-select">
+        </select>
+    </div>
+
+    <!-- From Date -->
     <div class="col-md-3">
         <label class="form-label">From Date</label>
-        <input type="date" class="form-control"
+        <input type="date"
+               class="form-control"
                name="FromDate"
                value="@Model.FromDate.ToString("yyyy-MM-dd")" />
     </div>
 
+    <!-- To Date -->
     <div class="col-md-3">
         <label class="form-label">To Date</label>
-        <input type="date" class="form-control"
+        <input type="date"
+               class="form-control"
                name="ToDate"
                value="@Model.ToDate.ToString("yyyy-MM-dd")" />
     </div>
 
-    <div class="col-md-3 d-flex align-items-end">
-        <button class="btn btn-primary w-100">Apply</button>
+    <div class="col-md-3 d-flex align-items-end gap-2">
+        <!-- Apply -->
+        <button type="submit" class="btn btn-primary flex-fill">
+            Apply
+        </button>
+
+        <!-- Clear Filters -->
+        <a href="/Inventory" class="btn btn-outline-secondary">
+            Clear
+        </a>
+
+        <!-- Back -->
+        <button type="button"
+                class="btn btn-outline-dark"
+                onclick="history.back();">
+            Back
+        </button>
     </div>
+
 </form>
 
-<!-- Summary -->
-<div class="row text-center mb-4">
-    <div class="col"><div class="card p-2">Opening<br /><strong>@Model.Summary.OpeningStock</strong></div></div>
-    <div class="col"><div class="card p-2">Total In<br /><strong>@Model.Summary.TotalIn</strong></div></div>
-    <div class="col"><div class="card p-2">Total Out<br /><strong>@Model.Summary.TotalOut</strong></div></div>
-    <div class="col"><div class="card p-2">Closing<br /><strong>@Model.Summary.ClosingStock</strong></div></div>
-    <div class="col"><div class="card p-2">Current<br /><strong>@Model.Summary.CurrentStock</strong></div></div>
-</div>
+@if (Model.CategoryId.HasValue || Model.SkuId > 0)
+{
+    <div class="card mb-3 border-info">
+        <div class="card-body py-2">
+            <div class="row small">
 
-<!-- Logs -->
-<table class="table table-bordered table-sm">
-    <thead class="table-light">
-        <tr>
-            <th>Date</th>
-            <th>Type</th>
-            <th>Qty</th>
-            <th>Old</th>
-            <th>New</th>
-            <th>Ref</th>
-            <th>Remarks</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var log in Model.Logs)
-        {
+                @if (Model.SelectedCategoryName != null)
+                {
+                    <div class="col-md-3">
+                        <strong>Category:</strong><br />
+                        @Model.SelectedCategoryName
+                    </div>
+                }
+
+                @if (Model.SelectedProductName != null)
+                {
+                    <div class="col-md-3">
+                        <strong>Product:</strong><br />
+                        @Model.SelectedProductName
+                    </div>
+                }
+
+                @if (Model.SkuId > 0)
+                {
+                    <div class="col-md-4">
+                        <strong>SKU:</strong><br />
+                        @Model.SelectedSkuDisplay
+                    </div>
+                }
+
+                <div class="col-md-2">
+                    <strong>Warehouse:</strong><br />
+                    @Model.SelectedWarehouseName
+                </div>
+
+                <div class="col-md-12 mt-2 text-muted">
+                    Period: @Model.FromDate.ToString("dd-MM-yyyy")
+                    →
+                    @Model.ToDate.ToString("dd-MM-yyyy")
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.SkuId > 0)
+{
+    <!-- Summary -->
+    <div class="row text-center mb-4">
+        <div class="col"><div class="card p-2">Opening<br /><strong>@Model.Summary.OpeningStock</strong></div></div>
+        <div class="col"><div class="card p-2">Total In<br /><strong>@Model.Summary.TotalIn</strong></div></div>
+        <div class="col"><div class="card p-2">Total Out<br /><strong>@Model.Summary.TotalOut</strong></div></div>
+        <div class="col"><div class="card p-2">Closing<br /><strong>@Model.Summary.ClosingStock</strong></div></div>
+        <div class="col"><div class="card p-2">Current<br /><strong>@Model.Summary.CurrentStock</strong></div></div>
+    </div>
+
+    <!-- Logs -->
+    <table class="table table-bordered table-sm">
+        <thead class="table-light">
             <tr>
-                <td>@log.CreatedAt</td>
-                <td>@log.ChangeType</td>
-                <td>@log.Quantity</td>
-                <td>@log.OldStock</td>
-                <td>@log.NewStock</td>
-                <td>@log.ReferenceType</td>
-                <td>@log.Remarks</td>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Qty</th>
+                <th>Old</th>
+                <th>New</th>
+                <th>Ref</th>
+                <th>Remarks</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var log in Model.Logs)
+            {
+                <tr>
+                    <td>@log.CreatedAt</td>
+                    <td>@log.ChangeType</td>
+                    <td>@log.Quantity</td>
+                    <td>@log.OldStock</td>
+                    <td>@log.NewStock</td>
+                    <td>@log.ReferenceType</td>
+                    <td>@log.Remarks</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">
+        Select a SKU to view inventory logs.
+    </div>
+}

@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\Security\" />
+    <Folder Include="Interfaces\UseCases\CommonCrossDashboard\" />
   </ItemGroup>
 
   <PropertyGroup>

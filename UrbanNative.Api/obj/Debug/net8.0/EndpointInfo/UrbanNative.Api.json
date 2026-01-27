@@ -2853,6 +2853,139 @@
         }
       }
     },
+    "/api/skufilter/skus/{skuId}/context": {
+      "get": {
+        "tags": [
+          "SkuFilter"
+        ],
+        "parameters": [
+          {
+            "name": "skuId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/skufilter/categories": {
+      "get": {
+        "tags": [
+          "SkuFilter"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/skufilter/categories/create": {
+      "get": {
+        "tags": [
+          "SkuFilter"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/skufilter/categories/filter": {
+      "get": {
+        "tags": [
+          "SkuFilter"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/skufilter/{categoryId}/hsn": {
+      "get": {
+        "tags": [
+          "SkuFilter"
+        ],
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/skufilter/products": {
+      "get": {
+        "tags": [
+          "SkuFilter"
+        ],
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/skufilter/skus": {
+      "get": {
+        "tags": [
+          "SkuFilter"
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/User/register": {
       "post": {
         "tags": [
@@ -3785,65 +3918,6 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/api/vendors/skufilter": {
-      "get": {
-        "tags": [
-          "VendorSkuFilter"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/vendors/skufilter/create": {
-      "get": {
-        "tags": [
-          "VendorSkuFilter"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/vendors/skufilter/filter": {
-      "get": {
-        "tags": [
-          "VendorSkuFilter"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/vendors/skufilter/{categoryId}/hsn": {
-      "get": {
-        "tags": [
-          "VendorSkuFilter"
-        ],
-        "parameters": [
-          {
-            "name": "categoryId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
           }
         }
       }

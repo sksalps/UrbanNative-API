@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UrbanNative.Application.DTOs.Vendors.Products;
+using UrbanNative.Application.DTOs.CommonCrossDashboard;
 using UrbanNative.Application.Interfaces.Vendors;
 using UrbanNative.Infrastructure.Database;
 

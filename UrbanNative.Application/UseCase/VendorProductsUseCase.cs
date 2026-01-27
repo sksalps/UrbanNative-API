@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UrbanNative.Application.Interfaces.UseCases;
 using UrbanNative.Application.Interfaces.Vendors;
 using UrbanNative.Application.DTOs.Vendors.Products;
+using UrbanNative.Application.DTOs.CommonCrossDashboard;
 
 namespace UrbanNative.Application.UseCase
 {

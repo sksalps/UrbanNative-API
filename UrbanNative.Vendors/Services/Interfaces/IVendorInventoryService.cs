@@ -17,6 +17,7 @@ namespace UrbanNative.Vendors.Services.Interfaces
             DateTime toDate,
             int page,
             int pageSize);
+
         
     }
 }

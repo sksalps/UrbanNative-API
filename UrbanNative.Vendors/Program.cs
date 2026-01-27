@@ -74,7 +74,7 @@ builder.Services.AddScoped<IVendorSettingsService, VendorSettingsService>();
 builder.Services.AddScoped<IVendorProductService,VendorProductService>();
 builder.Services.AddScoped<IVendorSkuService, VendorSkuService>();
 builder.Services.AddScoped<IVendorInventoryService, VendorInventoryService>();
-
+builder.Services.AddScoped<ISkuFilterService, SkuFilterService>();
 
 
 // Later: Orders, Inventory, Wallet, SKUs, etc.

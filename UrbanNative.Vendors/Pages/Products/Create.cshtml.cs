@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using UrbanNative.Application.DTOs.Vendors.Products;
+using UrbanNative.Application.DTOs.CommonCrossDashboard;
 using UrbanNative.Vendors.Services.Interfaces;
 
 namespace UrbanNative.Vendors.Pages.Products
@@ -27,7 +28,7 @@ namespace UrbanNative.Vendors.Pages.Products
                 .Select(c => new SelectListItem
                 {
                     Text = c.CategoryName,
-                    Value = c.CategoryID.ToString()
+                    Value = c.CategoryId.ToString()
                 }).ToList();
 
             WarehouseList = await _service.GetVendorWarehousesAsync();

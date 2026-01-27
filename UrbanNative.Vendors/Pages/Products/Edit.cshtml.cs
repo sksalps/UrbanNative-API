@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using UrbanNative.Application.DTOs.Vendors.Products;
+using UrbanNative.Application.DTOs.CommonCrossDashboard;    
 using UrbanNative.Vendors.Services.Interfaces;
 
 public class EditModel : PageModel
@@ -52,7 +53,7 @@ public class EditModel : PageModel
             .Select(c => new SelectListItem
             {
                 Text = c.CategoryName,
-                Value = c.CategoryID.ToString()
+                Value = c.CategoryId.ToString()
             })
             .ToList();
 
