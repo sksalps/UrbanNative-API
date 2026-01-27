@@ -15,10 +15,12 @@ namespace UrbanNative.Vendors.Services
 
         public async Task<VendorInventorySummaryDto> GetInventorySummaryAsync(
             int skuId,
-            int addressId,
+            int? addressId,
             DateTime fromDate,
             DateTime toDate)
         {
+            var resolvedAddressId = addressId ?? 0;
+
             var url =
                 $"api/vendor/inventory/{skuId}/summary" +
                 $"?addressId={addressId}" +
@@ -31,12 +33,14 @@ namespace UrbanNative.Vendors.Services
 
         public async Task<IReadOnlyList<VendorInventoryLogDto>> GetInventoryLogsAsync(
             int skuId,
-            int addressId,
+            int? addressId,
             DateTime fromDate,
             DateTime toDate,
             int page,
             int pageSize)
         {
+            // 🔒 Normalize before API call
+            var resolvedAddressId = addressId ?? 0;
             var url =
                 $"api/vendor/inventory/{skuId}/logs" +
                 $"?addressId={addressId}" +

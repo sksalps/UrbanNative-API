@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using UrbanNative.Application.DTOs.Vendors.Products;
 using UrbanNative.Application.Interfaces.UseCases;
 
 namespace UrbanNative.Api.Controllers.Vendors
 {
     [ApiController]
-    [Route("api/vendors/categories")]
-    public class VendorCategoriesController : ControllerBase
+    //[Route("api/vendors/categories")]
+    [Route("api/vendors/skufilter")]
+    public class VendorSkuFilterController : ControllerBase
     {
         private readonly IVendorProductsUseCase _useCase;
 
-        public VendorCategoriesController(IVendorProductsUseCase useCase)
+        public VendorSkuFilterController(IVendorProductsUseCase useCase)
         {
             _useCase = useCase;
         }

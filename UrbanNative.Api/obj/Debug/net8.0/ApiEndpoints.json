@@ -2192,52 +2192,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorCategoriesController",
-    "Method": "Categories",
-    "RelativePath": "api/vendors/categories",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorCategoriesController",
-    "Method": "GetCategoryHsn",
-    "RelativePath": "api/vendors/categories/{categoryId}/hsn",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "categoryId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorCategoriesController",
-    "Method": "GetCategoriesForCreate",
-    "RelativePath": "api/vendors/categories/create",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorCategoriesController",
-    "Method": "GetCategoriesForFilter",
-    "RelativePath": "api/vendors/categories/filter",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorProductsController",
     "Method": "Get",
     "RelativePath": "api/vendors/products",
@@ -2413,6 +2367,52 @@
     "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorReturnPoliciesController",
     "Method": "GetAllForVendor",
     "RelativePath": "api/vendors/return-policies/vendor",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorSkuFilterController",
+    "Method": "Categories",
+    "RelativePath": "api/vendors/skufilter",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorSkuFilterController",
+    "Method": "GetCategoryHsn",
+    "RelativePath": "api/vendors/skufilter/{categoryId}/hsn",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoryId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorSkuFilterController",
+    "Method": "GetCategoriesForCreate",
+    "RelativePath": "api/vendors/skufilter/create",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorSkuFilterController",
+    "Method": "GetCategoriesForFilter",
+    "RelativePath": "api/vendors/skufilter/filter",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

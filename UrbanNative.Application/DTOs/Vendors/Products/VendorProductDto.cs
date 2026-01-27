@@ -134,7 +134,6 @@ public class VendorProductUpdateDto
         
     }
 
-
     public class VendorWarehouseDto
     {
         public int VendorWarehouseAddressID { get; set; }
@@ -146,7 +145,7 @@ public class VendorProductUpdateDto
         public string? StateName { get; set; }
         public string? CountryName { get; set; }
         public string? Pincode { get; set; }
-
+        public bool IsPrimary { get; set; }   // <-- ADD THIS
         public bool IsActive { get; set; }
     }
     public class ReturnPolicyDto

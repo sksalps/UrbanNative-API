@@ -3237,65 +3237,6 @@
         }
       }
     },
-    "/api/vendors/categories": {
-      "get": {
-        "tags": [
-          "VendorCategories"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/vendors/categories/create": {
-      "get": {
-        "tags": [
-          "VendorCategories"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/vendors/categories/filter": {
-      "get": {
-        "tags": [
-          "VendorCategories"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/vendors/categories/{categoryId}/hsn": {
-      "get": {
-        "tags": [
-          "VendorCategories"
-        ],
-        "parameters": [
-          {
-            "name": "categoryId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/vendor/dashboard": {
       "get": {
         "tags": [
@@ -3844,6 +3785,65 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/vendors/skufilter": {
+      "get": {
+        "tags": [
+          "VendorSkuFilter"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendors/skufilter/create": {
+      "get": {
+        "tags": [
+          "VendorSkuFilter"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendors/skufilter/filter": {
+      "get": {
+        "tags": [
+          "VendorSkuFilter"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendors/skufilter/{categoryId}/hsn": {
+      "get": {
+        "tags": [
+          "VendorSkuFilter"
+        ],
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }

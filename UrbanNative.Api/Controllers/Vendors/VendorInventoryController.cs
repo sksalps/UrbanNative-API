@@ -27,8 +27,8 @@ namespace UrbanNative.Api.Controllers
             [FromQuery] DateTime fromDate,
             [FromQuery] DateTime toDate)
         {
-            if (skuId <= 0 || addressId <= 0)
-                return BadRequest("Invalid SKU or Warehouse");
+            if (skuId <= 0 )
+                return BadRequest("Invalid SKU");
 
             if (fromDate > toDate)
                 return BadRequest("Invalid date range");
@@ -55,8 +55,8 @@ namespace UrbanNative.Api.Controllers
             [FromQuery] int page = 1,
             [FromQuery] int pageSize = 20)
         {
-            if (skuId <= 0 || addressId <= 0)
-                return BadRequest("Invalid SKU or Warehouse");
+            if (skuId <= 0 )
+                return BadRequest("Invalid SKU");
 
             if (fromDate > toDate)
                 return BadRequest("Invalid date range");

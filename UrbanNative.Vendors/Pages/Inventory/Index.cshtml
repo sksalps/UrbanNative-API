@@ -8,7 +8,7 @@
 
 <form method="get" class="row g-2 mb-4">
     <input type="hidden" name="SkuId" value="@Model.SkuId" />
-
+    <!--
     <div class="col-md-3">
         <label class="form-label">Warehouse</label>
         <select class="form-select" name="AddressId" required>
@@ -17,7 +17,16 @@
                 Default Warehouse
             </option>
         </select>
+    </div>-->
+    <div class="col-md-3">
+        <label class="form-label">Warehouse</label>
+        <select asp-for="AddressId"
+                asp-items="Model.WarehouseList" 
+                class="form-select"
+                id="ddlWarehouse">
+        </select>
     </div>
+
 
     <div class="col-md-3">
         <label class="form-label">From Date</label>
