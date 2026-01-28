@@ -2986,6 +2986,65 @@
         }
       }
     },
+    "/api/skufilter/warehouses": {
+      "get": {
+        "tags": [
+          "SkuFilter"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/skufilter/warehouses/active": {
+      "get": {
+        "tags": [
+          "SkuFilter"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/skufilter/warehouses/vendor": {
+      "get": {
+        "tags": [
+          "SkuFilter"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/skufilter/warehouse/{warehouseId}": {
+      "get": {
+        "tags": [
+          "SkuFilter"
+        ],
+        "parameters": [
+          {
+            "name": "warehouseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/User/register": {
       "post": {
         "tags": [

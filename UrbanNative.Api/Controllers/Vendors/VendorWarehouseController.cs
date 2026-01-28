@@ -25,7 +25,7 @@ namespace UrbanNative.Api.Controllers.Vendors
                 isActive: null));
         }
 
-        // Create / Edit Product
+        //  Product Only active warehouses for creating editing products
         [HttpGet("create")]
         public async Task<IActionResult> GetForCreate()
         {
@@ -35,9 +35,9 @@ namespace UrbanNative.Api.Controllers.Vendors
                 null,
                 isActive: true));
         }
-        // Product list / history (future)
+        // Warehouse linked with vendor Product list / history (future)
         [HttpGet("vendor")]
-        public async Task<IActionResult> GetVendorCat()
+        public async Task<IActionResult> GetVendorWH()
         {
             int vendorId = GetVendorId();
 
@@ -46,6 +46,7 @@ namespace UrbanNative.Api.Controllers.Vendors
                 isActive: null));
         }
 
+        // Get Warehouse by ID
         [HttpGet("{id}")]
         public async Task<IActionResult> GetWarehouse(int id)
         {

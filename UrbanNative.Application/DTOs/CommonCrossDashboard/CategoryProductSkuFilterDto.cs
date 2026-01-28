@@ -43,6 +43,34 @@
         public decimal GSTPercentage { get; set; }
         public decimal SharedMargin { get; set; }
     }
-    
 
+    public class CommonWarehouseDto
+    {
+        public int VendorWarehouseAddressID { get; set; }
+
+        public string AddressName { get; set; } = string.Empty;
+        public string? AddressLine1 { get; set; }
+        public string? AddressLine2 { get; set; }
+        public string? CityName { get; set; }
+        public string? StateName { get; set; }
+        public string? CountryName { get; set; }
+        public string? Pincode { get; set; }
+        public bool IsPrimary { get; set; }   // <-- ADD THIS
+        public bool IsActive { get; set; }
+    }
+    public class WarehousePreviewDto
+    {
+        public int AddressID { get; set; }
+
+        public string AddressName { get; set; } = string.Empty;
+        public string? AddressLine1 { get; set; }
+        public string? AddressLine2 { get; set; }
+        public string? Landmark { get; set; }
+        public string? CityName { get; set; }
+        public string? StateName { get; set; }
+        public string? CountryName { get; set; }
+        public string? Pincode { get; set; }
+        public bool IsPrimary { get; set; }
+        public bool IsActive { get; set; }
+    }
 }

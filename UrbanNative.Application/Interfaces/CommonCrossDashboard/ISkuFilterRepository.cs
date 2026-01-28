@@ -23,9 +23,10 @@ namespace UrbanNative.Application.Interfaces.CommonCrossDashboard
             int productId,
             string? search);
 
-        Task<SkuContextDto?> GetSkuContextAsync(
-            int skuId,
-            int? vendorId);
-        Task<HsnLookupDto> GetHsnByCategoryAsync(int categoryId);
+        Task<SkuContextDto?> GetSkuContextAsync(int skuId,    int? vendorId);
+        Task<HsnLookupDto> GetHsnByCategoryAsync(int categoryId); 
+        Task<IReadOnlyList<CommonWarehouseDto>> GetWarehousesAsync(int? vendorId,bool? isActive);
+        Task<WarehousePreviewDto> GetWarehouseByIdAsync(int addressId);
+
     }
 }

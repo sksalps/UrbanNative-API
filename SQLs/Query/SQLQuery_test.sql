@@ -52,7 +52,9 @@ EXEC sp_AdminVariantSetCategories_Assign
     @VariantSetID = 1,
     @CategoryID = 2;
 	
-exec sp_ReturnPolicy_Lookup  1
-
+exec SP_Vendor_ProductSKU_Header  1
+exec sp_VendorInventory_Summary 27, 0, '01/01/2026','01/26/2026'
+exec sp_VendorWarehouses_Lookup 2
+exec sp_SkuFilter_SkuContext 27,1
 
 update categories set SharedMargin=2 

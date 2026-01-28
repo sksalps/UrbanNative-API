@@ -44,16 +44,24 @@
 
 
     <!-- SKU (readonly when auto-filled) -->
-    <div class="col-md-3">
+    <div class="col-md-3 position-relative">
         <label class="form-label">SKU</label>
-        <input type="text"
-               class="form-control"
-               value="@Model.SelectedSkuDisplay"
-               placeholder="Search SKU"
-               readonly />
-        <input type="hidden" name="SkuId" value="@Model.SkuId" />
 
+        <input type="text"
+               id="skuSearch"
+               class="form-control"
+               placeholder="Search SKU"
+               value="@Model.SelectedSkuDisplay"
+               readonly="@(Model.ProductId == null)" />
+
+        <input type="hidden" id="SkuId" name="SkuId" value="@Model.SkuId" />
+
+        <ul id="skuSuggestions"
+            class="list-group position-absolute w-100 d-none"
+            style="z-index: 1000;">
+        </ul>
     </div>
+
 
 
     <!-- Warehouse -->
@@ -103,52 +111,61 @@
     </div>
 
 </form>
-
 @if (Model.CategoryId.HasValue || Model.SkuId > 0)
 {
-    <div class="card mb-3 border-info">
-        <div class="card-body py-2">
-            <div class="row small">
+    <div class="card mb-3 border-info shadow-sm">
+        <div class="card-body py-3 px-3">
 
-                @if (Model.SelectedCategoryName != null)
-                {
-                    <div class="col-md-3">
-                        <strong>Category:</strong><br />
-                        @Model.SelectedCategoryName
-                    </div>
-                }
+            <div class="row gy-2 align-items-start">
 
-                @if (Model.SelectedProductName != null)
-                {
-                    <div class="col-md-3">
-                        <strong>Product:</strong><br />
-                        @Model.SelectedProductName
-                    </div>
-                }
-
-                @if (Model.SkuId > 0)
-                {
-                    <div class="col-md-4">
-                        <strong>SKU:</strong><br />
-                        @Model.SelectedSkuDisplay
-                    </div>
-                }
-
-                <div class="col-md-2">
-                    <strong>Warehouse:</strong><br />
-                    @Model.SelectedWarehouseName
+                <div class="col-md-3">
+                    <div class="text-muted small">Category</div>
+                    <div class="fw-semibold">@Model.SelectedCategoryName</div>
                 </div>
 
-                <div class="col-md-12 mt-2 text-muted">
-                    Period: @Model.FromDate.ToString("dd-MM-yyyy")
-                    →
-                    @Model.ToDate.ToString("dd-MM-yyyy")
+                <div class="col-md-3">
+                    <div class="text-muted small">Product</div>
+                    <div class="fw-semibold">@Model.SelectedProductName</div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="text-muted small">SKU</div>
+                    <div class="fw-semibold">@Model.SelectedSkuDisplay</div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="text-muted small"><strong>@Model.SelectedWarehouseName</strong></div>
+                    @if (!string.IsNullOrWhiteSpace(Model.SelectedWarehouseFullAddress))
+                    {
+                        <div class="text-muted small mt-1"
+                             style="white-space: pre-line; line-height: 1.3;">
+                            @Model.SelectedWarehouseFullAddress
+                        </div>
+                    }
+                </div>
+
+                <!-- Divider -->
+                <div class="col-12">
+                    <hr class="my-2" />
+                </div>
+
+                <!-- Period -->
+                <div class="col-12 text-muted small">
+                    Period:
+                    <strong>
+                        @Model.FromDate.ToString("dd-MM-yyyy")
+                        →
+                        @Model.ToDate.ToString("dd-MM-yyyy")
+                    </strong>
                 </div>
 
             </div>
+
         </div>
     </div>
 }
+
+
 
 @if (Model.SkuId > 0)
 {
@@ -165,11 +182,13 @@
     <table class="table table-bordered table-sm">
         <thead class="table-light">
             <tr>
+                <th>SKU</th>
+                <th>WH</th>
                 <th>Date</th>
                 <th>Type</th>
-                <th>Qty</th>
-                <th>Old</th>
-                <th>New</th>
+                <th class="text-end">Qty</th>
+                <th class="text-end">Old</th>
+                <th class="text-end">New</th>
                 <th>Ref</th>
                 <th>Remarks</th>
             </tr>
@@ -178,16 +197,51 @@
             @foreach (var log in Model.Logs)
             {
                 <tr>
-                    <td>@log.CreatedAt</td>
-                    <td>@log.ChangeType</td>
-                    <td>@log.Quantity</td>
-                    <td>@log.OldStock</td>
-                    <td>@log.NewStock</td>
+                    <!-- SKU Code -->
+                    <td>
+                        <span class="fw-semibold">@log.SKUCode</span>
+                    </td>
+
+                    <!-- Warehouse ID -->
+                    <td class="text-muted">
+                        @log.AddressID
+                    </td>
+
+                    <!-- Date -->
+                    <td title="@log.CreatedAt.ToString("dd MMM yyyy, hh:mm tt")">
+                        @log.CreatedAt.ToString("dd-MM-yyyy")
+                    </td>
+
+                    <!-- Type -->
+                    <td>
+                        <span class="badge
+                        @(log.ChangeType == "IN" ? "bg-success" :
+                                                log.ChangeType == "OUT" ? "bg-danger" :
+                                                log.ChangeType == "INIT" ? "bg-info" :
+                                                "bg-secondary")">
+                            @log.ChangeType
+                        </span>
+                    </td>
+
+                    <!-- Qty -->
+                    <td class="text-end">@log.Quantity</td>
+
+                    <!-- Old -->
+                    <td class="text-end">@log.OldStock</td>
+
+                    <!-- New -->
+                    <td class="text-end fw-semibold">@log.NewStock</td>
+
+                    <!-- Ref -->
                     <td>@log.ReferenceType</td>
-                    <td>@log.Remarks</td>
+
+                    <!-- Remarks -->
+                    <td title="@log.Remarks">@log.Remarks</td>
                 </tr>
             }
         </tbody>
+
+
     </table>
 }
 else
@@ -195,4 +249,73 @@ else
     <div class="alert alert-info">
         Select a SKU to view inventory logs.
     </div>
+}
+
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const skuInput = document.getElementById("skuSearch");
+            const skuList = document.getElementById("skuSuggestions");
+            const skuIdInput = document.getElementById("SkuId");
+            const productId = parseInt("@Model.ProductId") || 0;
+
+            if (!skuInput || !skuList) {
+                console.warn("SKU elements not found");
+                return;
+            }
+
+            skuInput.addEventListener("input", async function () {
+                const q = this.value.trim();
+
+                if (!q || productId === 0) {
+                    skuList.classList.add("d-none");
+                    return;
+                }
+                //alert (productId+"q="+ q);
+                const apiBase = document.querySelector('meta[name="api-base-url"]').getAttribute("content");
+                const url = `${apiBase}/api/skufilter/skus?productId=${productId}&q=${encodeURIComponent(q)}`;
+                //const url = `/api/skufilter/skus?productId=${productId}&q=${encodeURIComponent(q)}`;
+                //console.log("Fetching:", url);
+                //alert (productId+"url"+ url);
+                const res = await fetch(url);
+                if (!res.ok) return;
+
+                const data = await res.json();
+                console.log("SKU DATA:", data);
+        //alert(JSON.stringify(data));
+
+                skuList.innerHTML = "";
+
+                if (!data.length) {
+                    skuList.classList.add("d-none");
+                    return;
+                }
+
+                data.forEach(sku => {
+                    const li = document.createElement("li");
+                    li.className = "list-group-item list-group-item-action";
+                    li.textContent = `${sku.skuCode} | ${sku.variantText}`;
+
+                    li.addEventListener("click", () => {
+                        skuInput.value = li.textContent;
+                        skuIdInput.value = sku.skuId;
+                        skuList.classList.add("d-none");
+                        skuInput.closest("form").submit();
+                    });
+
+                    skuList.appendChild(li);
+                });
+
+                skuList.classList.remove("d-none");
+            });
+
+            document.addEventListener("click", e => {
+                if (!skuList.contains(e.target) && e.target !== skuInput) {
+                    skuList.classList.add("d-none");
+                }
+            });
+        });
+    </script>
 }

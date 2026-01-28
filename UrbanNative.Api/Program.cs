@@ -109,15 +109,19 @@ using (var scope = builder.Services.BuildServiceProvider().CreateScope())
 // =======================
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AdminCors", policy =>
+    options.AddPolicy("DashboardCors", policy =>
     {
         policy
-            .WithOrigins("https://localhost:5145") // Admin UI
+            .WithOrigins(
+                "https://localhost:5145", // Admin UI
+                "https://localhost:7116"  // Vendor UI
+            )
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();
     });
 });
+
 
 // =======================
 // Build App
@@ -144,11 +148,13 @@ app.UseHttpsRedirection();
 
 app.UseRouting();              // 🔥 REQUIRED
 
-app.UseCors("AdminCors");
+app.UseCors("DashboardCors");
 
 app.UseAuthentication();       // 🔐 JWT
 app.UseAuthorization();
 
 app.MapControllers();          // 🔥 REQUIRED
+
+
 
 app.Run();

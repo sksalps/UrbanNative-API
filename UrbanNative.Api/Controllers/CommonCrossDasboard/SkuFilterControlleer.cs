@@ -54,8 +54,8 @@ namespace UrbanNative.Api.Controllers.Common
             return Ok(data);
         }
 
-
-        [HttpGet("categories/filter")] //all categories used by vendor active inactive both for filter
+        //all categories used by vendor active inactive both for filter
+        [HttpGet("categories/filter")] 
         public async Task<IActionResult> GetCategoriesForFilter()
         {
             int? vendorId = GetVendorIdOrNull();
@@ -102,8 +102,49 @@ namespace UrbanNative.Api.Controllers.Common
             if (productId <= 0)
                 return BadRequest("productId is required");
 
-            int? vendorId = GetVendorIdOrNull();
+            int? vendorId =  GetVendorIdOrNull();
             var data = await _repo.SearchSkusAsync(vendorId, productId, q);
+            return Ok(data);
+        }
+
+        //=============================
+        // Warehouse Fetching common use case
+        //============================
+        
+        //all active inactive both for all vendors
+        [HttpGet("warehouses")]
+        public async Task<IActionResult> GetWarehouses()
+        {
+            //int vendorId = GetVendorId();
+
+            return Ok(await _repo.GetWarehousesAsync(null,isActive: null));
+        }
+
+        //  Fetch Only active warehouses of a vendor for creating/editing products
+        [HttpGet("warehouses/active")]
+        public async Task<IActionResult> GetActiveWarehouses()
+        {
+            //int vendorId = GetVendorId();
+
+            return Ok(await _repo.GetWarehousesAsync(null,isActive: true));
+        }
+        // A vendor Warehouse linked with Product list / history (future) active inactive both
+        [HttpGet("warehouses/vendor")]
+        public async Task<IActionResult> GetVendorWarehouses()
+        {
+            int? vendorId = GetVendorIdOrNull();
+
+            return Ok(await _repo.GetWarehousesAsync(vendorId, isActive: null));
+        }
+
+        // Get Warehouse by ID
+        [HttpGet("warehouse/{warehouseId}")]
+        public async Task<IActionResult> GetWarehouseById(int warehouseId)
+        {
+            var data = await _repo.GetWarehouseByIdAsync(warehouseId);
+            if (data == null)
+                return NotFound();
+
             return Ok(data);
         }
 

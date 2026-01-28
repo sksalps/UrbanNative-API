@@ -1887,6 +1887,52 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "UrbanNative.Api.Controllers.Common.SkuFilterController",
+    "Method": "GetWarehouseById",
+    "RelativePath": "api/skufilter/warehouse/{warehouseId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "warehouseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Common.SkuFilterController",
+    "Method": "GetWarehouses",
+    "RelativePath": "api/skufilter/warehouses",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Common.SkuFilterController",
+    "Method": "GetActiveWarehouses",
+    "RelativePath": "api/skufilter/warehouses/active",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Common.SkuFilterController",
+    "Method": "GetVendorWarehouses",
+    "RelativePath": "api/skufilter/warehouses/vendor",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "UrbanNative.Api.Controllers.UserController",
     "Method": "Login",
     "RelativePath": "api/User/login",
@@ -2510,7 +2556,7 @@
   },
   {
     "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorWarehouseController",
-    "Method": "GetVendorCat",
+    "Method": "GetVendorWH",
     "RelativePath": "api/vendors/warehouses/vendor",
     "HttpMethod": "GET",
     "IsController": true,

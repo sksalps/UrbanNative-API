@@ -28,7 +28,8 @@ namespace UrbanNative.Application.DTOs.Vendors.Inventory
         public int LogID { get; set; }
         public string SKUCode { get; set; } = string.Empty;   // NEW COLUMN
         public DateTime CreatedAt { get; set; }
-        public string WarehouseName { get; set; } = string.Empty;
+        public int? AddressID { get; set; }
+        //public string WarehouseName { get; set; } = string.Empty; 
         public string ChangeType { get; set; } = string.Empty;
         public int Quantity { get; set; }
         public int OldStock { get; set; }
