@@ -9,24 +9,18 @@ namespace UrbanNative.Application.Interfaces.CommonCrossDashboard
 {
     public interface ISkuFilterRepository
     {
-        Task<IReadOnlyList<SkuCategoryDto>> GetCategoriesAsync(
-            int? vendorId,
-            bool? isActive);
+        Task<IReadOnlyList<SkuCategoryDto>> GetCategoriesAsync(   int? vendorId,     bool? isActive);
 
-        Task<IReadOnlyList<SkuProductDto>> GetProductsAsync(
-            int? vendorId,
-            int categoryId);
-
+        Task<IReadOnlyList<SkuProductDto>> GetProductsAsync(     int? vendorId,   int categoryId);
+        Task<SkuProductBasicDto?> GetProductByIdAsync(     int? vendorId, int productId);
         // ✅ FIXED SIGNATURE
-        Task<IReadOnlyList<SkuLookupDto>> SearchSkusAsync(
-            int? vendorId,
-            int productId,
-            string? search);
+        Task<IReadOnlyList<SkuLookupDto>> SearchSkusAsync(   int? vendorId,   int productId,   string? search);
 
         Task<SkuContextDto?> GetSkuContextAsync(int skuId,    int? vendorId);
         Task<HsnLookupDto> GetHsnByCategoryAsync(int categoryId); 
         Task<IReadOnlyList<CommonWarehouseDto>> GetWarehousesAsync(int? vendorId,bool? isActive);
         Task<WarehousePreviewDto> GetWarehouseByIdAsync(int addressId);
+        Task<WarehousePreviewDto> IsWarehouseOwnedByVendorAsync(int addressId, int vendorId);
 
     }
 }

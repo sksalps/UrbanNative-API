@@ -42,8 +42,8 @@ namespace UrbanNative.Api.Controllers.Common
             //int? vendorId = GetVendorIdOrNull();
             return Ok(await _repo.GetCategoriesAsync(null, null));//vendorId,isActive
         }
-
-        [HttpGet("categories/create")] //active categories for creating products
+        //active categories for creating products
+        [HttpGet("categories/create")] 
         public async Task<IActionResult> GetCategoriesForCreate()
         {
             //int? vendorId = GetVendorIdOrNull();
@@ -55,7 +55,7 @@ namespace UrbanNative.Api.Controllers.Common
         }
 
         //all categories used by vendor active inactive both for filter
-        [HttpGet("categories/filter")] 
+        [HttpGet("categories/vendor")] 
         public async Task<IActionResult> GetCategoriesForFilter()
         {
             int? vendorId = GetVendorIdOrNull();
@@ -89,6 +89,19 @@ namespace UrbanNative.Api.Controllers.Common
             return Ok(data);
         }
 
+        [HttpGet("product/{productId:int}")]
+        public async Task<IActionResult> GetProductById(int productId)
+        {
+            int? vendorId = GetVendorIdOrNull();
+
+            var result = await _repo.GetProductByIdAsync(vendorId, productId);
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
+        }
+
         // =====================================================
         // SKU TYPEAHEAD
         // =====================================================
@@ -119,9 +132,16 @@ namespace UrbanNative.Api.Controllers.Common
 
             return Ok(await _repo.GetWarehousesAsync(null,isActive: null));
         }
+        //Get all Active warehouse of a vendor for create or add inventory in active warehouses only
+        [HttpGet("warehouses/vendoractive")]
+        public async Task<IActionResult> GetVendorActiveWarehouseAsync()
+        {
+            int? vendorId = GetVendorIdOrNull();
 
-        //  Fetch Only active warehouses of a vendor for creating/editing products
-        [HttpGet("warehouses/active")]
+            return Ok(await _repo.GetWarehousesAsync(vendorId, isActive: true));
+        }
+        //  Fetch Only active warehouses for creating/editing products  
+        [HttpGet("warehouses/create")]
         public async Task<IActionResult> GetActiveWarehouses()
         {
             //int vendorId = GetVendorId();
@@ -153,7 +173,8 @@ namespace UrbanNative.Api.Controllers.Common
         // =====================================================
         private int? GetVendorIdOrNull()
         {
-            var vendorIdClaim = User.FindFirst("VendorId")?.Value;
+            var vendorIdClaim =  User.FindFirst("VendorId")?.Value;
+            //var vendorIdClaim = "1";
             return string.IsNullOrWhiteSpace(vendorIdClaim)
                 ? null
                 : int.Parse(vendorIdClaim);

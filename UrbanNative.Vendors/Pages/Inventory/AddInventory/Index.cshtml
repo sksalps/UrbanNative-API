@@ -1,0 +1,184 @@
+﻿@page
+@model UrbanNative.Vendors.Pages.Inventory.AddInventory.IndexModel
+@{
+    ViewData["Title"] = "Add Inventory – Product Level";
+}
+
+<h4 class="mb-3">Add Inventory – Product Level</h4>
+
+<form method="post">
+
+    <!-- =========================
+         FILTERS
+    ========================== -->
+
+    <div class="card mb-3">
+        <div class="card-body row g-3">
+
+            <!-- Category -->
+            <div class="col-md-4">
+                <label class="form-label">Category</label>
+
+                <select asp-for="Input.CategoryId"
+                        class="form-select"
+                        onchange="onCategoryChange()">
+                    <option value="">-- Select Category --</option>
+
+                    @foreach (var c in Model.CategoryList)
+                    {
+                        <option value="@c.Value">@c.Text</option>
+                    }
+                </select>
+            </div>
+
+
+            <!-- Product -->
+            <div class="col-md-4">
+                <label class="form-label">Product</label>
+
+                <select asp-for="Input.ProductId"
+                        class="form-select"
+                        onchange="onProductChange()">
+                    <option value="">-- Select Product --</option>
+
+                    @foreach (var p in Model.ProductList)
+                    {
+                        <option value="@p.Value">@p.Text</option>
+                    }
+                </select>
+            </div>
+
+
+            <!-- Warehouse -->
+            
+            <div class="col-md-4">
+                <label class="form-label">Warehouse</label>
+
+                <select asp-for="Input.WarehouseId"
+                        class="form-select">
+                    <option value="">-- Select Warehouse --</option>
+
+                    @foreach (var w in Model.WarehouseList)
+                    {
+                        <option value="@w.Value">@w.Text</option>
+                    }
+                </select>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- =========================
+         INFO BANNER
+    ========================== -->
+
+    <div class="alert alert-info">
+        ℹ️ Inventory can be added only for <b>initiated SKUs</b>.
+        New SKUs must be initiated from <b>SKU Entry</b>.
+    </div>
+    <!-- =========================
+         Selection Head
+    ========================== -->
+    @if (Model.SelectedWarehouse != null)
+    {
+        <div class="mb-2 text-muted small">
+            <b>@Model.SelectedCategoryName</b>
+            &nbsp;›&nbsp;
+            <b>@Model.SelectedProductName</b>
+            <span class="ms-2">
+                (Inventory received in
+                <b>@Model.SelectedWarehouse.AddressName</b>,
+                @Model.SelectedWarehouse.AddressLine1,
+                <!--Model.SelectedWarehouse.City)--!>
+            </span>
+        </div>
+    }
+
+
+    <!-- =========================
+         SKU GRID
+    ========================== -->
+    @if (Model.Input.ProductId.HasValue && Model.Input.ProductId > 0)
+    {
+        <div id="skuGrid" class="card mb-3">
+            <div class="card-body">
+
+                @if (!Model.IsProductSelected)
+                {
+                    <div class="text-muted">
+                        Select Product to load the SKUs
+                    </div>
+                }
+                else
+                {
+                    <partial name="_ProductSkuInventoryGrid" />
+
+                }
+
+            </div>
+        </div>
+
+    }
+
+    <!-- =========================
+         REMARKS
+    ========================== -->
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <label class="form-label">Remarks (optional)</label>
+            <textarea asp-for="Input.Remarks"
+                      class="form-control"
+                      rows="3"
+                      maxlength="255"
+                      placeholder="Invoice / procurement notes"></textarea>
+        </div>
+    </div>
+
+    <!-- =========================
+         ACTIONS
+    ========================== -->
+
+    <div class="text-end">
+        <a asp-page="InventoryList"
+           class="btn btn-light">
+            Cancel
+        </a>
+
+        <button type="submit"
+                class="btn btn-primary ms-2"
+                @(Model.Input.ProductId.HasValue ? "" : "disabled")>
+            Add Inventory
+        </button>
+    </div>
+
+</form>
+
+@section Scripts {
+<script>
+    function onCategoryChange() {
+        const categoryId =
+            document.getElementById("Input_CategoryId").value;
+
+        const url = new URL(window.location.href);
+        url.searchParams.set("categoryId", categoryId);
+        url.searchParams.delete("productId");
+
+        window.location.href = url.toString();
+    }
+
+    function onProductChange() {
+        const categoryId =
+            document.getElementById("Input_CategoryId").value;
+        const productId =
+            document.getElementById("Input_ProductId").value;
+
+        const url = new URL(window.location.href);
+        url.searchParams.set("categoryId", categoryId);
+        url.searchParams.set("productId", productId);
+
+        window.location.href = url.toString();
+    }
+</script>
+}

@@ -2900,7 +2900,7 @@
         }
       }
     },
-    "/api/skufilter/categories/filter": {
+    "/api/skufilter/categories/vendor": {
       "get": {
         "tags": [
           "SkuFilter"
@@ -2957,6 +2957,29 @@
         }
       }
     },
+    "/api/skufilter/product/{productId}": {
+      "get": {
+        "tags": [
+          "SkuFilter"
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/skufilter/skus": {
       "get": {
         "tags": [
@@ -2998,7 +3021,19 @@
         }
       }
     },
-    "/api/skufilter/warehouses/active": {
+    "/api/skufilter/warehouses/vendoractive": {
+      "get": {
+        "tags": [
+          "SkuFilter"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/skufilter/warehouses/create": {
       "get": {
         "tags": [
           "SkuFilter"
@@ -3391,6 +3426,68 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendor/inventoryadd/product/in": {
+      "post": {
+        "tags": [
+          "VendorAddInventory"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductInventoryInRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductInventoryInRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductInventoryInRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendor/inventoryadd/product/{productId}/skus": {
+      "get": {
+        "tags": [
+          "VendorAddInventory"
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "warehouseId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -4312,6 +4409,53 @@
         "properties": {
           "direction": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProductInventoryInItemDto": {
+        "type": "object",
+        "properties": {
+          "skuId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProductInventoryInRequestDto": {
+        "type": "object",
+        "properties": {
+          "categoryId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "productId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "warehouseId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "remarks": {
+            "type": "string",
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductInventoryInItemDto"
+            },
             "nullable": true
           }
         },

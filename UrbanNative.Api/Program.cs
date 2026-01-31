@@ -1,13 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using UrbanNative.Api.Services;
 using UrbanNative.Application.Interfaces;
 using UrbanNative.Application.UseCases.Vendors;
+using UrbanNative.Domain.Exceptions;
 using UrbanNative.Infrastructure;
 using UrbanNative.Infrastructure.Caching;
 using UrbanNative.Infrastructure.Database;
 using UrbanNative.Infrastructure.Repositories;
+using Microsoft.Data.SqlClient;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -147,6 +152,44 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseRouting();              // 🔥 REQUIRED
+
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        var exception =
+            context.Features.Get<IExceptionHandlerFeature>()?.Error;
+
+        context.Response.ContentType = "application/json";
+
+        if (exception is DomainValidationException)
+        {
+            context.Response.StatusCode = 400;
+            await context.Response.WriteAsJsonAsync(new
+            {
+                message = exception.Message
+            });
+            return;
+        }
+
+        if (exception is SqlException sqlEx)
+        {
+            context.Response.StatusCode = 400;
+            await context.Response.WriteAsJsonAsync(new
+            {
+                message = sqlEx.Message
+            });
+            return;
+        }
+
+        context.Response.StatusCode = 500;
+        await context.Response.WriteAsJsonAsync(new
+        {
+            message = "An unexpected error occurred"
+        });
+    });
+});
+
 
 app.UseCors("DashboardCors");
 

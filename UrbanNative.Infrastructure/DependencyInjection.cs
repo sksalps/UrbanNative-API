@@ -2,13 +2,19 @@
 using Microsoft.Extensions.DependencyInjection;
 using UrbanNative.Application.Interfaces;
 using UrbanNative.Application.Interfaces.CommonCrossDashboard;
-using UrbanNative.Application.Interfaces.UseCases; 
+using UrbanNative.Application.Interfaces.UseCases;
+using UrbanNative.Application.Interfaces.UseCases.VendorInventoryAdd;
 using UrbanNative.Application.Interfaces.Vendors;
+using UrbanNative.Application.Interfaces.Vendors.InventoryAdd;
+
 using UrbanNative.Application.UseCase;
+using UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd;
 using UrbanNative.Application.UseCases.Vendors;
 using UrbanNative.Infrastructure.Repositories;
 using UrbanNative.Infrastructure.Repositories.CommonCrossDashboard;
 using UrbanNative.Infrastructure.Repositories.Vendors;
+using UrbanNative.Infrastructure.Repositories.Vendors.InventoryAdd;
+
 using UrbanNative.Infrastructure.Repository;
 using UrbanNative.Infrastructure.Services;
 
@@ -49,6 +55,7 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<IVendorProductsUseCase, VendorProductsUseCase>();
             services.AddScoped<IVendorSkuUseCase, VendorSkuUseCase>();
             services.AddScoped<IVendorInventoryUseCase, VendorInventoryUseCase>();
+            services.AddScoped<IAddInventoryInUseCase, AddInventoryInUseCase>();
 
             // Repositories
             services.AddScoped<IVendorSettingsRepository, VendorSettingsRepository>();
@@ -57,6 +64,7 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<IVendorSkuRepository, VendorSkuRepository>();
             services.AddScoped<IVendorInventoryRepository, VendorInventoryRepository>();
             services.AddScoped<ISkuFilterRepository, SkuFilterRepository>();
+            services.AddScoped<IInventoryAddRepository, InventoryAddRepository>();
 
             return services;
         }

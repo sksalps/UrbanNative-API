@@ -3,8 +3,9 @@
     var currentPage = ViewContext.RouteData.Values["page"]?.ToString() ?? "";
 
     var isProducts = currentPage.StartsWith("/Products");
-    var isSkus = currentPage.StartsWith("/Skus") || currentPage.StartsWith("/Inventory");
+    var isInventory = currentPage.StartsWith("/Inventory") || currentPage.StartsWith("/Inventory");
     var isOrders = currentPage.StartsWith("/Orders");
+    var isLogistics = currentPage.StartsWith("/Logistics");
     var isWallet = currentPage.StartsWith("/Wallet");
     var isBusiness = currentPage.StartsWith("/Business");
     var isReports = currentPage.StartsWith("/Reports");
@@ -50,27 +51,46 @@
                         Add Product
                     </a>
                 </li>
-            </ul>
-        </li>
-
-        <!-- SKUs -->
-        <li class="menu-item has-sub @(isSkus ? "open active" : "")">
-            <a href="#">
-                <i class="bi bi-grid"></i>
-                <span>SKUs</span>
-                <i class="bi bi-chevron-down"></i>
-            </a>
-            <ul class="submenu">
                 <li>
+                    <!--use it for veiw the details of a product with SKU details -->
                     <a asp-page="/Products/SkuEntry/1"
                        class="@(currentPage == "/Products/SkuEntry/1" ? "active" : "")">
                         SKU Manager
                     </a>
                 </li>
+            </ul>
+        </li>
+
+        <!-- Inventory -->
+        <li class="menu-item has-sub @(isInventory ? "open active" : "")">
+            <a href="#">
+                <i class="bi bi-grid"></i>
+                <span>Inventory</span>
+                <i class="bi bi-chevron-down"></i>
+            </a>
+            <ul class="submenu">
                 <li>
                     <a asp-page="/Inventory/Index"
                        class="@(currentPage == "/Inventory/Index" ? "active" : "")">
-                        Inventory
+                        View Inventory
+                    </a>
+                </li>
+                <li>
+                    <a asp-page="/Inventory/addtosku"
+                       class="@(currentPage == "/Inventory/AddToSku" ? "active" : "")">
+                        Add Inventory (SKU)
+                    </a>
+                </li>
+                <li>
+                    <a asp-page="/Inventory/AddInventory/Index"
+                       class="@(currentPage == "/Inventory/AddInventory/Index" ? "active" : "")">
+                        Add Inventory (Product)
+                    </a>
+                </li>
+                <li>
+                    <a asp-page="/Inventory/adjust"
+                       class="@(currentPage == "/Inventory/adjust" ? "active" : "")">
+                        Adjust Inventory
                     </a>
                 </li>
             </ul>
@@ -109,6 +129,15 @@
                     </a>
                 </li>
             </ul>
+        </li>
+        <!-- Logistics -->
+        <li class="menu-item has-sub @(isLogistics ? "open active" : "")">
+            <a href="/Logistics/Index">
+                <i class="bi bi-box-seam"></i>
+                <span>Logistics</span>
+                <i class="bi bi-chevron-down"></i>
+            </a>
+            
         </li>
 
         <!-- Wallet -->

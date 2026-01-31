@@ -1,0 +1,86 @@
+﻿<div id="skuGridContainer" class="mt-3">
+    <div class="text-muted">
+        Select Product to load the SKUs
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        wireProductChange();
+        wireWarehouseChange();
+        loadSkuGridIfReady();
+        wireFormValidation();
+    });
+
+    function wireProductChange() {
+        const productEl = document.getElementById("Input_ProductId");
+        if (!productEl) return;
+
+        productEl.addEventListener("change", function () {
+            loadSkuGridIfReady();
+        });
+    }
+
+    function wireWarehouseChange() {
+        const warehouseEl = document.getElementById("Input_WarehouseId");
+        if (!warehouseEl) return;
+
+        warehouseEl.addEventListener("change", function () {
+            loadSkuGridIfReady();
+        });
+    }
+
+    function loadSkuGridIfReady() {
+        const productId =
+            document.getElementById("Input_ProductId")?.value;
+
+        const warehouseId =
+            document.getElementById("Input_WarehouseId")?.value;
+
+        if (!productId || !warehouseId) {
+            showSelectMessage();
+            return;
+        }
+
+        loadSkuGrid(productId, warehouseId);
+    }
+
+    async function loadSkuGrid(productId, warehouseId) {
+        const container =
+            document.getElementById("skuGridContainer");
+
+        container.innerHTML =
+            "<div class='text-muted'>Loading SKUs...</div>";
+
+        try {
+            const res = await fetch(
+                `?handler=Skus&productId=${productId}&warehouseId=${warehouseId}`
+            );
+
+            if (!res.ok) {
+                container.innerHTML =
+                    "<div class='text-danger'>Failed to load SKUs</div>";
+                return;
+            }
+
+            const skus = await res.json();
+
+            if (!skus || skus.length === 0) {
+                container.innerHTML =
+                    "<div class='text-muted'>No SKUs available</div>";
+                return;
+            }
+
+            renderSkuGrid(skus);
+        }
+        catch {
+            container.innerHTML =
+                "<div class='text-danger'>Error loading SKUs</div>";
+        }
+    }
+
+    function showSelectMessage() {
+        document.getElementById("skuGridContainer").innerHTML =
+            "<div class='text-muted'>Select Product and Warehouse to load SKUs</div>";
+    }
+</script>

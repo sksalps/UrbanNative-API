@@ -6,6 +6,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="api-base-url" content="@Configuration["ApiSettings:BaseUrl"]" />
+	<!--        
+        <meta name="jwt-token" content="User.FindFirst("access_token")?.Value" />
+        
+        <meta name="jwt-token" content="Context.Request.Cookies["VendorJwt"]" />
+    -->
     <title>@ViewData["Title"] - UrbanNative Vendor</title>
 
     <!-- Bootstrap -->

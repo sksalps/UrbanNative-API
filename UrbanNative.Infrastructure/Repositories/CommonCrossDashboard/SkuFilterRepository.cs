@@ -40,7 +40,7 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
 
         // =====================================================
         // Products
-        // =====================================================
+        // =====================================================  
         public async Task<IReadOnlyList<SkuProductDto>> GetProductsAsync(
             int? vendorId,
             int categoryId)
@@ -59,6 +59,32 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
             return data.AsList();
         }
 
+        //Get PRoduct by ID and return null if not found
+        public async Task<SkuProductBasicDto?> GetProductByIdAsync(
+        int? vendorId,
+        int productId)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            return await conn.QueryFirstOrDefaultAsync<SkuProductBasicDto>(
+                @"
+            SELECT 
+                ProductId,
+                CategoryId,
+                ProductName,
+                VendorId,
+                VendorWarehouseAddressId
+            FROM Products
+            WHERE ProductId = @ProductId
+              AND VendorId = @VendorId or @VendorId IS NULL
+              AND IsActive = 1
+            ",
+                new
+                {
+                    ProductId = productId,
+                    VendorId = vendorId
+                });
+        }
         // =====================================================
         // SKU Typeahead
         // =====================================================
@@ -127,6 +153,20 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
                 "sp_VendorWarehouse_GetById",
                 p,
                 commandType: CommandType.StoredProcedure));           
+            return data;
+        }
+        //Confirm a Warehouse exist with a vendor by VendorID and AddressID
+        public async Task<WarehousePreviewDto> IsWarehouseOwnedByVendorAsync(int addressId,int vendorId)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+            var p = new DynamicParameters();
+            p.Add("@AddressID", addressId);
+            p.Add("@VendorID", vendorId);
+
+            var data = (await conn.QueryFirstOrDefaultAsync<WarehousePreviewDto>(
+                "sp_VendorWarehouse_GetBywhVendID",
+                p,
+                commandType: CommandType.StoredProcedure));
             return data;
         }
         //Fetch Vendor Warehouses or all active/inactive warehouses

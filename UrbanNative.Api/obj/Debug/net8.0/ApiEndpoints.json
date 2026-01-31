@@ -1826,11 +1826,27 @@
   {
     "ContainingType": "UrbanNative.Api.Controllers.Common.SkuFilterController",
     "Method": "GetCategoriesForFilter",
-    "RelativePath": "api/skufilter/categories/filter",
+    "RelativePath": "api/skufilter/categories/vendor",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Common.SkuFilterController",
+    "Method": "GetProductById",
+    "RelativePath": "api/skufilter/product/{productId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -1915,7 +1931,7 @@
   {
     "ContainingType": "UrbanNative.Api.Controllers.Common.SkuFilterController",
     "Method": "GetActiveWarehouses",
-    "RelativePath": "api/skufilter/warehouses/active",
+    "RelativePath": "api/skufilter/warehouses/create",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -1926,6 +1942,16 @@
     "ContainingType": "UrbanNative.Api.Controllers.Common.SkuFilterController",
     "Method": "GetVendorWarehouses",
     "RelativePath": "api/skufilter/warehouses/vendor",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Common.SkuFilterController",
+    "Method": "GetVendorActiveWarehouseAsync",
+    "RelativePath": "api/skufilter/warehouses/vendoractive",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -2254,6 +2280,43 @@
         "Name": "toDate",
         "Type": "System.DateTime",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorAddInventoryController",
+    "Method": "GetProductSkusForInventory",
+    "RelativePath": "api/vendor/inventoryadd/product/{productId}/skus",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "warehouseId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorAddInventoryController",
+    "Method": "AddProductInventoryIn",
+    "RelativePath": "api/vendor/inventoryadd/product/in",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "UrbanNative.Application.DTOs.Vendors.Inventory.ProductInventoryInRequestDto",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

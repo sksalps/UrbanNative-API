@@ -52,7 +52,7 @@
                 <th style="width:20%">Variant Combination</th>
                 <th style="width:10%">SKU Code</th>
                 <th style="width:10%">Price (MRP)</th>
-                <th style="width:15%">Discounted1 Price</th>
+                <th style="width:15%">Discounted Price</th>
                 <th style="width:10%">Stock</th>
                 <th style="width:15%">Images</th>
                 <th style="width:10%">           Inventory                </th>
@@ -144,13 +144,13 @@
                         <button type="button"
                                 class="btn btn-sm btn-outline-primary"
                                 data-sku-id="@Model.Skus[i].SKUId">
-                            Manage1 (@Model.Skus[i].ImageCount)
+                            Manage (@Model.Skus[i].ImageCount)
                         </button>
                     </td>
                     <td>
                         <a asp-page="/Inventory/Index"
                            asp-route-skuId="@Model.Skus[i].SKUId">
-                            View Inventory
+                            View
                         </a>
                         |
                         <a asp-page="/Inventory/Add" asp-route-productId="Skus[i].SKUId">Add</a>
