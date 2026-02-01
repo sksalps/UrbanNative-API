@@ -47,10 +47,10 @@ namespace UrbanNative.Vendors.Services
             return await res.Content
                 .ReadFromJsonAsync<List<CategoryLookupDto>>() ?? new();
         }
-        //Active Inactive use with product list & filete with vendor
+        //Active Inactive use with product list & filter with vendor
         public async Task<List<CategoryLookupDto>> GetVendorAllCategoriesAsync() 
         {
-            var res = await _http.GetAsync($"/api/skufilter/categories/filter");
+            var res = await _http.GetAsync($"/api/skufilter/categories/vendor");
             res.EnsureSuccessStatusCode();
 
             return await res.Content

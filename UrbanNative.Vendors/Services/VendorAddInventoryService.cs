@@ -1,12 +1,14 @@
 ﻿using System.Net.Http;
+using System.Text.Json;
 using UrbanNative.Application.DTOs.Vendors.Inventory;
+using UrbanNative.Domain.Exceptions;
 using UrbanNative.Vendors.Services.Interfaces;
 
 namespace UrbanNative.Vendors.Services
 {
     public class VendorAddInventoryService : IVendorAddInventoryService
     {
-        
+
         private readonly HttpClient _http;
 
         public VendorAddInventoryService(IHttpClientFactory factory)
@@ -14,23 +16,34 @@ namespace UrbanNative.Vendors.Services
             _http = factory.CreateClient("ApiClient");
         }
 
-        public async Task<InventoryInResponseDto> AddProductInventoryInAsync(ProductInventoryInRequestDto request)
+        public async Task<InventoryInResponseDto>AddProductInventoryInAsync(ProductInventoryInRequestDto request)
         {
-            var res = await _http.PostAsJsonAsync("api/vendor/inventoryadd/product/in", request);
+            var res = await _http
+                .PostAsJsonAsync("api/vendor/inventoryadd/product/in", request);
 
             if (!res.IsSuccessStatusCode)
             {
-                var error = await res.Content.ReadAsStringAsync();
-                throw new Exception(error);
+                var errorJson = await res.Content.ReadAsStringAsync();
+
+                var apiError = JsonSerializer.Deserialize<ApiErrorResponse>(
+                    errorJson,
+                    new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+
+                throw new DomainValidationException(
+                    apiError?.Message ?? "Inventory validation failed");
             }
 
-            return await res.Content       .ReadFromJsonAsync<InventoryInResponseDto>();
+            return await res.Content
+                .ReadFromJsonAsync<InventoryInResponseDto>();
         }
 
 
-        public async Task<IReadOnlyList<ProductAddInventorySkuGridDto>> GetProductSkusForInventoryAsync(int productId,int warehouseId)
+        public async Task<IReadOnlyList<ProductAddInventorySkuGridDto>> GetProductSkusForInventoryAsync(int productId, int warehouseId)
         {
-            var res = await _http.GetAsync( $"/api/vendor/inventoryadd/product/{productId}/skus?warehouseId={warehouseId}");
+            var res = await _http.GetAsync($"/api/vendor/inventoryadd/product/{productId}/skus?warehouseId={warehouseId}");
 
 
             res.EnsureSuccessStatusCode();

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using UrbanNative.Application.DTOs.CommonCrossDashboard;
 using UrbanNative.Application.DTOs.Vendors.Inventory;
+using UrbanNative.Domain.Exceptions;
 using UrbanNative.Vendors.Services.Interfaces;
 
 namespace UrbanNative.Vendors.Pages.Inventory.AddInventory
@@ -46,16 +47,15 @@ namespace UrbanNative.Vendors.Pages.Inventory.AddInventory
         // =============================
 
         public async Task<IActionResult> OnGetAsync(
-            int? categoryId,
-            int? productId)
+    int? categoryId,
+    int? productId)
         {
-            // 1️⃣ Categories (all where vendor has products)
+            // 1️⃣ Load lookups
             var categories = await _skuFilterService.GetCategoriesForFilter();
             CategoryList = categories
                 .Select(c => new SelectListItem(c.CategoryName, c.CategoryId.ToString()))
                 .ToList();
 
-            // 2️⃣ Warehouses (ACTIVE vendor warehouses only)
             var warehouses = await _skuFilterService.GetVendorActiveWarehouseAsync();
             WarehouseList = warehouses
                 .Select(w => new SelectListItem
@@ -67,22 +67,17 @@ namespace UrbanNative.Vendors.Pages.Inventory.AddInventory
                 })
                 .ToList();
 
-
             // =============================
-            // AUTO-LOAD LOGIC (LOCKED)
+            // 2️⃣ Resolve Input (AUTHORITATIVE)
             // =============================
 
-            // CASE 1: ProductId is supplied (deep-link / redirect)
             if (productId.HasValue)
             {
                 Input.ProductId = productId.Value;
 
                 var product = await _skuFilterService.GetProductByIdAsync(productId.Value);
                 if (product == null)
-                {
-                    // Product not accessible → fallback
                     return Page();
-                }
 
                 Input.CategoryId = product.CategoryId;
                 Input.WarehouseId = product.VendorWarehouseAddressId;
@@ -92,28 +87,49 @@ namespace UrbanNative.Vendors.Pages.Inventory.AddInventory
                     .Select(p => new SelectListItem(p.ProductName, p.ProductId.ToString()))
                     .ToList();
 
-                return Page();
+                IsSkuLoadAttempted = true;
             }
-
-
-
-
-            // CASE 2: Only CategoryId supplied
-            // CASE 2: Category only
-            if (categoryId.HasValue)
+            else if (categoryId.HasValue)
             {
                 Input.CategoryId = categoryId.Value;
-                IsSkuLoadAttempted = false;
 
                 var products = await _skuFilterService.GetProductsAsync(categoryId.Value);
                 ProductList = products
                     .Select(p => new SelectListItem(p.ProductName, p.ProductId.ToString()))
                     .ToList();
+
+                IsSkuLoadAttempted = false;
+            }
+            else
+            {
+                IsSkuLoadAttempted = false;
             }
 
+            // =============================
+            // 3️⃣ Resolve Selected* Metadata (ONCE)
+            // =============================
 
-            // CASE 3: Fresh page
-            IsSkuLoadAttempted = false;
+            if (Input.CategoryId > 0)
+            {
+                SelectedCategoryName = CategoryList
+                    .FirstOrDefault(c => c.Value == Input.CategoryId.ToString())
+                    ?.Text;
+            }
+
+            if (Input.ProductId > 0)
+            {
+                SelectedProductName = ProductList
+                    .FirstOrDefault(p => p.Value == Input.ProductId.ToString())
+                    ?.Text;
+            }
+
+            if (Input.WarehouseId > 0)
+            {
+                SelectedWarehouse = warehouses
+                    .FirstOrDefault(w =>
+                        w.VendorWarehouseAddressID == Input.WarehouseId);
+            }
+
             return Page();
         }
 
@@ -131,11 +147,19 @@ namespace UrbanNative.Vendors.Pages.Inventory.AddInventory
                 return Page();
             }
 
+            try
+            {
+                var result = await _inventoryService.AddProductInventoryInAsync(Input);
+                TempData["Success"] = result.Message;
+                return RedirectToPage("../Index");
+            }
+            catch (DomainValidationException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                await ReloadLookupsAsync();
+                return Page();
+            }
 
-            var result = await _inventoryService.AddProductInventoryInAsync(Input);
-
-            TempData["Success"] = result.Message;
-            return RedirectToPage("../Index");
         }
 
         // =============================
@@ -176,8 +200,7 @@ namespace UrbanNative.Vendors.Pages.Inventory.AddInventory
             if (!productId.HasValue || !warehouseId.HasValue)
                 return new JsonResult(Array.Empty<ProductAddInventorySkuGridDto>());
 
-            var skus = await _inventoryService
-                .GetProductSkusForInventoryAsync(
+            var skus = await _inventoryService.GetProductSkusForInventoryAsync(
                     productId.Value,
                     warehouseId.Value);
 

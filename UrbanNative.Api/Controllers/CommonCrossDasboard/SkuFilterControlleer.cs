@@ -35,7 +35,7 @@ namespace UrbanNative.Api.Controllers.Common
         // CATEGORY LOOKUP
         // =====================================================
 
-        //all category active inactive ?isActive=true|false
+        //all category active inactive ?isActive=true|false of all vendors
         [HttpGet("categories")] 
         public async Task<IActionResult> Categories() //all category active inactive
         {

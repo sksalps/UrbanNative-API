@@ -57,13 +57,14 @@ namespace UrbanNative.Application.DTOs.Vendors.Inventory
     {
         public int SKUId { get; set; }
         public string SkuCode { get; set; } = "";
-
         public string VariantDisplay { get; set; } = "";
 
-        public int OverallStock { get; set; }          // NEW
-        public int WarehouseStock { get; set; }         // NEW
+        public int OverallStock { get; set; }
+        public int WarehouseStock { get; set; }
 
         public bool IsActive { get; set; }
+        public byte DisableReason { get; set; }   // 🔥 new
+
         public bool IsInitiated { get; set; }
     }
 

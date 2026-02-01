@@ -5,32 +5,17 @@
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        wireProductChange();
-        wireWarehouseChange();
-        loadSkuGridIfReady();
-        wireFormValidation();
+    document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("Input_ProductId")
+            ?.addEventListener("change", loadIfReady);
+
+        document.getElementById("Input_WarehouseId")
+            ?.addEventListener("change", loadIfReady);
+
+        loadIfReady();
     });
 
-    function wireProductChange() {
-        const productEl = document.getElementById("Input_ProductId");
-        if (!productEl) return;
-
-        productEl.addEventListener("change", function () {
-            loadSkuGridIfReady();
-        });
-    }
-
-    function wireWarehouseChange() {
-        const warehouseEl = document.getElementById("Input_WarehouseId");
-        if (!warehouseEl) return;
-
-        warehouseEl.addEventListener("change", function () {
-            loadSkuGridIfReady();
-        });
-    }
-
-    function loadSkuGridIfReady() {
+    function loadIfReady() {
         const productId =
             document.getElementById("Input_ProductId")?.value;
 
@@ -38,7 +23,8 @@
             document.getElementById("Input_WarehouseId")?.value;
 
         if (!productId || !warehouseId) {
-            showSelectMessage();
+            document.getElementById("skuGridContainer").innerHTML =
+                "<div class='text-muted'>Select Product and Warehouse</div>";
             return;
         }
 
@@ -46,41 +32,147 @@
     }
 
     async function loadSkuGrid(productId, warehouseId) {
-        const container =
-            document.getElementById("skuGridContainer");
-
-        container.innerHTML =
-            "<div class='text-muted'>Loading SKUs...</div>";
+        const container = document.getElementById("skuGridContainer");
+        container.innerHTML = "Loading SKUs...";
 
         try {
+			wireFormValidation();
+            //alert (warehouseId);
             const res = await fetch(
-                `?handler=Skus&productId=${productId}&warehouseId=${warehouseId}`
+                `?handler=Skus&productId=${productId}&warehouseId=${warehouseId}`,
+                { headers: { "Accept": "application/json" } }
             );
+            //console.log(res);
+            const text = await res.text();
+           // console.log("RAW RESPONSE:", text);
 
             if (!res.ok) {
-                container.innerHTML =
-                    "<div class='text-danger'>Failed to load SKUs</div>";
+                container.innerHTML = "Failed to load SKUs";
                 return;
             }
 
-            const skus = await res.json();
+            const data = JSON.parse(text);
 
-            if (!skus || skus.length === 0) {
-                container.innerHTML =
-                    "<div class='text-muted'>No SKUs available</div>";
+            if (!Array.isArray(data)) {
+                container.innerHTML = "Invalid SKU response";
                 return;
             }
 
-            renderSkuGrid(skus);
+            renderSkuGrid(data);
         }
-        catch {
-            container.innerHTML =
-                "<div class='text-danger'>Error loading SKUs</div>";
+        catch (e) {
+            console.error("JS ERROR:", e);
+            container.innerHTML = "Error loading SKUs";
+        }
+        }
+            function getSkuStatusBadge(isActive, disableReason) {
+        if (isActive) {
+            return `<span class="badge bg-success">Active</span>`;
+        }
+        switch (disableReason) {
+            case 1: return `<span class="badge bg-danger">Out of Stock</span>`;
+            case 2: return `<span class="badge bg-warning text-dark">Vendor Disabled</span>`;
+            case 3: return `<span class="badge bg-info text-dark">Admin Disabled</span>`;
+            default: return `<span class="badge bg-secondary">Inactive</span>`;
         }
     }
 
-    function showSelectMessage() {
-        document.getElementById("skuGridContainer").innerHTML =
-            "<div class='text-muted'>Select Product and Warehouse to load SKUs</div>";
+        function renderSkuGrid(skus) {
+
+        let html = `
+        <table class="table table-bordered align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>SKU</th>
+                    <th>Variant</th>
+                    <th class="text-end">Overall Stock</th>
+                    <th class="text-end">Warehouse Stock</th>
+                    <th width="140">IN Qty</th>
+                </tr>
+            </thead>
+            <tbody>
+        `;
+
+        skus.forEach((s, index) => {
+
+            let disableQty = "";
+            let note = "";
+
+            // 🔒 ONLY initiation blocks qty input
+            if (!s.isInitiated) {
+                disableQty = "disabled";
+                note = `
+                    <div class="text-danger small mt-1">
+                        Initiate from SKU Entry
+                    </div>`;
+            }
+
+            html += `
+            <tr>
+                <td>${s.skuCode}</td>
+                <td>${s.variantDisplay}</td>
+                <td class="text-end">${s.overallStock}</td>
+                <td class="text-end">${s.warehouseStock}</td>
+                <td>
+                    <input type="hidden"
+                           name="Input.Items[${index}].SKUId"
+                           value="${s.skuId}" />
+
+                    <input type="number"
+                           name="Input.Items[${index}].Quantity"
+                           class="form-control in-qty"
+                           min="0"
+                           ${disableQty} />
+
+                    ${note}
+                </td>
+            </tr>`;
+        });
+
+        html += `
+            </tbody>
+        </table>
+
+        <div id="qtyError"
+             class="text-danger mt-2 d-none">
+            Enter quantity for at least one SKU
+        </div>`;
+
+        document.getElementById("skuGridContainer").innerHTML = html;
     }
+    function wireFormValidation() {
+
+        const form = document.querySelector("form");
+        if (!form) return;
+
+        form.addEventListener("submit", function (e) {
+
+            const qtyInputs = document.querySelectorAll(".in-qty");
+            let hasQty = false;
+
+            qtyInputs.forEach(q => {
+                q.classList.remove("border-danger");
+                q.closest("tr")?.classList.remove("table-danger");
+
+                const val = parseInt(q.value || "0");
+                if (val > 0) hasQty = true;
+            });
+
+            if (!hasQty) {
+                e.preventDefault();
+
+                qtyInputs.forEach(q => {
+                    q.classList.add("border-danger");
+                    q.closest("tr")?.classList.add("table-danger");
+                });
+
+                const err = document.getElementById("qtyError");
+                if (err) err.classList.remove("d-none");
+
+                scrollToGrid();
+            }
+        });
+    }
+
 </script>
+

@@ -38,18 +38,18 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors.InventoryAdd
 
             return result.ToList();
         }
-/*
-        public async Task<List<ProductSkuSnapshotDto>> GetProductSkuSnapshotAsync(
-            int vendorId, int productId)
-        {
-            using var conn = _connectionFactory.CreateConnection();
+        /*
+                public async Task<List<ProductSkuSnapshotDto>> GetProductSkuSnapshotAsync(
+                    int vendorId, int productId)
+                {
+                    using var conn = _connectionFactory.CreateConnection();
 
-            return (await conn.QueryAsync<ProductSkuSnapshotDto>(
-                "sp_ProductSkuSnapshot_Get11",
-                new { VendorId = vendorId, ProductId = productId },
-                commandType: CommandType.StoredProcedure)).ToList();          
-        }
-*/
+                    return (await conn.QueryAsync<ProductSkuSnapshotDto>(
+                        "sp_ProductSkuSnapshot_Get11",
+                        new { VendorId = vendorId, ProductId = productId },
+                        commandType: CommandType.StoredProcedure)).ToList();          
+                }
+        */
         public async Task AddProductInventoryInAsync(
             int vendorId,
             int productId,
@@ -68,18 +68,21 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors.InventoryAdd
                 dt.Rows.Add(item.SKUId, item.Quantity);
             }
 
+            var parameters = new DynamicParameters();
+            parameters.Add("@VendorId", vendorId);
+            parameters.Add("@ProductId", productId);
+            parameters.Add("@WarehouseId", warehouseId);
+            parameters.Add(
+                "@Items",
+                dt.AsTableValuedParameter("dbo.InventoryAddSkuQty_TVP")
+            );
+            parameters.Add("@Remarks", remarks);
+
             await conn.ExecuteAsync(
-             "sp_VendorInventoryAdd_Product_IN",
-             new
-             {
-                 VendorId = vendorId,
-                 ProductId = productId,
-                 WarehouseId = warehouseId,
-                 Items = dt.AsTableValuedParameter("dbo.InventoryAddSkuQty_TVP"),
-                 Remarks = remarks,
-                 CreatedBy = vendorId
-             },
-             commandType: CommandType.StoredProcedure);
+                "sp_VendorInventoryAdd_Product_IN",
+                parameters,
+                commandType: CommandType.StoredProcedure
+            );
         }
     }
 

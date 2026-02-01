@@ -3,6 +3,34 @@
 @{
     ViewData["Title"] = "Add Inventory – Product Level";
 }
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div>@error.ErrorMessage</div>
+        }
+    </div>
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const qtyInputs = document.querySelectorAll(".in-qty");
+
+            qtyInputs.forEach(q => {
+                q.classList.add("border-danger");
+                q.closest("tr")?.classList.add("table-danger");
+            });
+
+            const grid = document.getElementById("skuGridContainer");
+            if (grid) {
+                grid.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        });
+    </script>
+}
 
 <h4 class="mb-3">Add Inventory – Product Level</h4>
 
@@ -80,20 +108,27 @@
     <!-- =========================
          Selection Head
     ========================== -->
-    @if (Model.SelectedWarehouse != null)
+    @if (Model.Input.ProductId > 0 )
     {
-        <div class="mb-2 text-muted small">
-            <b>@Model.SelectedCategoryName</b>
-            &nbsp;›&nbsp;
-            <b>@Model.SelectedProductName</b>
-            <span class="ms-2">
-                (Inventory received in
-                <b>@Model.SelectedWarehouse.AddressName</b>,
-                @Model.SelectedWarehouse.AddressLine1,
-                <!--Model.SelectedWarehouse.City)--!>
-            </span>
+        <div class="text-muted mb-2"> 
+            <strong>
+                @Model.SelectedCategoryName
+                →
+                @Model.SelectedProductName
+            </strong>
+            @if(Model.Input.WarehouseId!=null){
+                <div >
+                    Inventory receive in, 
+                    <strong>
+                        Warehouse: #@Model.Input.WarehouseId
+                        </strong>
+                        @Model.SelectedWarehouse.AddressName,
+                        @Model.SelectedWarehouse.AddressLine1
+                </div>
+            }
         </div>
     }
+
 
 
     <!-- =========================

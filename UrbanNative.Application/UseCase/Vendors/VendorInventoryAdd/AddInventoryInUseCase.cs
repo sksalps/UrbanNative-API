@@ -98,8 +98,8 @@ namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
                 if (sku == null)
                     throw new DomainValidationException("Invalid SKU detected");
 
-                if (!sku.IsActive)
-                    throw new DomainValidationException("Inactive SKU cannot receive stock");
+                //if (!sku.IsActive)
+                 //   throw new DomainValidationException("Inactive SKU cannot receive stock");
 
                 if (!sku.IsInitiated)
                     throw new DomainValidationException("Initiate from SKU Entry");
