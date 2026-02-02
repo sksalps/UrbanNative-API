@@ -14,11 +14,11 @@ using UrbanNative.Domain.Exceptions;
 
 namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
 {
-    public class AddInventoryInUseCase : Interfaces.UseCases.VendorInventoryAdd.IAddInventoryInUseCase
+    public class AddInventoryInUseCase : IAddInventoryInUseCase
     {
         private readonly IInventoryAddRepository _inventoryRepo;
         private readonly IVendorProductRepository _productRepo;
-        private readonly ISkuFilterRepository _warehouseRepo;
+        private readonly ISkuFilterRepository _skuFilterRepo;
 
         public AddInventoryInUseCase(
             IInventoryAddRepository inventoryRepo,
@@ -27,15 +27,116 @@ namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
         {
             _inventoryRepo = inventoryRepo;
             _productRepo = productRepo;
-            _warehouseRepo = warehouseRepo;
+            _skuFilterRepo = warehouseRepo;
         }
 
-        
+        // ======================================================
+        // GET Single SKUS FOR ADDING INVENTORY
+        // ======================================================
+        public async Task<SkuInventoryStockSummaryDto> ExecuteAsyncSummary(
+        int vendorId,
+        int skuId,
+        int warehouseId)
+        {
+            // ===============================
+            // SKU VALIDATION
+            // ===============================
+            var sku = await _skuFilterRepo.GetSkuContextAsync(skuId, vendorId);
+            if (sku == null)
+                return new SkuInventoryStockSummaryDto();
+
+            // ===============================
+            // WAREHOUSE VALIDATION (OPTIONAL)
+            // ===============================
+            if (warehouseId > 0)
+            {
+                var warehouse = await _skuFilterRepo.GetWarehouseByIdAsync(warehouseId);
+
+                // invalid warehouse OR warehouse not belonging to vendor
+                if (warehouse == null || warehouse.VendorId != vendorId)
+                    return new SkuInventoryStockSummaryDto();
+            }
+
+            // ===============================
+            // FETCH SUMMARY
+            // ===============================
+            return await _inventoryRepo.GetSkuStockSummaryAsync(
+                vendorId,
+                sku.ProductId,
+                skuId,
+                warehouseId
+            );
+
+        }
+        public async Task<AddInventoryResultDto> ExecuteAsyncAddStockSKU(int vendorId,
+        int skuId,
+        int warehouseId,
+        int quantity,
+        string? remarks)
+        {
+            // ===============================
+            // BASIC GUARD
+            // ===============================
+            if (quantity <= 0)
+                return Fail("Quantity must be greater than zero.");
+
+            // ===============================
+            // SKU VALIDATION + PRODUCT RESOLVE
+            // ===============================
+            var sku = await _skuFilterRepo.GetSkuContextAsync(skuId, vendorId);
+            if (sku == null)
+                return Fail("Invalid or inactive SKU.");
+
+            // ===============================
+            // WAREHOUSE VALIDATION
+            // ===============================
+            var warehouseValid =
+                await _skuFilterRepo.GetWarehouseByIdAsync(warehouseId);
+
+            if (warehouseValid.VendorId!=vendorId)
+                return Fail("Invalid warehouse selection.");
+
+            // ===============================
+            // BUILD TVP (SINGLE SKU)
+            // ===============================
+            var items = new List<ProductInventoryInItemDto>
+            {
+                new ProductInventoryInItemDto
+                {
+                    SKUId = skuId,
+                    Quantity = quantity
+                }
+            };
+
+            // ===============================
+            // EXECUTE SP
+            // ===============================
+            await _inventoryRepo.AddProductInventoryInAsync(
+                vendorId,
+                sku.ProductId,
+                warehouseId,
+                items,
+                remarks);
+
+            return new AddInventoryResultDto
+            {
+                Success = true,
+                Message = "Inventory added successfully."
+            };
+        }
+
+        private static AddInventoryResultDto Fail(string message) => new()
+            {
+                Success = false,
+                Message = message
+            };
+
+
+        //===============End GET  Single SKUS FOR ADDING INVENTORY=================
 
         public async Task<IReadOnlyList<ProductAddInventorySkuGridDto>> ExecuteAsync(int vendorId, int productId, int warehouseId)
         {
-            return await _inventoryRepo
-                .GetProductInventorySkusAsync(
+            return await _inventoryRepo          .GetProductInventorySkusAsync(
                     vendorId,
                     productId,
                     warehouseId);
@@ -67,7 +168,7 @@ namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
                 throw new DomainValidationException("Remarks cannot exceed 255 characters");
 
             // Validate warehouse
-            var warehouse = await _warehouseRepo.GetWarehouseByIdAsync(warehouseId);
+            var warehouse = await _skuFilterRepo.GetWarehouseByIdAsync(warehouseId);
             if (warehouse == null ||
                 warehouse.VendorId != vendorId ||
                 !warehouse.IsActive)

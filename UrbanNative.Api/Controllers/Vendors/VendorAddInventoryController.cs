@@ -33,13 +33,55 @@ namespace UrbanNative.Api.Controllers.Vendors
         {
             int vendorId = GetVendorId();
 
-            var skus = await _useCase
-                .ExecuteAsync(vendorId, productId, warehouseId);
+            var skus = await _useCase.ExecuteAsync(vendorId, productId, warehouseId);
 
             return Ok(skus);
         }
+        // ======================================================
+        // ADD INVENTORY TO SINGLE SKU
+        // ======================================================
+        [HttpPost("sku/add")]
+        public async Task<IActionResult> AddSkuInventory(
+            [FromBody] AddSkuInventoryApiRequest request)
+        {
+            if (request.Quantity <= 0)
+                return BadRequest("Quantity must be greater than zero.");
+
+            var vendorId = GetVendorId(); // existing extension
+
+            var result = await _useCase.ExecuteAsyncAddStockSKU(
+                vendorId,
+                request.SkuId,
+                request.WarehouseId,
+                request.Quantity,
+                request.Remarks);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            return Ok(result);
+        }
+
+        // ======================================================
+        // SKU STOCK SUMMARY
+        // ======================================================
+        [HttpGet("sku/{skuId:int}/stock")]
+        public async Task<IActionResult> GetSkuStockSummary(
+            int skuId,
+            [FromQuery] int warehouseId)
+        {
+            var vendorId = GetVendorId();
+
+            var summary = await _useCase.ExecuteAsyncSummary(
+                vendorId,
+                skuId,
+                warehouseId);
+
+            return Ok(summary);
+        }
 
 
+        // ===========End Single SKU Add==========
 
         // Placeholder for vendor ID retrieval logic
         private int GetVendorId()

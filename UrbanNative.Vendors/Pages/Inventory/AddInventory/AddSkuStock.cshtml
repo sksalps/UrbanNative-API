@@ -1,0 +1,349 @@
+﻿@page
+@model AddSkuModel
+@{
+    ViewData["Title"] = "Add Stock to SKU";
+}
+
+<div class="container-fluid">
+
+    <h4 class="mb-3">Add Stock to Single SKU</h4>
+
+    <div class="row g-3">
+
+        <!-- ================= LEFT : SELECTORS (30%) ================= -->
+        <div class="col-md-4">
+
+            <form method="get">
+
+                <div class="card h-100">
+                    <div class="card-header fw-bold">
+                        Select SKU
+                    </div>
+
+                    <div class="card-body">
+
+                        <!-- CATEGORY -->
+                        <div class="mb-3">
+                            <label class="form-label">Category</label>
+                            <select class="form-select"
+                                    asp-for="CategoryId"
+                                    asp-items="Model.CategoryList"
+                                    onchange="this.form.submit()">
+                                <option value="">-- Select Category --</option>
+                            </select>
+                        </div>
+
+                        <!-- PRODUCT -->
+                        <div class="mb-3">
+                            <label class="form-label">Product</label>
+
+                            @if (Model.CategoryId == null)
+                            {
+                                <select class="form-select" disabled>
+                                    <option>-- Select Product --</option>
+                                </select>
+                            }
+                            else
+                            {
+                                <select class="form-select"
+                                        asp-for="ProductId"
+                                        asp-items="Model.ProductList"
+                                        onchange="this.form.submit()">
+                                    <option value="">-- Select Product --</option>
+                                </select>
+                            }
+                        </div>
+
+                        <!-- SKU (TYPO FILTER) -->
+                        <div class="mb-3 position-relative">
+                            <label class="form-label">SKU</label>
+
+                            @if (Model.ProductId == null)
+                            {
+                                <input class="form-control"
+                                       placeholder="Select Product first"
+                                       disabled />
+                            }
+                            else
+                            {
+                                <input type="text"
+                                       id="skuSearch"
+                                       class="form-control"
+                                       placeholder="Type SKU code or variant..."
+                                       autocomplete="off"
+                                       value="@Model.SelectedSkuDisplay" />
+
+                                <input type="hidden" asp-for="SkuId" />
+                                <input type="hidden" id="ProductIdHidden" value="@Model.ProductId" />
+
+                                <ul id="skuSuggestions"
+                                    class="list-group position-absolute w-100 d-none"
+                                    style="z-index:1000;"></ul>
+                            }
+                        </div>
+
+                        <!-- WAREHOUSE -->
+                        <div class="mb-3">
+                            <label class="form-label">Warehouse</label>
+
+                            @if (!Model.HasSku)
+                            {
+                                <select class="form-select" disabled>
+                                    <option>-- Select Warehouse --</option>
+                                </select>
+                            }
+                            else
+                            {
+                                <select class="form-select"
+                                        asp-for="WarehouseId"
+                                        asp-items="Model.WarehouseList"
+                                        onchange="this.form.submit()">
+                                    <option value="">-- Select Warehouse --</option>
+                                </select>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- ================= RIGHT : SUMMARY + FORM (70%) ================= -->
+        <div class="col-md-8 d-flex flex-column gap-3">
+
+            <!-- ===== SKU SUMMARY ===== -->
+            <div class="card">
+
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span class="fw-bold">SKU Summary</span>
+
+                    <div>
+                        <a asp-page="./AddSku"
+                           class="btn btn-sm btn-outline-secondary">
+                            Reset
+                        </a>
+                        <a asp-page="./Index"
+                           class="btn btn-sm btn-outline-primary ms-2">
+                            Add To SKUs
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card-body">
+
+                    @if (!Model.HasSku)
+                    {
+                        <p class="text-muted mb-0">
+                            Select <b>Category → Product → SKU</b> from the left
+                            panel to view summary.
+                        </p>
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div><strong>Category:</strong> @Model.SelectedCategoryName</div>
+                                <div><strong>Product:</strong> @Model.SelectedProductName</div>
+                                <div><strong>SKU:</strong> @Model.SelectedSkuDisplay</div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div><strong>Product Stock:</strong> @Model.Summary.ProductStock</div>
+                                <div><strong>Overall SKU Stock:</strong> @Model.Summary.OverallSkuStock</div>
+                                <div><strong>Warehouse Stock:</strong> @Model.Summary.WarehouseStock</div>
+                            </div>
+                        </div>
+
+                        @if (!string.IsNullOrWhiteSpace(Model.SelectedWarehouseFullAddress))
+                        {
+                            <hr />
+                            <small class="text-muted">
+                                <strong>Warehouse Address:</strong><br />
+                                @Model.SelectedWarehouseFullAddress
+                            </small>
+                        }
+                    }
+                </div>
+            </div>
+
+            <!-- ===== ADD INVENTORY FORM ===== -->
+            <div class="card">
+
+                <div class="card-header fw-bold">
+                    Add Inventory to SKU
+                </div>
+
+                <div class="card-body">
+
+                    @if (!Model.HasSku)
+                    {
+                        <p class="text-muted mb-0">
+                            Please select SKU to add inventory.
+                        </p>
+                    }
+                    else
+                    {
+                        <form method="post">
+
+                            <input type="hidden" asp-for="CategoryId" />
+                            <input type="hidden" asp-for="ProductId" />
+                            <input type="hidden" asp-for="SkuId" />
+                            <input type="hidden" asp-for="WarehouseId" />
+
+                            <div class="row g-3">
+
+                                <!-- QUANTITY -->
+                                <div class="col-md-4">
+                                    <label class="form-label">Quantity</label>
+
+                                    @if (Model.IsSuccess)
+                                    {
+                                        <input class="form-control"
+                                               type="number"
+                                               value="@Model.Quantity"
+                                               disabled />
+                                    }
+                                    else
+                                    {
+                                        <input asp-for="Quantity"
+                                               type="number"
+                                               min="1"
+                                               class="form-control" />
+                                        <span asp-validation-for="Quantity"
+                                              class="text-danger"></span>
+                                    }
+                                </div>
+
+                                <!-- REMARKS -->
+                                <div class="col-md-8">
+                                    <label class="form-label">Remarks</label>
+
+                                    @if (Model.IsSuccess)
+                                    {
+                                        <textarea class="form-control"
+                                          rows="1"
+                                          disabled>@Model.Remarks</textarea>
+                                    }
+                                    else
+                                    {
+                                        <textarea asp-for="Remarks"
+                                                  class="form-control"
+                                                  rows="1"
+                                                  placeholder="Optional remarks for this inventory entry"></textarea>
+                                    }
+                                </div>
+
+                            </div>
+
+                            <!-- FORM ACTIONS -->
+                            <div class="card-footer mt-3 d-flex justify-content-end gap-2">
+                                @if (Model.IsSuccess)
+                                {
+                                    <button class="btn btn-primary" disabled>
+                                        Save
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-primary">
+                                        Save
+                                    </button>
+                                }
+
+                                <a asp-page="./Index"
+                                   class="btn btn-outline-secondary">
+                                    Cancel
+                                </a>
+                            </div>
+
+                            @if (Model.IsSuccess)
+                            {
+                                <div class="alert alert-success mt-3">
+                                    Inventory added successfully.
+                                    <a asp-page="../Index"
+                                       asp-route-skuId="@Model.SkuId"
+                                       asp-route-warehouseId="@Model.WarehouseId"
+                                       class="ms-2 fw-bold">
+                                        View Inventory →
+                                    </a>
+                                </div>
+                            }
+
+                        </form>
+                    }
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const skuInput = document.getElementById("skuSearch");
+            const skuList = document.getElementById("skuSuggestions");
+            const skuIdInput = document.getElementById("SkuId");
+            const productId = parseInt("@Model.ProductId") || 0;
+
+            if (!skuInput || !skuList) {
+                console.warn("SKU elements not found");
+                return;
+            }
+
+            skuInput.addEventListener("input", async function () {
+                const q = this.value.trim();
+
+                if (!q || productId === 0) {
+                    skuList.classList.add("d-none");
+                    return;
+                }
+                //alert (productId+"q="+ q);
+                const apiBase = document.querySelector('meta[name="api-base-url"]').getAttribute("content");
+                const url = `${apiBase}/api/skufilter/skus?productId=${productId}&q=${encodeURIComponent(q)}`;
+                //const url = `/api/skufilter/skus?productId=${productId}&q=${encodeURIComponent(q)}`;
+                //console.log("Fetching:", url);
+                //alert (productId+"url"+ url);
+                const res = await fetch(url);
+                if (!res.ok) return;
+
+                const data = await res.json();
+                console.log("SKU DATA:", data);
+        //alert(JSON.stringify(data));
+
+                skuList.innerHTML = "";
+
+                if (!data.length) {
+                    skuList.classList.add("d-none");
+                    return;
+                }
+
+                data.forEach(sku => {
+                    const li = document.createElement("li");
+                    li.className = "list-group-item list-group-item-action";
+                    li.textContent = `${sku.skuCode} | ${sku.variantText}`;
+
+                    li.addEventListener("click", () => {
+                        skuInput.value = li.textContent;
+                        skuIdInput.value = sku.skuId;
+                        skuList.classList.add("d-none");
+                        skuInput.closest("form").submit();
+                    });
+
+                    skuList.appendChild(li);
+                });
+
+                skuList.classList.remove("d-none");
+            });
+
+            document.addEventListener("click", e => {
+                if (!skuList.contains(e.target) && e.target !== skuInput) {
+                    skuList.classList.add("d-none");
+                }
+            });
+        });
+    </script>
+}

@@ -15,7 +15,60 @@ namespace UrbanNative.Vendors.Services
         {
             _http = factory.CreateClient("ApiClient");
         }
+        // ======================================================
+        // ADD INVENTORY TO SINGLE SKU
+        // ======================================================
+        public async Task<AddInventoryResultDto> AddSkuInventoryAsync(
+            int skuId,
+            int warehouseId,
+            int quantity,
+            string? remarks)
+        {
+            var request = new AddSkuInventoryRequestDto
+            {
+                SkuId = skuId,
+                WarehouseId = warehouseId,
+                Quantity = quantity,
+                Remarks = remarks
+            };
 
+            var response = await _http.PostAsJsonAsync(
+                "api/vendor/inventoryadd/sku/add",
+                request);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                return new AddInventoryResultDto
+                {
+                    Success = false,
+                    Message = error
+                };
+            }
+
+            return await response.Content
+                .ReadFromJsonAsync<AddInventoryResultDto>()
+                ?? new AddInventoryResultDto
+                {
+                    Success = false,
+                    Message = "Unexpected error while adding inventory."
+                };
+        }
+
+        // ======================================================
+        // SKU STOCK SUMMARY
+        // ======================================================
+        public async Task<SkuInventoryStockSummaryDto> GetSkuStockSummaryAsync(
+            int skuId,
+            int warehouseId)
+        {
+            return await _http.GetFromJsonAsync<SkuInventoryStockSummaryDto>(
+                $"api/vendor/inventoryadd/sku/{skuId}/stock?warehouseId={warehouseId}")
+                ?? new SkuInventoryStockSummaryDto();
+        }
+
+
+        //==========SKU ADD END==========
         public async Task<InventoryInResponseDto>AddProductInventoryInAsync(ProductInventoryInRequestDto request)
         {
             var res = await _http
@@ -39,7 +92,6 @@ namespace UrbanNative.Vendors.Services
             return await res.Content
                 .ReadFromJsonAsync<InventoryInResponseDto>();
         }
-
 
         public async Task<IReadOnlyList<ProductAddInventorySkuGridDto>> GetProductSkusForInventoryAsync(int productId, int warehouseId)
         {

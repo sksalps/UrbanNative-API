@@ -9,18 +9,16 @@ namespace UrbanNative.Application.Interfaces.Vendors.InventoryAdd
 {
     public interface IInventoryAddRepository
     {
-        //Task<List<ProductSkuSnapshotDto>> GetProductSkuSnapshotAsync(   int vendorId, int productId);
-
-        Task AddProductInventoryInAsync(
-            int vendorId,
+        
+        Task AddProductInventoryInAsync( int vendorId,
             int productId,
             int warehouseId,
             List<ProductInventoryInItemDto> items,
             string? remarks);
-        //Task<IReadOnlyList<ProductAddInventorySkuGridDto>>   GetProductInventorySkusAsync(int vendorId, int productId);
         Task<IReadOnlyList<ProductAddInventorySkuGridDto>>GetProductInventorySkusAsync( int vendorId,
         int productId,
         int warehouseId);
+        Task<SkuInventoryStockSummaryDto> GetSkuStockSummaryAsync( int vendorId,int productId,      int skuId,     int warehouseId);
 
     }
 

@@ -2322,6 +2322,43 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorAddInventoryController",
+    "Method": "GetSkuStockSummary",
+    "RelativePath": "api/vendor/inventoryadd/sku/{skuId}/stock",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "skuId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "warehouseId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorAddInventoryController",
+    "Method": "AddSkuInventory",
+    "RelativePath": "api/vendor/inventoryadd/sku/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "UrbanNative.Application.DTOs.Vendors.Inventory.AddSkuInventoryApiRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorProfileController",
     "Method": "GetProfile",
     "RelativePath": "api/vendor/profile",

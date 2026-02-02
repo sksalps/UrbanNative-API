@@ -3495,6 +3495,68 @@
         }
       }
     },
+    "/api/vendor/inventoryadd/sku/add": {
+      "post": {
+        "tags": [
+          "VendorAddInventory"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddSkuInventoryApiRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddSkuInventoryApiRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddSkuInventoryApiRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendor/inventoryadd/sku/{skuId}/stock": {
+      "get": {
+        "tags": [
+          "VendorAddInventory"
+        ],
+        "parameters": [
+          {
+            "name": "skuId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "warehouseId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/vendor/auth/login": {
       "post": {
         "tags": [
@@ -4140,6 +4202,28 @@
   },
   "components": {
     "schemas": {
+      "AddSkuInventoryApiRequest": {
+        "type": "object",
+        "properties": {
+          "skuId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "warehouseId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "remarks": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "AddVariantToSetRequestDto": {
         "type": "object",
         "properties": {

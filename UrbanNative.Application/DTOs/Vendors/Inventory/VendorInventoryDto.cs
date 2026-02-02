@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,37 @@ namespace UrbanNative.Application.DTOs.Vendors.Inventory
 {
 
     //===============================================
-    //Vendor Side Inventory Add DTOs   
+    //Vendor Side SKU Inventory Add DTOs   
+    //===============================================
+    public class AddSkuInventoryRequestDto
+    {
+        public int SkuId { get; set; }
+        public int WarehouseId { get; set; }
+        public int Quantity { get; set; }
+        public string? Remarks { get; set; }
+    }
+    public class AddSkuInventoryApiRequest
+    {
+        public int SkuId { get; set; }
+        public int WarehouseId { get; set; }
+        public int Quantity { get; set; }
+        public string? Remarks { get; set; }
+    }
+
+    public class AddInventoryResultDto
+    {
+        public bool Success { get; set; }
+        public string Message { get; set; } = string.Empty;
+    }
+    public class SkuInventoryStockSummaryDto
+    {
+        public int ProductStock { get; set; }
+        public int OverallSkuStock { get; set; }
+        public int WarehouseStock { get; set; }
+    }
+
+    //===============================================
+    //Vendor Side Product Level Inventory Add DTOs   
     //===============================================
     public class ProductInventoryInRequestDto
     {
@@ -38,21 +69,7 @@ namespace UrbanNative.Application.DTOs.Vendors.Inventory
         public int TotalQuantityAdded { get; set; }
     }
 
-    public class ProductSkuSnapshotDto
-    {
-        public int SKUId { get; set; }
-
-        public bool IsActive { get; set; }
-
-        public int CurrentStock { get; set; }
-
-        /// <summary>
-        /// True if SKU has already been initiated
-        /// (i.e., at least one inventory log exists or stock row exists)
-        /// </summary>
-        public bool IsInitiated { get; set; }
-    }
-
+   
     public class ProductAddInventorySkuGridDto
     {
         public int SKUId { get; set; }

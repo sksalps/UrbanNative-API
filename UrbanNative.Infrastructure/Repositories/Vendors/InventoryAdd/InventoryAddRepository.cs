@@ -20,7 +20,37 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors.InventoryAdd
         {
             _connectionFactory = connectionFactory;
         }
+        // ======================================================
+        // GET Single SKUS FOR ADDING INVENTORY: Summary
+        // ======================================================
+        public async Task<SkuInventoryStockSummaryDto> GetSkuStockSummaryAsync(
+        int vendorId,
+        int productId,
+        int skuId,
+        int warehouseId)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+            var parameters = new DynamicParameters();
+            parameters.Add("@@VendorId", vendorId);
+            parameters.Add("@ProductId", productId);
+            parameters.Add("@SkuId", skuId);
+            parameters.Add("@WarehouseId", warehouseId);
 
+            /*
+             IMPORTANT
+             ---------
+             We reuse the SAME query / SP logic already used in Part 3.1.
+             If you already have a SP, replace the name below.
+            */
+
+            return await conn.QuerySingleOrDefaultAsync<SkuInventoryStockSummaryDto>(
+                "sp_VendorSkuAddInventory_Summary",
+                parameters,
+                commandType: CommandType.StoredProcedure
+            ) ?? new SkuInventoryStockSummaryDto();
+        }
+
+        // ===========END SKU Single==========================
         public async Task<IReadOnlyList<ProductAddInventorySkuGridDto>>GetProductInventorySkusAsync(int vendorId, int productId, int warehouseId)
         {
             using var conn = _connectionFactory.CreateConnection();
@@ -38,18 +68,7 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors.InventoryAdd
 
             return result.ToList();
         }
-        /*
-                public async Task<List<ProductSkuSnapshotDto>> GetProductSkuSnapshotAsync(
-                    int vendorId, int productId)
-                {
-                    using var conn = _connectionFactory.CreateConnection();
-
-                    return (await conn.QueryAsync<ProductSkuSnapshotDto>(
-                        "sp_ProductSkuSnapshot_Get11",
-                        new { VendorId = vendorId, ProductId = productId },
-                        commandType: CommandType.StoredProcedure)).ToList();          
-                }
-        */
+        
         public async Task AddProductInventoryInAsync(
             int vendorId,
             int productId,
