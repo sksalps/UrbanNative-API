@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using UrbanNative.Application.DTOs.CommonCrossDashboard;
 using UrbanNative.Application.DTOs.Vendors.Inventory;
+using UrbanNative.Domain.Exceptions;
 using UrbanNative.Vendors.Services.Interfaces;
 
 public class AddSkuModel : PageModel
@@ -17,7 +18,7 @@ public class AddSkuModel : PageModel
         _skuFilterService = skuFilterService;
         _inventoryService = inventoryService;
     }
-
+    public string? GlobalErrorMessage { get; set; }
     // ===============================
     // HEADER SUMMARY
     // ===============================
@@ -217,6 +218,19 @@ public class AddSkuModel : PageModel
         SelectedSkuDisplay =
             $"{skuContext.SKUCode} | {skuContext.VariantText}";
 
-        Summary = await _inventoryService.GetSkuStockSummaryAsync(SkuId.Value, WarehouseId ?? 0);
+        
+
+        try
+        {
+            Summary = await _inventoryService.GetSkuStockSummaryAsync(SkuId.Value, WarehouseId ?? 0);
+        }
+        catch (DomainValidationException ex)
+        {
+            // 👇 THIS IS THE MISSING PIECE
+            GlobalErrorMessage = ex.Message;
+
+            // keep page alive
+            Summary = null;
+        }
     }
 }

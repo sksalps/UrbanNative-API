@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using UrbanNative.Application.DTOs.Vendors.Inventory;
 using UrbanNative.Application.Interfaces.UseCases.VendorInventoryAdd;
+using UrbanNative.Domain.Exceptions;
 
 namespace UrbanNative.Api.Controllers.Vendors
 {
@@ -48,7 +49,7 @@ namespace UrbanNative.Api.Controllers.Vendors
                 return BadRequest("Quantity must be greater than zero.");
 
             var vendorId = GetVendorId(); // existing extension
-
+            
             var result = await _useCase.ExecuteAsyncAddStockSKU(
                 vendorId,
                 request.SkuId,
@@ -70,14 +71,23 @@ namespace UrbanNative.Api.Controllers.Vendors
             int skuId,
             [FromQuery] int warehouseId)
         {
-            var vendorId = GetVendorId();
+            try
+            {
+                var vendorId = GetVendorId();
 
-            var summary = await _useCase.ExecuteAsyncSummary(
-                vendorId,
-                skuId,
-                warehouseId);
+                var summary = await _useCase.ExecuteAsyncSummary(
+                    vendorId,
+                    skuId,
+                    warehouseId);
 
-            return Ok(summary);
+                return Ok(summary);
+            }
+            catch (DomainValidationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
+            
         }
 
 

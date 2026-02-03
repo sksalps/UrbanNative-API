@@ -9,6 +9,7 @@ using UrbanNative.Application.Interfaces.CommonCrossDashboard;
 using UrbanNative.Application.Interfaces.UseCases.VendorInventoryAdd;
 using UrbanNative.Application.Interfaces.Vendors;
 using UrbanNative.Application.Interfaces.Vendors.InventoryAdd;
+using UrbanNative.Domain.Entities;
 using UrbanNative.Domain.Exceptions;
 
 
@@ -34,79 +35,119 @@ namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
         // GET Single SKUS FOR ADDING INVENTORY
         // ======================================================
         public async Task<SkuInventoryStockSummaryDto> ExecuteAsyncSummary(
-        int vendorId,
-        int skuId,
-        int warehouseId)
+    int vendorId,
+    int skuId,
+    int warehouseId)
         {
-            // ===============================
-            // SKU VALIDATION
-            // ===============================
-            var sku = await _skuFilterRepo.GetSkuContextAsync(skuId, vendorId);
-            if (sku == null)
-                return new SkuInventoryStockSummaryDto();
-
-            // ===============================
-            // WAREHOUSE VALIDATION (OPTIONAL)
-            // ===============================
-            if (warehouseId > 0)
+            try
             {
-                var warehouse = await _skuFilterRepo.GetWarehouseByIdAsync(warehouseId);
+                // ===============================
+                // SKU VALIDATION (DOMAIN)
+                // ===============================
+                var sku = await _skuFilterRepo.GetSkuContextAsync(skuId, vendorId);
+                if (sku == null)
+                    throw new DomainValidationException(
+                        "Invalid or inactive SKU."
+                    );
 
-                // invalid warehouse OR warehouse not belonging to vendor
-                if (warehouse == null || warehouse.VendorId != vendorId)
-                    return new SkuInventoryStockSummaryDto();
+                // ===============================
+                // WAREHOUSE VALIDATION (DOMAIN)
+                // ===============================
+                if (warehouseId > 0)
+                {
+                    var warehouse = await _skuFilterRepo.GetWarehouseByIdAsync(warehouseId);
+
+                    if (warehouse == null || warehouse.VendorId != vendorId)
+                        throw new DomainValidationException(
+                            "Invalid warehouse selection."
+                        );
+                }
+
+                // ===============================
+                // FETCH SUMMARY (INFRA CALL)
+                // ===============================
+                return await _inventoryRepo.GetSkuStockSummaryAsync(
+                    vendorId,
+                    sku.ProductId,
+                    skuId,
+                    warehouseId
+                );
             }
-
-            // ===============================
-            // FETCH SUMMARY
-            // ===============================
-            return await _inventoryRepo.GetSkuStockSummaryAsync(
-                vendorId,
-                sku.ProductId,
-                skuId,
-                warehouseId
-            );
-
+            catch (DomainValidationException)
+            {
+                // ✅ business rule → bubble unchanged
+                throw;
+            }
+            catch (Exception)
+            {
+                // 🚫 infra / sql / wrong SP / dapper / network
+                throw new DomainValidationException(
+                    "Internal server error. Please try again."
+                );
+            }
         }
-        public async Task<AddInventoryResultDto> ExecuteAsyncAddStockSKU(int vendorId,
-        int skuId,
-        int warehouseId,
-        int quantity,
-        string? remarks)
+
+
+        public async Task<AddInventoryResultDto> ExecuteAsyncAddStockSKU(
+    int vendorId,
+    int skuId,
+    int warehouseId,
+    int quantity,
+    string? remarks)
         {
             // ===============================
             // BASIC GUARD
             // ===============================
             if (quantity <= 0)
-                return Fail("Quantity must be greater than zero.");
+                throw new DomainValidationException(
+                    "Quantity must be greater than zero."
+                );
 
             // ===============================
             // SKU VALIDATION + PRODUCT RESOLVE
             // ===============================
             var sku = await _skuFilterRepo.GetSkuContextAsync(skuId, vendorId);
             if (sku == null)
-                return Fail("Invalid or inactive SKU.");
+                throw new DomainValidationException(
+                    "Invalid or inactive SKU."
+                );
+
+            // ===============================
+            // SKU INITIATION VALIDATION (AUTHORITATIVE)
+            // ===============================
+            var summary = await _inventoryRepo.GetSkuStockSummaryAsync(
+                vendorId,
+                sku.ProductId,
+                skuId,
+                warehouseId
+            );
+
+            if (!summary.IsInitiated)
+                throw new DomainValidationException(
+                    "SKU is not initiated. Please complete SKU entry before adding inventory."
+                );
 
             // ===============================
             // WAREHOUSE VALIDATION
             // ===============================
-            var warehouseValid =
-                await _skuFilterRepo.GetWarehouseByIdAsync(warehouseId);
+            var warehouse = await _skuFilterRepo.GetWarehouseByIdAsync(warehouseId);
 
-            if (warehouseValid.VendorId!=vendorId)
-                return Fail("Invalid warehouse selection.");
+            if (warehouse == null || warehouse.VendorId != vendorId)
+                throw new DomainValidationException(
+                    "Invalid warehouse selection."
+                );
 
             // ===============================
             // BUILD TVP (SINGLE SKU)
             // ===============================
             var items = new List<ProductInventoryInItemDto>
-            {
-                new ProductInventoryInItemDto
-                {
-                    SKUId = skuId,
-                    Quantity = quantity
-                }
-            };
+    {
+        new ProductInventoryInItemDto
+        {
+            SKUId = skuId,
+            Quantity = quantity
+        }
+    };
 
             // ===============================
             // EXECUTE SP
@@ -116,7 +157,8 @@ namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
                 sku.ProductId,
                 warehouseId,
                 items,
-                remarks);
+                remarks
+            );
 
             return new AddInventoryResultDto
             {
@@ -124,6 +166,7 @@ namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
                 Message = "Inventory added successfully."
             };
         }
+
 
         private static AddInventoryResultDto Fail(string message) => new()
             {

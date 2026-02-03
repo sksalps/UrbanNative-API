@@ -56,17 +56,42 @@ namespace UrbanNative.Vendors.Services
         }
 
         // ======================================================
-        // SKU STOCK SUMMARY
+        // Single SKU STOCK SUMMARY
         // ======================================================
         public async Task<SkuInventoryStockSummaryDto> GetSkuStockSummaryAsync(
-            int skuId,
-            int warehouseId)
+    int skuId,
+    int warehouseId)
         {
-            return await _http.GetFromJsonAsync<SkuInventoryStockSummaryDto>(
-                $"api/vendor/inventoryadd/sku/{skuId}/stock?warehouseId={warehouseId}")
-                ?? new SkuInventoryStockSummaryDto();
-        }
+            try
+            {
+                var response = await _http.GetAsync(
+                    $"api/vendor/inventoryadd/sku/{skuId}/stock?warehouseId={warehouseId}");
 
+                if (!response.IsSuccessStatusCode)
+                {
+                    // Mask infra / SQL / SP issues
+                    throw new DomainValidationException(
+                        "Unable to load SKU summary. Please try again."
+                    );
+                }
+
+                return await response.Content
+                    .ReadFromJsonAsync<SkuInventoryStockSummaryDto>()
+                    ?? new SkuInventoryStockSummaryDto();
+            }
+            catch (DomainValidationException)
+            {
+                // business-safe message → bubble
+                throw;
+            }
+            catch (Exception)
+            {
+                // network / parsing / unexpected
+                throw new DomainValidationException(
+                    "Unable to load SKU summary. Please try again."
+                );
+            }
+        }
 
         //==========SKU ADD END==========
         public async Task<InventoryInResponseDto>AddProductInventoryInAsync(ProductInventoryInRequestDto request)

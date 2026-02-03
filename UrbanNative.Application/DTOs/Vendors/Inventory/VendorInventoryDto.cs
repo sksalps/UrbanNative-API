@@ -9,7 +9,7 @@ namespace UrbanNative.Application.DTOs.Vendors.Inventory
 {
 
     //===============================================
-    //Vendor Side SKU Inventory Add DTOs   
+    //Vendor Side Single  Inventory Add DTOs   
     //===============================================
     public class AddSkuInventoryRequestDto
     {
@@ -36,6 +36,7 @@ namespace UrbanNative.Application.DTOs.Vendors.Inventory
         public int ProductStock { get; set; }
         public int OverallSkuStock { get; set; }
         public int WarehouseStock { get; set; }
+        public bool IsInitiated { get; set; }
     }
 
     //===============================================
