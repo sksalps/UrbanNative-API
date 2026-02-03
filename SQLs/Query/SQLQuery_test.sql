@@ -9,7 +9,7 @@ select * from HSNMaster
 select * from Products
 select * from GSTMaster
 select * from VariantSetCategories
-select * from ProductSKUs
+select stock,* from ProductSKUs
 select * from ProductSKUImages
 select * from ProductSKUValueSignature
 select * from ProductSKUVariantValues
@@ -18,7 +18,7 @@ select * from VariantMaster --Varaint Like Color Size Memory Design Shape
 select * from VariantSets   --Name of set which indicateds combination of variant and usage
 select * from VariantInsideVariantSet   --In name of set which variant using
 select * from VariantValues     --Value of Variant
-select * from InventoryLogs order by logid desc
+select * from InventoryLogs where skuid=27 order by logid desc
 
 
 select * from SystemSettingsMaster
@@ -38,14 +38,14 @@ select * from orderitemreturns
 select * from OrderReturnShipments
 select * from OrderItemReturnImages
 
-EXEC sp_ProductInventorySkuGrid_Get 1,1 ;
+EXEC sp_ProductInventorySkuGrid_Get 1,1, 1002;
 exec sp_VendorProducts_List 1, 'Men'
 EXEC sp_ReturnImages_GetByReturn 1;
 EXEC sp_AdminReturns_GetDetails 1
 exec sp_LogisticsProviders_GetAll
 exec sp_AdminReturnShipment_Create 1,1,'22423'
 exec sp_Vendor_GetPassword 1002
-
+EXEC sp_helptext 'sp_VendorInventoryAdd_Product_IN';
 exec sp_VendorWarehouses_Lookup
 exec sp_VendorWarehouse_GetById 1002
 
@@ -53,10 +53,11 @@ EXEC sp_AdminVariantSetCategories_Assign
     @VariantSetID = 1,
     @CategoryID = 2;
 select * from fn_ProductSkuVariantDisplay() where skuid=    21
-exec sp_VendorInventory_Logs  27, 0, '01/01/2026','01/26/2026'
-exec sp_VendorInventory_Summary 27, 0, '01/01/2026','01/26/2026'
+exec sp_VendorInventory_Logs  27, 0, '01/01/2026','01/31/2026'
+exec sp_VendorInventory_Summary 27, 0, '01/01/2026','02/26/2026'
 exec sp_VendorWarehouses_Lookup 2
 exec sp_SkuFilter_SkuContext 27,1
 EXEC sp_SkuFilter_SKUs @ProductID = 1, @Search = 'Blue';
-
---update ProductSKUs set BarCodeAuto=SKUCode 
+exec sp_VendorSkuAddInventory_Summary 1,1,25,1002
+asdfas
+update ProductSKUs set IsActive=0 where SKUId=25

@@ -153,7 +153,9 @@
                             View
                         </a>
                         |
-                        <a asp-page="/AddInventory/AddSkuStock" asp-route-productId="Skus[i].SKUId">Add</a>
+                        <a asp-page="/Inventory/AddInventory/AddSkuStock"
+                           asp-route-skuId="@Model.Skus[i].SKUId">Add
+                        </a>
                        
                     </td>
                     <!-- ========================= -->

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using UrbanNative.Application.DTOs.CommonCrossDashboard;
 using UrbanNative.Application.DTOs.Vendors.Inventory;
 using UrbanNative.Domain.Exceptions;
@@ -69,14 +70,29 @@ public class AddSkuModel : PageModel
     public SkuInventoryStockSummaryDto Summary { get; set; } = new();
 
     // ================= GET =================
-    public async Task OnGetAsync()
+    public async Task OnGetAsync(int? skuId)
     {
-        await LoadSelectorsAsync();
-        await LoadSkuContextAsync();
-    }
+        SkuId = skuId;
 
-    // ================= POST =================
-    public async Task<IActionResult> OnPostAsync()
+        // 1️⃣ Resolve SKU → Category/Product FIRST (deep link)
+        if (SkuId.HasValue && SkuId > 0)
+        {
+            await ResolveSkuContextAsync();
+        }
+
+        // 2️⃣ Load selectors AFTER context is known
+        await LoadSelectorsAsync();
+
+        // 3️⃣ Load summary (already correct)
+        await LoadSkuContextAsync();
+
+
+    //await LoadSelectorsAsync();
+    //await LoadSkuContextAsync();
+}
+
+// ================= POST =================
+public async Task<IActionResult> OnPostAsync()
     {
         if (!ModelState.IsValid || !HasSku || !WarehouseId.HasValue)
         {
@@ -116,30 +132,47 @@ public class AddSkuModel : PageModel
         int? originalProductId = ProductId;
         int? originalSkuId = SkuId;
 
+        // 🔒 IMPORTANT: detect initial deep-link by SKU
+        bool isInitialSkuLanding =
+            originalSkuId.HasValue &&
+            originalSkuId > 0 &&
+            !originalCategoryId.HasValue &&
+            !originalProductId.HasValue;
+
+        // ===============================
         // 1️⃣ Categories
+        // ===============================
         var categories = await _skuFilterService.GetCategoriesForFilter();
         CategoryList = categories
             .Select(c => new SelectListItem(c.CategoryName, c.CategoryId.ToString()))
             .ToList();
 
-        // Reset logic (same as Part 3.2)
-        if (originalCategoryId.HasValue &&
-            CategoryId.HasValue &&
-            originalCategoryId != CategoryId)
+        
+        // ===============================
+        // 2️⃣ RESET LOGIC (SKIP FOR SKU DEEP LINK)
+        // ===============================
+        if (!isInitialSkuLanding)
         {
-            ProductId = null;
-            SkuId = null;
-            WarehouseId = null;
-        }
-        else if (originalProductId.HasValue &&
-                 ProductId.HasValue &&
-                 originalProductId != ProductId)
-        {
-            SkuId = null;
-            WarehouseId = null;
+            if (originalCategoryId.HasValue &&
+                CategoryId.HasValue &&
+                originalCategoryId != CategoryId)
+            {
+                ProductId = null;
+                SkuId = null;
+                WarehouseId = null;
+            }
+            else if (originalProductId.HasValue &&
+                     ProductId.HasValue &&
+                     originalProductId != ProductId)
+            {
+                SkuId = null;
+                WarehouseId = null;
+            }
         }
 
-        // 2️⃣ Products
+        // ===============================
+        // 3️⃣ Products (Category scoped)
+        // ===============================
         if (CategoryId.HasValue)
         {
             var products = await _skuFilterService.GetProductsAsync(CategoryId.Value);
@@ -157,7 +190,9 @@ public class AddSkuModel : PageModel
                 ProductList.FirstOrDefault(p => p.Value == ProductId.Value.ToString())?.Text;
         }
 
-        // 3️⃣ Warehouses (ACTIVE ONLY – ADD FLOW)
+        // ===============================
+        // 4️⃣ Warehouses (ACTIVE ONLY – ADD FLOW)
+        // ===============================
         var warehouses = await _skuFilterService.GetVendorActiveWarehouseAsync();
 
         WarehouseList = warehouses
@@ -172,7 +207,8 @@ public class AddSkuModel : PageModel
 
         if (!WarehouseId.HasValue)
         {
-            WarehouseId = warehouses.FirstOrDefault(w => w.IsPrimary)
+            WarehouseId = warehouses
+                .FirstOrDefault(w => w.IsPrimary)
                 ?.VendorWarehouseAddressID;
         }
 
@@ -188,17 +224,30 @@ public class AddSkuModel : PageModel
                 SelectedWarehouseFullAddress = string.Join(", ",
                     new[]
                     {
-                        wh.AddressLine1,
-                        wh.AddressLine2,
-                        wh.Landmark,
-                        wh.CityName,
-                        wh.StateName,
-                        wh.CountryName,
-                        wh.Pincode
+                    wh.AddressLine1,
+                    wh.AddressLine2,
+                    wh.Landmark,
+                    wh.CityName,
+                    wh.StateName,
+                    wh.CountryName,
+                    wh.Pincode
                     }.Where(x => !string.IsNullOrWhiteSpace(x)));
             }
         }
     }
+
+    private async Task ResolveSkuContextAsync()
+    {
+        var skuContext = await _skuFilterService.GetSkuContextAsync(SkuId.Value);
+        if (skuContext == null)
+            return;
+
+        CategoryId = skuContext.CategoryId;
+        ProductId = skuContext.ProductId;
+        SelectedSkuDisplay =
+            $"{skuContext.SKUCode} | {skuContext.VariantText}";
+    }
+
 
     // ===============================
     // LOAD SKU CONTEXT + SUMMARY

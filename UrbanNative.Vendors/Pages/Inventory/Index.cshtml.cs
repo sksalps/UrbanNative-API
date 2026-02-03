@@ -172,9 +172,6 @@ namespace UrbanNative.Vendors.Pages.Inventory
             // ===============================
             // 6️⃣ Warehouses (AUTHORITATIVE)
             // ===============================
-            // ===============================
-            // 6️⃣ Warehouses (AUTHORITATIVE)
-            // ===============================
             var warehouses = await _skuFilterService.GetAllWarehousesAsync();
 
             WarehouseList = warehouses
