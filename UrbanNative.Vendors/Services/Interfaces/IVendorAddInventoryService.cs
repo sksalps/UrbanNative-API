@@ -9,6 +9,9 @@ namespace UrbanNative.Vendors.Services.Interfaces
         Task<AddInventoryResultDto> AddSkuInventoryAsync(int skuId,int warehouseId,int quantity,string? remarks);
 
         Task<SkuInventoryStockSummaryDto> GetSkuStockSummaryAsync(int skuId,int warehouseId);
+
+        //Adjust Inventory IN / OUT
+        Task<AdjustInventoryResultDto> AdjustInventoryAsync(AdjustInventoryRequestDto request);
     }
 
 }

@@ -7,8 +7,10 @@ using UrbanNative.Application.DTOs.Vendors.Inventory;
 
 namespace UrbanNative.Application.Interfaces.UseCases
 {
-
-        public interface IVendorInventoryUseCase
+    //===============================================
+    // Vendor Inventory View Use Case Interface
+    //===============================================
+    public interface IVendorInventoryUseCase
         {
             Task<VendorInventorySummaryDto> GetInventorySummaryAsync(
                 int skuId,
@@ -23,7 +25,8 @@ namespace UrbanNative.Application.Interfaces.UseCases
                 DateTime toDate,
                 int page,
                 int pageSize);
-        }
+        
+    }
 
     }
 

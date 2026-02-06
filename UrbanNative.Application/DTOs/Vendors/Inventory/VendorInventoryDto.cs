@@ -9,7 +9,27 @@ namespace UrbanNative.Application.DTOs.Vendors.Inventory
 {
 
     //===============================================
-    //Vendor Side Single  Inventory Add DTOs   
+    //Vendor Side Adjust Inventory   
+    //===============================================
+    public class AdjustInventoryRequestDto
+    {
+        public int? SKUId { get; set; }
+        public int? WarehouseId { get; set; }
+        public string ChangeType { get; set; } // IN | OUT
+        public int Quantity { get; set; }
+        public string Reason { get; set; }
+    }
+    public class AdjustInventoryResultDto
+    {
+        public bool IsSuccess { get; set; }
+        public string Message { get; set; }
+        public int OldStock { get; set; }
+        public int NewStock { get; set; }
+    }
+
+
+    //===============================================
+    //Vendor Side Single  SKU Inventory Add DTOs   
     //===============================================
     public class AddSkuInventoryRequestDto
     {

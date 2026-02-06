@@ -15,6 +15,35 @@ namespace UrbanNative.Vendors.Services
         {
             _http = factory.CreateClient("ApiClient");
         }
+
+        //============= Adjust Inventory for Single SKU =============
+        // This method allows vendors to adjust inventory for a specific SKU,
+        // either increasing (IN) or decreasing (OUT) stock levels based on the provided change type and quantity.
+        public async Task<AdjustInventoryResultDto> AdjustInventoryAsync(AdjustInventoryRequestDto request)
+        {
+            var response = await _http.PostAsJsonAsync(
+                "api/vendor/inventoryadd/adjust",          request            );
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                throw new DomainValidationException(
+                    string.IsNullOrWhiteSpace(error)
+                        ? "Inventory adjustment failed."
+                        : error
+                );
+            }
+
+            var result = await response.Content
+                .ReadFromJsonAsync<AdjustInventoryResultDto>();
+
+            if (result == null)
+                throw new DomainValidationException("Invalid response from server.");
+
+            return result;
+        }
+
+
         // ======================================================
         // ADD INVENTORY TO SINGLE SKU
         // ======================================================

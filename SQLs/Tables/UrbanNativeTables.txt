@@ -85,31 +85,18 @@ HasVariants	bit	Unchecked
 ReturnPolicyID	int	Checked
 VendorSharedMargin	decimal(10, 2)	Unchecked
 VendorWarehouseAddressID	int	Unchecked
-		Unchecked
+		
 ProductSKUVariantValues
 SKUVariantValueID	int	Unchecked
 SKUId	int	Unchecked
 VariantID	int	Unchecked
 VariantValueID	int	Unchecked
-		Unchecked
-ProductSKUs
-SKUId	int	Unchecked
-ProductID	int	Unchecked
-SKUCode	nvarchar(100)	Unchecked
-Price	decimal(10, 2)	Unchecked
-DiscountPrice	decimal(10, 2)	Checked
-Stock	int	Unchecked
-ReorderLevel	int	Checked
-ReturnPolicyID	int	Checked
-IsActive	bit	Unchecked
-CreatedAt	datetime	Unchecked
-		Unchecked
-
-		Unchecked
+		
+	
 ProductSKUValueSignature
 SKUId	int	Unchecked
 ValueSignature	nvarchar(500)	Unchecked
-		Unchecked		
+				
 ProductSKUImages
 ProductImageID	int	Unchecked
 ProductID	int	Unchecked
@@ -120,14 +107,14 @@ SortOrder	int	Unchecked
 CreatedAt	datetime	Unchecked
 SKUId	int	Checked
 isActive	bit	Unchecked
-		Unchecked
+		
 ReturnPolicyMaster
 ReturnPolicyID	int	Unchecked
 PolicyName	varchar(100)	Unchecked
 ReturnDays	int	Unchecked
 IsActive	bit	Unchecked
 CreatedAt	datetime	Unchecked
-		Unchecked
+		
 VariantSetCategories		
 CategoryVariantSetID	int	Unchecked
 VariantSetID	int	Unchecked
@@ -199,6 +186,7 @@ CreatedAt	datetime	Unchecked
 CreatedBy	int	Checked
 		Unchecked
 *********
+		
 Orders
 OrderID	int	Unchecked
 OrderNo	nvarchar(50)	Unchecked
@@ -219,6 +207,7 @@ OrderStatus	varchar(30)	Unchecked
 CancelReason	nvarchar(300)	Checked
 CreatedAt	datetime	Unchecked
 UpdatedAt	datetime	Checked
+ReferralUserID	int	Unchecked
 
 OrderItems
 OrderItemID	int	Unchecked
@@ -226,7 +215,6 @@ OrderID	int	Unchecked
 ProductID	int	Unchecked
 SKUId	int	Unchecked
 VendorID	int	Unchecked
-VendorSharedMargin	decimal(10, 2)	Unchecked
 ProductName	nvarchar(200)	Unchecked
 SKUCode	nvarchar(100)	Unchecked
 Quantity	int	Unchecked
@@ -243,6 +231,10 @@ GSTAmount	decimal(10, 2)	Unchecked
 ItemStatus	varchar(30)	Unchecked
 ReturnReason	nvarchar(300)	Checked
 CreatedAt	datetime	Unchecked
+VendorSharedMargin	decimal(10, 2)	Unchecked
+VendorWarehouseAddressID	int	Checked
+HandlingDays	int	Unchecked
+TransitDays	int	Unchecked		
 		
 OrderShipments
 ShipmentID	int	Unchecked
@@ -257,12 +249,32 @@ ShippedAt	datetime	Checked
 DeliveredAt	datetime	Checked
 ReceivedBy	varchar(30)	Checked
 CreatedAt	datetime	Unchecked
+		
 
 OrderShipmentDetails
 OrderShipmentDetailsID	int	Unchecked
 ShipmentID	int	Unchecked
 OrderItemID	int	Unchecked
 ShippedQuantity	int	Unchecked
+		
+
+ProductSKUs
+SKUId	int	Unchecked
+ProductID	int	Unchecked
+SKUCode	nvarchar(100)	Unchecked
+Price	decimal(10, 2)	Unchecked
+DiscountPrice	decimal(10, 2)	Checked
+Stock	int	Unchecked
+ReorderLevel	int	Checked
+ReturnPolicyID	int	Checked
+IsActive	bit	Unchecked
+CreatedAt	datetime	Unchecked
+BarCodeAuto	nchar(20)	Checked
+BarCodeVendor	nchar(20)	Checked
+DisableReason	tinyint	Unchecked
+HandlingDays	int	Unchecked
+		
+2*************
 
 AddressMaster
 AddressID	int	Unchecked

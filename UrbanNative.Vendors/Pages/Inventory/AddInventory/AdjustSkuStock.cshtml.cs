@@ -6,17 +6,20 @@ using UrbanNative.Application.DTOs.Vendors.Inventory;
 using UrbanNative.Domain.Exceptions;
 using UrbanNative.Vendors.Services.Interfaces;
 
-public class AddSkuModel : PageModel
+public class AdjustSkuStockModel : PageModel
 {
     private readonly ISkuFilterService _skuFilterService;
     private readonly IVendorAddInventoryService _inventoryService;
+    private readonly IVendorInventoryService _inventoryLogService;
 
-    public AddSkuModel(
+    public AdjustSkuStockModel(
         ISkuFilterService skuFilterService,
-        IVendorAddInventoryService inventoryService)
+        IVendorAddInventoryService inventoryService,
+        IVendorInventoryService inventoryLogService)
     {
         _skuFilterService = skuFilterService;
         _inventoryService = inventoryService;
+        _inventoryLogService = inventoryLogService;
     }
     public string? GlobalErrorMessage { get; set; }
     // ===============================
@@ -40,19 +43,23 @@ public class AddSkuModel : PageModel
     [BindProperty(SupportsGet = true)]
     public int? SkuId { get; set; }
 
-    [BindProperty(SupportsGet = true)]
-    public int? WarehouseId { get; set; }
+    //[BindProperty(SupportsGet = true)]
+    //public int? WarehouseId { get; set; }
 
-    public bool HasSku => SkuId.HasValue && SkuId.Value > 0;
+    public bool HasSku => AdjustRequest.SKUId.HasValue && AdjustRequest.SKUId.Value > 0;
+    //public bool HasWarehouseId => AdjustRequest.WarehouseId>0;
 
     // ===============================
     // FORM
     // ===============================
     [BindProperty]
-    public int Quantity { get; set; }
+    public AdjustInventoryRequestDto AdjustRequest { get; set; } = new();
+    //[BindProperty]
+    //public string? ChangeType { get; set; }
+    //public int Quantity { get; set; }
 
-    [BindProperty]
-    public string? Remarks { get; set; }
+    //[BindProperty]
+    //public string? Remarks { get; set; }
 
     public bool IsSuccess { get; set; }
 
@@ -67,11 +74,23 @@ public class AddSkuModel : PageModel
     // SUMMARY
     // ===============================
     public SkuInventoryStockSummaryDto Summary { get; set; } = new();
+    public IReadOnlyList<VendorInventoryLogDto> Logs { get; set; }
+            = new List<VendorInventoryLogDto>();
+    // ===============================
+    // ADJUST REQUEST
+    // ===============================
+    
+    [BindProperty(SupportsGet = true)]
+    public DateTime FromDate { get; set; }
+
+    [BindProperty(SupportsGet = true)]
+    public DateTime ToDate { get; set; }
 
     // ================= GET =================
     public async Task OnGetAsync(int? skuId)
     {
         SkuId = skuId;
+        AdjustRequest.SKUId = skuId;
 
         // 1️⃣ Resolve SKU → Category/Product FIRST (deep link)
         if (SkuId.HasValue && SkuId > 0)
@@ -86,32 +105,32 @@ public class AddSkuModel : PageModel
         await LoadSkuContextAsync();
 
 
-    //await LoadSelectorsAsync();
-    //await LoadSkuContextAsync();
-}
+        //await LoadSelectorsAsync();
+        //await LoadSkuContextAsync();
+    }
 
-// ================= POST =================
-public async Task<IActionResult> OnPostAsync()
+    // ================= POST =================
+    public async Task<IActionResult> OnPostAsync()
     {
-        if (!ModelState.IsValid || !HasSku || !WarehouseId.HasValue)
+        
+        if (!ModelState.IsValid || !HasSku || !AdjustRequest.WarehouseId.HasValue)
         {
+            ModelState.AddModelError(string.Empty,"Please select SKU and Warehouse.");
             await LoadSelectorsAsync();
             await LoadSkuContextAsync();
             return Page();
         }
 
-        var result = await _inventoryService.AddSkuInventoryAsync(
-            SkuId!.Value,
-            WarehouseId.Value,
-            Quantity,
-            Remarks);
+        //var result = await _inventoryService.AddSkuInventoryAsync(           SkuId!.Value,            WarehouseId.Value, Quantity,      Remarks);
+        var result =     await _inventoryService.AdjustInventoryAsync(AdjustRequest);
 
-        if (!result.Success)
+        if (!result.IsSuccess)
         {
             ModelState.AddModelError(string.Empty, result.Message);
             await LoadSelectorsAsync();
             await LoadSkuContextAsync();
             return Page();
+
         }
 
         IsSuccess = true;
@@ -137,7 +156,11 @@ public async Task<IActionResult> OnPostAsync()
             originalSkuId > 0 &&
             !originalCategoryId.HasValue &&
             !originalProductId.HasValue;
+        if (FromDate == default)
+            FromDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
 
+        if (ToDate == default)
+            ToDate = DateTime.Today;
         // ===============================
         // 1️⃣ Categories
         // ===============================
@@ -146,7 +169,7 @@ public async Task<IActionResult> OnPostAsync()
             .Select(c => new SelectListItem(c.CategoryName, c.CategoryId.ToString()))
             .ToList();
 
-        
+
         // ===============================
         // 2️⃣ RESET LOGIC (SKIP FOR SKU DEEP LINK)
         // ===============================
@@ -157,15 +180,15 @@ public async Task<IActionResult> OnPostAsync()
                 originalCategoryId != CategoryId)
             {
                 ProductId = null;
-                SkuId = null;
-                WarehouseId = null;
+                AdjustRequest.SKUId = null;
+                AdjustRequest.WarehouseId = null;
             }
             else if (originalProductId.HasValue &&
                      ProductId.HasValue &&
                      originalProductId != ProductId)
             {
-                SkuId = null;
-                WarehouseId = null;
+                AdjustRequest.SKUId = null;
+                AdjustRequest.WarehouseId = null;
             }
         }
 
@@ -204,16 +227,16 @@ public async Task<IActionResult> OnPostAsync()
             })
             .ToList();
 
-        if (!WarehouseId.HasValue)
+        if (!AdjustRequest.WarehouseId.HasValue)
         {
-            WarehouseId = warehouses
+            AdjustRequest.WarehouseId = warehouses
                 .FirstOrDefault(w => w.IsPrimary)
                 ?.VendorWarehouseAddressID;
         }
 
-        if (WarehouseId.HasValue)
+        if (AdjustRequest.WarehouseId.HasValue)
         {
-            var wh = await _skuFilterService.GetWarehousePreviewAsync(WarehouseId.Value);
+            var wh = await _skuFilterService.GetWarehousePreviewAsync(AdjustRequest.WarehouseId.Value);
             if (wh != null)
             {
                 SelectedWarehouseName = wh.IsPrimary
@@ -266,11 +289,18 @@ public async Task<IActionResult> OnPostAsync()
         SelectedSkuDisplay =
             $"{skuContext.SKUCode} | {skuContext.VariantText}";
 
-        
+
 
         try
         {
-            Summary = await _inventoryService.GetSkuStockSummaryAsync(SkuId.Value, WarehouseId ?? 0);
+            Summary = await _inventoryService.GetSkuStockSummaryAsync(SkuId.Value, AdjustRequest.WarehouseId ?? 0);
+            Logs = await _inventoryLogService.GetInventoryLogsAsync(
+                        SkuId.Value,
+                        AdjustRequest.WarehouseId.Value,
+                        FromDate,
+                        ToDate,
+                        1,
+                        20);
         }
         catch (DomainValidationException ex)
         {

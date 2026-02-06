@@ -18,7 +18,43 @@ namespace UrbanNative.Api.Controllers.Vendors
         {
             _useCase = useCase;
         }
+        // ==========Adjust Inventory to Single SKU==========
+        // ===============================================
+        // POST: Adjust Inventory (Single SKU)
+        // ===============================================
+        [HttpPost("adjust")]
+        public async Task<IActionResult> AdjustInventory(
+            [FromBody] AdjustInventoryRequestDto request, int productId)
+        {
+            if (request == null)
+                return BadRequest("Invalid request.");
 
+            if (request.Quantity <= 0)
+                return BadRequest("Quantity must be greater than zero.");
+
+            if (string.IsNullOrWhiteSpace(request.ChangeType))
+                return BadRequest("ChangeType is required.");
+
+            if (string.IsNullOrWhiteSpace(request.Reason))
+                return BadRequest("Reason is required.");
+
+            int vendorId = GetVendorId(); // existing helper
+
+            var result = await _useCase.ExecuteAdjustAsync(request, vendorId, productId     );
+
+            return Ok(new AdjustInventoryResultDto
+            {
+                IsSuccess = true,
+                Message = "Inventory adjusted successfully.",
+                OldStock = result.OldStock,
+                NewStock = result.NewStock
+            });
+
+
+        }
+        // ======================================================
+        //      ADD INVENTORY TO PRODUCT (MULTIPLE SKUs)
+        // ======================================================
         [HttpPost("product/in")]
         public async Task<IActionResult> AddProductInventoryIn([FromBody] ProductInventoryInRequestDto request)
         {

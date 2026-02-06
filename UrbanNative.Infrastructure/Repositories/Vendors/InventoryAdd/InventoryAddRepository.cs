@@ -2,12 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UrbanNative.Application.DTOs.Vendors.Inventory;
 using UrbanNative.Application.DTOs.Vendors.Products;
 using UrbanNative.Application.Interfaces.Vendors.InventoryAdd;
+using UrbanNative.Domain.Exceptions;
 using UrbanNative.Infrastructure.Database;
 
 namespace UrbanNative.Infrastructure.Repositories.Vendors.InventoryAdd
@@ -20,6 +22,44 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors.InventoryAdd
         {
             _connectionFactory = connectionFactory;
         }
+        // ===========Adjust Inventory SKU Single==========================
+        // =================================================
+        // Adjust Inventory (Single SKU)
+        // =================================================
+
+        public async Task<AdjustInventoryResultDto> AdjustInventoryAsync(
+            int? skuId,
+            int? addressId,
+            string changeType,
+            int quantity,
+            string reason,
+            int vendorUserId)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+            var parameters = new DynamicParameters();
+            parameters.Add("@SKUId", skuId);
+            parameters.Add("@WarehouseId", addressId);
+            parameters.Add("@ChangeType", changeType);
+            parameters.Add("@Quantity", quantity);
+            parameters.Add("@Reason", reason);
+            parameters.Add("@VendorUserID", vendorUserId);
+
+            var result = await conn.QuerySingleOrDefaultAsync<AdjustInventoryResultDto>(
+                "sp_Vendor_AdjustInventory",
+                parameters,
+                commandType: CommandType.StoredProcedure
+            );
+
+            if (result == null)
+                throw new DomainValidationException("Inventory adjustment failed.");
+
+            return new AdjustInventoryResultDto
+            {
+                OldStock = result.OldStock,
+                NewStock = result.NewStock
+            };
+        }
+
         // ======================================================
         // GET Single SKUS FOR ADDING INVENTORY: Summary
         // ======================================================

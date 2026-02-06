@@ -2286,6 +2286,27 @@
   },
   {
     "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorAddInventoryController",
+    "Method": "AdjustInventory",
+    "RelativePath": "api/vendor/inventoryadd/adjust",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "UrbanNative.Application.DTOs.Vendors.Inventory.AdjustInventoryRequestDto",
+        "IsRequired": true
+      },
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorAddInventoryController",
     "Method": "GetProductSkusForInventory",
     "RelativePath": "api/vendor/inventoryadd/product/{productId}/skus",
     "HttpMethod": "GET",

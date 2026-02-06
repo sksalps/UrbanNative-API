@@ -30,6 +30,53 @@ namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
             _productRepo = productRepo;
             _skuFilterRepo = warehouseRepo;
         }
+        // ========== Adjust Inventory for Single SKU ==========
+        public async Task<AdjustInventoryResultDto> ExecuteAdjustAsync(AdjustInventoryRequestDto request,int vendorUserId, int productId)
+        {
+            // ===============================
+            // Business Validations
+            // ===============================
+            if (request.SKUId <= 0)
+                throw new DomainValidationException("Invalid SKU.");
+
+            if (request.WarehouseId <= 0)
+                throw new DomainValidationException("Invalid warehouse.");
+
+            if (request.Quantity <= 0)
+                throw new DomainValidationException("Quantity must be greater than zero.");
+
+            if (string.IsNullOrWhiteSpace(request.Reason))
+                throw new DomainValidationException("Reason is required.");
+
+            if (request.ChangeType != "IN" && request.ChangeType != "OUT")
+                throw new DomainValidationException("Invalid ChangeType.");
+
+            // ===============================
+            // SKU INITIATION VALIDATION (AUTHORITATIVE)
+            // =============================== 
+            //var summary = await _inventoryRepo.GetSkuStockSummaryAsync(            vendorId,        sku.ProductId,  skuId,           warehouseId;
+            var summary = await _inventoryRepo.GetSkuStockSummaryAsync(vendorUserId,productId,  request.SKUId.Value, request.WarehouseId.Value);
+            if (!summary.IsInitiated)
+                throw new DomainValidationException(
+                    "SKU is not initiated. Please complete SKU entry before adding inventory."
+                );
+            // ===============================
+            // Execute Repository (SP)
+            // ===============================
+            var result = await _inventoryRepo.AdjustInventoryAsync(
+                request.SKUId,
+                request.WarehouseId,
+                request.ChangeType,
+                request.Quantity,
+                request.Reason,
+                vendorUserId
+            );
+
+            if (result == null)
+                throw new DomainValidationException("Inventory adjustment failed.");
+
+            return result;
+        }
 
         // ======================================================
         // GET Single SKUS FOR ADDING INVENTORY
@@ -163,7 +210,7 @@ namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
             return new AddInventoryResultDto
             {
                 Success = true,
-                Message = "Inventory added successfully."
+                Message = "Inventory Adjusted successfully."
             };
         }
 

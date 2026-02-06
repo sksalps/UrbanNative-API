@@ -13,6 +13,7 @@ namespace UrbanNative.Application.Interfaces.UseCases.VendorInventoryAdd
                 int quantity,
                 string? remarks);
         Task<SkuInventoryStockSummaryDto> ExecuteAsyncSummary(int vendorId, int skuId, int warehouseId);
+        Task<AdjustInventoryResultDto> ExecuteAdjustAsync(AdjustInventoryRequestDto request, int vendorUserId, int productId);
     }
 
 }
