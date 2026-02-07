@@ -103,9 +103,7 @@ namespace UrbanNative.Api.Controllers.Vendors
         // SKU STOCK SUMMARY
         // ======================================================
         [HttpGet("sku/{skuId:int}/stock")]
-        public async Task<IActionResult> GetSkuStockSummary(
-            int skuId,
-            [FromQuery] int warehouseId)
+        public async Task<IActionResult> GetSkuStockSummary( int skuId, [FromQuery] int warehouseId)
         {
             try
             {
@@ -121,9 +119,7 @@ namespace UrbanNative.Api.Controllers.Vendors
             catch (DomainValidationException ex)
             {
                 return BadRequest(new { message = ex.Message });
-            }
-
-            
+            }           
         }
 
 

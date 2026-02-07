@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 using UrbanNative.Api.Services;
 using UrbanNative.Application.Interfaces;
@@ -10,7 +12,6 @@ using UrbanNative.Infrastructure;
 using UrbanNative.Infrastructure.Caching;
 using UrbanNative.Infrastructure.Database;
 using UrbanNative.Infrastructure.Repositories;
-using Microsoft.Data.SqlClient;
 
 
 
@@ -106,6 +107,33 @@ using (var scope = builder.Services.BuildServiceProvider().CreateScope())
 
 */
 
+builder.Services.AddSwaggerGen(c =>
+{
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Enter JWT token like: Bearer {token}"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
 
 
 

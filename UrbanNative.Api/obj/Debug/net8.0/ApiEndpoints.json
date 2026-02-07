@@ -2458,6 +2458,54 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorOrdersController",
+    "Method": "GetOrders",
+    "RelativePath": "api/vendors/orders/list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "filter",
+        "Type": "UrbanNative.Application.DTOs.Vendors.Orders.VendorOrderListFilterDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorOrdersController",
+    "Method": "GetSkuProductSuggestions",
+    "RelativePath": "api/vendors/orders/sku-product-suggestions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "term",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorOrdersController",
+    "Method": "GetSummary",
+    "RelativePath": "api/vendors/orders/summary",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "filter",
+        "Type": "UrbanNative.Application.DTOs.Vendors.Orders.VendorOrderListFilterDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorProductsController",
     "Method": "Get",
     "RelativePath": "api/vendors/products",

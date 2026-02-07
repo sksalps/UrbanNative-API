@@ -1,0 +1,259 @@
+﻿@page
+@model UrbanNative.Vendors.Pages.Orders.IndexModel
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h4 class="mb-3">Orders</h4>
+
+<!-- ============================= -->
+<!-- 🔍 FILTER SECTION -->
+<!-- ============================= -->
+<form method="post"
+      asp-page-handler="Search"
+      class="card p-3 mb-3 sticky-filter">
+
+    <div class="row g-2 align-items-end">
+
+        <!-- Order No -->
+        <div class="col-md-2">
+            <label class="form-label">Order No</label>
+            <input asp-for="Filter.OrderNo" class="form-control" />
+        </div>
+
+        <!-- SKU / Product Autocomplete -->
+        <div class="col-md-2 position-relative">
+            <label class="form-label">SKU / Product</label>
+
+            <input type="text"
+                   id="skuProductInput"
+                   asp-for="Filter.SkuOrProduct"
+                   class="form-control"
+                   placeholder="SKU / Product"
+                   autocomplete="off" />
+
+            <input type="hidden"            asp-for="Filter.SearchType"   id="searchType" />
+            <ul id="skuProductDropdown"
+                class="list-group position-absolute w-100 d-none"
+                style="z-index:1000; max-height:220px; overflow-y:auto;">
+            </ul>
+        </div>
+
+        <!-- From Date -->
+        <div class="col-md-2">
+            <label class="form-label">From Date</label>
+            <input asp-for="Filter.FromDate"
+                   type="date"
+                   class="form-control" />
+        </div>
+
+        <!-- To Date -->
+        <div class="col-md-2">
+            <label class="form-label">To Date</label>
+            <input asp-for="Filter.ToDate"
+                   type="date"
+                   class="form-control" />
+        </div>
+
+        <!-- Payment Status -->
+        <div class="col-md-2">
+            <label class="form-label">Payment Status</label>
+            <select asp-for="Filter.PaymentStatus" class="form-select">
+                <option value="">All</option>
+                <option value="PAID">PAID</option>
+                <option value="PENDING">PENDING</option>
+                <option value="FAILED">FAILED</option>
+            </select>
+        </div>
+
+        <!-- Shipment Status -->
+        <div class="col-md-2">
+            <label class="form-label">Shipment Status</label>
+            <select asp-for="Filter.ShipmentStatus" class="form-select">
+                <option value="">All</option>
+                <option value="READY">READY</option>
+                <option value="SHIPPED">SHIPPED</option>
+                <option value="INTRANSIT">INTRANSIT</option>
+                <option value="DELIVERED">DELIVERED</option>
+            </select>
+        </div>
+
+        <!-- RTO -->
+        <div class="col-md-2">
+            <label class="form-label">RTO / Return</label>
+            <select asp-for="Filter.RTOFilter" class="form-select">
+                <option value="ALL">All</option>
+                <option value="ONLY">Only RTO / Returned</option>
+                <option value="EXCLUDE">Exclude RTO / Returned</option>
+            </select>
+        </div>
+        <div class="col-md-4 d-flex gap-2 align-items-end">
+
+        <!-- Search + Reset + Inline Summary -->
+            <button type="submit"
+                    class="btn btn-primary">
+                Search
+            </button>
+
+            <a asp-page="/Orders/Index"
+               asp-route-reset="true"
+               class="btn btn-outline-secondary">
+                Reset
+            </a>
+
+            <div class="card px-3 py-2 text-center">
+                <div class="text-muted small">Orders:
+                <span class="fw-bold">
+                    @Model.Summary.TotalOrders
+                    </span>
+                </div>
+            </div>
+
+            <div class="card px-3 py-2 text-center">
+                <div class="text-muted small">Order Value:
+                <span class="fw-bold">
+                    ₹ @Model.Summary.TotalVendorValue.ToString("N0")
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+<!-- Search Badge -->
+@if (Model.Filter.SearchType == "SKU" || Model.Filter.SearchType == "PRODUCT")
+{
+    <span class="badge bg-info text-dark mb-2">
+        Searching by @Model.Filter.SearchType :
+        “@Model.Filter.SkuOrProduct”
+    </span>
+}
+
+<!-- ============================= -->
+<!-- 📋 ORDER LIST GRID -->
+<!-- ============================= -->
+<div class="card">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Order No</th>
+                    <th>Order Date</th>
+                    <th>NOP</th>
+                    <th>Items</th>
+                    <th>Order Value</th>
+                    <th>Shipment Status</th>
+                    <th>Payment Status</th>
+                    <th>Target Delivery By</th>
+                    <th style="width:90px;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Orders.Any())
+                {
+                    foreach (var o in Model.Orders)
+                    {
+                        <tr>
+                            <td>@Html.Raw(Model.Highlight(o.OrderNo))</td>
+                            <td>@o.OrderDate.ToString("dd-MMM-yyyy")</td>
+                            <td class="text-center">@o.NOP</td>
+                            <td class="text-center">@o.ItemsCount</td>
+                            <td>₹ @o.VendorOrderValue.ToString("N2")</td>
+                            <td>@o.ShipmentStatus</td>
+                            <td>@o.PaymentStatus</td>
+                            <td>
+                                @(o.TargetDeliveryBy.HasValue
+                                                        ? o.TargetDeliveryBy.Value.ToString("dd-MMM-yyyy")
+                                                        : "-")
+                            </td>
+                            <td class="text-center">
+                                <a asp-page="/Orders/Details"
+                                   asp-route-orderId="@o.OrderID"
+                                   class="btn btn-sm btn-outline-primary">
+                                    View
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="9"
+                            class="text-center text-muted py-4">
+                            No orders found.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- ============================= -->
+<!-- 🔹 AUTOCOMPLETE SCRIPT -->
+<!-- ============================= -->
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const input = document.getElementById("skuProductInput");
+            const list = document.getElementById("skuProductDropdown");
+            const searchType = document.getElementById("searchType");
+
+            if (!input || !list) return;
+
+            //const token = localStorage.getItem("JWT"); // ✅ JWT SOURCE
+
+            input.addEventListener("input", async function () {
+            const q = this.value.trim();
+
+            if (!q || q.length < 2) {
+                list.classList.add("d-none");
+                return;
+            }
+
+            const res = await fetch(
+                `?handler=SkuProductSuggestions&term=${encodeURIComponent(q)}`
+            );
+
+            if (!res.ok) return;
+
+            const data = await res.json();
+            list.innerHTML = "";
+
+            if (!data.length) {
+                list.classList.add("d-none");
+                return;
+            }
+
+            data.forEach(x => {
+                const li = document.createElement("li");
+                li.className = "list-group-item list-group-item-action";
+                li.innerHTML = `<strong>${x.skuCode}</strong>
+                                <small class="text-muted"> | ${x.productName}</small>`;
+                
+                li.addEventListener("click", () => {
+                    input.value = x.skuCode;
+                    searchType.value = "SKU";
+                    list.classList.add("d-none");
+                });
+
+
+                list.appendChild(li);
+            });
+
+            list.classList.remove("d-none");
+        });
+
+            document.addEventListener("click", e => {
+                if (!e.target.closest("#skuProductDropdown") &&
+                    e.target !== input) {
+                    list.classList.add("d-none");
+                }
+            });
+        });
+    </script>
+}
+

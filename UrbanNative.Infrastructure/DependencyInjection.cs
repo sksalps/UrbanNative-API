@@ -6,14 +6,17 @@ using UrbanNative.Application.Interfaces.UseCases;
 using UrbanNative.Application.Interfaces.UseCases.VendorInventoryAdd;
 using UrbanNative.Application.Interfaces.Vendors;
 using UrbanNative.Application.Interfaces.Vendors.InventoryAdd;
+using UrbanNative.Application.Interfaces.Vendors.Orders;
 
 using UrbanNative.Application.UseCase;
 using UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd;
 using UrbanNative.Application.UseCases.Vendors;
+using UrbanNative.Application.UseCase.Vendors.Orders;
 using UrbanNative.Infrastructure.Repositories;
 using UrbanNative.Infrastructure.Repositories.CommonCrossDashboard;
 using UrbanNative.Infrastructure.Repositories.Vendors;
 using UrbanNative.Infrastructure.Repositories.Vendors.InventoryAdd;
+using UrbanNative.Infrastructure.Repositories.Vendors.Orders;
 
 using UrbanNative.Infrastructure.Repository;
 using UrbanNative.Infrastructure.Services;
@@ -49,6 +52,7 @@ namespace UrbanNative.Infrastructure
             //services.AddScoped<IVendorLoginRepository, VendorLoginRepository>();
             services.AddScoped<IVendorProfileUseCase, VendorProfileUseCase>();
             services.AddScoped<IVendorProfileRepository, VendorProfileRepository>();
+            
 
             // UseCases
             services.AddScoped<IVendorSettingsUseCase, VendorSettingsUseCase>();
@@ -56,6 +60,7 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<IVendorSkuUseCase, VendorSkuUseCase>();
             services.AddScoped<IVendorInventoryUseCase, VendorInventoryUseCase>();
             services.AddScoped<IAddInventoryInUseCase, AddInventoryInUseCase>();
+            services.AddScoped<IVendorOrderUseCase, VendorOrderUseCase>();
 
             // Repositories
             services.AddScoped<IVendorSettingsRepository, VendorSettingsRepository>();
@@ -65,6 +70,7 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<IVendorInventoryRepository, VendorInventoryRepository>();
             services.AddScoped<ISkuFilterRepository, SkuFilterRepository>();
             services.AddScoped<IInventoryAddRepository, InventoryAddRepository>();
+            services.AddScoped<IVendorOrderRepository, VendorOrderRepository>();
 
             return services;
         }
