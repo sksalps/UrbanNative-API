@@ -15,62 +15,43 @@ namespace UrbanNative.Vendors.Pages.Orders
             _orderService = orderService;
         }
 
-        // -----------------------------
-        // Bind Filter
-        // -----------------------------
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public VendorOrderListFilterDto Filter { get; set; } = new();
 
-        // -----------------------------
-        // View Models
-        // -----------------------------
         public IReadOnlyList<VendorOrderListDto> Orders { get; set; } = [];
         public VendorOrderSummaryDto Summary { get; set; } = new();
 
-        // -----------------------------
-        // GET
-        // -----------------------------
+        /* ===============================
+           GET – Handles normal + deeplink
+           =============================== */
         public async Task OnGetAsync()
         {
-            SetDefaultDateRange();
+            NormalizeFilters(isFromDeeplink: true);
             await LoadDataAsync();
         }
 
-        // -----------------------------
-        // POST (Search)
-        // -----------------------------
+        /* ===============================
+           POST – Search button
+           =============================== */
         public async Task<IActionResult> OnPostSearchAsync()
         {
-            NormalizeFilters();
+            NormalizeFilters(isFromDeeplink: false);
             await LoadDataAsync();
             return Page();
-
         }
 
-        // -----------------------------
-        // Load Data
-        // -----------------------------
+        /* ===============================
+           Data Load
+           =============================== */
         private async Task LoadDataAsync()
         {
             Orders = await _orderService.GetOrdersAsync(Filter);
             Summary = await _orderService.GetSummaryAsync(Filter);
         }
 
-        // -----------------------------
-        // Default Date Logic
-        // -----------------------------
-        private void SetDefaultDateRange()
-        {
-            if (!Filter.FromDate.HasValue && !Filter.ToDate.HasValue)
-            {
-                Filter.FromDate = DateTime.Today.AddMonths(-1);
-                Filter.ToDate = DateTime.Today;
-            }
-        }
-
-        // -----------------------------
-        // Highlight helper
-        // -----------------------------
+        /* ===============================
+           Highlight helper
+           =============================== */
         public string Highlight(string? source)
         {
             if (string.IsNullOrWhiteSpace(source) ||
@@ -85,38 +66,30 @@ namespace UrbanNative.Vendors.Pages.Orders
             );
         }
 
-        public async Task<IActionResult> OnGetSkuProductSuggestionsAsync(string term)
+        /* ===============================
+           Filter Normalization (CORE)
+           =============================== */
+        private void NormalizeFilters(bool isFromDeeplink)
         {
-            if (string.IsNullOrWhiteSpace(term))
-                return new JsonResult(Array.Empty<VendorSkuProductSuggestionDto>());
+            // Normalize empty dropdowns
+            Filter.PaymentStatus =
+                string.IsNullOrWhiteSpace(Filter.PaymentStatus)
+                    ? null
+                    : Filter.PaymentStatus;
 
-            var result = await _orderService.GetSkuProductSuggestionsAsync(term);
+            Filter.ShipmentStatus =
+                string.IsNullOrWhiteSpace(Filter.ShipmentStatus)
+                    ? null
+                    : Filter.ShipmentStatus;
 
-            return new JsonResult(result);
-        }
+            Filter.RTOFilter =
+                string.IsNullOrWhiteSpace(Filter.RTOFilter)
+                    ? "ALL"
+                    : Filter.RTOFilter;
 
-
-        // -----------------------------
-        // Normalize Filters (CRITICAL)
-        // -----------------------------
-        private void NormalizeFilters()
-        {
-            // 🔴 Normalize dropdown values
-            Filter.PaymentStatus = string.IsNullOrWhiteSpace(Filter.PaymentStatus)
-                ? null
-                : Filter.PaymentStatus;
-
-            Filter.ShipmentStatus = string.IsNullOrWhiteSpace(Filter.ShipmentStatus)
-                ? null
-                : Filter.ShipmentStatus;
-
-            Filter.RTOFilter = string.IsNullOrWhiteSpace(Filter.RTOFilter)
-                ? "ALL"
-                : Filter.RTOFilter;
-
-            // -----------------------------
-            // 1️⃣ Order No override
-            // -----------------------------
+            /* -----------------------------
+               Order No override
+               ----------------------------- */
             if (!string.IsNullOrWhiteSpace(Filter.OrderNo))
             {
                 Filter.OrderNo = Filter.OrderNo.Trim();
@@ -127,14 +100,19 @@ namespace UrbanNative.Vendors.Pages.Orders
                 return;
             }
 
-            // -----------------------------
-            // 2️⃣ SKU / Product override
-            // -----------------------------
+            /* -----------------------------
+               SKU / Product override
+               ----------------------------- */
+            // Always recompute SearchType for SKU / Product
+            Filter.SearchType = null;
+
             if (!string.IsNullOrWhiteSpace(Filter.SkuOrProduct))
             {
                 Filter.SkuOrProduct = Filter.SkuOrProduct.Trim();
 
-                bool looksLikeSku =           !Filter.SkuOrProduct.Contains(' ')             && Filter.SkuOrProduct.Any(char.IsDigit);
+                bool looksLikeSku =
+                    !Filter.SkuOrProduct.Contains(' ')
+                    && Filter.SkuOrProduct.Any(char.IsDigit);
 
                 Filter.SearchType = looksLikeSku ? "SKU" : "PRODUCT";
 
@@ -142,15 +120,32 @@ namespace UrbanNative.Vendors.Pages.Orders
                 Filter.ToDate = null;
                 return;
             }
-            else
+
+            /* -----------------------------
+               ShipmentStatus from deeplink
+               Supports single or CSV
+               ----------------------------- */
+            if (!string.IsNullOrWhiteSpace(Filter.ShipmentStatus))
             {
-                Filter.SearchType = null;
+                // Example: READY,SHIPPED
+                Filter.ShipmentStatus =
+                    Filter.ShipmentStatus
+                          .Replace(" ", "")
+                          .ToUpper();
             }
 
-            // -----------------------------
-            // 3️⃣ Default Date
-            // -----------------------------
-            if (!Filter.FromDate.HasValue && !Filter.ToDate.HasValue)
+            /* -----------------------------
+               Default Date (ONLY if needed)
+               ----------------------------- */
+            bool hasAnyFilter =
+                !string.IsNullOrWhiteSpace(Filter.OrderNo) ||
+                !string.IsNullOrWhiteSpace(Filter.SkuOrProduct) ||
+                !string.IsNullOrWhiteSpace(Filter.ShipmentStatus) ||
+                !string.IsNullOrWhiteSpace(Filter.PaymentStatus) ;
+
+            if (!Filter.FromDate.HasValue &&
+                !Filter.ToDate.HasValue &&
+                !hasAnyFilter)
             {
                 Filter.FromDate = DateTime.Today.AddMonths(-1);
                 Filter.ToDate = DateTime.Today;

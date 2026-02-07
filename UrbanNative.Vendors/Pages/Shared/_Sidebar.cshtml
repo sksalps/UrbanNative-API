@@ -107,24 +107,41 @@
                 <li>
                     <a asp-page="/Orders/Index"
                        class="@(currentPage == "/Orders/Index" ? "active" : "")">
+                        All Orders
+                    </a>
+                </li>
+                <li>
+                    <a asp-page="/Orders/Index"asp-route-ShipmentStatus="NEW"
+                       class="@(currentPage == "/Orders/Index"
+                             && Context.Request.Query["ShipmentStatus"] == "NEW" ? "active" : "")">
                         New Orders
                     </a>
                 </li>
                 <li>
-                    <a asp-page="/Orders/InTransit"
-                       class="@(currentPage == "/Orders/InTransit" ? "active" : "")">
+                    <a asp-page="/Orders/Index" asp-route-ShipmentStatus="Ready"
+                       class="@(currentPage == "/Orders/Index"
+                       && Context.Request.Query["ShipmentStatus"] == "Ready" ? "active" : "")">
+                        ReadyToShip
+                    </a>
+                </li>
+                <li>
+                    <a asp-page="/Orders/Index" asp-route-ShipmentStatus="INTRANSIT"
+                       class="@(currentPage == "/Orders/Index"
+                       && Context.Request.Query["ShipmentStatus"] == "INTRANSIT" ? "active" : "")">
                         In Transit
                     </a>
                 </li>
                 <li>
-                    <a asp-page="/Orders/Delivered"
-                       class="@(currentPage == "/Orders/Delivered" ? "active" : "")">
+                    <a asp-page="/Orders/Index" asp-route-ShipmentStatus="DELIVERED"
+                       class="@(currentPage == "/Orders/Index"
+                        && Context.Request.Query["ShipmentStatus"] == "DELIVERED" ? "active" : "")">
                         Delivered
                     </a>
                 </li>
                 <li>
-                    <a asp-page="/Orders/Returns"
-                       class="@(currentPage == "/Orders/Returns" ? "active" : "")">
+                    <a asp-page="/Orders/Index" asp-route-ShipmentStatus="RTO"
+                       class="@(currentPage == "/Orders/Index"
+                       && Context.Request.Query["ShipmentStatus"] == "RTO" ? "active" : "")">
                         Returns / RTO
                     </a>
                 </li>
