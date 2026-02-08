@@ -1,4 +1,7 @@
-﻿using UrbanNative.Application.DTOs.Vendors.Orders;
+﻿using Microsoft.AspNetCore.WebUtilities;
+using System.Net.Http;
+using System.Text.Json;
+using UrbanNative.Application.DTOs.Vendors.Orders;
 using UrbanNative.Vendors.Services.Interfaces;
 
 namespace UrbanNative.Vendors.Services
@@ -48,6 +51,42 @@ namespace UrbanNative.Vendors.Services
                 .ReadFromJsonAsync<VendorOrderSummaryDto>()
                 ?? new VendorOrderSummaryDto();
         }
+
+        // Vendor Order Details View
+        public async Task<VendorOrderDetailsDto> GetOrderDetailsAsync(
+    int? orderId,
+    int? shipmentId,
+    int? returnId)
+        {
+            var request = new VendorOrderDetailsRequestDto
+            {
+                OrderId = orderId,
+                ShipmentId = shipmentId,
+                ReturnId = returnId
+            };
+
+            var response = await _http.PostAsJsonAsync(
+                "api/vendors/orders/details",
+                request
+            );
+
+            var content = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                // Optional: deserialize API error contract
+                throw new Exception(content);
+            }
+
+            return JsonSerializer.Deserialize<VendorOrderDetailsDto>(
+                content,
+                new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+        }
+
+
     }
 
 }

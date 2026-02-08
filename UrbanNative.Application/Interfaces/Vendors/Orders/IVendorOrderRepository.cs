@@ -16,5 +16,11 @@ namespace UrbanNative.Application.Interfaces.Vendors.Orders
             VendorOrderListFilterDto filter);
         Task<IReadOnlyList<VendorSkuProductSuggestionDto>>    GetSkuProductSuggestionsAsync(int vendorId, string term);
 
+        // Vendor Order Details View
+        Task<VendorOrderDetailsDto> GetVendorOrderDetailsAsync(
+        int vendorId,
+        int? orderId,
+        int? shipmentId,
+        int? returnId    );
     }
 }

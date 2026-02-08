@@ -27,7 +27,7 @@ namespace UrbanNative.Vendors.Services
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
-                throw new DomainValidationException(
+                throw new DomainValidationException("ERR1",
                     string.IsNullOrWhiteSpace(error)
                         ? "Inventory adjustment failed."
                         : error
@@ -38,7 +38,7 @@ namespace UrbanNative.Vendors.Services
                 .ReadFromJsonAsync<AdjustInventoryResultDto>();
 
             if (result == null)
-                throw new DomainValidationException("Invalid response from server.");
+                throw new DomainValidationException("ERR1", "Invalid response from server.");
 
             return result;
         }
@@ -99,7 +99,7 @@ namespace UrbanNative.Vendors.Services
                 if (!response.IsSuccessStatusCode)
                 {
                     // Mask infra / SQL / SP issues
-                    throw new DomainValidationException(
+                    throw new DomainValidationException("ERR1",
                         "Unable to load SKU summary. Please try again."
                     );
                 }
@@ -116,7 +116,7 @@ namespace UrbanNative.Vendors.Services
             catch (Exception)
             {
                 // network / parsing / unexpected
-                throw new DomainValidationException(
+                throw new DomainValidationException("ERR1",
                     "Unable to load SKU summary. Please try again."
                 );
             }
@@ -139,7 +139,7 @@ namespace UrbanNative.Vendors.Services
                         PropertyNameCaseInsensitive = true
                     });
 
-                throw new DomainValidationException(
+                throw new DomainValidationException("ERR1",
                     apiError?.Message ?? "Inventory validation failed");
             }
 

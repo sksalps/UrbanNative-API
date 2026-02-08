@@ -2459,6 +2459,22 @@
   },
   {
     "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorOrdersController",
+    "Method": "GetOrderDetails",
+    "RelativePath": "api/vendors/orders/details",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "UrbanNative.Application.DTOs.Vendors.Orders.VendorOrderDetailsRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorOrdersController",
     "Method": "GetOrders",
     "RelativePath": "api/vendors/orders/list",
     "HttpMethod": "POST",

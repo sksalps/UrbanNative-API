@@ -1,0 +1,356 @@
+﻿@page
+@model UrbanNative.Vendors.Pages.Orders.VendorOrderDetailsModel
+@{
+    ViewData["Title"] = "Order Details";
+}
+@functions {
+    string StatusBadge(string status)
+    {
+        return status switch
+        {
+            "DELIVERED" => "bg-success",
+            "SHIPPED" => "bg-primary",
+            "INTRANSIT" => "bg-warning",
+            "FAILED" => "bg-danger",
+            "RTO" => "bg-danger",
+            "PICKUP_CREATED" => "bg-info",
+            _ => "bg-secondary"
+        };
+    }
+    string MaskMobile(string? mobile)
+    {
+        if (string.IsNullOrWhiteSpace(mobile) || mobile.Length < 4)
+            return "—";
+
+        return $"XXXXXX{mobile[^4..]}";
+    }
+
+}
+
+<h2 class="mb-3">Order Details</h2>
+
+@if (Model.HasError)
+{
+    <div class="alert alert-danger">
+        @Model.ErrorMessage
+        <div class="mt-2">
+            <a asp-page="/Orders/Index" class="btn btn-sm btn-secondary">
+                Back to Orders
+            </a>
+        </div>
+    </div>
+    return;
+}
+
+<!-- ===============================
+     ORDER SUMMARY
+================================ -->
+<div class="card mb-3">
+    <div class="card-body d-flex justify-content-between">
+        <div>
+            <strong>Order No:</strong> @Model.OrderDetails.OrderSummary.OrderNo <br />
+            <strong>Order Date:</strong> @Model.OrderDetails.OrderSummary.OrderDate.ToString("dd MMM yyyy")
+        </div>
+        <div>
+            <strong>Payment:</strong> @Model.OrderDetails.OrderSummary.PaymentMode <br />
+            <strong>Vendor Order Value:</strong>
+            ₹ @Model.OrderDetails.OrderSummary.VendorOrderValue
+        </div>
+    </div>
+</div>
+
+<!-- ===============================
+     TIMELINE (TOP)
+================================ -->
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="timeline-container">
+
+            @{
+                var t = Model.OrderDetails.Timeline;
+            }
+
+            <div class="timeline-step complete">
+                <div class="title">Ordered</div>
+                <div>@t.OrderedAt.ToString("dd MMM yyyy")</div>
+            </div>
+
+            <div class="timeline-step complete">
+                <div class="title">Packed</div>
+                <div>—</div>
+            </div>
+
+            <div class="timeline-step complete">
+                <div class="title">Picked</div>
+                <div>@(t.PickedAt?.ToString("dd MMM yyyy") ?? "—")</div>
+            </div>
+
+            <div class="timeline-step @(t.ShippedAt != null ? "complete" : "next")">
+                <div class="title">Shipped</div>
+                <div>@(t.ShippedAt?.ToString("dd MMM yyyy") ?? "—")</div>
+                @if (!string.IsNullOrEmpty(t.TrackingNo))
+                {
+                    <div class="small">
+                        Tracking:
+                        <span class="text-primary">@t.TrackingNo</span>
+                    </div>
+                }
+            </div>
+
+            <div class="timeline-step @(t.DeliveredAt != null ? "complete" : "next")">
+                <div class="title">Delivered / Failed</div>
+                <div>@(t.DeliveredAt?.ToString("dd MMM yyyy") ?? "—")</div>
+            </div>
+
+            <div class="timeline-step @(Model.HasReturns ? "active" : "not-applied")">
+                <div class="title">Returned / RTO</div>
+                <div>@(Model.HasReturns ? "Initiated" : "—")</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ===============================
+     CUSTOMER DETAILS (3 COLUMN – SINGLE ROW)
+================================ -->
+<div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center py-2">
+        <strong>Customer Details</strong>
+
+        <button class="btn btn-sm btn-outline-secondary"
+                type="button"
+                onclick="copyAddress()">
+            <i class="bi bi-clipboard"></i> Copy Address
+        </button>
+    </div>
+
+    <div class="card-body py-2">
+        <div class="row gx-4 align-items-start small">
+
+            <!-- COLUMN 1 : CUSTOMER -->
+            <div class="col-md-4">
+                <div><strong>Name:</strong> @Model.OrderDetails.CustomerAddress.CustomerName</div>
+                <div><strong>Mobile:</strong> @Model.OrderDetails.CustomerAddress.CustomerMobile</div>
+                <div><strong>Email:</strong> @Model.OrderDetails.CustomerAddress.CustomerEmail</div>
+            </div>
+
+            <!-- COLUMN 2 : SHIPPING -->
+            <div class="col-md-4" >
+                <strong>Shipping Address</strong>
+                <div id="shipAddress">
+                    <div>@(Model.OrderDetails.CustomerAddress?.ShipAddressLines)</div>
+                    <div>@(Model.OrderDetails.CustomerAddress?.ShipLandmark)</div>
+                    <div>
+                        @(Model.OrderDetails.CustomerAddress?.ShipCity),
+                        @(Model.OrderDetails.CustomerAddress?.ShipState)
+                    </div>
+                    <div>
+                        @(Model.OrderDetails.CustomerAddress?.ShipCountry)
+                        -
+                        @(Model.OrderDetails.CustomerAddress?.ShipPinCode)
+                    </div>
+                </div>
+            </div>
+
+            <!-- COLUMN 3 : BILLING -->
+            <div class="col-md-4" >
+                <strong>Billing Address</strong>
+                <div id="billAddress">
+                    <div>@(Model.OrderDetails.CustomerAddress?.BillAddressLines)</div>
+                    <div>@(Model.OrderDetails.CustomerAddress?.BillLandmark)</div>
+                    <div>
+                        @(Model.OrderDetails.CustomerAddress?.BillCity),
+                        @(Model.OrderDetails.CustomerAddress?.BillState)
+                    </div>
+                    <div>
+                        @(Model.OrderDetails.CustomerAddress?.BillCountry)
+                        -
+                        @(Model.OrderDetails.CustomerAddress?.BillPinCode)
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- ===============================
+     SKU ITEMS
+================================ -->
+@if (Model.HasItems)
+{
+    <div class="card mb-4">
+        <div class="card-header">
+            <strong>Items</strong>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered table-hover">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>Product</th>
+                        <th>SKU</th>
+                        <th>Qty</th>
+                        <th>Shipped</th>
+                        <th>DP</th>
+                        <th>Vendor Share</th>
+                        <th>GST (%)</th>
+                        <th>CGST (₹)</th>
+                        <th>SGST (₹)</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderDetails.Items)
+                    {
+                        <tr>
+                            <td>@item.ProductName</td>
+                            <td>
+                                @item.SKUCode
+                                @if (!string.IsNullOrEmpty(item.VariantDisplay))
+                                {
+                                    <div class="text-muted small">
+                                        @item.VariantDisplay
+                                    </div>
+                                }
+                            </td>
+                            <td>@item.Quantity</td>
+                            <td class="text-success">@item.ShippedQty</td>
+                            <td>₹ @item.DP</td>
+                            <td>₹ @item.VendorShare</td>
+                            <td>
+                                @($"{item.CGSTPercent + item.SGSTPercent:0.##}%")
+                            </td>
+                            <td>₹ @item.CGSTAmount</td>
+                            <td>₹ @item.SGSTAmount</td>
+                            <td><strong>₹ @item.SKUTotal</strong></td>
+                            <td>
+                                <span class="badge @StatusBadge(item.Status)">
+                                    @item.Status
+                                </span>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning">
+        No items available for this shipment.
+    </div>
+}
+
+<!-- ===============================
+     RETURN / RTO SECTION
+================================ -->
+@if (Model.HasReturns)
+{
+    <div class="card">
+        <div class="card-header">
+            <strong>Return / RTO Details</strong>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered table-hover">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>SKU</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Reason</th>
+                        <th>Pick From</th>
+                        <th>Drop To</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var r in Model.OrderDetails.Returns)
+                    {
+                        <tr>
+                            <td>
+                                @r.SKUCode
+                                @if (!string.IsNullOrEmpty(r.VariantDisplay))
+                                {
+                                    <div class="text-muted small">
+                                        @r.VariantDisplay
+                                    </div>
+                                }
+                            </td>
+                            <td>@r.ReturnType</td>
+                            <td>
+                                <span class="badge bg-warning">
+                                    @r.ReturnStatus
+                                </span>
+                            </td>
+                            <td>@r.CustomerReason</td>
+                            <td>@r.PickFrom</td>
+                            <td>@r.DropTo</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-muted">
+        No return or RTO initiated for this order.
+    </div>
+}
+<script>
+    function copyAddress() {
+        const ship = document.getElementById("shipAddress")?.innerText ?? "";
+        const bill = document.getElementById("billAddress")?.innerText ?? "";
+
+        const text =
+            "Shipping Address:\n" + ship +
+            "\n\nBilling Address:\n" + bill;
+
+        navigator.clipboard.writeText(text)
+            .then(() => alert("Address copied to clipboard"))
+            .catch(() => alert("Unable to copy address"));
+    }
+</script>
+
+
+<!-- ===============================
+     TIMELINE BASIC STYLES
+================================ -->
+<style>
+    .timeline-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+    }
+    .timeline-step {
+        flex: 1;
+        padding: 10px;
+        border-radius: 6px;
+        text-align: center;
+        font-size: 13px;
+    }
+    .timeline-step .title {
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+    .timeline-step.complete {
+        background: #e6f4ea;
+    }
+    .timeline-step.active {
+        background: #fff3cd;
+    }
+    .timeline-step.next {
+        background: #f1f1f1;
+    }
+    .timeline-step.not-applied {
+        background: #f8f9fa;
+        color: #999;
+    }
+</style>

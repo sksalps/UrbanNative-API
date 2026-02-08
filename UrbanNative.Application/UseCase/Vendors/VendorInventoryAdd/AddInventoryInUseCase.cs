@@ -37,19 +37,19 @@ namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
             // Business Validations
             // ===============================
             if (request.SKUId <= 0)
-                throw new DomainValidationException("Invalid SKU.");
+                throw new DomainValidationException("ERR01", "Invalid SKU.");
 
             if (request.WarehouseId <= 0)
-                throw new DomainValidationException("Invalid warehouse.");
+                throw new DomainValidationException("ERR01", "Invalid warehouse.");
 
             if (request.Quantity <= 0)
-                throw new DomainValidationException("Quantity must be greater than zero.");
+                throw new DomainValidationException("ERR01","Quantity must be greater than zero.");
 
             if (string.IsNullOrWhiteSpace(request.Reason))
-                throw new DomainValidationException("Reason is required.");
+                throw new DomainValidationException("ERR01", "Reason is required.");
 
             if (request.ChangeType != "IN" && request.ChangeType != "OUT")
-                throw new DomainValidationException("Invalid ChangeType.");
+                throw new DomainValidationException("ERR01", "Invalid ChangeType.");
 
             // ===============================
             // SKU INITIATION VALIDATION (AUTHORITATIVE)
@@ -57,7 +57,7 @@ namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
             //var summary = await _inventoryRepo.GetSkuStockSummaryAsync(            vendorId,        sku.ProductId,  skuId,           warehouseId;
             var summary = await _inventoryRepo.GetSkuStockSummaryAsync(vendorUserId,productId,  request.SKUId.Value, request.WarehouseId.Value);
             if (!summary.IsInitiated)
-                throw new DomainValidationException(
+                throw new DomainValidationException("ERR01",
                     "SKU is not initiated. Please complete SKU entry before adding inventory."
                 );
             // ===============================
@@ -73,7 +73,7 @@ namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
             );
 
             if (result == null)
-                throw new DomainValidationException("Inventory adjustment failed.");
+                throw new DomainValidationException("ERR01", "Inventory adjustment failed.");
 
             return result;
         }
@@ -93,7 +93,7 @@ namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
                 // ===============================
                 var sku = await _skuFilterRepo.GetSkuContextAsync(skuId, vendorId);
                 if (sku == null)
-                    throw new DomainValidationException(
+                    throw new DomainValidationException("ERR01",
                         "Invalid or inactive SKU."
                     );
 
@@ -105,7 +105,7 @@ namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
                     var warehouse = await _skuFilterRepo.GetWarehouseByIdAsync(warehouseId);
 
                     if (warehouse == null || warehouse.VendorId != vendorId)
-                        throw new DomainValidationException(
+                        throw new DomainValidationException("ERR01",
                             "Invalid warehouse selection."
                         );
                 }
@@ -128,7 +128,7 @@ namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
             catch (Exception)
             {
                 // 🚫 infra / sql / wrong SP / dapper / network
-                throw new DomainValidationException(
+                throw new DomainValidationException("ERR01",
                     "Internal server error. Please try again."
                 );
             }
@@ -146,7 +146,7 @@ namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
             // BASIC GUARD
             // ===============================
             if (quantity <= 0)
-                throw new DomainValidationException(
+                throw new DomainValidationException("ERR01",
                     "Quantity must be greater than zero."
                 );
 
@@ -155,9 +155,8 @@ namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
             // ===============================
             var sku = await _skuFilterRepo.GetSkuContextAsync(skuId, vendorId);
             if (sku == null)
-                throw new DomainValidationException(
-                    "Invalid or inactive SKU."
-                );
+                throw new DomainValidationException("ERR01",
+                    "Invalid or inactive SKU."   );
 
             // ===============================
             // SKU INITIATION VALIDATION (AUTHORITATIVE)
@@ -170,7 +169,7 @@ namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
             );
 
             if (!summary.IsInitiated)
-                throw new DomainValidationException(
+                throw new DomainValidationException("ERR01",
                     "SKU is not initiated. Please complete SKU entry before adding inventory."
                 );
 
@@ -180,7 +179,7 @@ namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
             var warehouse = await _skuFilterRepo.GetWarehouseByIdAsync(warehouseId);
 
             if (warehouse == null || warehouse.VendorId != vendorId)
-                throw new DomainValidationException(
+                throw new DomainValidationException("ERR01",
                     "Invalid warehouse selection."
                 );
 
@@ -236,15 +235,15 @@ namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
         public async Task<InventoryInResponseDto> ExecuteAsync(int vendorId,ProductInventoryInRequestDto request)
         {
             if (request == null)
-                throw new DomainValidationException("Invalid request");
+                throw new DomainValidationException("ERR01", "Invalid request");
 
             if (request.Items == null || !request.Items.Any())
-                throw new DomainValidationException("No inventory items provided");
+                throw new DomainValidationException("ERR1","No inventory items provided");
             if (!request.ProductId.HasValue)
-                throw new DomainValidationException("Product is required");
+                throw new DomainValidationException("ERR1", "Product is required");
 
             if (!request.WarehouseId.HasValue)
-                throw new DomainValidationException("Warehouse is required");
+                throw new DomainValidationException("ERR1", "Warehouse is required");
             int productId = request.ProductId.Value;
             int warehouseId = request.WarehouseId.Value;
 
@@ -255,21 +254,21 @@ namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
                 : request.Remarks.Trim();
 
             if (request.Remarks?.Length > 255)
-                throw new DomainValidationException("Remarks cannot exceed 255 characters");
+                throw new DomainValidationException("ERR1", "Remarks cannot exceed 255 characters");
 
             // Validate warehouse
             var warehouse = await _skuFilterRepo.GetWarehouseByIdAsync(warehouseId);
             if (warehouse == null ||
                 warehouse.VendorId != vendorId ||
                 !warehouse.IsActive)
-                throw new DomainValidationException("Invalid warehouse selected");
+                throw new DomainValidationException("ERR1", "Invalid warehouse selected");
 
             // Validate product
             var product = await _productRepo.GetProductForEditAsync(
                 vendorId, productId);
 
             if (product == null)
-                throw new DomainValidationException("Invalid product selection");
+                throw new DomainValidationException("ERR1", "Invalid product selection");
 
             // Filter valid quantities
             var validItems = request.Items
@@ -277,7 +276,7 @@ namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
                 .ToList();
 
             if (!validItems.Any())
-                throw new DomainValidationException("Enter quantity for at least one SKU");
+                throw new DomainValidationException("ERR1", "Enter quantity for at least one SKU");
 
             // Load SKU snapshot
             var skuSnapshots = await _inventoryRepo.GetProductInventorySkusAsync(vendorId, productId, warehouseId);
@@ -287,13 +286,13 @@ namespace UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd
                 var sku = skuSnapshots.FirstOrDefault(x => x.SKUId == item.SKUId);
 
                 if (sku == null)
-                    throw new DomainValidationException("Invalid SKU detected");
+                    throw new DomainValidationException("ERR1", "Invalid SKU detected");
 
                 //if (!sku.IsActive)
                  //   throw new DomainValidationException("Inactive SKU cannot receive stock");
 
                 if (!sku.IsInitiated)
-                    throw new DomainValidationException("Initiate from SKU Entry");
+                    throw new DomainValidationException("ERR1", "Initiate from SKU Entry");
             }
 
             await _inventoryRepo.AddProductInventoryInAsync(

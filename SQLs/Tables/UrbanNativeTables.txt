@@ -208,6 +208,19 @@ CancelReason	nvarchar(300)	Checked
 CreatedAt	datetime	Unchecked
 UpdatedAt	datetime	Checked
 ReferralUserID	int	Unchecked
+BillAddressLines	nvarchar(200)	Checked
+BillCountry	nchar(100)	Checked
+BillState	nvarchar(100)	Checked
+BillCity	nvarchar(100)	Checked
+ShipAddressLines	nvarchar(200)	Checked
+BillLandmark	nvarchar(200)	Checked
+ShipLandmark	nvarchar(200)	Checked
+ShipCountry	nvarchar(100)	Checked
+ShipState	nvarchar(100)	Checked
+ShipCity	nvarchar(100)	Checked
+BillPinCode	nvarchar(10)	Checked
+ShipPinCode	nvarchar(10)	Checked
+		Unchecked
 
 OrderItems
 OrderItemID	int	Unchecked
@@ -234,7 +247,10 @@ CreatedAt	datetime	Unchecked
 VendorSharedMargin	decimal(10, 2)	Unchecked
 VendorWarehouseAddressID	int	Checked
 HandlingDays	int	Unchecked
-TransitDays	int	Unchecked		
+TransitDays	int	Unchecked
+ReturnPolicyId	int	Unchecked
+ReturnDays	int	Unchecked
+		Unchecked	
 		
 OrderShipments
 ShipmentID	int	Unchecked
@@ -249,15 +265,73 @@ ShippedAt	datetime	Checked
 DeliveredAt	datetime	Checked
 ReceivedBy	varchar(30)	Checked
 CreatedAt	datetime	Unchecked
+		Unchecked
 		
-
 OrderShipmentDetails
 OrderShipmentDetailsID	int	Unchecked
 ShipmentID	int	Unchecked
 OrderItemID	int	Unchecked
 ShippedQuantity	int	Unchecked
-		
+		Unchecked
 
+OrderItemReturns		
+ReturnId	int	Unchecked
+OrderId	int	Unchecked
+OrderItemId	int	Unchecked
+SKUId	int	Unchecked
+VendorId	int	Unchecked
+ReturnType	varchar(10)	Unchecked
+ReturnStatus	varchar(20)	Unchecked
+CustomerReason	nvarchar(300)	Unchecked
+Remarks	nvarchar(MAX)	Checked
+AdminComment	nvarchar(500)	Checked
+AdminId	int	Checked
+AdminActionAt	datetime	Checked
+RequestedAt	datetime	Unchecked
+		Unchecked		
+		
+OrderReturnShipment
+ReturnShipmentId	int	Unchecked
+ReturnId	int	Unchecked
+TrackingNumber	nvarchar(100)	Unchecked
+ShipmentStatus	varchar(30)	Unchecked
+CreatedAt	datetime	Unchecked
+PickedAt	datetime	Checked
+DeliveredAt	datetime	Checked
+LogisticsProviderID	int	Unchecked
+PickupCustomerAddressID	int	Checked
+DeliveryVendorAddressID	int	Checked
+		Unchecked	
+
+OrderItemReturnImages
+ReturnImageId	int	Unchecked
+ReturnId	int	Unchecked
+ImageUrl	nvarchar(300)	Unchecked
+UploadedBy	varchar(20)	Unchecked
+IsPrimary	bit	Unchecked
+UploadedAt	datetime	Unchecked
+		Unchecked	
+		
+AddressMaster
+AddressID	int	Unchecked
+EntityType	nvarchar(30)	Unchecked
+EntityID	int	Unchecked
+AddressLine1	nvarchar(200)	Unchecked
+AddressLine2	nvarchar(200)	Checked
+Landmark	nvarchar(150)	Checked
+CountryID	int	Unchecked
+StateID	int	Unchecked
+CityID	int	Unchecked
+Pincode	nvarchar(10)	Unchecked
+Latitude	decimal(10, 7)	Checked
+Longitude	decimal(10, 7)	Checked
+AddressType	nvarchar(30)	Unchecked
+IsPrimary	bit	Unchecked
+IsActive	bit	Unchecked
+CreatedAt	datetime2(7)	Unchecked
+UpdatedAt	datetime2(7)	Checked
+		Unchecked
+3. *****************
 ProductSKUs
 SKUId	int	Unchecked
 ProductID	int	Unchecked
@@ -274,7 +348,32 @@ BarCodeVendor	nchar(20)	Checked
 DisableReason	tinyint	Unchecked
 HandlingDays	int	Unchecked
 		
-2*************
+Vendors
+VendorID	int	Unchecked
+VendorName	nvarchar(200)	Unchecked
+ContactPerson	nvarchar(150)	Checked
+Mobile	varchar(20)	Unchecked
+Email	nvarchar(200)	Checked
+BusinessName	nvarchar(200)	Checked
+GSTNumber	varchar(15)	Checked
+PANNumber	varchar(10)	Checked
+BusinessAddress	nvarchar(MAX)	Checked
+PickupAddress	nvarchar(MAX)	Checked
+State	nvarchar(100)	Checked
+StateCode	varchar(5)	Checked
+BankAccountNumber	varchar(30)	Checked
+IFSCCode	varchar(11)	Checked
+BankName	nvarchar(150)	Checked
+PasswordHash	nvarchar(500)	Checked
+PasswordSalt	nvarchar(500)	Checked
+ApprovalStatus	varchar(20)	Checked
+ApprovedBy	int	Checked
+ApprovedAt	datetime	Checked
+RejectionReason	nvarchar(500)	Checked
+CreatedAt	datetime	Checked
+UpdatedAt	datetime	Checked
+IsActive	bit	Checked
+ReferredByUserID	int	Checked
 
 AddressMaster
 AddressID	int	Unchecked
@@ -317,6 +416,9 @@ StateID	int	Unchecked
 CityName	nvarchar(100)	Unchecked
 IsActive	bit	Unchecked
 CreatedAt	datetime2(7)	Unchecked
+2*************
+
+
 		
 ReferralEntity
 ReferralEntityID	int	Unchecked

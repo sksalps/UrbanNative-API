@@ -10,6 +10,8 @@ namespace UrbanNative.Vendors.Services.Interfaces
         Task<VendorOrderSummaryDto> GetSummaryAsync(
             VendorOrderListFilterDto filter);
         Task<IReadOnlyList<VendorSkuProductSuggestionDto>>        GetSkuProductSuggestionsAsync(string term);
+        //View Order Details
+        Task<VendorOrderDetailsDto> GetOrderDetailsAsync(int? orderId, int? shipmentId,int? returnId);
     }
 
 }

@@ -8,7 +8,7 @@ namespace UrbanNative.Vendors.Services
     public class VendorAuthService : IVendorAuthService
     {
         private readonly HttpClient _http;
-        private readonly object _httpContextAccessor;
+        //private readonly object _httpContextAccessor;
 
         public VendorAuthService(IHttpClientFactory factory)
         {

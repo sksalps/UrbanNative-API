@@ -51,7 +51,7 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors.InventoryAdd
             );
 
             if (result == null)
-                throw new DomainValidationException("Inventory adjustment failed.");
+                throw new DomainValidationException("ERR1", "Inventory adjustment failed.");
 
             return new AdjustInventoryResultDto
             {

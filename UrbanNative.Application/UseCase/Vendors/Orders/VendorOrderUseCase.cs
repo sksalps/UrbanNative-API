@@ -36,6 +36,18 @@ namespace UrbanNative.Application.UseCase.Vendors.Orders
             return await _repository.GetSkuProductSuggestionsAsync(vendorId, term);
         }
 
+        // Vendor Order Details View
+
+        public async Task<VendorOrderDetailsDto> ExecuteAsync(
+        int vendorId,
+        int? orderId,
+        int? shipmentId,
+        int? returnId)
+        {
+            return await _repository.GetVendorOrderDetailsAsync(
+                vendorId, orderId, shipmentId, returnId);
+        }
+
     }
 
 }

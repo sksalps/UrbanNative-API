@@ -3853,6 +3853,37 @@
         }
       }
     },
+    "/api/vendors/orders/details": {
+      "post": {
+        "tags": [
+          "VendorOrders"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VendorOrderDetailsRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VendorOrderDetailsRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/VendorOrderDetailsRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/vendors/products": {
       "get": {
         "tags": [
@@ -4905,6 +4936,27 @@
           },
           "password": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "VendorOrderDetailsRequestDto": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "shipmentId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "returnId": {
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           }
         },

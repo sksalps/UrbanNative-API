@@ -50,6 +50,27 @@ namespace UrbanNative.Api.Controllers.Vendors
 
             return Ok(result);
         }
+
+
+        // Vendor Order Details View
+
+        [HttpPost("details")]
+        public async Task<IActionResult> GetOrderDetails(   [FromBody] VendorOrderDetailsRequestDto request)
+        {
+            var vendorId = GetVendorId();
+
+            var result = await _useCase.ExecuteAsync(
+                vendorId,
+                request.OrderId,
+                request.ShipmentId,
+                request.ReturnId
+            );
+
+            return Ok(result);
+        }
+
+
+        // Helper method to extract VendorID from the authenticated user context
         private int GetVendorId()
         {
             var vendorIdClaim = User.FindFirst("VendorId")?.Value;
@@ -57,7 +78,7 @@ namespace UrbanNative.Api.Controllers.Vendors
             if (string.IsNullOrWhiteSpace(vendorIdClaim))
                 throw new UnauthorizedAccessException("VendorID claim missing");
 
-            return  int.Parse(vendorIdClaim);
+            return int.Parse(vendorIdClaim);
         }
 
     }

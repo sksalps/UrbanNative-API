@@ -4,7 +4,7 @@ namespace UrbanNative.Domain.Exceptions
 {
     public class DomainValidationException : Exception
     {
-        public DomainValidationException(string message)
+        public DomainValidationException(string? errorcode,string message)
             : base(message)
         {
         }
