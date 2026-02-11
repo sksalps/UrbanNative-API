@@ -1,5 +1,5 @@
 ﻿@page
-@model UrbanNative.Vendors.Pages.Logistics.IndexModel
+@model UrbanNative.Vendors.Pages.Logistics.Index1Model
 @{
     ViewData["Title"] = "Vendor Logistics";
 }
@@ -132,6 +132,7 @@
                                 id="ddlShipmentStatus"
                                 onchange="toggleAwbFields()">
                             <option value="">-- Select Status--</option>
+                            <option value="READY_TO_SHIP">Ready To Ship</option>
                             <option value="PICKUP_SCHEDULED">Pickup Scheduled</option>
                             <option value="PICKED_UP">Picked Up</option>
                             <option value="IN_TRANSIT">In Transit</option>
@@ -167,52 +168,5 @@
     </div>
 </div>
 <script>
-    async function submitShipmentForm() {
-
-        const shipmentId = document.querySelector("[name='UpdateShipment.ShipmentID']").value;
-        const status = document.getElementById("ddlShipmentStatus").value;
-        const providerId = document.getElementById("ddlLogisticsProvider").value;
-        const trackingNo = document.getElementById("UpdateShipment_TrackingNo").value;
-
-        if (!status) {
-            alert("Select shipment status");
-            return;
-        }
-
-        const payload = {
-            shipmentID: parseInt(shipmentId, 10),
-            newShipmentStatus: status,
-            logisticsProviderID: providerId ? parseInt(providerId, 10) : null,
-            trackingNo: trackingNo || null
-        };
-
-        const res = await fetch("/api/vendor/logistics/shipments/update-status", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-        });
-
-        if (!res.ok) {
-            const msg = await res.text();
-            alert(msg);
-            return;
-        }
-
-        bootstrap.Modal.getInstance(
-            document.getElementById("updateShipmentModal")
-        ).hide();
-
-        // 🔁 Refresh grids after update
-        refreshAfterShipmentChange();
-    }
-
-    function refreshAfterShipmentChange() {
-        const orderId = document.querySelector("#btnDispatch")?.dataset.orderId;
-        if (orderId) {
-            loadGrid2(orderId);
-            loadGrid3(orderId);
-        }
-    }
+    const LOGISTICS_BASE_URL = '@Url.Page("/Logistics/Index1")';
 </script>

@@ -1,4 +1,4 @@
-﻿@model UrbanNative.Vendors.Pages.Logistics.IndexModel
+﻿@model UrbanNative.Vendors.Pages.Logistics.Index1Model
 
 @if (Model.Orders == null || !Model.Orders.Any())
 {
@@ -29,7 +29,7 @@ else
             <td>
                 <button type="button"
                         class="btn btn-sm btn-outline-primary"
-                        onclick="loadGrid2(@o.OrderID)">
+                        onclick="loadGrid2(@o.OrderID, '@o.CityState')">
                     Update
                 </button>
             </td>

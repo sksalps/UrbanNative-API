@@ -13,7 +13,8 @@
         /// <summary>
         /// Selected OrderItemIDs to be dispatched in this shipment
         /// </summary>
-        public IReadOnlyList<int> OrderItemIds { get; set; } = new List<int>();
+        //public IReadOnlyList<int> OrderItemIds { get; set; } = new List<int>();
+        public List<int> OrderItemIds { get; set; } = new();
 
         /// <summary>
         /// Selected logistics provider
@@ -107,6 +108,7 @@
         public int ShipmentID { get; set; }
         public int OrderID { get; set; }
         public int VendorID { get; set; }
+        public string CityState { get; set; }
 
         /// <summary>
         /// NEW | RETURN | RTO

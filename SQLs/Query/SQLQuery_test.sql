@@ -25,7 +25,7 @@ select * from InventoryLogs where skuid=27 order by logid desc
 select * from SystemSettingsMaster
 select * from SystemSettingValues
 select * from Orders
-select * from OrderItems  where orderid=2
+select * from OrderItems  where orderid=1004
 select * from OrderShipments
 SELECT * FROM OrderShipmentDetails
 select * from ReturnPolicyMaster
@@ -61,5 +61,9 @@ exec sp_VendorSkuAddInventory_Summary 1,1,25,1002
 exec sp_VendorSkuProduct_Autocomplete 1,'P1-7'
 exec sp_VendorOrders_List @VendorID=1, @SkuOrProduct ='P1-28', @SearchType='SKU'
 EXEC sp_VendorOrder_ViewDetails 1004
+EXEC sp_VendorLogistics_ResolveReference @SearchText = 'TRK-1001-A', @vendorid=1
+Exec sp_VendorLogistics_FilterSuggestions @Term='1', @vendorid=1
+exec sp_VendorLogisticsItems_Grid2 @vendorid=1, @orderid=2
+
 asdfas
 update ProductSKUs set IsActive=0 where SKUId=25

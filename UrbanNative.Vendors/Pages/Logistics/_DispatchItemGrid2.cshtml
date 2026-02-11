@@ -1,4 +1,4 @@
-﻿@model UrbanNative.Vendors.Pages.Logistics.IndexModel
+﻿@model UrbanNative.Vendors.Pages.Logistics.Index1Model
 
 <div class="card mt-3">
     <div class="card-header d-flex justify-content-between align-items-center">
@@ -8,7 +8,6 @@
                 id="btnDispatch"
                 class="btn btn-primary"
                 data-order-id="@Model.DispatchOrderId"
-                data-city="@Model.DispatchOrderId"
                 onclick="onDispatchClick(this)"
                 disabled>
             Dispatch (<span id="selectedCount">0</span>)

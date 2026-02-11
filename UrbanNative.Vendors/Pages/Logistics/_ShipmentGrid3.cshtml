@@ -1,4 +1,4 @@
-﻿@model UrbanNative.Vendors.Pages.Logistics.IndexModel
+﻿@model UrbanNative.Vendors.Pages.Logistics.Index1Model
 
 @if (Model.Shipments == null || !Model.Shipments.Any())
 {
@@ -87,7 +87,8 @@ else
                                                                 @s.ShipmentID,
                                                                 '@s.ShipmentStatus',
                                                                 '@(s.TrackingNo ?? "")',
-                                                                @(s.LogisticsProviderID ?? 0)
+                                                                @(s.LogisticsProviderID ?? 0),
+                                                                            '@s.CityState'
                                                             )">
                                             Update
                                         </button>

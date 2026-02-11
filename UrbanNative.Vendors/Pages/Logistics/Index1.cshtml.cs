@@ -6,12 +6,12 @@ using UrbanNative.Vendors.Services.Interfaces;
 
 namespace UrbanNative.Vendors.Pages.Logistics
 {
-    public class IndexModel : PageModel
+    public class Index1Model : PageModel
     {
         private readonly IVendorLogisticsService _service;
         private readonly ISkuFilterService _commonService;
 
-        public IndexModel(
+        public Index1Model(
             IVendorLogisticsService service,
             ISkuFilterService commonService)
         {
@@ -49,6 +49,9 @@ namespace UrbanNative.Vendors.Pages.Logistics
             = new List<VendorLogisticsShipmentDto>();
 
         /* ================= MODAL ================= */
+        [BindProperty]
+        public CreateVendorShipmentDto CreateShipment { get; set; }
+
 
         [BindProperty]
         public UpdateShipmentStatusDto UpdateShipment { get; set; } = new();
@@ -80,7 +83,6 @@ namespace UrbanNative.Vendors.Pages.Logistics
             Shipments = await _service.GetShipmentsAsync(orderId: null,showCompleted: Filter.ShowCompleted);
 
             DispatchItems = new List<VendorLogisticsItemDto>(); // reset Grid-2
-
             return Page();
         }
 
@@ -114,23 +116,16 @@ namespace UrbanNative.Vendors.Pages.Logistics
         /* ============================================================
          * CREATE SHIPMENT (FROM GRID-2)
          * ============================================================ */
-        public async Task<IActionResult> OnPostCreateShipmentAsync(
-            CreateVendorShipmentDto dto)
+        public async Task<IActionResult> OnPostCreateShipmentAsync()
         {
-            dto.OrderID = DispatchOrderId;
-            dto.OrderItemIds = SelectedOrderItemIds;
+            CreateShipment.OrderID = DispatchOrderId;
+            CreateShipment.OrderItemIds = SelectedOrderItemIds;
 
-            await _service.CreateShipmentAsync(dto);
+            await _service.CreateShipmentAsync(CreateShipment);
 
-            // Reload grids
-            Orders = await _service.GetOrdersAsync(Filter.ShowCompleted);
-            DispatchItems = new List<VendorLogisticsItemDto>();
-            Shipments = await _service.GetShipmentsAsync(
-                orderId: null,
-                showCompleted: Filter.ShowCompleted);
-
-            return Page();
+            return new JsonResult(new { success = true });
         }
+
 
         /* ============================================================
          * GRID-3 PARTIAL LOAD
