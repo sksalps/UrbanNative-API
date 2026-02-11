@@ -1,4 +1,4 @@
-﻿@model UrbanNative.Vendors.Pages.Logistics.Index1Model
+﻿@model UrbanNative.Vendors.Pages.Logistics.IndexModel
 
 @if (Model.Shipments == null || !Model.Shipments.Any())
 {
@@ -61,7 +61,7 @@ else
                                 </td>
 
                                 <td>
-                                    <span class="badge badge-status">
+                                    <span class="badge bg-secondary">
                                         @s.ShipmentStatus
                                     </span>
                                 </td>

@@ -6,12 +6,12 @@ using UrbanNative.Vendors.Services.Interfaces;
 
 namespace UrbanNative.Vendors.Pages.Logistics
 {
-    public class Index1Model : PageModel
+    public class IndexModel : PageModel
     {
         private readonly IVendorLogisticsService _service;
         private readonly ISkuFilterService _commonService;
 
-        public Index1Model(
+        public IndexModel(
             IVendorLogisticsService service,
             ISkuFilterService commonService)
         {
@@ -113,18 +113,7 @@ namespace UrbanNative.Vendors.Pages.Logistics
 
         }
 
-        /* ============================================================
-         * CREATE SHIPMENT (FROM GRID-2)
-         * ============================================================ */
-        public async Task<IActionResult> OnPostCreateShipmentAsync()
-        {
-            CreateShipment.OrderID = DispatchOrderId;
-            CreateShipment.OrderItemIds = SelectedOrderItemIds;
-
-            await _service.CreateShipmentAsync(CreateShipment);
-
-            return new JsonResult(new { success = true });
-        }
+        
 
 
         /* ============================================================
@@ -137,7 +126,18 @@ namespace UrbanNative.Vendors.Pages.Logistics
             Shipments = await _service.GetShipmentsAsync(orderId, showCompleted);
             return Partial("_ShipmentGrid3", this);
         }
+        /* ============================================================
+         * CREATE SHIPMENT (FROM GRID-2)
+         * ============================================================ */
+        public async Task<IActionResult> OnPostCreateShipmentAsync(CreateVendorShipmentDto dto)
+        {
+            if (dto.OrderItemIds == null || !dto.OrderItemIds.Any())
+                return BadRequest("No items selected for dispatch");
 
+            await _service.CreateShipmentAsync(dto);
+
+            return new JsonResult(new { success = true });
+        }
         /* ============================================================
          * UPDATE SHIPMENT STATUS (MODAL)
          * ============================================================ */

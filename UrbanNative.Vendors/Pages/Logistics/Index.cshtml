@@ -1,5 +1,5 @@
 ﻿@page
-@model UrbanNative.Vendors.Pages.Logistics.Index1Model
+@model UrbanNative.Vendors.Pages.Logistics.IndexModel
 @{
     ViewData["Title"] = "Vendor Logistics";
 }
@@ -97,8 +97,10 @@
         <div class="modal-content">
 
             <!-- ❗ JS HANDLES SUBMIT -->
+            
             <form id="updateShipmentForm"
                   onsubmit="event.preventDefault(); submitShipmentForm();">
+                  @Html.AntiForgeryToken()
 
 
                 <div class="modal-header">
@@ -168,5 +170,5 @@
     </div>
 </div>
 <script>
-    const LOGISTICS_BASE_URL = '@Url.Page("/Logistics/Index1")';
+    const LOGISTICS_BASE_URL = '@Url.Page("/Logistics/Index")';
 </script>

@@ -267,15 +267,18 @@ async function submitShipmentForm() {
         });
 
         //const url = `${LOGISTICS_BASE_URL}?handler=CreateShipment`;
-        const url = `/Logistics/Index1?handler=CreateShipment`;
+        const url = `/Logistics?handler=CreateShipment`;
         //alert(url);
+        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
         const res = await fetch(url, {
             method: "POST",
+            headers: {
+                "RequestVerificationToken": token
+            },
             body: formData
         });
-
-
-        
+              
         if (!res.ok) {
 
             let msg = "";
@@ -319,10 +322,16 @@ async function submitShipmentForm() {
             logisticsProviderID: providerId ? parseInt(providerId, 10) : null,
             trackingNo: trackingNo || null
         };
+        const url = `/Logistics?handler=UpdateShipment`;
+        //alert(url);
+        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
-        const res = await fetch("/api/vendor/logistics/shipments/update-status", {
+        const res = await fetch(url, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                "RequestVerificationToken": token
+            },
             body: JSON.stringify(payload)
         });
 

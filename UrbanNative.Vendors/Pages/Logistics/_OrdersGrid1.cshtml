@@ -1,4 +1,4 @@
-﻿@model UrbanNative.Vendors.Pages.Logistics.Index1Model
+﻿@model UrbanNative.Vendors.Pages.Logistics.IndexModel
 
 @if (Model.Orders == null || !Model.Orders.Any())
 {
@@ -22,7 +22,7 @@ else
             <td>@o.ItemCount</td>
             <td>@(o.LastUpdate?.ToString("dd-MMM-yyyy") ?? "-")</td>
             <td>
-                <span class="badge badge-status">
+                <span class="badge bg-secondary">
                     @o.DispatchStatus
                 </span>
             </td>

@@ -103,7 +103,7 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
             p.Add("@VendorID", vendorId);
             p.Add("@OrderID", orderId);
             p.Add("@LogisticsProviderID", logisticsProviderId);
-            p.Add("@InitialStatus", initialStatus);
+            p.Add("@InitialShipmentStatus", initialStatus);
             p.Add("@TrackingNo", trackingNo);
             p.Add("@CreatedBy", createdBy);
 
@@ -112,8 +112,8 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
             tvp.Columns.Add("OrderItemID", typeof(int));
             foreach (var id in orderItemIds)
                 tvp.Rows.Add(id);
-
-            p.Add("@OrderItemIds", tvp.AsTableValuedParameter("dbo.IntList"));
+            //p.Add("@OrderItemIds", tvp.AsTableValuedParameter("dbo.OrderItemID"));
+            p.Add("@OrderItemIds", tvp.AsTableValuedParameter("dbo.OrderItemIdList"));
 
             p.Add("@ShipmentID", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
