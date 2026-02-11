@@ -7,8 +7,9 @@ using UrbanNative.Application.DTOs.CommonCrossDashboard;
 
 namespace UrbanNative.Application.Interfaces.CommonCrossDashboard
 {
-    public interface ISkuFilterRepository
+    public interface ISkuFilterRepository 
     {
+        Task<IReadOnlyList<LogisticsProviderComnDto>> GetLogisticProvidersAsync();
         Task<IReadOnlyList<SkuCategoryDto>> GetCategoriesAsync(   int? vendorId,     bool? isActive);
 
         Task<IReadOnlyList<SkuProductDto>> GetProductsAsync(     int? vendorId,   int categoryId);

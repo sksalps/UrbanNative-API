@@ -186,7 +186,15 @@ CreatedAt	datetime	Unchecked
 CreatedBy	int	Checked
 		Unchecked
 *********
-		
+LogisticsProvider
+LogisticsProviderID	int	Unchecked
+ProviderCode	nvarchar(50)	Unchecked
+ProviderName	nvarchar(150)	Unchecked
+IsActive	bit	Unchecked
+CreatedAt	datetime2(7)	Unchecked
+UpdatedAt	datetime2(7)	Checked
+		Unchecked
+	
 Orders
 OrderID	int	Unchecked
 OrderNo	nvarchar(50)	Unchecked
@@ -290,7 +298,6 @@ AdminActionAt	datetime	Checked
 RequestedAt	datetime	Unchecked
 		Unchecked		
 		
-OrderReturnShipment
 ReturnShipmentId	int	Unchecked
 ReturnId	int	Unchecked
 TrackingNumber	nvarchar(100)	Unchecked
@@ -301,7 +308,8 @@ DeliveredAt	datetime	Checked
 LogisticsProviderID	int	Unchecked
 PickupCustomerAddressID	int	Checked
 DeliveryVendorAddressID	int	Checked
-		Unchecked	
+AWBLabelURL	nvarchar(100)	Checked
+		Unchecked
 
 OrderItemReturnImages
 ReturnImageId	int	Unchecked
@@ -332,6 +340,7 @@ CreatedAt	datetime2(7)	Unchecked
 UpdatedAt	datetime2(7)	Checked
 		Unchecked
 3. *****************
+
 ProductSKUs
 SKUId	int	Unchecked
 ProductID	int	Unchecked

@@ -1,0 +1,81 @@
+﻿@model UrbanNative.Vendors.Pages.Logistics.IndexModel
+
+<div class="card mt-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <strong>Order Items – Ready to Dispatch</strong>
+
+        <button type="button"
+                id="btnDispatch"
+                class="btn btn-primary"
+                data-order-id="@Model.DispatchOrderId"
+                data-city="@Model.DispatchOrderId"
+                onclick="onDispatchClick(this)"
+                disabled>
+            Dispatch (<span id="selectedCount">0</span>)
+        </button>
+
+
+
+    </div>
+
+    <div class="card-body p-0">
+        <form method="post" asp-page-handler="CreateShipment">
+            <input type="hidden" asp-for="DispatchOrderId" id="DispatchOrderId" />
+
+            <div class="table-responsive" style="max-height:300px;">
+                <table class="table table-sm table-hover mb-0">
+                    <thead class="table-light sticky-top">
+                        <tr>
+                            <th style="width:40px;">Select</th>
+                            <th>SKU</th>
+                            <th>Qty</th>
+                            <th>Status</th>
+                            <th>Logistics</th>
+                            <th>AWB</th>
+                            <th>Delivery By</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var i in Model.DispatchItems)
+                        {
+                            <tr class="@(i.IsEditable ? "" : "row-locked")">
+                                <td>
+                                    @if (i.IsEditable)
+                                    {
+                                        <input type="checkbox"
+                                               name="SelectedOrderItemIds"
+                                               value="@i.OrderItemID"
+                                               class="dispatch-checkbox"
+                                               onchange="updateDispatchCount()" />
+                                    }
+                            </td>
+
+                            <td>
+                                <div class="fw-semibold">@i.SKUDisplay</div>
+                                <small class="text-muted">SKU ID: @i.SKUId</small>
+                            </td>
+
+                            <td>@i.ShipmentQty</td>
+
+                            <td>
+                                <span class="badge bg-secondary">
+                                    @i.ShipmentStatus
+                                </span>
+                            </td>
+
+                            <td>@(i.ProviderName ?? "-")</td>
+                            <td>@(i.TrackingNo ?? "-")</td>
+                            <td>
+                                @(i.DeliveryByDate.HasValue
+                                                                ? i.DeliveryByDate + " day(s)"
+                                                                : "-")
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>

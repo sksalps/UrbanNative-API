@@ -4,14 +4,17 @@ using UrbanNative.Application.Interfaces;
 using UrbanNative.Application.Interfaces.CommonCrossDashboard;
 using UrbanNative.Application.Interfaces.UseCases;
 using UrbanNative.Application.Interfaces.UseCases.VendorInventoryAdd;
+using UrbanNative.Application.Interfaces.UseCase.Logistics;
 using UrbanNative.Application.Interfaces.Vendors;
 using UrbanNative.Application.Interfaces.Vendors.InventoryAdd;
 using UrbanNative.Application.Interfaces.Vendors.Orders;
+
 
 using UrbanNative.Application.UseCase;
 using UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd;
 using UrbanNative.Application.UseCases.Vendors;
 using UrbanNative.Application.UseCase.Vendors.Orders;
+using UrbanNative.Application.UseCase.Vendors.Logistics;
 using UrbanNative.Infrastructure.Repositories;
 using UrbanNative.Infrastructure.Repositories.CommonCrossDashboard;
 using UrbanNative.Infrastructure.Repositories.Vendors;
@@ -61,6 +64,7 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<IVendorInventoryUseCase, VendorInventoryUseCase>();
             services.AddScoped<IAddInventoryInUseCase, AddInventoryInUseCase>();
             services.AddScoped<IVendorOrderUseCase, VendorOrderUseCase>();
+            services.AddScoped<IVendorLogisticsUseCase, VendorLogisticsUseCase>();
 
             // Repositories
             services.AddScoped<IVendorSettingsRepository, VendorSettingsRepository>();
@@ -71,7 +75,7 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<ISkuFilterRepository, SkuFilterRepository>();
             services.AddScoped<IInventoryAddRepository, InventoryAddRepository>();
             services.AddScoped<IVendorOrderRepository, VendorOrderRepository>();
-
+            services.AddScoped<IVendorLogisticsRepository, VendorLogisticsRepository>();
             return services;
         }
     }

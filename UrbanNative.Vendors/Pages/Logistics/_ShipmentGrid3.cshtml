@@ -1,0 +1,107 @@
+﻿@model UrbanNative.Vendors.Pages.Logistics.IndexModel
+
+@if (Model.Shipments == null || !Model.Shipments.Any())
+{
+    <div class="alert alert-light text-muted mt-3">
+        No shipment records found.
+    </div>
+}
+else
+{
+    <div class="card mt-3">
+        <div class="card-header">
+            <strong>Shipments</strong>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive" style="max-height:320px;">
+                <table class="table table-sm table-hover mb-0">
+                    <thead class="table-light sticky-top">
+                        <tr>
+                            <th>ID</th>
+                            <th>Type</th>
+                            <th>Items</th>
+                            <th>Delivery By</th>
+                            <th>Delayed</th>
+                            <th>Status</th>
+                            <th>Logistics</th>
+                            <th>AWB</th>
+                            <th>Last Update</th>
+                            <th>Updated By</th>
+                            <th style="width:90px;">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var s in Model.Shipments)
+                        {
+                            var locked =
+                            s.ShipmentStatus == "DELIVERED" ||
+                            s.ShipmentStatus == "RETURN_TO_ORIGIN";
+
+                            <tr class="@(locked ? "row-locked" : "")">
+                                <td>#@s.ShipmentID</td>
+
+                                <td>
+                                    <span class="badge bg-secondary">
+                                        @s.ShipmentType
+                                    </span>
+                                </td>
+
+                                <td>@s.ItemCount</td>
+
+                                <td>
+                                    @(s.DeliveryByDate?.ToString("dd-MMM-yyyy") ?? "-")
+                                </td>
+
+                                <td>
+                                    @(s.DelayDays > 0
+                                                                ? $"{s.DelayDays} day(s)"
+                                                                : "-")
+                                </td>
+
+                                <td>
+                                    <span class="badge badge-status">
+                                        @s.ShipmentStatus
+                                    </span>
+                                </td>
+
+                                <td>@(s.ProviderName ?? "-")</td>
+
+                                <td>@(s.TrackingNo ?? "-")</td>
+
+                                <td>
+                                    @(s.UpdatedAt?.ToString("dd-MMM-yyyy HH:mm") ?? "-")
+                                </td>
+
+                                <td>@(s.UpdatedBy ?? "-")</td>
+
+                                <td>
+                                    @if (!locked)
+                                    {
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-primary"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#updateShipmentModal"
+                                                onclick="openUpdateShipmentModal(
+                                                                @s.ShipmentID,
+                                                                '@s.ShipmentStatus',
+                                                                '@(s.TrackingNo ?? "")',
+                                                                @(s.LogisticsProviderID ?? 0)
+                                                            )">
+                                            Update
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">—</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}

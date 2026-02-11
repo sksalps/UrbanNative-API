@@ -1,0 +1,38 @@
+﻿@model UrbanNative.Vendors.Pages.Logistics.IndexModel
+
+@if (Model.Orders == null || !Model.Orders.Any())
+{
+    <tr>
+        <td colspan="10" class="text-center text-muted">
+            No records found
+        </td>
+    </tr>
+}
+else
+{
+    foreach (var o in Model.Orders)
+    {
+        <tr>
+            <td>@o.OrderNo</td>
+            <td>@o.OrderDate.ToString("dd-MMM-yyyy")</td>
+            <td>@(o.DeliveryByDays >= 0 ? o.DeliveryByDays + " day(s)" : "-")</td>
+            <td>@o.CustomerName</td>
+            <td>@o.CityState</td>
+            <td>@o.NOP</td>
+            <td>@o.ItemCount</td>
+            <td>@(o.LastUpdate?.ToString("dd-MMM-yyyy") ?? "-")</td>
+            <td>
+                <span class="badge badge-status">
+                    @o.DispatchStatus
+                </span>
+            </td>
+            <td>
+                <button type="button"
+                        class="btn btn-sm btn-outline-primary"
+                        onclick="loadGrid2(@o.OrderID)">
+                    Update
+                </button>
+            </td>
+        </tr>
+    }
+}

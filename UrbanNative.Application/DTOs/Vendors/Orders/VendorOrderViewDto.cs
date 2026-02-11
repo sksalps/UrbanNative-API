@@ -37,7 +37,7 @@ namespace UrbanNative.Application.DTOs.Vendors.Orders
         public DateTime? PickedAt { get; set; }
         public DateTime? ShippedAt { get; set; }
         public DateTime? DeliveredAt { get; set; }
-
+        public string? AWBLabelURL { get; set; }
         public string ShipmentStatus { get; set; }
         public string TrackingNo { get; set; }
         public string LogisticsProvider { get; set; }

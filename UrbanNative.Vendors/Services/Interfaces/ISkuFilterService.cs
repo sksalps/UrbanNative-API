@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using UrbanNative.Application.DTOs.AdminReturnsOrder;
 using UrbanNative.Application.DTOs.CommonCrossDashboard;
 using UrbanNative.Application.DTOs.Vendors.Products;
 
@@ -6,6 +7,7 @@ namespace UrbanNative.Vendors.Services.Interfaces
 {
     public interface ISkuFilterService
     {
+        Task<IReadOnlyList<LogisticsProviderComnDto>> GetLogisticsProvidersAsync();
         Task<IReadOnlyList<SkuCategoryDto>> GetCategoriesAsync();
         Task<IReadOnlyList<SkuCategoryDto>> GetCategoriesForFilter();
         Task<IReadOnlyList<SkuProductDto>> GetProductsAsync(int categoryId);

@@ -1835,6 +1835,16 @@
   },
   {
     "ContainingType": "UrbanNative.Api.Controllers.Common.SkuFilterController",
+    "Method": "GetLogisticProvideer",
+    "RelativePath": "api/skufilter/logisticprovider",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Common.SkuFilterController",
     "Method": "GetProductById",
     "RelativePath": "api/skufilter/product/{productId}",
     "HttpMethod": "GET",
@@ -2375,6 +2385,112 @@
         "Name": "request",
         "Type": "UrbanNative.Application.DTOs.Vendors.Inventory.AddSkuInventoryApiRequest",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "VendorLogisticsController",
+    "Method": "GetOrderItems",
+    "RelativePath": "api/vendor/logistics/items",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orderId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "VendorLogisticsController",
+    "Method": "GetOrders",
+    "RelativePath": "api/vendor/logistics/orders",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "showCompleted",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "searchText",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "VendorLogisticsController",
+    "Method": "CreateShipment",
+    "RelativePath": "api/vendor/logistics/shipments",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "UrbanNative.Application.DTOs.Vendors.Logistics.CreateVendorShipmentDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "VendorLogisticsController",
+    "Method": "GetShipments",
+    "RelativePath": "api/vendor/logistics/shipments",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orderId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "showCompleted",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "VendorLogisticsController",
+    "Method": "UpdateShipmentStatus",
+    "RelativePath": "api/vendor/logistics/shipments/update-status",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "UrbanNative.Application.DTOs.Vendors.Logistics.UpdateShipmentStatusDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "VendorLogisticsController",
+    "Method": "GetSuggestions",
+    "RelativePath": "api/vendor/logistics/suggestions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "term",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

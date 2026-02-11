@@ -1,6 +1,6 @@
 ﻿@using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
-
+@RenderSection("Styles", required: false)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +11,8 @@
         
         <meta name="jwt-token" content="Context.Request.Cookies["VendorJwt"]" />
     -->
+    <link href="~/css/vendor-logistics.css" rel="stylesheet" />
+
     <title>@ViewData["Title"] - UrbanNative Vendor</title>
 
     <!-- Bootstrap -->
@@ -23,6 +25,7 @@
     <!-- Vendor Layout CSS -->
     <link rel="stylesheet" href="~/css/vendor-layout.css" />
     <link rel="stylesheet" href="~/_content/UrbanNative.Shared/css/common.css" />
+    <script src="~/js/vendor-logistics.js"></script>
 
 </head>
 <body>

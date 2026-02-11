@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using UrbanNative.Application.DTOs.CommonCrossDashboard;
 using UrbanNative.Application.Interfaces.CommonCrossDashboard;
 
 namespace UrbanNative.Api.Controllers.Common
@@ -12,6 +13,16 @@ namespace UrbanNative.Api.Controllers.Common
         public SkuFilterController(ISkuFilterRepository repo)
         {
             _repo = repo;
+        }
+        // =============Get Active Logistics Provider================================
+        //active categories for creating products
+        [HttpGet("logisticprovider")]
+        public async Task<IActionResult> GetLogisticProvideer()
+        {
+            //int? vendorId = GetVendorIdOrNull();
+            var data = await _repo.GetLogisticProvidersAsync();
+
+            return Ok(data);
         }
 
         // GET /api/skufilter/skus/{skuId}/context

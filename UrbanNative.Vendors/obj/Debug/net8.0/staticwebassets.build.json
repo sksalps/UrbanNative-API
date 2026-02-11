@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "NXEaAdyfvwFYq7Q6Uj9QqbTwi9eTB+/fq89HEt1er0M=",
+  "Hash": "egdN7WF8A+Ao1Ab0dzBZykWebwC8leJt/Uf9j/qboac=",
   "Source": "UrbanNative.Vendors",
   "BasePath": "_content/UrbanNative.Vendors",
   "Mode": "Default",
@@ -188,6 +188,25 @@
       "OriginalItemSpec": "wwwroot\\css\\vendor-layout.css"
     },
     {
+      "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\wwwroot\\css\\vendor-logistics.css",
+      "SourceId": "UrbanNative.Vendors",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\wwwroot\\",
+      "BasePath": "_content/UrbanNative.Vendors",
+      "RelativePath": "css/vendor-logistics.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\vendor-logistics.css"
+    },
+    {
       "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\wwwroot\\css\\vendor-theme.css",
       "SourceId": "UrbanNative.Vendors",
       "SourceType": "Discovered",
@@ -262,6 +281,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
+    },
+    {
+      "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\wwwroot\\js\\vendor-logistics.js",
+      "SourceId": "UrbanNative.Vendors",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\wwwroot\\",
+      "BasePath": "_content/UrbanNative.Vendors",
+      "RelativePath": "js/vendor-logistics.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\vendor-logistics.js"
     },
     {
       "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",

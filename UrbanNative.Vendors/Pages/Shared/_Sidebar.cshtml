@@ -148,15 +148,29 @@
             </ul>
         </li>
         <!-- Logistics -->
+        <!-- Orders -->
         <li class="menu-item has-sub @(isLogistics ? "open active" : "")">
-            <a href="/Logistics/Index">
-                <i class="bi bi-box-seam"></i>
+            <a href="#">
+                <i class="bi bi-bag-check"></i>
                 <span>Logistics</span>
                 <i class="bi bi-chevron-down"></i>
             </a>
-            
-        </li>
-
+            <ul class="submenu">
+                <li>
+                    <a asp-page="/Logistics/Index1"
+                       class="@(currentPage == "/Logistics/Index1" ? "active" : "")">
+                        Actionable/Pending
+                    </a>
+                </li>
+                <li>
+                    <a asp-page="/Logistics/Index"
+                       class="@(currentPage == "/Logistics/Index" ? "active" : "")">
+                        Completed/Delivered
+                    </a>
+                </li>
+            </ul>
+		</li>
+        
         <!-- Wallet -->
         <li class="menu-item has-sub @(isWallet ? "open active" : "")">
             <a href="#">

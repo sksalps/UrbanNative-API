@@ -3,44 +3,68 @@
   "WorkspaceRootPath": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\pages\\orders\\vendororderdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\pages\\orders\\vendororderdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\pages\\logistics\\_shipmentgrid3.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\pages\\logistics\\_shipmentgrid3.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\dtos\\vendors\\orders\\vendororderviewdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\dtos\\vendors\\orders\\vendororderviewdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\services\\vendorlogisticsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\services\\vendorlogisticsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\pages\\orders\\vendororderdetails.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\pages\\orders\\vendororderdetails.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\wwwroot\\js\\vendor-logistics.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\wwwroot\\js\\vendor-logistics.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FA427025-7986-0D14-9B0E-52112EF7A820}|UrbanNative.Infrastructure\\UrbanNative.Infrastructure.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.infrastructure\\repositories\\vendors\\orders\\vendororderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FA427025-7986-0D14-9B0E-52112EF7A820}|UrbanNative.Infrastructure\\UrbanNative.Infrastructure.csproj|solutionrelative:urbannative.infrastructure\\repositories\\vendors\\orders\\vendororderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\pages\\logistics\\_ordersgrid1.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\pages\\logistics\\_ordersgrid1.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CA4A5139-0EC7-5A64-B20F-3729BD95A448}|UrbanNative.Api\\UrbanNative.Api.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.api\\controllers\\vendors\\vendorordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CA4A5139-0EC7-5A64-B20F-3729BD95A448}|UrbanNative.Api\\UrbanNative.Api.csproj|solutionrelative:urbannative.api\\controllers\\vendors\\vendorordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\pages\\shared\\_sidebar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\pages\\shared\\_sidebar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\services\\vendororderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\services\\vendororderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\pages\\logistics\\index1.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\pages\\logistics\\index1.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\usecase\\vendors\\orders\\vendororderusecase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\usecase\\vendors\\orders\\vendororderusecase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\services\\interfaces\\ivendorlogisticsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\services\\interfaces\\ivendorlogisticsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\services\\interfaces\\ivendororderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\services\\interfaces\\ivendororderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\pages\\logistics\\index1.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\pages\\logistics\\index1.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\interfaces\\vendors\\orders\\ivendororderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\interfaces\\vendors\\orders\\ivendororderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\interfaces\\usecases\\ivendororderusecase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\interfaces\\usecases\\ivendororderusecase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\pages\\logistics\\_dispatchitemgrid2.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\pages\\logistics\\_dispatchitemgrid2.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\dtos\\vendors\\logistics\\vendororderlogisticsdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\dtos\\vendors\\logistics\\vendororderlogisticsdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\usecase\\vendors\\logistics\\vendorlogisticsusecase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\usecase\\vendors\\logistics\\vendorlogisticsusecase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FA427025-7986-0D14-9B0E-52112EF7A820}|UrbanNative.Infrastructure\\UrbanNative.Infrastructure.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.infrastructure\\repositories\\vendors\\logistics\\vendorlogisticsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FA427025-7986-0D14-9B0E-52112EF7A820}|UrbanNative.Infrastructure\\UrbanNative.Infrastructure.csproj|solutionrelative:urbannative.infrastructure\\repositories\\vendors\\logistics\\vendorlogisticsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CA4A5139-0EC7-5A64-B20F-3729BD95A448}|UrbanNative.Api\\UrbanNative.Api.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.api\\controllers\\vendors\\vendorlogisticscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CA4A5139-0EC7-5A64-B20F-3729BD95A448}|UrbanNative.Api\\UrbanNative.Api.csproj|solutionrelative:urbannative.api\\controllers\\vendors\\vendorlogisticscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\interfaces\\usecases\\logistics\\ivendorlogisticsusecase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\interfaces\\usecases\\logistics\\ivendorlogisticsusecase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\interfaces\\vendors\\logistics\\ivendorlogisticsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\interfaces\\vendors\\logistics\\ivendorlogisticsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -62,124 +86,197 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "IVendorOrderService.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Services\\Interfaces\\IVendorOrderService.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Services\\Interfaces\\IVendorOrderService.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Services\\Interfaces\\IVendorOrderService.cs",
-              "RelativeToolTip": "UrbanNative.Vendors\\Services\\Interfaces\\IVendorOrderService.cs",
-              "ViewState": "AgIAAAkAAACwZmZmZuYjwA0AAABXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-08T10:37:46.46Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "VendorOrderViewDto.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\DTOs\\Vendors\\Orders\\VendorOrderViewDto.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Application\\DTOs\\Vendors\\Orders\\VendorOrderViewDto.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\DTOs\\Vendors\\Orders\\VendorOrderViewDto.cs",
-              "RelativeToolTip": "UrbanNative.Application\\DTOs\\Vendors\\Orders\\VendorOrderViewDto.cs",
-              "ViewState": "AgIAAC4AAACAKjMzM7MswDIAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-08T09:43:14.192Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "VendorOrderDetails.cshtml.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Orders\\VendorOrderDetails.cshtml.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Pages\\Orders\\VendorOrderDetails.cshtml.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Orders\\VendorOrderDetails.cshtml.cs",
-              "RelativeToolTip": "UrbanNative.Vendors\\Pages\\Orders\\VendorOrderDetails.cshtml.cs",
-              "ViewState": "AgIAABQAAAAwAAAAAEAgwB8AAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-08T10:27:06.225Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "VendorOrderDetails.cshtml",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Orders\\VendorOrderDetails.cshtml",
-              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Pages\\Orders\\VendorOrderDetails.cshtml",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Orders\\VendorOrderDetails.cshtml",
-              "RelativeToolTip": "UrbanNative.Vendors\\Pages\\Orders\\VendorOrderDetails.cshtml",
-              "ViewState": "AgIAADYBAAAAAAAAAAAmwDwBAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-02-08T10:26:54.004Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "VendorOrderService.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Services\\VendorOrderService.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Services\\VendorOrderService.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Services\\VendorOrderService.cs",
-              "RelativeToolTip": "UrbanNative.Vendors\\Services\\VendorOrderService.cs",
-              "ViewState": "AgIAAD8AAAAgODMzM/MkwEgAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-08T09:57:41.129Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "VendorOrderController.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\Controllers\\Vendors\\VendorOrderController.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Api\\Controllers\\Vendors\\VendorOrderController.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\Controllers\\Vendors\\VendorOrderController.cs",
-              "RelativeToolTip": "UrbanNative.Api\\Controllers\\Vendors\\VendorOrderController.cs",
-              "ViewState": "AgIAADcAAAAAAAAAAAArwD0AAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-08T09:56:11.505Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "VendorOrderRepository.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Infrastructure\\Repositories\\Vendors\\Orders\\VendorOrderRepository.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Infrastructure\\Repositories\\Vendors\\Orders\\VendorOrderRepository.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Infrastructure\\Repositories\\Vendors\\Orders\\VendorOrderRepository.cs",
-              "RelativeToolTip": "UrbanNative.Infrastructure\\Repositories\\Vendors\\Orders\\VendorOrderRepository.cs",
-              "ViewState": "AgIAAGAAAAAAAAAAAAAcwGUAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-08T09:55:02.771Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "VendorOrderUseCase.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\UseCase\\Vendors\\Orders\\VendorOrderUseCase.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Application\\UseCase\\Vendors\\Orders\\VendorOrderUseCase.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\UseCase\\Vendors\\Orders\\VendorOrderUseCase.cs",
-              "RelativeToolTip": "UrbanNative.Application\\UseCase\\Vendors\\Orders\\VendorOrderUseCase.cs",
-              "ViewState": "AgIAACQAAACgMzMzM3MiwBsAAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-08T09:54:14.851Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "IVendorOrderUseCase.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\Interfaces\\UseCases\\IVendorOrderUseCase.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Application\\Interfaces\\UseCases\\IVendorOrderUseCase.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\Interfaces\\UseCases\\IVendorOrderUseCase.cs",
-              "RelativeToolTip": "UrbanNative.Application\\Interfaces\\UseCases\\IVendorOrderUseCase.cs",
-              "ViewState": "AgIAAAsAAABgmpmZmdkqwA0AAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-08T09:52:59.301Z"
+              "Title": "_Sidebar.cshtml",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Shared\\_Sidebar.cshtml",
+              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Pages\\Shared\\_Sidebar.cshtml",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Shared\\_Sidebar.cshtml",
+              "RelativeToolTip": "UrbanNative.Vendors\\Pages\\Shared\\_Sidebar.cshtml",
+              "ViewState": "AgIAAJcAAAAACgAAAAAhwKAAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-02-10T20:55:40.792Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "IVendorOrderRepository.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\Interfaces\\Vendors\\Orders\\IVendorOrderRepository.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Application\\Interfaces\\Vendors\\Orders\\IVendorOrderRepository.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\Interfaces\\Vendors\\Orders\\IVendorOrderRepository.cs",
-              "RelativeToolTip": "UrbanNative.Application\\Interfaces\\Vendors\\Orders\\IVendorOrderRepository.cs",
-              "ViewState": "AgIAAAwAAAAADAAAAADAvw4AAAAiAAAAAAAAAA==",
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Pages\\Shared\\_Layout.cshtml",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "UrbanNative.Vendors\\Pages\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-02-10T12:57:56.564Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "vendor-logistics.js",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\wwwroot\\js\\vendor-logistics.js",
+              "RelativeDocumentMoniker": "UrbanNative.Vendors\\wwwroot\\js\\vendor-logistics.js",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\wwwroot\\js\\vendor-logistics.js",
+              "RelativeToolTip": "UrbanNative.Vendors\\wwwroot\\js\\vendor-logistics.js",
+              "ViewState": "AgIAABQAAACAxMzMzEwswBIAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-02-10T12:48:43.998Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_ShipmentGrid3.cshtml",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Logistics\\_ShipmentGrid3.cshtml",
+              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Pages\\Logistics\\_ShipmentGrid3.cshtml",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Logistics\\_ShipmentGrid3.cshtml",
+              "RelativeToolTip": "UrbanNative.Vendors\\Pages\\Logistics\\_ShipmentGrid3.cshtml",
+              "ViewState": "AgIAAF4AAAAAAAAAAAAcwGsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-02-10T09:23:22.13Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "_DispatchItemGrid2.cshtml",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Logistics\\_DispatchItemGrid2.cshtml",
+              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Pages\\Logistics\\_DispatchItemGrid2.cshtml",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Logistics\\_DispatchItemGrid2.cshtml",
+              "RelativeToolTip": "UrbanNative.Vendors\\Pages\\Logistics\\_DispatchItemGrid2.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-02-10T08:41:42.217Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "_OrdersGrid1.cshtml",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Logistics\\_OrdersGrid1.cshtml",
+              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Pages\\Logistics\\_OrdersGrid1.cshtml",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Logistics\\_OrdersGrid1.cshtml",
+              "RelativeToolTip": "UrbanNative.Vendors\\Pages\\Logistics\\_OrdersGrid1.cshtml",
+              "ViewState": "AgIAABgAAABwZmZmZuYswB8AAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-02-09T12:10:33.63Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "VendorLogisticsService.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Services\\VendorLogisticsService.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Services\\VendorLogisticsService.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Services\\VendorLogisticsService.cs",
+              "RelativeToolTip": "UrbanNative.Vendors\\Services\\VendorLogisticsService.cs",
+              "ViewState": "AgIAAAsAAABgAAAAAIAqwBsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-08T09:51:11.674Z"
+              "WhenOpened": "2026-02-09T12:06:59.312Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IVendorLogisticsService.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Services\\Interfaces\\IVendorLogisticsService.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Services\\Interfaces\\IVendorLogisticsService.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Services\\Interfaces\\IVendorLogisticsService.cs",
+              "RelativeToolTip": "UrbanNative.Vendors\\Services\\Interfaces\\IVendorLogisticsService.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAUwAsAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-09T12:06:11.433Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Index1.cshtml",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Logistics\\Index1.cshtml",
+              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Pages\\Logistics\\Index1.cshtml",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Logistics\\Index1.cshtml",
+              "RelativeToolTip": "UrbanNative.Vendors\\Pages\\Logistics\\Index1.cshtml",
+              "ViewState": "AgIAAEsAAACAcGZmZmYEwFYAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-02-09T12:03:10.802Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "VendorLogisticsController.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\Controllers\\Vendors\\VendorLogisticsController.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Api\\Controllers\\Vendors\\VendorLogisticsController.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\Controllers\\Vendors\\VendorLogisticsController.cs",
+              "RelativeToolTip": "UrbanNative.Api\\Controllers\\Vendors\\VendorLogisticsController.cs",
+              "ViewState": "AgIAADUAAAAAsAEAAADAvzoAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-09T11:57:24.041Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "VendorLogisticsUseCase.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\UseCase\\Vendors\\Logistics\\VendorLogisticsUseCase.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Application\\UseCase\\Vendors\\Logistics\\VendorLogisticsUseCase.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\UseCase\\Vendors\\Logistics\\VendorLogisticsUseCase.cs",
+              "RelativeToolTip": "UrbanNative.Application\\UseCase\\Vendors\\Logistics\\VendorLogisticsUseCase.cs",
+              "ViewState": "AgIAADYAAAAAtJmZmZkewDoAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-09T11:50:45.786Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "VendorLogisticsRepository.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Infrastructure\\Repositories\\Vendors\\Logistics\\VendorLogisticsRepository.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Infrastructure\\Repositories\\Vendors\\Logistics\\VendorLogisticsRepository.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Infrastructure\\Repositories\\Vendors\\Logistics\\VendorLogisticsRepository.cs",
+              "RelativeToolTip": "UrbanNative.Infrastructure\\Repositories\\Vendors\\Logistics\\VendorLogisticsRepository.cs",
+              "ViewState": "AgIAAEkAAAAgAwAAAAAwwFQAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-09T11:46:37.78Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "IVendorLogisticsUseCase.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\Interfaces\\UseCases\\Logistics\\IVendorLogisticsUseCase.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Application\\Interfaces\\UseCases\\Logistics\\IVendorLogisticsUseCase.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\Interfaces\\UseCases\\Logistics\\IVendorLogisticsUseCase.cs",
+              "RelativeToolTip": "UrbanNative.Application\\Interfaces\\UseCases\\Logistics\\IVendorLogisticsUseCase.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAUwB4AAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-09T11:44:39.942Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "IVendorLogisticsRepository.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\Interfaces\\Vendors\\Logistics\\IVendorLogisticsRepository.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Application\\Interfaces\\Vendors\\Logistics\\IVendorLogisticsRepository.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\Interfaces\\Vendors\\Logistics\\IVendorLogisticsRepository.cs",
+              "RelativeToolTip": "UrbanNative.Application\\Interfaces\\Vendors\\Logistics\\IVendorLogisticsRepository.cs",
+              "ViewState": "AgIAAC4AAAAQamZmZmYvwBIAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-09T11:41:56.286Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Index1.cshtml.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Logistics\\Index1.cshtml.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Pages\\Logistics\\Index1.cshtml.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Logistics\\Index1.cshtml.cs",
+              "RelativeToolTip": "UrbanNative.Vendors\\Pages\\Logistics\\Index1.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEIAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-09T12:03:21.958Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "VendorOrderLogisticsDto.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\DTOs\\Vendors\\Logistics\\VendorOrderLogisticsDto.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Application\\DTOs\\Vendors\\Logistics\\VendorOrderLogisticsDto.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\DTOs\\Vendors\\Logistics\\VendorOrderLogisticsDto.cs",
+              "RelativeToolTip": "UrbanNative.Application\\DTOs\\Vendors\\Logistics\\VendorOrderLogisticsDto.cs",
+              "ViewState": "AgIAAC4AAAAAzczMzAw0wDEAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-09T11:36:18.223Z"
             }
           ]
         }

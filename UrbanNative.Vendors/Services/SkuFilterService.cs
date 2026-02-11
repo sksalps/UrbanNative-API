@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using UrbanNative.Application.DTOs.CommonCrossDashboard;
-using UrbanNative.Application.DTOs.Vendors.Products;
 using UrbanNative.Vendors.Services.Interfaces;
 using static System.Net.WebRequestMethods;
 
@@ -15,6 +14,13 @@ namespace UrbanNative.Vendors.Services
         {
             _http = factory.CreateClient("ApiClient");
         }
+        
+        //  Fetch Only active Logistics Provider for assigning shipment of orders
+        public async Task<IReadOnlyList<LogisticsProviderComnDto>> GetLogisticsProvidersAsync()
+            => await _http.GetFromJsonAsync<List<LogisticsProviderComnDto>>(
+                    "api/skufilter/logisticprovider") ?? new();
+
+
         //Fetch all Categories Active|Inactive 
         public async Task<IReadOnlyList<SkuCategoryDto>> GetCategoriesAsync()
             => await _http.GetFromJsonAsync<List<SkuCategoryDto>>(
@@ -76,6 +82,7 @@ namespace UrbanNative.Vendors.Services
             return await _http.GetFromJsonAsync<WarehousePreviewDto>(url)
                    ?? throw new Exception("Warehouse preview not found");
         }
+
     } 
 
     }

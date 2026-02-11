@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\css\\vendor-layout.css"
     },
     {
+      "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\wwwroot\\css\\vendor-logistics.css",
+      "PackagePath": "staticwebassets\\css\\vendor-logistics.css"
+    },
+    {
       "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\wwwroot\\css\\vendor-theme.css",
       "PackagePath": "staticwebassets\\css\\vendor-theme.css"
     },
@@ -31,6 +35,10 @@
     {
       "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\wwwroot\\js\\vendor-logistics.js",
+      "PackagePath": "staticwebassets\\js\\vendor-logistics.js"
     },
     {
       "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\wwwroot\\lib\\bootstrap\\LICENSE",

@@ -5,7 +5,13 @@
         public int CategoryId { get; set; }
         public string CategoryName { get; set; } = string.Empty;
     }
-
+    public class LogisticsProviderComnDto
+    {
+        public int LogisticsProviderID { get; set; }
+        public string ProviderCode { get; set; } = string.Empty;
+        public string ProviderName { get; set; } = string.Empty;
+        public string AWBLabelURL { get; set; } = string.Empty;
+    }
     public class SkuCategoryDto
     {
         public int CategoryId { get; set; }

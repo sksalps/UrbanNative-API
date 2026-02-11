@@ -16,6 +16,18 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
         {
             _connectionFactory = connectionFactory;
         }
+        //=========== Get Active Logistics Service Provider (LSP) for a Vendor =========
+        public async Task<IReadOnlyList<LogisticsProviderComnDto>> GetLogisticProvidersAsync()
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            var data = await conn.QueryAsync<LogisticsProviderComnDto>(
+                "sp_LogisticsProviders_GetAll",
+                commandType: CommandType.StoredProcedure
+            );
+
+            return data.AsList();
+        }
 
         // =====================================================
         // Categories

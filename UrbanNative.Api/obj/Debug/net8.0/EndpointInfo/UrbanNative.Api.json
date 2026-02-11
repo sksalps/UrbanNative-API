@@ -2853,6 +2853,18 @@
         }
       }
     },
+    "/api/skufilter/logisticprovider": {
+      "get": {
+        "tags": [
+          "SkuFilter"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/skufilter/skus/{skuId}/context": {
       "get": {
         "tags": [
@@ -3770,6 +3782,168 @@
         }
       }
     },
+    "/api/vendor/logistics/orders": {
+      "get": {
+        "tags": [
+          "VendorLogistics"
+        ],
+        "parameters": [
+          {
+            "name": "showCompleted",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "searchText",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendor/logistics/items": {
+      "get": {
+        "tags": [
+          "VendorLogistics"
+        ],
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendor/logistics/shipments": {
+      "post": {
+        "tags": [
+          "VendorLogistics"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVendorShipmentDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVendorShipmentDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVendorShipmentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "VendorLogistics"
+        ],
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "showCompleted",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendor/logistics/shipments/update-status": {
+      "post": {
+        "tags": [
+          "VendorLogistics"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateShipmentStatusDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateShipmentStatusDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateShipmentStatusDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendor/logistics/suggestions": {
+      "get": {
+        "tags": [
+          "VendorLogistics"
+        ],
+        "parameters": [
+          {
+            "name": "term",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/vendors/orders/list": {
       "post": {
         "tags": [
@@ -4661,6 +4835,36 @@
         },
         "additionalProperties": false
       },
+      "CreateVendorShipmentDto": {
+        "type": "object",
+        "properties": {
+          "orderID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "orderItemIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "nullable": true
+          },
+          "logisticsProviderID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "initialShipmentStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "trackingNo": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "LoginRequest": {
         "type": "object",
         "properties": {
@@ -4817,6 +5021,29 @@
             "nullable": true
           },
           "remarkText": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateShipmentStatusDto": {
+        "type": "object",
+        "properties": {
+          "shipmentID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "newShipmentStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "logisticsProviderID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "trackingNo": {
             "type": "string",
             "nullable": true
           }
