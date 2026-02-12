@@ -2428,22 +2428,6 @@
   },
   {
     "ContainingType": "VendorLogisticsController",
-    "Method": "CreateShipment",
-    "RelativePath": "api/vendor/logistics/shipments",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "UrbanNative.Application.DTOs.Vendors.Logistics.CreateVendorShipmentDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "VendorLogisticsController",
     "Method": "GetShipments",
     "RelativePath": "api/vendor/logistics/shipments",
     "HttpMethod": "GET",
@@ -2459,6 +2443,22 @@
         "Name": "showCompleted",
         "Type": "System.Boolean",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "VendorLogisticsController",
+    "Method": "CreateShipment",
+    "RelativePath": "api/vendor/logistics/shipments",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "UrbanNative.Application.DTOs.Vendors.Logistics.CreateVendorShipmentDto",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

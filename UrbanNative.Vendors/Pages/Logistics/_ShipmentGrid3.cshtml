@@ -19,10 +19,11 @@ else
                     <thead class="table-light sticky-top">
                         <tr>
                             <th>ID</th>
+                            <th>Order No.</th>
                             <th>Type</th>
                             <th>Items</th>
                             <th>Delivery By</th>
-                            <th>Delayed</th>
+                            <th>Order Days</th>
                             <th>Status</th>
                             <th>Logistics</th>
                             <th>AWB</th>
@@ -41,7 +42,7 @@ else
 
                             <tr class="@(locked ? "row-locked" : "")">
                                 <td>#@s.ShipmentID</td>
-
+                                <td>@s.OrderNo</td>
                                 <td>
                                     <span class="badge bg-secondary">
                                         @s.ShipmentType
@@ -55,9 +56,7 @@ else
                                 </td>
 
                                 <td>
-                                    @(s.DelayDays > 0
-                                                                ? $"{s.DelayDays} day(s)"
-                                                                : "-")
+                                    @(s.OrderDays)
                                 </td>
 
                                 <td>
@@ -71,7 +70,7 @@ else
                                 <td>@(s.TrackingNo ?? "-")</td>
 
                                 <td>
-                                    @(s.UpdatedAt?.ToString("dd-MMM-yyyy HH:mm") ?? "-")
+                                    @(s.UpdatedAt?.ToString("dd-MMM-yyyy") ?? "-")
                                 </td>
 
                                 <td>@(s.UpdatedBy ?? "-")</td>
@@ -88,7 +87,7 @@ else
                                                                 '@s.ShipmentStatus',
                                                                 '@(s.TrackingNo ?? "")',
                                                                 @(s.LogisticsProviderID ?? 0),
-                                                                            '@s.CityState'
+                                                                '@s.CityState'
                                                             )">
                                             Update
                                         </button>

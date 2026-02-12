@@ -107,6 +107,7 @@
     {
         public int ShipmentID { get; set; }
         public int OrderID { get; set; }
+        public string OrderNo { get; set; }
         public int VendorID { get; set; }
         public string CityState { get; set; }
 
@@ -133,7 +134,7 @@
         /// Calculated SLA date (Order.CreatedAt + Handling + Transit)
         /// </summary>
         public DateTime? DeliveryByDate { get; set; }
-
+        public DateTime? OrderDate { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime? ShippedAt { get; set; }
@@ -145,6 +146,9 @@
             DeliveryByDate.HasValue && DateTime.UtcNow.Date > DeliveryByDate.Value.Date
                 ? (DateTime.UtcNow.Date - DeliveryByDate.Value.Date).Days
                 : 0;
+        public int OrderDays =>
+            OrderDate.HasValue && OrderDate.Value.Date < DateTime.UtcNow.Date
+                ? (DateTime.UtcNow.Date - OrderDate.Value.Date).Days           : 0;
     }
 
     /* ============================================================

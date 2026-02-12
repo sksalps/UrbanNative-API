@@ -288,7 +288,7 @@ async function submitShipmentForm() {
             } catch { }
 
             if (!msg) {
-                msg = "Shipment update failed. Please check required fields.";
+                msg = "Shipment not created. Please check required fields.";
             }
 
             alert(msg);
@@ -300,8 +300,7 @@ async function submitShipmentForm() {
             document.getElementById("updateShipmentModal")
         ).hide();
 
-        loadGrid2(orderId);
-        loadGrid3(orderId);
+        refreshAfterShipmentChange();
         return;
     }
 
@@ -316,27 +315,28 @@ async function submitShipmentForm() {
             return;
         }
 
-        const payload = {
-            shipmentID: parseInt(shipmentId, 10),
-            newShipmentStatus: status,
-            logisticsProviderID: providerId ? parseInt(providerId, 10) : null,
-            trackingNo: trackingNo || null
-        };
-        const url = `/Logistics?handler=UpdateShipment`;
-        //alert(url);
         const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
+        const formData = new FormData();
+        formData.append("UpdateShipment.ShipmentID", shipmentId);
+        formData.append("UpdateShipment.NewShipmentStatus", status);
+        formData.append("UpdateShipment.LogisticsProviderID", providerId || "");
+        formData.append("UpdateShipment.TrackingNo", trackingNo || "");
+
+        const url = `${LOGISTICS_BASE_URL}?handler=UpdateShipment`;
+        alert(url);
         const res = await fetch(url, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
                 "RequestVerificationToken": token
             },
-            body: JSON.stringify(payload)
+            body: formData
         });
 
         if (!res.ok) {
-            const msg = await res.text();
+            let msg = "";
+            try { msg = await res.text(); } catch { }
+            if (!msg) msg = "Shipment update failed.";
             alert(msg);
             return;
         }

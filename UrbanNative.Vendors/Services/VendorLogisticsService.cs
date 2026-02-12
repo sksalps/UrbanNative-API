@@ -52,9 +52,7 @@ public class VendorLogisticsService : IVendorLogisticsService
 
     public async Task<int> CreateShipmentAsync(CreateVendorShipmentDto dto)
     {
-        var res = await _http.PostAsJsonAsync(
-            "api/vendor/logistics/shipments",
-            dto);
+        var res = await _http.PostAsJsonAsync("api/vendor/logistics/shipments",  dto);
 
         res.EnsureSuccessStatusCode();
 
@@ -67,9 +65,7 @@ public class VendorLogisticsService : IVendorLogisticsService
 
     public async Task UpdateShipmentStatusAsync(UpdateShipmentStatusDto dto)
     {
-        var res = await _http.PostAsJsonAsync(
-            "api/vendor/logistics/shipments/update-status",
-            dto);
+        var res = await _http.PostAsJsonAsync("api/vendor/logistics/shipments/update-status", dto);
 
         res.EnsureSuccessStatusCode();
     }

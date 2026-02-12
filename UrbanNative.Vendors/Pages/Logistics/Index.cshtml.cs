@@ -143,15 +143,12 @@ namespace UrbanNative.Vendors.Pages.Logistics
          * ============================================================ */
         public async Task<IActionResult> OnPostUpdateShipmentAsync()
         {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid shipment data");
+
             await _service.UpdateShipmentStatusAsync(UpdateShipment);
 
-            // Refresh grids
-            Orders = await _service.GetOrdersAsync(Filter.ShowCompleted);
-            Shipments = await _service.GetShipmentsAsync(
-                orderId: null,
-                showCompleted: Filter.ShowCompleted);
-
-            return RedirectToPage();
+            return new JsonResult(new { success = true });
         }
     }
 }

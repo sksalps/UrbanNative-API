@@ -66,9 +66,7 @@ namespace UrbanNative.Application.UseCase.Vendors.Logistics
         /* ============================================================
          * CREATE SHIPMENT (DISPATCH FLOW)
          * ============================================================ */
-        public async Task<int> CreateShipmentAsync(
-            int vendorId,
-            CreateVendorShipmentDto dto)
+        public async Task<int> CreateShipmentAsync(int vendorId,CreateVendorShipmentDto dto)
         {
             if (dto.OrderItemIds == null || !dto.OrderItemIds.Any())
                 throw new DomainValidationException(
@@ -104,44 +102,34 @@ namespace UrbanNative.Application.UseCase.Vendors.Logistics
         /* ============================================================
          * UPDATE SHIPMENT STATUS (GRID-3)
          * ============================================================ */
-        public async Task UpdateShipmentStatusAsync(
-            int vendorId,
-            UpdateShipmentStatusDto dto)
+        public async Task UpdateShipmentStatusAsync(int vendorId,UpdateShipmentStatusDto dto)
         {
-            var shipment = await _repository.GetShipmentSnapshotAsync(
-                dto.ShipmentID);
+            var shipment = await _repository.GetShipmentSnapshotAsync(dto.ShipmentID);
 
             if (shipment == null)
-                throw new DomainValidationException(
-                    "ERR003",
-                    "Invalid shipment");
+                throw new DomainValidationException("ERR003","Invalid shipment");
 
             if (shipment.VendorID != vendorId)
                 throw new DomainValidationException(
-                    "ERR003",
-                    "Unauthorized shipment access");
+                    "ERR003","Unauthorized shipment access");
 
             if (shipment.ShipmentStatus == "DELIVERED"
                 || shipment.ShipmentStatus == "RETURN_TO_ORIGIN")
                 throw new DomainValidationException(
-                    "ERR003",
-                    "Shipment already completed");
+                    "ERR003", "Shipment already completed");
 
             var currentOrder = ShipmentStatusOrder.GetOrder(shipment.ShipmentStatus);
             var newOrder = ShipmentStatusOrder.GetOrder(dto.NewShipmentStatus);
 
             if (newOrder < currentOrder)
-                throw new DomainValidationException(
-                    "ERR003",
-                    "Status downgrade is not allowed");
+                throw new DomainValidationException("ERR003", "Status downgrade is not allowed");
 
             // Provider cannot be changed after PICKED_UP
             if (currentOrder >= ShipmentStatusOrder.GetOrder("PICKED_UP")
                 && dto.LogisticsProviderID != shipment.LogisticsProviderID)
             {
                 throw new DomainValidationException(
-                    "ERR003",
-                    "Logistics provider cannot be changed");
+                    "ERR003", "Logistics provider cannot be changed");
             }
 
             // Tracking mandatory from PICKED_UP onwards
@@ -149,8 +137,7 @@ namespace UrbanNative.Application.UseCase.Vendors.Logistics
                 && string.IsNullOrWhiteSpace(dto.TrackingNo))
             {
                 throw new DomainValidationException(
-                    "ERR003",
-                    "Tracking number is required");
+                    "ERR003",  "Tracking number is required");
             }
 
             await _repository.UpdateShipmentStatusAsync(

@@ -3834,6 +3834,34 @@
       }
     },
     "/api/vendor/logistics/shipments": {
+      "get": {
+        "tags": [
+          "VendorLogistics"
+        ],
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "showCompleted",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
       "post": {
         "tags": [
           "VendorLogistics"
@@ -3857,34 +3885,6 @@
             }
           }
         },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "VendorLogistics"
-        ],
-        "parameters": [
-          {
-            "name": "orderId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "showCompleted",
-            "in": "query",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"

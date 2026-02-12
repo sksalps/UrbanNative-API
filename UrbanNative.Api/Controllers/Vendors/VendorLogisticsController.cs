@@ -48,24 +48,12 @@ public class VendorLogisticsController : ControllerBase
         return Ok(result);
     }
 
-    /* ================= CREATE SHIPMENT ================= */
-
-    [HttpPost("shipments")]
-    public async Task<IActionResult> CreateShipment(
-        [FromBody] CreateVendorShipmentDto dto)
-    {
-        int vendorId = GetVendorId();
-
-        var shipmentId = await _useCase.CreateShipmentAsync(vendorId, dto);
-        return Ok(new { ShipmentID = shipmentId });
-    }
+    
 
     /* ================= GRID-3 ================= */
 
     [HttpGet("shipments")]
-    public async Task<IActionResult> GetShipments(
-        [FromQuery] int? orderId,
-        [FromQuery] bool showCompleted = false)
+    public async Task<IActionResult> GetShipments([FromQuery] int? orderId,[FromQuery] bool showCompleted = false)
     {
         int vendorId = GetVendorId();
 
@@ -76,12 +64,20 @@ public class VendorLogisticsController : ControllerBase
 
         return Ok(result);
     }
+    /* ================= CREATE SHIPMENT ================= */
 
+    [HttpPost("shipments")]
+    public async Task<IActionResult> CreateShipment([FromBody] CreateVendorShipmentDto dto)
+    {
+        int vendorId = GetVendorId();
+
+        var shipmentId = await _useCase.CreateShipmentAsync(vendorId, dto);
+        return Ok(new { ShipmentID = shipmentId });
+    }
     /* ================= UPDATE SHIPMENT ================= */
 
     [HttpPost("shipments/update-status")]
-    public async Task<IActionResult> UpdateShipmentStatus(
-        [FromBody] UpdateShipmentStatusDto dto)
+    public async Task<IActionResult> UpdateShipmentStatus([FromBody] UpdateShipmentStatusDto dto)
     {
         int vendorId = GetVendorId();
 

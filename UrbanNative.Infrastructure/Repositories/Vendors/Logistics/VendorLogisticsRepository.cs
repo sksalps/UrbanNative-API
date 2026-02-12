@@ -139,7 +139,7 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
             using var conn = _connectionFactory.CreateConnection();
 
             await conn.ExecuteAsync(
-                "sp_OrderShipment_UpdateStatus",
+                "sp_VendorOrderShipment_UpdateStatus",
                 new
                 {
                     ShipmentID = shipmentId,

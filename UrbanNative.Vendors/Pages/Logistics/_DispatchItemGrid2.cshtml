@@ -27,6 +27,7 @@
                     <thead class="table-light sticky-top">
                         <tr>
                             <th style="width:40px;">Select</th>
+                            <th>Order No.</th>
                             <th>SKU</th>
                             <th>Qty</th>
                             <th>Status</th>
@@ -50,7 +51,7 @@
                                                onchange="updateDispatchCount()" />
                                     }
                             </td>
-
+                            <td>@i.OrderNo</td>
                             <td>
                                 <div class="fw-semibold">@i.SKUDisplay</div>
                                 <small class="text-muted">SKU ID: @i.SKUId</small>
