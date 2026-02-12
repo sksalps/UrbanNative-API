@@ -44,12 +44,13 @@
                                 <td>
                                     @if (i.IsEditable)
                                     {
-                                        <input type="checkbox"
+                                            <input type="checkbox"
                                                name="SelectedOrderItemIds"
                                                value="@i.OrderItemID"
                                                class="dispatch-checkbox"
                                                onchange="updateDispatchCount()" />
                                     }
+
                             </td>
                             <td>@i.OrderNo</td>
                             <td>
@@ -69,8 +70,7 @@
                             <td>@(i.TrackingNo ?? "-")</td>
                             <td>
                                 @(i.DeliveryByDate.HasValue
-                                                                ? i.DeliveryByDate + " day(s)"
-                                                                : "-")
+                                                                ? i.DeliveryByDate?.ToString("dd-MMM-yyyy")            : "-")
                                 </td>
                             </tr>
                         }

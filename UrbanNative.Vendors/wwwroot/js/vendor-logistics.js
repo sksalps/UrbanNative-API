@@ -8,7 +8,7 @@ const STATUS_ORDER = {
     IN_TRANSIT: 4,
     OUT_FOR_DELIVERY: 5,
     DELIVERED: 6,
-    FAILED: 7,
+    FAILED_HOLD: 7,
     RETURN_TO_ORIGIN: 8
 };
 
@@ -115,14 +115,14 @@ function openCreateShipmentModal(orderId, itemCount, city) {
     document.getElementById("ddlLogisticsProvider").value = "";
     document.getElementById("ddlLogisticsProvider").disabled = false;
     document.getElementById("UpdateShipment_TrackingNo").value = "";
+    document.getElementById("ddlShipmentStatus").value = "READY_TO_SHIP";
 
     document.querySelector(".modal-title").innerText =
         `Ship ${itemCount} Item(s) to ${city}`;
 
     toggleAwbFields();
 
-    const modal = new bootstrap.Modal(
-        document.getElementById("updateShipmentModal")
+    const modal = new bootstrap.Modal(document.getElementById("updateShipmentModal")    
     );
 
     modal.show();
@@ -144,7 +144,7 @@ function openUpdateShipmentModal(shipmentId, status, trackingNo, providerId, cit
 
     if (trackingNo) {
         document.querySelector(".modal-title").innerText =
-            `AWB/ Track: ${trackingNo} to ${city}`;
+            `AWB No. ${trackingNo} to ${city}`;
     } else {
         document.querySelector(".modal-title").innerText =
             `Update Shipment to ${city}`;

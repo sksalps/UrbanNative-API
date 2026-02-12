@@ -107,6 +107,7 @@
     {
         public int ShipmentID { get; set; }
         public int OrderID { get; set; }
+        public int SKUId { get; set; }
         public string OrderNo { get; set; }
         public int VendorID { get; set; }
         public string CityState { get; set; }
