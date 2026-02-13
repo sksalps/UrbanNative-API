@@ -40,6 +40,10 @@ namespace UrbanNative.Vendors.Pages.Logistics
 
         [BindProperty]
         public int DispatchOrderId { get; set; }
+        
+        //[BindProperty]
+        //public String OrderNo { get; set; } =  string.Empty;
+        
         [BindProperty]
         public int DispatchCity { get; set; } =new();
 
@@ -105,7 +109,7 @@ namespace UrbanNative.Vendors.Pages.Logistics
         public async Task<IActionResult> OnGetItemsAsync(int orderId)
         {
             DispatchOrderId = orderId;
-
+            
             DispatchItems = await _service.GetOrderItemsAsync(orderId);
 
             return Partial("_DispatchItemGrid2", this);

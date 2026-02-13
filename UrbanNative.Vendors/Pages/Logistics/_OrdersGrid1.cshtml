@@ -15,7 +15,7 @@ else
         <tr>
             <td>@o.OrderNo</td>
             <td>@o.OrderDate.ToString("dd-MMM-yyyy")</td>
-            <td>@(o.DeliveryByDays >= 0 ? o.DeliveryByDays + " day(s)" : "-")</td>
+            <td>@(o.ExpectedDeliveryDate?.ToString("dd-MMM-yyyy") ?? "-")</td>
             <td>@o.CustomerName</td>
             <td>@o.CityState</td>
             <td>@o.NOP</td>

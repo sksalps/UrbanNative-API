@@ -5038,6 +5038,10 @@
             "type": "string",
             "nullable": true
           },
+          "shipmentType": {
+            "type": "string",
+            "nullable": true
+          },
           "logisticsProviderID": {
             "type": "integer",
             "format": "int32",

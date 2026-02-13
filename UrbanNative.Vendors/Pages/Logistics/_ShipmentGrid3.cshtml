@@ -20,7 +20,6 @@ else
                         <tr>
                             <th>ID</th>
                             <th>Order No.</th>
-                            <th>SKU Id</th>
                             <th>Type</th>
                             <th>Items</th>
                             <th>Delivery By</th>
@@ -43,8 +42,8 @@ else
 
                             <tr class="@(locked ? "row-locked" : "")">
                                 <td>#@s.ShipmentID</td>
-                                <td>@s.OrderNo</td>
-                            <td>@s.SKUId</td>
+                                <td>@s.OrderID</td>
+                            
                                 <td>
                                     <span class="badge bg-secondary">
                                         @s.ShipmentType
@@ -85,7 +84,8 @@ else
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#updateShipmentModal"
                                                 onclick="openUpdateShipmentModal(
-                                                                @s.ShipmentID,
+                                                                @s.ShipmentID, 
+                                                                '@s.ShipmentType',
                                                                 '@s.ShipmentStatus',
                                                                 '@(s.TrackingNo ?? "")',
                                                                 @(s.LogisticsProviderID ?? 0),

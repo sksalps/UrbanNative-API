@@ -283,7 +283,7 @@ ShippedQuantity	int	Unchecked
 		Unchecked
 
 OrderItemReturns		
-ReturnId	int	Unchecked
+ReturnItemId	int	Unchecked
 OrderId	int	Unchecked
 OrderItemId	int	Unchecked
 SKUId	int	Unchecked
@@ -296,19 +296,22 @@ AdminComment	nvarchar(500)	Checked
 AdminId	int	Checked
 AdminActionAt	datetime	Checked
 RequestedAt	datetime	Unchecked
-		Unchecked		
-		
+ReturnShipmentID	int	Checked
+		Unchecked
+OrderReturnShipments
 ReturnShipmentId	int	Unchecked
-ReturnId	int	Unchecked
-TrackingNumber	nvarchar(100)	Unchecked
 ShipmentStatus	varchar(30)	Unchecked
 CreatedAt	datetime	Unchecked
 PickedAt	datetime	Checked
 DeliveredAt	datetime	Checked
-LogisticsProviderID	int	Unchecked
 PickupCustomerAddressID	int	Checked
 DeliveryVendorAddressID	int	Checked
 AWBLabelURL	nvarchar(100)	Checked
+IsActive	bit	Unchecked
+UpdatedAt	datetime	Checked
+UpdatedBy	varchar(20)	Checked
+TrackingNumber	nvarchar(50)	Checked
+LogisticsProviderID	int	Checked
 		Unchecked
 
 OrderItemReturnImages
@@ -340,7 +343,41 @@ CreatedAt	datetime2(7)	Unchecked
 UpdatedAt	datetime2(7)	Checked
 		Unchecked
 3. *****************
+RTO Logic
+OrderItemReturns
+ReturnId	int	Unchecked
+OrderId	int	Unchecked
+OrderItemId	int	Unchecked
+SKUId	int	Unchecked
+VendorId	int	Unchecked
+ReturnType	varchar(10)	Unchecked
+ReturnStatus	varchar(20)	Unchecked
+CustomerReason	nvarchar(300)	Unchecked
+Remarks	nvarchar(MAX)	Checked
+AdminComment	nvarchar(500)	Checked
+AdminId	int	Checked
+AdminActionAt	datetime	Checked
+RequestedAt	datetime	Unchecked
+		Unchecked
+		
+OrderReturnShipments
+ReturnShipmentId	int	Unchecked
+ReturnId	int	Unchecked
+TrackingNumber	nvarchar(100)	Unchecked
+ShipmentStatus	varchar(30)	Unchecked
+CreatedAt	datetime	Unchecked
+PickedAt	datetime	Checked
+DeliveredAt	datetime	Checked
+LogisticsProviderID	int	Unchecked
+PickupCustomerAddressID	int	Checked
+DeliveryVendorAddressID	int	Checked
+AWBLabelURL	nvarchar(100)	Checked
+IsActive	bit	Unchecked
+UpdatedAt	datetime	Checked
+UpdatedBy	varchar(20)	Checked
+		Unchecked
 
+4. **********************
 ProductSKUs
 SKUId	int	Unchecked
 ProductID	int	Unchecked

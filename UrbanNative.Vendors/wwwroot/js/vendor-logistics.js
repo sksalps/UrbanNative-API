@@ -95,11 +95,7 @@ function onDispatchClick(btn) {
         return;
     }
 
-    openCreateShipmentModal(
-        parseInt(orderId, 10),
-        checked.length,
-        city
-    );
+    openCreateShipmentModal(parseInt(orderId, 10), checked.length,  city );
 }
 
 /* =========================================================
@@ -131,14 +127,14 @@ function openCreateShipmentModal(orderId, itemCount, city) {
 /* =========================================================
    OPEN UPDATE SHIPMENT MODAL
    ========================================================= */
-function openUpdateShipmentModal(shipmentId, status, trackingNo, providerId, city) {
+function openUpdateShipmentModal(shipmentId,shipmentType, status, trackingNo, providerId, city) {
 
     CURRENT_MODAL_MODE = "UPDATE";
 
     document.getElementById("UpdateShipment_ShipmentID").value = shipmentId;
+    document.getElementById("UpdateShipment_ShipmentType").dataset.shipmentType = shipmentType || ""; 
     document.getElementById("ddlShipmentStatus").value = status || "";
     document.getElementById("ddlShipmentStatus").dataset.oldStatus = status || "";
-
     document.getElementById("ddlLogisticsProvider").value = providerId || "";
     document.getElementById("UpdateShipment_TrackingNo").value = trackingNo || "";
 
@@ -309,6 +305,7 @@ async function submitShipmentForm() {
 
         const shipmentId = document.getElementById("UpdateShipment_ShipmentID").value;
         const oldStatus = document.getElementById("ddlShipmentStatus").dataset.oldStatus;
+        const shipmentType = document.getElementById("UpdateShipment_ShipmentType").dataset.shipmentType;
 
         if (!isStatusUpgradeAllowed(oldStatus, status)) {
             alert("Status downgrade is not allowed.");
@@ -319,12 +316,14 @@ async function submitShipmentForm() {
 
         const formData = new FormData();
         formData.append("UpdateShipment.ShipmentID", shipmentId);
+        formData.append("UpdateShipment.ShipmentType", shipmentType);
         formData.append("UpdateShipment.NewShipmentStatus", status);
         formData.append("UpdateShipment.LogisticsProviderID", providerId || "");
         formData.append("UpdateShipment.TrackingNo", trackingNo || "");
 
-        const url = `${LOGISTICS_BASE_URL}?handler=UpdateShipment`;
-        alert(url);
+        //const url = `${LOGISTICS_BASE_URL}?handler=UpdateShipment`; 
+        const url = `/Logistics?handler=UpdateShipment`;
+        //alert(url);
         const res = await fetch(url, {
             method: "POST",
             headers: {

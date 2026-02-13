@@ -17,7 +17,7 @@ namespace UrbanNative.Application.GlobalCall
                 ["IN_TRANSIT"] = 4,
                 ["OUT_FOR_DELIVERY"] = 5,
                 ["DELIVERED"] = 6,
-                ["FAILED"] = 7,
+                ["FAILED_HOLD"] = 7,
                 ["RETURN_TO_ORIGIN"] = 8
             };
 

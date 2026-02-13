@@ -25,11 +25,13 @@ select * from InventoryLogs where skuid=27 order by logid desc
 select * from SystemSettingsMaster
 select * from SystemSettingValues
 select * from Orders
-select * from OrderItems  where orderid=1004
+select ItemStatus,* from OrderItems  where orderid=2
 select * from OrderShipments
 SELECT * FROM OrderShipmentDetails
 select * from ReturnPolicyMaster
-
+--update OrderShipments set ShipmentStatus='PICKED_UP' where ShipmentID=7
+--update OrderItems set ItemStatus='PICKED_UP' where OrderID=1007
+--delete OrderShipments where ShipmentID=17
 select * from AddressMaster
 select * from CountryMaster
 select * from StateMaster
@@ -39,6 +41,8 @@ select * from LogisticsProvider
 select * from orderitemreturns
 select * from OrderReturnShipments
 select * from OrderItemReturnImages
+
+
 EXEC sp_ProductInventorySkuGrid_Get 1,1, 1002;
 exec sp_VendorProducts_List 1, 'Men'
 EXEC sp_ReturnImages_GetByReturn 1;
@@ -63,7 +67,12 @@ exec sp_VendorOrders_List @VendorID=1, @SkuOrProduct ='P1-28', @SearchType='SKU'
 EXEC sp_VendorOrder_ViewDetails 1004
 EXEC sp_VendorLogistics_ResolveReference @SearchText = 'TRK-1001-A', @vendorid=1
 Exec sp_VendorLogistics_FilterSuggestions @Term='1', @vendorid=1
-exec sp_VendorLogisticsItems_Grid2 @vendorid=1, @orderid=2
+exec sp_VendorLogisticsItem_Grid2 @vendorid=1, @orderid=2
+exec sp_VendorLogisticsShipment_Grid3 @vendorid=1, @orderid=2
+exec sp_VendorLogisticsOrders_Grid1 1,0
 
 asdfas
 update ProductSKUs set IsActive=0 where SKUId=25
+
+alter table OrderShipments
+add DeliveryBy DateTime NOT NULL Default Getdate()+7

@@ -2,8 +2,8 @@
 
 <div class="card mt-3">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <strong>Order Items – Ready to Dispatch</strong>
-
+        <strong>Order #Model.OrderNo Items – Ready to Dispatch</strong>
+        
         <button type="button"
                 id="btnDispatch"
                 class="btn btn-primary"
@@ -26,14 +26,15 @@
                 <table class="table table-sm table-hover mb-0">
                     <thead class="table-light sticky-top">
                         <tr>
-                            <th style="width:40px;">Select</th>
+                            <th style="width:40px;">Select/ShipID</th>
                             <th>Order No.</th>
+                            <th>Delivery By</th>
                             <th>SKU</th>
                             <th>Qty</th>
                             <th>Status</th>
                             <th>Logistics</th>
                             <th>AWB</th>
-                            <th>Delivery By</th>
+                            
                         </tr>
                     </thead>
 
@@ -43,16 +44,26 @@
                             <tr class="@(i.IsEditable ? "" : "row-locked")">
                                 <td>
                                     @if (i.IsEditable)
-                                    {
+                                        {
                                             <input type="checkbox"
-                                               name="SelectedOrderItemIds"
-                                               value="@i.OrderItemID"
-                                               class="dispatch-checkbox"
-                                               onchange="updateDispatchCount()" />
-                                    }
+                                            name="SelectedOrderItemIds"
+                                            value="@i.OrderItemID"
+                                            class="dispatch-checkbox"
+                                            onchange="updateDispatchCount()" />
+                                        }
+                                        else
+                                        {
+                                        <span>
+                                            #@i.ShipmentID
+                                        </span>
+                                            
+                                        }
 
-                            </td>
+                                </td>
                             <td>@i.OrderNo</td>
+                            <td>
+                                @(i.DeliveryByDate.HasValue? i.DeliveryByDate?.ToString("dd-MMM-yyyy")            : "-")
+                            </td>
                             <td>
                                 <div class="fw-semibold">@i.SKUDisplay</div>
                                 <small class="text-muted">SKU ID: @i.SKUId</small>
@@ -68,11 +79,8 @@
 
                             <td>@(i.ProviderName ?? "-")</td>
                             <td>@(i.TrackingNo ?? "-")</td>
-                            <td>
-                                @(i.DeliveryByDate.HasValue
-                                                                ? i.DeliveryByDate?.ToString("dd-MMM-yyyy")            : "-")
-                                </td>
-                            </tr>
+                            
+                        </tr>
                         }
                     </tbody>
                 </table>

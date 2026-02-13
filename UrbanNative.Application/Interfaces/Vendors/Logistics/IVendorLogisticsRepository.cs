@@ -34,6 +34,7 @@ namespace UrbanNative.Application.Interfaces.Vendors
         /* Update Shipment */
         Task UpdateShipmentStatusAsync(
             int shipmentId,
+            string shipmentType,
             int vendorId,
             string newStatus,
             int? logisticsProviderId,
@@ -42,7 +43,7 @@ namespace UrbanNative.Application.Interfaces.Vendors
 
         /* Snapshot (validation) */
         Task<VendorShipmentSnapshotDto?> GetShipmentSnapshotAsync(
-            int shipmentId);
+            int shipmentId, string shipmentType);
 
         /* Auto transitions */
         Task RunAutoTransitionsAsync(int vendorId);

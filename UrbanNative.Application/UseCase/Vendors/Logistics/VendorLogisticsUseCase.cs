@@ -104,10 +104,10 @@ namespace UrbanNative.Application.UseCase.Vendors.Logistics
          * ============================================================ */
         public async Task UpdateShipmentStatusAsync(int vendorId,UpdateShipmentStatusDto dto)
         {
-            var shipment = await _repository.GetShipmentSnapshotAsync(dto.ShipmentID);
+             var shipment = await _repository.GetShipmentSnapshotAsync(dto.ShipmentID,dto.ShipmentType);
 
             if (shipment == null)
-                throw new DomainValidationException("ERR003","Invalid shipment");
+                throw new DomainValidationException("ERR003", "Invalid shipment");
 
             if (shipment.VendorID != vendorId)
                 throw new DomainValidationException(
@@ -142,6 +142,7 @@ namespace UrbanNative.Application.UseCase.Vendors.Logistics
 
             await _repository.UpdateShipmentStatusAsync(
                 shipmentId: dto.ShipmentID,
+                shipmentType: dto.ShipmentType,
                 vendorId: vendorId,
                 newStatus: dto.NewShipmentStatus,
                 logisticsProviderId: dto.LogisticsProviderID,

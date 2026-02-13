@@ -130,6 +130,7 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
          * ============================================================ */
         public async Task UpdateShipmentStatusAsync(
             int shipmentId,
+            string shipmentType,
             int vendorId,
             string newStatus,
             int? logisticsProviderId,
@@ -143,6 +144,7 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
                 new
                 {
                     ShipmentID = shipmentId,
+                    ShipmentType= shipmentType,
                     VendorID = vendorId,
                     NewStatus = newStatus,
                     LogisticsProviderID = logisticsProviderId,
@@ -155,13 +157,17 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
         /* ============================================================
          * SNAPSHOT (VALIDATION)
          * ============================================================ */
-        public async Task<VendorShipmentSnapshotDto?>
-            GetShipmentSnapshotAsync(int shipmentId)
+        public async Task<VendorShipmentSnapshotDto?> GetShipmentSnapshotAsync(int shipmentId,string shipmentType)
         {
             using var conn = _connectionFactory.CreateConnection();
-
-            return await conn.QueryFirstOrDefaultAsync<VendorShipmentSnapshotDto>(
+            if (shipmentType == "NEW")
+                return await conn.QueryFirstOrDefaultAsync<VendorShipmentSnapshotDto>(
                 "sp_VendorLogisticsShipment_Snapshot",
+                new { ShipmentID = shipmentId },
+                commandType: CommandType.StoredProcedure);
+            else
+                return await conn.QueryFirstOrDefaultAsync<VendorShipmentSnapshotDto>(
+                "sp_VendorLogisticsReturnShipment_Snapshot",
                 new { ShipmentID = shipmentId },
                 commandType: CommandType.StoredProcedure);
         }

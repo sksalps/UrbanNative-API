@@ -45,8 +45,7 @@
         /// <summary>
         /// Delivery SLA in days
         /// </summary>
-        public int DeliveryByDays { get; set; }
-
+        public DateTime? ExpectedDeliveryDate { get; set; }
         public string CustomerName { get; set; } = string.Empty;
         public string CityState { get; set; } = string.Empty;
 
@@ -164,6 +163,7 @@
         /// FAILED_HOLD → FAILED → RETURN_TO_ORIGIN
         /// </summary>
         public string NewShipmentStatus { get; set; } = string.Empty;
+        public string ShipmentType { get; set; } = string.Empty;
 
         /// <summary>
         /// Logistics provider (locked after PICKED_UP)
