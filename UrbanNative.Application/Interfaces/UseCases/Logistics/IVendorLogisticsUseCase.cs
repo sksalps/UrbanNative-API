@@ -9,11 +9,14 @@ namespace UrbanNative.Application.Interfaces.UseCase.Logistics
             int vendorId,
             VendorLogisticsFilterDto filter);
 
-        /* Grid-2 */
+        /* Grid-2 */       
         Task<IReadOnlyList<VendorLogisticsItemDto>> GetOrderItemsAsync(
             int vendorId,
             int orderId);
-
+        /* Item Warehouse */
+        Task<IReadOnlyList<VendorItemWarehouseDto>> GetItemWarehouseAsync(
+            int vendorId,
+            int orderId);
         /* Grid-3 */
         Task<IReadOnlyList<VendorLogisticsShipmentDto>> GetShipmentsAsync(
             int vendorId,

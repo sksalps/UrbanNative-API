@@ -9,7 +9,7 @@
         /// Order against which shipment is created
         /// </summary>
         public int OrderID { get; set; }
-
+        public int WarehouseID { get; set; }
         /// <summary>
         /// Selected OrderItemIDs to be dispatched in this shipment
         /// </summary>
@@ -80,8 +80,10 @@
         public int OrderItemID { get; set; }
         public string OrderNo { get; set; } = string.Empty;
         public int SKUId { get; set; }
-        public string SKUDisplay { get; set; } = string.Empty;
-
+        public string SKUDisplay { get; set; } = string.Empty; 
+        public int WarehouseGroupKey { get; set; }
+        public string WarehousePreview { get; set; } = string.Empty;
+        public string AddressName { get; set; } = string.Empty;
         public int ShipmentQty { get; set; }
 
         public string ShipmentStatus { get; set; } = string.Empty;
@@ -97,7 +99,12 @@
         public bool IsActive { get; set; }
         public bool IsReturn { get; set; }
     }
-
+    public class VendorItemWarehouseDto
+    {
+        public int WarehouseID { get; set; }
+        public string Warehouse { get; set; } = string.Empty;
+        public string AddressLine1City { get; set; } = string.Empty;
+    }
 
     /* ============================================================
      * GRID-3 : SHIPMENT Details + Status update (Dispatch flow)
@@ -124,7 +131,8 @@
 
         public int? LogisticsProviderID { get; set; }
         public string? ProviderName { get; set; }
-
+        public int? WarehouseID { get; set; }
+        public string? WarehouseName { get; set; }
         public string? TrackingNo { get; set; }
         public string? UpdatedBy { get; set; }
         
@@ -157,7 +165,8 @@
     public class UpdateShipmentStatusDto
     {
         public int ShipmentID { get; set; }
-
+        
+        public int WarehouseID { get; set; }
         /// <summary>
         /// READY_TO_SHIP → PICKUP_SCHEDULED → PICKED_UP → IN_TRANSIT → OUT_FOR_DELIVERY → DELIVERED
         /// FAILED_HOLD → FAILED → RETURN_TO_ORIGIN

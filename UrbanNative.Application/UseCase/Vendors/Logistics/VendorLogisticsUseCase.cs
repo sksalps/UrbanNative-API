@@ -44,6 +44,18 @@ namespace UrbanNative.Application.UseCase.Vendors.Logistics
                 orderId
             );
         }
+        /* ============================================================
+         * Item WH : ORDER ITEMS (Warehouse for pickup the shipment)
+         * ============================================================ */
+        public async Task<IReadOnlyList<VendorItemWarehouseDto>> GetItemWarehouseAsync(
+            int vendorId,
+            int orderId)
+        {
+            return await _repository.GetItemsWarehouseAsync(
+                vendorId,
+                orderId
+            );
+        }
 
         /* ============================================================
          * GRID-3 : SHIPMENTS LIST
@@ -93,6 +105,7 @@ namespace UrbanNative.Application.UseCase.Vendors.Logistics
                 orderId: dto.OrderID,
                 orderItemIds: dto.OrderItemIds,
                 logisticsProviderId: dto.LogisticsProviderID,
+                pickupWarehouseId: dto.WarehouseID,
                 initialStatus: dto.InitialShipmentStatus,
                 trackingNo: dto.TrackingNo,
                 createdBy: "VENDOR"
@@ -146,6 +159,7 @@ namespace UrbanNative.Application.UseCase.Vendors.Logistics
                 vendorId: vendorId,
                 newStatus: dto.NewShipmentStatus,
                 logisticsProviderId: dto.LogisticsProviderID,
+                pickupWarehouseId: dto.WarehouseID,
                 trackingNo: dto.TrackingNo,
                 updatedBy: "VENDOR"
             );

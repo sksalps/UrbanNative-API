@@ -7,8 +7,8 @@ public interface IVendorLogisticsService
 
     /* Grid-2 */
     Task<IReadOnlyList<VendorLogisticsItemDto>> GetOrderItemsAsync(int orderId);
-
-
+    /* Item Warehouse */
+    Task<IReadOnlyList<VendorItemWarehouseDto>> GetItemlWarehousesAsync(int orderId);
     /* Grid-3 */
     Task<IReadOnlyList<VendorLogisticsShipmentDto>> GetShipmentsAsync(
         int? orderId,

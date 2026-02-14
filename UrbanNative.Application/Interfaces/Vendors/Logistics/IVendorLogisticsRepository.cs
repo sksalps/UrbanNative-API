@@ -14,7 +14,10 @@ namespace UrbanNative.Application.Interfaces.Vendors
         Task<IReadOnlyList<VendorLogisticsItemDto>> GetOrderItemsAsync(
             int vendorId,
             int orderId);
-
+        /* Item Warehouse */ 
+        Task<IReadOnlyList<VendorItemWarehouseDto>> GetItemsWarehouseAsync(
+                int vendorId,
+                int orderId);
         /* Grid-3 */
         Task<IReadOnlyList<VendorLogisticsShipmentDto>> GetShipmentsAsync(
             int vendorId,
@@ -27,6 +30,7 @@ namespace UrbanNative.Application.Interfaces.Vendors
             int orderId,
             IReadOnlyList<int> orderItemIds,
             int logisticsProviderId,
+            int pickupWarehouseId,
             string initialStatus,
             string? trackingNo,
             string createdBy);
@@ -38,6 +42,7 @@ namespace UrbanNative.Application.Interfaces.Vendors
             int vendorId,
             string newStatus,
             int? logisticsProviderId,
+            int? pickupWarehouseId,
             string? trackingNo,
             string updatedBy);
 

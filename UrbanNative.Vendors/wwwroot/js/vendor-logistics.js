@@ -20,14 +20,14 @@ let CURRENT_MODAL_MODE = null; // "CREATE" | "UPDATE"
 /* =========================================================
    GRID-2 LOADER (Order → Items)
    ========================================================= */
-function loadGrid2(orderId, city)
+function loadGrid2(orderId, city,orderNo)
 {
 
     if (!orderId) {
         console.error("orderId missing for Grid-2");
         return;
     }
-
+    
     //fetch(`/Vendors/Logistics?handler=Items&orderId=${orderId}`)
     fetch(`${LOGISTICS_BASE_URL}?handler=Items&orderId=${orderId}`)
 
@@ -45,9 +45,10 @@ function loadGrid2(orderId, city)
 
             grid.innerHTML = html;
 
-            // Sync hidden field
+            // Sync hidden field OrderID for modal use
             const hidden = document.getElementById("DispatchOrderId");
             if (hidden) hidden.value = orderId;
+            
 
             // Sync dispatch button dataset
             
@@ -55,6 +56,7 @@ function loadGrid2(orderId, city)
             if (btn) {
                 btn.dataset.orderId = orderId;
                 btn.dataset.city = city || "";
+                btn.dataset.orderNo = orderNo || "";
             }
             // Auto load shipments grid
             loadGrid3(orderId);
@@ -87,6 +89,7 @@ function onDispatchClick(btn) {
 
     const orderId = btn.dataset.orderId;
     const city = btn.dataset.city || "";
+    const orderNo = btn.dataset.orderNo || "";
 
     const checked = document.querySelectorAll(".dispatch-checkbox:checked");
 
@@ -95,14 +98,14 @@ function onDispatchClick(btn) {
         return;
     }
 
-    openCreateShipmentModal(parseInt(orderId, 10), checked.length,  city );
+    openCreateShipmentModal(parseInt(orderId, 10), checked.length,  city, orderNo );
 }
 
 /* =========================================================
    OPEN CREATE SHIPMENT MODAL
    ========================================================= */
-function openCreateShipmentModal(orderId, itemCount, city) {
-
+async function openCreateShipmentModal(orderId, itemCount, city, orderNo) {
+    await loadWarehouseDropdown();
     CURRENT_MODAL_MODE = "CREATE";
 
     document.getElementById("UpdateShipment_ShipmentID").value = "";
@@ -110,11 +113,12 @@ function openCreateShipmentModal(orderId, itemCount, city) {
     document.getElementById("ddlShipmentStatus").dataset.oldStatus = "";
     document.getElementById("ddlLogisticsProvider").value = "";
     document.getElementById("ddlLogisticsProvider").disabled = false;
+    document.getElementById("ddlItemWarehouse").disabled = false;
     document.getElementById("UpdateShipment_TrackingNo").value = "";
     document.getElementById("ddlShipmentStatus").value = "READY_TO_SHIP";
 
     document.querySelector(".modal-title").innerText =
-        `Ship ${itemCount} Item(s) to ${city}`;
+    `Ship ${itemCount} Item(s), Order#${orderNo} to ${city}`;
 
     toggleAwbFields();
 
@@ -127,23 +131,25 @@ function openCreateShipmentModal(orderId, itemCount, city) {
 /* =========================================================
    OPEN UPDATE SHIPMENT MODAL
    ========================================================= */
-function openUpdateShipmentModal(shipmentId,shipmentType, status, trackingNo, providerId, city) {
+async function openUpdateShipmentModal(shipmentId,shipmentType, status, trackingNo, providerId,warehouseId, city,orderNo) {
 
+    await loadWarehouseDropdown();
     CURRENT_MODAL_MODE = "UPDATE";
-
+    
     document.getElementById("UpdateShipment_ShipmentID").value = shipmentId;
     document.getElementById("UpdateShipment_ShipmentType").dataset.shipmentType = shipmentType || ""; 
     document.getElementById("ddlShipmentStatus").value = status || "";
     document.getElementById("ddlShipmentStatus").dataset.oldStatus = status || "";
     document.getElementById("ddlLogisticsProvider").value = providerId || "";
+    document.getElementById("ddlItemWarehouse").value = warehouseId || "";
     document.getElementById("UpdateShipment_TrackingNo").value = trackingNo || "";
 
     if (trackingNo) {
         document.querySelector(".modal-title").innerText =
-            `AWB No. ${trackingNo} to ${city}`;
+            `AWB: ${trackingNo}, Order#${orderNo} to ${city}`;
     } else {
         document.querySelector(".modal-title").innerText =
-            `Update Shipment to ${city}`;
+        `Update Shipment for Order #${orderNo} to ${city}`;
     }
 
     toggleAwbFields();
@@ -153,19 +159,23 @@ function openUpdateShipmentModal(shipmentId,shipmentType, status, trackingNo, pr
    STATUS RULE ENGINE (Provider + AWB Logic)
    ========================================================= */
 function toggleAwbFields() {
-
+    
+    //await loadWarehouseDropdown();
     const status = document.getElementById("ddlShipmentStatus").value;
     const awbBlock = document.getElementById("awbBlock");
     const providerDDL = document.getElementById("ddlLogisticsProvider");
+    const warehouseDDL = document.getElementById("ddlItemWarehouse");
 
-    if (!awbBlock || !providerDDL) return;
+    if (!awbBlock || !providerDDL || !warehouseDDL) return;
 
     awbBlock.style.display = "none";
     providerDDL.disabled = false;
+    warehouseDDL.disabled = false;
 
-    // PICKUP_SCHEDULED → Provider required
+    // PICKUP_SCHEDULED → Provider required & Warehouse required
     if (status === "PICKUP_SCHEDULED") {
         providerDDL.disabled = false;
+        warehouseDDL.disabled = false;
     }
 
     // PICKED_UP and above → AWB required & Provider locked
@@ -173,12 +183,32 @@ function toggleAwbFields() {
         status === "PICKED_UP" ||
         status === "IN_TRANSIT" ||
         status === "OUT_FOR_DELIVERY" ||
-        status === "DELIVERED"
+        status === "DELIVERED" ||
+        status === "FAILED_HOLD"
     ) {
         awbBlock.style.display = "block";
         providerDDL.disabled = true;
+        warehouseDDL.disabled = true;
     }
 }
+/* =========================================================
+    WAREHOUSE LOADER (based on selected items in create mode)
+========================================================= */
+async function loadWarehouseDropdown() {
+    const orderId = document.getElementById("DispatchOrderId")?.value;
+    const res = await fetch(`/Logistics?handler=ItemWarehouses&orderId=${orderId}`);
+    const data = await res.json();
+
+    const ddl = document.getElementById("ddlItemWarehouse");
+    ddl.innerHTML = '<option value="">-- Select Warehouse --</option>';
+
+    data.forEach(w => {
+        ddl.innerHTML += `<option value="${w.warehouseID}">${w.addressLine1City}</option>`;
+    });
+
+    return data; // ✅ important
+}
+
 
 /* =========================================================
    STATUS UPGRADE CHECK
@@ -198,11 +228,15 @@ function isStatusUpgradeAllowed(oldStatus, newStatus) {
 /* =========================================================
    VALIDATION RULES
    ========================================================= */
-function validateShipmentRules(status, providerId, trackingNo) {
+function validateShipmentRules(status, providerId, warehouseId, trackingNo) {
 
     if (status === "PICKUP_SCHEDULED") {
         if (!providerId) {
             alert("Logistics Provider is mandatory for Pickup Scheduled.");
+            return false;
+        }
+        if (!warehouseId) {
+            alert("Pickup Warehouse selection is mandatory for Pickup Scheduled.");
             return false;
         }
     }
@@ -211,7 +245,8 @@ function validateShipmentRules(status, providerId, trackingNo) {
         status === "PICKED_UP" ||
         status === "IN_TRANSIT" ||
         status === "OUT_FOR_DELIVERY" ||
-        status === "DELIVERED"
+        status === "DELIVERED" ||
+        status === "FAILED_HOLD"
     ) {
         if (!trackingNo) {
             alert("AWB / Tracking No is mandatory.");
@@ -229,6 +264,7 @@ async function submitShipmentForm() {
 
     const status = document.getElementById("ddlShipmentStatus").value;
     const providerId = document.getElementById("ddlLogisticsProvider").value;
+    const warehouseId = document.getElementById("ddlItemWarehouse").value;
     const trackingNo = document.getElementById("UpdateShipment_TrackingNo").value;
 
     if (!status) {
@@ -236,7 +272,7 @@ async function submitShipmentForm() {
         return;
     }
 
-    if (!validateShipmentRules(status, providerId, trackingNo)) {
+    if (!validateShipmentRules(status, providerId, warehouseId, trackingNo)) {
         return;
     }
 
@@ -256,6 +292,7 @@ async function submitShipmentForm() {
         formData.append("OrderID", orderId);
         formData.append("InitialShipmentStatus", status);
         formData.append("LogisticsProviderID", providerId || 0);
+        formData.append("WarehouseID", warehouseId || 0);
         formData.append("TrackingNo", trackingNo || "");
 
         selected.forEach(cb => {
@@ -319,6 +356,7 @@ async function submitShipmentForm() {
         formData.append("UpdateShipment.ShipmentType", shipmentType);
         formData.append("UpdateShipment.NewShipmentStatus", status);
         formData.append("UpdateShipment.LogisticsProviderID", providerId || "");
+        formData.append("UpdateShipment.WarehouseID", warehouseId || "");
         formData.append("UpdateShipment.TrackingNo", trackingNo || "");
 
         //const url = `${LOGISTICS_BASE_URL}?handler=UpdateShipment`; 

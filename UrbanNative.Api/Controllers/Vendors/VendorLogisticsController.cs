@@ -47,8 +47,19 @@ public class VendorLogisticsController : ControllerBase
         var result = await _useCase.GetOrderItemsAsync(vendorId, orderId);
         return Ok(result);
     }
+    /* ================= Item Warehouse ================= */
 
-    
+    [HttpGet("warehouse")]
+    public async Task<IActionResult> GetItemWarehouse(
+        [FromQuery] int orderId)
+    {
+        int vendorId = GetVendorId();
+
+        var result = await _useCase.GetItemWarehouseAsync(vendorId, orderId);
+        return Ok(result);
+    }
+
+
 
     /* ================= GRID-3 ================= */
 

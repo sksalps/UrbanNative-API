@@ -1,5 +1,6 @@
-﻿using System.Data;
-using Dapper;
+﻿using Dapper;
+using System.Data;
+using UrbanNative.Application.DTOs.CommonCrossDashboard;
 using UrbanNative.Application.DTOs.Vendors.Logistics;
 using UrbanNative.Application.Interfaces.Vendors;
 using UrbanNative.Infrastructure.Database;
@@ -38,7 +39,7 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
 
             return result.AsList();
         }
-
+        
         /* ============================================================
          * GRID-2 : ORDER ITEMS (DISPATCH SELECTION)
          * ============================================================ */
@@ -56,6 +57,28 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
                     VendorID = vendorId,
                     OrderID = orderId
                 },
+                commandType: CommandType.StoredProcedure);
+
+            return result.AsList();
+        }
+
+        /* ============================================================
+         * Item WH : ORDER ITEMS (Warehouse for DISPATCH Pickup)
+         * ============================================================ */
+        
+        public async Task<IReadOnlyList<VendorItemWarehouseDto>> GetItemsWarehouseAsync(
+            int vendorId,
+            int orderId)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            var param = new DynamicParameters();
+            param.Add("@VendorID", vendorId);
+            param.Add("@OrderID", orderId);
+
+            var result = await conn.QueryAsync<VendorItemWarehouseDto>(
+                "sp_VendorItemWarehouse",
+                param,
                 commandType: CommandType.StoredProcedure);
 
             return result.AsList();
@@ -93,6 +116,7 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
             int orderId,
             IReadOnlyList<int> orderItemIds,
             int logisticsProviderId,
+            int pickupWarehouseId,
             string initialStatus,
             string? trackingNo,
             string createdBy)
@@ -103,6 +127,7 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
             p.Add("@VendorID", vendorId);
             p.Add("@OrderID", orderId);
             p.Add("@LogisticsProviderID", logisticsProviderId);
+            p.Add("@PickupWarehouseID" , pickupWarehouseId);
             p.Add("@InitialShipmentStatus", initialStatus);
             p.Add("@TrackingNo", trackingNo);
             p.Add("@CreatedBy", createdBy);
@@ -134,6 +159,7 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
             int vendorId,
             string newStatus,
             int? logisticsProviderId,
+            int? pickupWarehouseId,
             string? trackingNo,
             string updatedBy)
         {
@@ -148,6 +174,7 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
                     VendorID = vendorId,
                     NewStatus = newStatus,
                     LogisticsProviderID = logisticsProviderId,
+                    PickupWarehouseID=pickupWarehouseId,
                     TrackingNo = trackingNo,
                     UpdatedBy = updatedBy
                 },

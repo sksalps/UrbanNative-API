@@ -2,7 +2,7 @@
 
 <div class="card mt-3">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <strong>Order #Model.OrderNo Items – Ready to Dispatch</strong>
+        <strong>Order #@Model.OrderNo Items – Ready to Dispatch</strong>
         
         <button type="button"
                 id="btnDispatch"
@@ -12,9 +12,6 @@
                 disabled>
             Dispatch (<span id="selectedCount">0</span>)
         </button>
-
-
-
     </div>
 
     <div class="card-body p-0">
@@ -27,7 +24,6 @@
                     <thead class="table-light sticky-top">
                         <tr>
                             <th style="width:40px;">Select/ShipID</th>
-                            <th>Order No.</th>
                             <th>Delivery By</th>
                             <th>SKU</th>
                             <th>Qty</th>
@@ -37,33 +33,50 @@
                             
                         </tr>
                     </thead>
-
+                    
                     <tbody>
-                        @foreach (var i in Model.DispatchItems)
-                        {
-                            <tr class="@(i.IsEditable ? "" : "row-locked")">
-                                <td>
-                                    @if (i.IsEditable)
-                                        {
-                                            <input type="checkbox"
-                                            name="SelectedOrderItemIds"
-                                            value="@i.OrderItemID"
-                                            class="dispatch-checkbox"
-                                            onchange="updateDispatchCount()" />
-                                        }
-                                        else
-                                        {
-                                        <span>
-                                            #@i.ShipmentID
-                                        </span>
-                                            
-                                        }
+                    @{
+                        int? lastWarehouseId = null;
+                    }
 
+                    @foreach (var i in Model.DispatchItems)
+                    {
+                        /* 🔹 Warehouse Group Header */
+                        if (lastWarehouseId != i.WarehouseGroupKey)
+                        {
+                            <tr class="table-secondary">
+                                <td colspan="8">
+                                    <div class="fw-semibold">
+                                        🏭 @i.AddressName
+                                    </div>
                                 </td>
-                            <td>@i.OrderNo</td>
+                            </tr>
+
+                            lastWarehouseId = i.WarehouseGroupKey;
+                        }
+
+                        <tr class="@(i.IsEditable ? "" : "row-locked")">
                             <td>
-                                @(i.DeliveryByDate.HasValue? i.DeliveryByDate?.ToString("dd-MMM-yyyy")            : "-")
+                                @if (i.IsEditable)
+                                {
+                                    <input type="checkbox"
+                                           name="SelectedOrderItemIds"
+                                           value="@i.OrderItemID"
+                                           class="dispatch-checkbox"
+                                           onchange="updateDispatchCount()" />
+                                }
+                                else
+                                {
+                                    <span>#@i.ShipmentID</span>
+                                }
                             </td>
+
+                            <td>
+                                @(i.DeliveryByDate.HasValue
+                                    ? i.DeliveryByDate?.ToString("dd-MMM-yyyy")
+                                    : "-")
+                            </td>
+
                             <td>
                                 <div class="fw-semibold">@i.SKUDisplay</div>
                                 <small class="text-muted">SKU ID: @i.SKUId</small>
@@ -78,11 +91,12 @@
                             </td>
 
                             <td>@(i.ProviderName ?? "-")</td>
+
                             <td>@(i.TrackingNo ?? "-")</td>
-                            
                         </tr>
-                        }
+                    }
                     </tbody>
+
                 </table>
             </div>
         </form>

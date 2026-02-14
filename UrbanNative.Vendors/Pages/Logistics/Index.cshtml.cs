@@ -41,8 +41,8 @@ namespace UrbanNative.Vendors.Pages.Logistics
         [BindProperty]
         public int DispatchOrderId { get; set; }
         
-        //[BindProperty]
-        //public String OrderNo { get; set; } =  string.Empty;
+        [BindProperty]
+        public String OrderNo { get; set; } =  string.Empty;
         
         [BindProperty]
         public int DispatchCity { get; set; } =new();
@@ -62,6 +62,8 @@ namespace UrbanNative.Vendors.Pages.Logistics
 
         public IReadOnlyList<LogisticsProviderComnDto> LogisticsProviders { get; set; }
             = new List<LogisticsProviderComnDto>();
+        public IReadOnlyList<VendorItemWarehouseDto> ItemWarehouse { get; set; }
+            = new List<VendorItemWarehouseDto>();
 
         /* ============================================================
          * INITIAL LOAD
@@ -69,7 +71,7 @@ namespace UrbanNative.Vendors.Pages.Logistics
         public async Task OnGetAsync()
         {
             LogisticsProviders = await _commonService.GetLogisticsProvidersAsync();
-            
+
             Orders = await _service.GetOrdersAsync(showCompleted: false);
             //DispatchCity = Orders.CityState;
             //Shipments = await _service.GetShipmentsAsync( orderId: null, showCompleted: false);
@@ -80,7 +82,9 @@ namespace UrbanNative.Vendors.Pages.Logistics
          * ============================================================ */
         public async Task<IActionResult> OnPostSearchAsync()
         {
+
             LogisticsProviders = await _commonService.GetLogisticsProvidersAsync();
+            //ItemWarehouse = await _service.GetItemlWarehousesAsync(orderId);
 
             Orders = await _service.GetOrdersAsync(Filter.ShowCompleted, Filter.SearchText);
 
@@ -108,16 +112,21 @@ namespace UrbanNative.Vendors.Pages.Logistics
         
         public async Task<IActionResult> OnGetItemsAsync(int orderId)
         {
-            DispatchOrderId = orderId;
             
+            DispatchOrderId = orderId;
             DispatchItems = await _service.GetOrderItemsAsync(orderId);
+            OrderNo = DispatchItems.FirstOrDefault()?.OrderNo ?? "";
 
             return Partial("_DispatchItemGrid2", this);
             
-
+        }
+        
+        public async Task<JsonResult> OnGetItemWarehousesAsync(int orderId)
+        {
+            ItemWarehouse = await _service.GetItemlWarehousesAsync(orderId);
+            return new JsonResult(ItemWarehouse);
         }
 
-        
 
 
         /* ============================================================

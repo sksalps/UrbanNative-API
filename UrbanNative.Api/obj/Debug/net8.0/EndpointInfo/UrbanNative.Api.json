@@ -3833,6 +3833,28 @@
         }
       }
     },
+    "/api/vendor/logistics/warehouse": {
+      "get": {
+        "tags": [
+          "VendorLogistics"
+        ],
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/vendor/logistics/shipments": {
       "get": {
         "tags": [
@@ -4842,6 +4864,10 @@
             "type": "integer",
             "format": "int32"
           },
+          "warehouseID": {
+            "type": "integer",
+            "format": "int32"
+          },
           "orderItemIds": {
             "type": "array",
             "items": {
@@ -5031,6 +5057,10 @@
         "type": "object",
         "properties": {
           "shipmentID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "warehouseID": {
             "type": "integer",
             "format": "int32"
           },

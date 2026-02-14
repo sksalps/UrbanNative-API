@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using UrbanNative.Application.DTOs.CommonCrossDashboard;
 using UrbanNative.Application.DTOs.Vendors.Logistics;
 using UrbanNative.Vendors.Services.Interfaces;
 
@@ -24,7 +25,7 @@ public class VendorLogisticsService : IVendorLogisticsService
                ?? Array.Empty<VendorLogisticsOrderDto>();
     }
 
-    /* ================= GRID-2 ================= */
+    /* ================= GRID-2 ================= */    
 
     public async Task<IReadOnlyList<VendorLogisticsItemDto>> GetOrderItemsAsync(int orderId)
     {
@@ -32,6 +33,11 @@ public class VendorLogisticsService : IVendorLogisticsService
             $"api/vendor/logistics/items?orderId={orderId}"
         ) ?? Array.Empty<VendorLogisticsItemDto>();
     }
+    
+    //  Fetch Only Warehouse to pick the item of the order of this vendor
+    public async Task<IReadOnlyList<VendorItemWarehouseDto>> GetItemlWarehousesAsync(int orderId)
+        => await _http.GetFromJsonAsync<List<VendorItemWarehouseDto>>(
+                $"api/vendor/logistics/warehouse?orderId={orderId}") ?? new();
 
     /* ================= GRID-3 ================= */
 

@@ -22,7 +22,7 @@ else
                             <th>Order No.</th>
                             <th>Type</th>
                             <th>Items</th>
-                            <th>Delivery By</th>
+                            <th>Delivery Now</th>
                             <th>Order Days</th>
                             <th>Status</th>
                             <th>Logistics</th>
@@ -42,7 +42,7 @@ else
 
                             <tr class="@(locked ? "row-locked" : "")">
                                 <td>#@s.ShipmentID</td>
-                                <td>@s.OrderID</td>
+                                <td>@s.OrderNo</td>
                             
                                 <td>
                                     <span class="badge bg-secondary">
@@ -89,7 +89,9 @@ else
                                                                 '@s.ShipmentStatus',
                                                                 '@(s.TrackingNo ?? "")',
                                                                 @(s.LogisticsProviderID ?? 0),
-                                                                '@s.CityState'
+                                                                @(s.WarehouseID ?? 0),
+                                                                '@s.CityState',
+                                                                '@s.OrderNo'
                                                             )">
                                             Update
                                         </button>

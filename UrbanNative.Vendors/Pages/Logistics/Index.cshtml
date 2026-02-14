@@ -112,20 +112,7 @@
 
                     <input type="hidden" asp-for="UpdateShipment.ShipmentID"id="UpdateShipment_ShipmentID" />
                     <input type="hidden" asp-for="UpdateShipment.ShipmentType" id="UpdateShipment_ShipmentType" />
-                    <div class="mb-3">
-                        <label class="form-label">Logistics Provider</label>
-                        <select asp-for="UpdateShipment.LogisticsProviderID"
-                                class="form-select"
-                                id="ddlLogisticsProvider">
-                            <option value="">-- Select Provider --</option>
-                            @foreach (var lp in Model.LogisticsProviders)
-                            {
-                                <option value="@lp.LogisticsProviderID">
-                                    @lp.ProviderName
-                                </option>
-                            }
-                        </select>
-                    </div>
+                    
 
                     <div class="mb-3">
                         <label class="form-label">Shipment Status</label>
@@ -142,6 +129,27 @@
                             <option value="DELIVERED">Delivered</option>
                             <option value="FAILED_HOLD">Failed Hold</option>
                             <option value="RETURN_TO_ORIGIN">Return to Origin</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Logistics Provider</label>
+                        <select asp-for="UpdateShipment.LogisticsProviderID"
+                                class="form-select"
+                                id="ddlLogisticsProvider">
+                            <option value="">-- Select Provider --</option>
+                            @foreach (var lp in Model.LogisticsProviders)
+                            {
+                                <option value="@lp.LogisticsProviderID">
+                                    @lp.ProviderName
+                                </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Pickup From</label>
+                        <select asp-for="UpdateShipment.WarehouseID"
+                                class="form-select"id="ddlItemWarehouse">
+                            
                         </select>
                     </div>
 
