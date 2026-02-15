@@ -34,7 +34,7 @@ namespace UrbanNative.Application.UseCase.Vendors.Logistics
 
         /* ============================================================
          * GRID-2 : ORDER ITEMS (DISPATCH SELECTION)
-         * ============================================================ */
+         * ============================================================ */  
         public async Task<IReadOnlyList<VendorLogisticsItemDto>> GetOrderItemsAsync(
             int vendorId,
             int orderId)
@@ -45,16 +45,23 @@ namespace UrbanNative.Application.UseCase.Vendors.Logistics
             );
         }
         /* ============================================================
+         *          ORDER SUMMARY (NEW TAB)
+         * ============================================================ */
+        public async Task<VendorOrderSummaryDto> GetOrderSummaryAsync(
+            int vendorId,
+            int orderId)
+        {
+            return await _repository.GetOrderSummaryAsync(vendorId,orderId);
+        }
+
+        /* ============================================================
          * Item WH : ORDER ITEMS (Warehouse for pickup the shipment)
          * ============================================================ */
         public async Task<IReadOnlyList<VendorItemWarehouseDto>> GetItemWarehouseAsync(
             int vendorId,
             int orderId)
         {
-            return await _repository.GetItemsWarehouseAsync(
-                vendorId,
-                orderId
-            );
+            return await _repository.GetItemsWarehouseAsync(vendorId,orderId);
         }
 
         /* ============================================================

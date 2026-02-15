@@ -164,7 +164,13 @@
                 </li>
                 <li>
                     <a asp-page="/Logistics/Index"
-                       class="@(currentPage == "/Logistics/Index" ? "active" : "")">
+                       class="@(currentPage == "/Logistics?showCompleted=true" ? "active" : "")">
+                        Delayed Delivery
+                    </a>
+                </li>
+                <li>
+                    <a asp-page="/Logistics/Index"
+                       class="@(currentPage == "/Logistics?showCompleted=true" ? "active" : "")">
                         Completed/Delivered
                     </a>
                 </li>

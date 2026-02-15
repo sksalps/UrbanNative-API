@@ -2497,6 +2497,22 @@
   },
   {
     "ContainingType": "VendorLogisticsController",
+    "Method": "GetOrderSummary",
+    "RelativePath": "api/vendor/logistics/summary",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orderId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "VendorLogisticsController",
     "Method": "GetItemWarehouse",
     "RelativePath": "api/vendor/logistics/warehouse",
     "HttpMethod": "GET",

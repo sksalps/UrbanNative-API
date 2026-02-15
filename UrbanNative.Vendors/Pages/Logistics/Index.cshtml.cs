@@ -64,18 +64,23 @@ namespace UrbanNative.Vendors.Pages.Logistics
             = new List<LogisticsProviderComnDto>();
         public IReadOnlyList<VendorItemWarehouseDto> ItemWarehouse { get; set; }
             = new List<VendorItemWarehouseDto>();
+        public VendorOrderSummaryDto? OrderSummary { get; set; }
 
         /* ============================================================
          * INITIAL LOAD
          * ============================================================ */
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(bool showCompleted = false, string? searchText = null)
         {
+            Filter.ShowCompleted = showCompleted;
+            Filter.SearchText = searchText;
             LogisticsProviders = await _commonService.GetLogisticsProvidersAsync();
 
-            Orders = await _service.GetOrdersAsync(showCompleted: false);
+
+            Orders = await _service.GetOrdersAsync(showCompleted, searchText);
             //DispatchCity = Orders.CityState;
             //Shipments = await _service.GetShipmentsAsync( orderId: null, showCompleted: false);
         }
+
 
         /* ============================================================
          * SEARCH / FILTER
@@ -84,7 +89,7 @@ namespace UrbanNative.Vendors.Pages.Logistics
         {
 
             LogisticsProviders = await _commonService.GetLogisticsProvidersAsync();
-            //ItemWarehouse = await _service.GetItemlWarehousesAsync(orderId);
+            
 
             Orders = await _service.GetOrdersAsync(Filter.ShowCompleted, Filter.SearchText);
 
@@ -116,7 +121,8 @@ namespace UrbanNative.Vendors.Pages.Logistics
             DispatchOrderId = orderId;
             DispatchItems = await _service.GetOrderItemsAsync(orderId);
             OrderNo = DispatchItems.FirstOrDefault()?.OrderNo ?? "";
-
+            OrderSummary = await _service.GetOrderSummaryAsync(orderId);
+            ItemWarehouse = await _service.GetItemlWarehousesAsync(orderId);
             return Partial("_DispatchItemGrid2", this);
             
         }
@@ -163,5 +169,15 @@ namespace UrbanNative.Vendors.Pages.Logistics
 
             return new JsonResult(new { success = true });
         }
+
+        public async Task<IActionResult> OnGetLogisticsSuggestionsAsync(string term)
+        {
+            if (string.IsNullOrWhiteSpace(term) || term.Length < 2)
+                return new JsonResult(Array.Empty<VendorLogisticsSuggestionDto>());
+
+            var data = await _service.GetFilterSuggestionsAsync(term);
+            return new JsonResult(data);
+        }
+
     }
 }

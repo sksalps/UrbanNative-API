@@ -14,7 +14,10 @@ public class VendorLogisticsService : IVendorLogisticsService
 
     /* ================= GRID-1 ================= */
 
-    public async Task<IReadOnlyList<VendorLogisticsOrderDto>> GetOrdersAsync(bool showCompleted,string? searchText = null)
+   
+    public async Task<IReadOnlyList<VendorLogisticsOrderDto>> GetOrdersAsync(
+    bool showCompleted,
+    string? searchText)
     {
         var url = $"api/vendor/logistics/orders?showCompleted={showCompleted}";
 
@@ -22,10 +25,10 @@ public class VendorLogisticsService : IVendorLogisticsService
             url += $"&searchText={Uri.EscapeDataString(searchText)}";
 
         return await _http.GetFromJsonAsync<IReadOnlyList<VendorLogisticsOrderDto>>(url)
-               ?? Array.Empty<VendorLogisticsOrderDto>();
+               ?? new List<VendorLogisticsOrderDto>();
     }
 
-    /* ================= GRID-2 ================= */    
+    /* ================= GRID-2 ================= */
 
     public async Task<IReadOnlyList<VendorLogisticsItemDto>> GetOrderItemsAsync(int orderId)
     {
@@ -33,11 +36,15 @@ public class VendorLogisticsService : IVendorLogisticsService
             $"api/vendor/logistics/items?orderId={orderId}"
         ) ?? Array.Empty<VendorLogisticsItemDto>();
     }
-    
-    //  Fetch Only Warehouse to pick the item of the order of this vendor
+
+    //  Fetch Only Warehouse to pick the item of the order of this vendor GetOrderSummaryAsync
     public async Task<IReadOnlyList<VendorItemWarehouseDto>> GetItemlWarehousesAsync(int orderId)
         => await _http.GetFromJsonAsync<List<VendorItemWarehouseDto>>(
                 $"api/vendor/logistics/warehouse?orderId={orderId}") ?? new();
+    //  Fetch the summary of clicked order GetOrderSummaryAsync
+    public async Task<VendorOrderSummaryDto> GetOrderSummaryAsync(int orderId)
+        => await _http.GetFromJsonAsync<VendorOrderSummaryDto>(
+                $"api/vendor/logistics/summary?orderId={orderId}") ?? new();
 
     /* ================= GRID-3 ================= */
 

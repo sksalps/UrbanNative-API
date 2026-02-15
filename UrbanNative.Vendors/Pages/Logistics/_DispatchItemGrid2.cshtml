@@ -1,8 +1,115 @@
 ﻿@model UrbanNative.Vendors.Pages.Logistics.IndexModel
 
+@functions {
+    string MaskMobile(string mobile)
+    {
+        if (string.IsNullOrEmpty(mobile) || mobile.Length < 10)
+            return mobile;
+
+        return $"XXXXXX{mobile.Substring(mobile.Length - 4)}";
+    }
+}
+@if (Model.OrderSummary != null)
+{
+    var slaClass = "bg-success";
+    var slaText = "On Track";
+
+    switch (Model.OrderSummary.SLAStatus)
+    {
+        case "DUE_TOMORROW":
+            slaClass = "bg-warning";
+            slaText = "Due Tomorrow";
+            break;
+
+        case "DUE_TODAY":
+            slaClass = "bg-success";
+            slaText = "Due Today";
+            break;
+
+        case "DELAYED":
+            slaClass = "bg-danger";
+            slaText = $"Delayed {Model.OrderSummary.DelayDays} day(s)";
+            break;
+    }
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <div class="row">
+
+                <div class="col-md-2">
+                    <strong>Order:</strong><br />
+                    @Model.OrderSummary.OrderNo
+                </div>
+
+                <div class="col-md-2">
+                    <strong>Customer:</strong><br />
+                    @Model.OrderSummary.CustomerName
+                </div>
+
+                <div class="col-md-2">
+                    <strong>Mobile:</strong><br />
+                    @Model.OrderSummary.MobileNo
+                </div>
+                <div class="col-md-2">
+                    <strong>Order Date:</strong><br />
+                    @(Model.OrderSummary.OrderDate?.ToString("dd-MMM-yyyy") ?? "-")
+                </div>
+
+                <div class="col-md-2">
+                    <strong>Delivery By:</strong><br />
+                    @(Model.OrderSummary.DeliveryByDate?.ToString("dd-MMM-yyyy") ?? "-")
+                </div>
+
+                <div class="col-md-2">
+                    @if (@Model.OrderSummary.DelayDays<0)
+                        
+                    {
+                        <strong>SLA: @Model.OrderSummary.DaysRemaining Days Remains</strong>
+                    }
+                    else if (@Model.OrderSummary.DelayDays>0)
+                        
+                    {
+                        <strong>SLA: @Model.OrderSummary.DelayDays Days</strong>
+                    }
+                    else
+                    {
+                        <strong>SLA:</strong>
+                    }
+                    <br />
+                    <span class="badge @slaClass">@Model.OrderSummary.SLAStatus</span>
+                </div>
+
+                <!-- Address Preview -->
+                <div class="col-12 mt-2">
+                    <small class="text-muted">Delivery Address:</small><br />
+                    <div class="fw-semibold">
+                        <small>
+                        @Model.OrderSummary.CustomerName
+                        <br />
+                        @Model.OrderSummary.ShipAddressLines
+                        @if (!string.IsNullOrWhiteSpace(Model.OrderSummary.ShipLandmark))
+                        {
+                            <br />
+                            <span>(@Model.OrderSummary.ShipLandmark)</span>
+                        }
+                        <br />
+                        
+                        @Model.OrderSummary.ShipCity, @Model.OrderSummary.ShipState
+                        <br />
+                        @Model.OrderSummary.ShipCountry - @Model.OrderSummary.ShipPinCode
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+
 <div class="card mt-3">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <strong>Order #@Model.OrderNo Items – Ready to Dispatch</strong>
+        <strong>Order Items – Ready to Dispatch</strong>
         
         <button type="button"
                 id="btnDispatch"

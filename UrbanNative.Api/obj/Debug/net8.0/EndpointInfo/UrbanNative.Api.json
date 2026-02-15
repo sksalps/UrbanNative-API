@@ -3833,6 +3833,28 @@
         }
       }
     },
+    "/api/vendor/logistics/summary": {
+      "get": {
+        "tags": [
+          "VendorLogistics"
+        ],
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/vendor/logistics/warehouse": {
       "get": {
         "tags": [

@@ -32,8 +32,8 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
                 new
                 {
                     VendorID = vendorId,
-                    ShowCompleted = showCompleted
-                    //SearchText = searchText
+                    ShowCompleted = showCompleted,
+                    SearchText = searchText
                 },
                 commandType: CommandType.StoredProcedure);
 
@@ -63,9 +63,9 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
         }
 
         /* ============================================================
-         * Item WH : ORDER ITEMS (Warehouse for DISPATCH Pickup)
+         * Item WH : ORDER ITEMS (Warehouse for DISPATCH Pickup)  
          * ============================================================ */
-        
+
         public async Task<IReadOnlyList<VendorItemWarehouseDto>> GetItemsWarehouseAsync(
             int vendorId,
             int orderId)
@@ -82,6 +82,26 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
                 commandType: CommandType.StoredProcedure);
 
             return result.AsList();
+        }
+        /* ============================================================
+         * Summary : ORDER Summary 
+         * ============================================================ */
+        public async Task<VendorOrderSummaryDto> GetOrderSummaryAsync(
+            int vendorId,
+            int orderId)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            var param = new DynamicParameters();
+            param.Add("@VendorID", vendorId);
+            param.Add("@OrderID", orderId);
+
+            var result = await conn.QueryFirstAsync<VendorOrderSummaryDto>(
+                "sp_VendorLogisticsOrderSummary",
+                param,
+                commandType: CommandType.StoredProcedure);
+
+            return result;
         }
 
         /* ============================================================

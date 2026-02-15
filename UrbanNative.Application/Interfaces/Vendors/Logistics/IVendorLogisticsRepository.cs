@@ -18,6 +18,8 @@ namespace UrbanNative.Application.Interfaces.Vendors
         Task<IReadOnlyList<VendorItemWarehouseDto>> GetItemsWarehouseAsync(
                 int vendorId,
                 int orderId);
+        /* Order Summary */
+        Task<VendorOrderSummaryDto> GetOrderSummaryAsync(int vendorId, int orderId);
         /* Grid-3 */
         Task<IReadOnlyList<VendorLogisticsShipmentDto>> GetShipmentsAsync(
             int vendorId,

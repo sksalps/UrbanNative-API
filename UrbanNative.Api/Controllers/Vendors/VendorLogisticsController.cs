@@ -47,6 +47,15 @@ public class VendorLogisticsController : ControllerBase
         var result = await _useCase.GetOrderItemsAsync(vendorId, orderId);
         return Ok(result);
     }
+    /* ================= ORDER SUMMARY ================= */
+    [HttpGet("summary")]
+    public async Task<IActionResult> GetOrderSummary([FromQuery] int orderId)
+    {
+        int vendorId = GetVendorId();
+
+        var result = await _useCase.GetOrderSummaryAsync(vendorId, orderId);
+        return Ok(result);
+    }
     /* ================= Item Warehouse ================= */
 
     [HttpGet("warehouse")]

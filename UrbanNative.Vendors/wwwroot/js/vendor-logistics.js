@@ -411,3 +411,67 @@ function updateDispatchCount() {
     if (countSpan) countSpan.innerText = checked.length;
     if (btn) btn.disabled = checked.length === 0;
 }
+
+/* =========================================================
+   SMART SEARCH AUTOCOMPLETE
+   ========================================================= */
+document.addEventListener("DOMContentLoaded", function () {
+    
+    const input = document.getElementById("logisticsSearchInput");
+    const list = document.getElementById("logisticsSearchDropdown");
+    
+    if (!input || !list) return;
+
+    input.addEventListener("input", async function () {
+        const q = this.value.trim();
+        
+        if (!q || q.length < 2) {
+            list.classList.add("d-none");
+            return;
+        }
+        //alert("okk" + q);
+        const res = await fetch(`/Logistics?handler=LogisticsSuggestions&term=${encodeURIComponent(q)}`);
+
+
+        if (!res.ok) return;
+
+        const data = await res.json();
+        list.innerHTML = "";
+
+        if (!data.length) {
+            list.classList.add("d-none");
+            return;
+        }
+
+        data.forEach(x => {
+            const li = document.createElement("li");
+            li.className = "list-group-item list-group-item-action";
+            li.innerHTML = `
+                <strong>${x.displayText}</strong>
+                <small class="text-muted"> | ${x.suggestionType}</small>
+            `;
+            li.addEventListener("click", () => {
+                input.value = x.searchValue;
+                list.classList.add("d-none");
+                input.focus();
+            });
+            list.appendChild(li);
+        });
+
+        list.classList.remove("d-none");
+    });
+
+    input.addEventListener("keydown", e => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            input.form.submit();
+        }
+    });
+
+    document.addEventListener("click", e => {
+        if (!e.target.closest("#logisticsSearchDropdown") &&
+            e.target !== input) {
+            list.classList.add("d-none");
+        }
+    });
+});

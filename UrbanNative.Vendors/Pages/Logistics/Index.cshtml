@@ -11,45 +11,28 @@
         <div class="card mb-3">
             <div class="card-body">
                 <div class="row g-2 align-items-center">
-
                     <!-- Smart Search -->
                     <div class="col-md-6 position-relative">
-                        <input asp-for="Filter.SearchText"
-                               id="logisticsSearchInput"
-                               class="form-control"
-                               placeholder="Order No / SKU / Shipment ID / Return ID / AWB"
-                               autocomplete="off" />
-
-                        <ul id="logisticsSearchDropdown"
-                            class="list-group position-absolute w-100 d-none"
+                        <input asp-for="Filter.SearchText" id="logisticsSearchInput" class="form-control" 
+                            placeholder="Order No / SKU / Shipment ID / Return ID / AWB" 
+                        autocomplete="off" />
+                        <ul id="logisticsSearchDropdown" class="list-group position-absolute w-100 d-none" 
                             style="z-index:1000;">
                         </ul>
                     </div>
-
                     <!-- Show Completed -->
                     <div class="col-md-3">
                         <div class="form-check form-switch">
-                            <input class="form-check-input"
-                                   type="checkbox"
-                                   asp-for="Filter.ShowCompleted"
-                                   id="toggleCompleted">
-                            <label class="form-check-label" for="toggleCompleted">
-                                Show Completed
-                            </label>
+                            <input class="form-check-input" type="checkbox" asp-for="Filter.ShowCompleted" id="toggleCompleted">
+                            <label class="form-check-label" for="toggleCompleted"> Show Completed </label>
                         </div>
+                    </div> <div class="col-md-3 text-end">
+                        <button type="submit" class="btn btn-primary"> Search </button>
                     </div>
-
-                    <div class="col-md-3 text-end">
-                        <button type="submit" class="btn btn-primary">
-                            Search
-                        </button>
-                    </div>
-
                 </div>
             </div>
         </div>
     </form>
-
     <!-- ================= GRID 1 ================= -->
     <div class="card">
         <div class="card-header">
@@ -181,4 +164,5 @@
 </div>
 <script>
     const LOGISTICS_BASE_URL = '@Url.Page("/Logistics/Index")';
+
 </script>

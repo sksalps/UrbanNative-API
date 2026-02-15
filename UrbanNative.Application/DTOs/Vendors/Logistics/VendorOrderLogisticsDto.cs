@@ -70,6 +70,28 @@
         /// </summary>
         public string DispatchStatus { get; set; } = string.Empty;
     }
+    //============== <Clicked Order summary> =========================
+    
+    public class VendorOrderSummaryDto
+    {
+        public string OrderNo { get; set; } = "";
+        public DateTime? OrderDate { get; set; }
+        public string CustomerName { get; set; } = "";
+        public string MobileNo { get; set; } = "";
+        public DateTime? DeliveryByDate { get; set; }
+
+        public string ShipAddressLines { get; set; } = "";
+        public string ShipLandmark { get; set; } = "";
+        public string ShipCity { get; set; } = "";
+        public string ShipState { get; set; } = "";
+        public string ShipCountry { get; set; } = "";
+        public string ShipPinCode { get; set; } = "";
+        public string? SLAStatus { get; set; }
+        public int DaysRemaining { get; set; }
+        public int DelayDays { get; set; }
+
+    }
+
 
     /* ============================================================
      * GRID-2 : Item selection grid for dispatch + shipment status display
