@@ -164,14 +164,16 @@
                 </li>
                 <li>
                     <a asp-page="/Logistics/Index"
-                       class="@(currentPage == "/Logistics?showCompleted=true" ? "active" : "")">
+                       asp-route-filterMode="delayed"
+                       class="@(Context.Request.Query["filterMode"] == "delayed" ? "active" : "")">
                         Delayed Delivery
                     </a>
-                </li>
+                </li>  
                 <li>
                     <a asp-page="/Logistics/Index"
-                       class="@(currentPage == "/Logistics?showCompleted=true" ? "active" : "")">
-                        Completed/Delivered
+                       asp-route-filterMode="closed"
+                       class="@(Context.Request.Query["filterMode"] == "closed" ? "active" : "")">
+                        Closed/Delivered
                     </a>
                 </li>
             </ul>
@@ -186,13 +188,13 @@
             </a>
             <ul class="submenu">
                 <li>
-                    <a asp-page="/Wallet/Index"
+                    <a asp-page="/Wallet/Summary"
                        class="@(currentPage == "/Wallet/Index" ? "active" : "")">
-                        Wallet Balance
+                        Wallet Summary
                     </a>
                 </li>
                 <li>
-                    <a asp-page="/Wallet/Transactions"
+                    <a asp-page="/Wallet/Index"
                        class="@(currentPage == "/Wallet/Transactions" ? "active" : "")">
                         Transactions
                     </a>

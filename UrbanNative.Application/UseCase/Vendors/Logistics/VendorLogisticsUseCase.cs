@@ -28,6 +28,7 @@ namespace UrbanNative.Application.UseCase.Vendors.Logistics
             return await _repository.GetLogisticsOrdersAsync(
                 vendorId,
                 filter.ShowCompleted,
+                filter.ShowDelayed,
                 filter.SearchText
             );
         }

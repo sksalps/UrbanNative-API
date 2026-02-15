@@ -17,21 +17,23 @@ public class VendorLogisticsController : ControllerBase
     }
 
     /* ================= GRID-1 ================= */
-
+   
     [HttpGet("orders")]
     public async Task<IActionResult> GetOrders(
     [FromQuery] bool showCompleted = false,
+    [FromQuery] bool showDelayed = false,
     [FromQuery] string? searchText = null)
     {
         int vendorId = GetVendorId();
-
         var filter = new VendorLogisticsFilterDto
         {
             ShowCompleted = showCompleted,
+            ShowDelayed= showDelayed,
             SearchText = searchText
         };
 
         var result = await _useCase.GetOrdersAsync(vendorId, filter);
+
         return Ok(result);
     }
 

@@ -69,14 +69,19 @@ namespace UrbanNative.Vendors.Pages.Logistics
         /* ============================================================
          * INITIAL LOAD
          * ============================================================ */
-        public async Task OnGetAsync(bool showCompleted = false, string? searchText = null)
+        public async Task OnGetAsync(VendorLogisticsFilterDto filter)
         {
-            Filter.ShowCompleted = showCompleted;
-            Filter.SearchText = searchText;
+            Filter = filter ?? new VendorLogisticsFilterDto();
+
+            // map radio filterMode → flags
+            if (Request.Query["filterMode"] == "closed")
+                Filter.ShowCompleted = true;
+            else if (Request.Query["filterMode"] == "delayed")
+                Filter.ShowDelayed = true;
+
             LogisticsProviders = await _commonService.GetLogisticsProvidersAsync();
 
-
-            Orders = await _service.GetOrdersAsync(showCompleted, searchText);
+            Orders = await _service.GetOrdersAsync( Filter.ShowCompleted, Filter.ShowDelayed,  Filter.SearchText);
             //DispatchCity = Orders.CityState;
             //Shipments = await _service.GetShipmentsAsync( orderId: null, showCompleted: false);
         }
@@ -91,7 +96,7 @@ namespace UrbanNative.Vendors.Pages.Logistics
             LogisticsProviders = await _commonService.GetLogisticsProvidersAsync();
             
 
-            Orders = await _service.GetOrdersAsync(Filter.ShowCompleted, Filter.SearchText);
+            Orders = await _service.GetOrdersAsync(Filter.ShowCompleted, Filter.ShowDelayed, Filter.SearchText);
 
             Shipments = await _service.GetShipmentsAsync(orderId: null,showCompleted: Filter.ShowCompleted);
 
@@ -104,7 +109,7 @@ namespace UrbanNative.Vendors.Pages.Logistics
          * ============================================================ */
         public async Task<IActionResult> OnGetOrdersGridAsync()
         {
-            Orders = await _service.GetOrdersAsync(Filter.ShowCompleted);
+            Orders = await _service.GetOrdersAsync(Filter.ShowCompleted,Filter.ShowDelayed,Filter.SearchText);
             
             // Clear citystate column as it's used for dispatch city selection in UI
             return Partial("_OrdersGrid1", this);

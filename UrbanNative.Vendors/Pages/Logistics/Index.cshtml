@@ -7,32 +7,80 @@
 <div class="container-fluid">
 
     <!-- ================= FILTER BAR ================= -->
-    <form method="post" asp-page-handler="Search" id="logisticsFilterForm">
+    <form method="get" id="logisticsFilterForm">
         <div class="card mb-3">
             <div class="card-body">
                 <div class="row g-2 align-items-center">
-                    <!-- Smart Search -->
-                    <div class="col-md-6 position-relative">
-                        <input asp-for="Filter.SearchText" id="logisticsSearchInput" class="form-control" 
-                            placeholder="Order No / SKU / Shipment ID / Return ID / AWB" 
-                        autocomplete="off" />
-                        <ul id="logisticsSearchDropdown" class="list-group position-absolute w-100 d-none" 
-                            style="z-index:1000;">
-                        </ul>
+
+                    <!-- Search -->
+                    <div class="col-md-5 position-relative">
+                        <input asp-for="Filter.SearchText"
+                               id="logisticsSearchInput"
+                               class="form-control"
+                               placeholder="Order No / SKU / Shipment ID / Return ID / AWB"
+                               autocomplete="off" />
+                        <ul id="logisticsSearchDropdown"
+                            class="list-group position-absolute w-100 d-none"
+                            style="z-index:1000;"></ul>
                     </div>
-                    <!-- Show Completed -->
-                    <div class="col-md-3">
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" asp-for="Filter.ShowCompleted" id="toggleCompleted">
-                            <label class="form-check-label" for="toggleCompleted"> Show Completed </label>
+
+                    <!-- RADIO FILTER -->
+                    <div class="col-md-4">
+                        <div class="btn-group" role="group">
+                            <input type="radio"
+                                   class="btn-check"
+                                   name="filterMode"
+                                   id="filterActionable"
+                                   value="actionable"
+                                   checked="@(!Model.Filter.ShowCompleted && !Model.Filter.ShowDelayed)">
+                            <label class="btn btn-outline-secondary" for="filterActionable">
+                                Pending
+                            </label>
+
+                            <input type="radio"
+                                   class="btn-check"
+                                   name="filterMode"
+                                   id="filterClosed"
+                                   value="closed"
+                                   checked="@(Model.Filter.ShowCompleted)">
+                            <label class="btn btn-outline-secondary" for="filterClosed">
+                                Closed
+                            </label>
+
+                            <input type="radio"
+                                   class="btn-check"
+                                   name="filterMode"
+                                   id="filterDelayed"
+                                   value="delayed"
+                                   checked="@(Model.Filter.ShowDelayed)">
+                            <label class="btn btn-outline-danger" for="filterDelayed">
+                                Delayed
+                            </label>
                         </div>
-                    </div> <div class="col-md-3 text-end">
-                        <button type="submit" class="btn btn-primary"> Search </button>
                     </div>
+
+                    <!-- Reset -->
+                    <div class="col-md-1">
+                        <button type="button"
+                                class="btn btn-outline-secondary w-100"
+                                onclick="resetFilters()">
+                            Reset
+                        </button>
+                    </div>
+
+                    <!-- Search -->
+                    <div class="col-md-2 text-end">
+                        <button type="submit" class="btn btn-primary w-100">
+                            Search
+                        </button>
+                    </div>
+
                 </div>
             </div>
         </div>
     </form>
+
+
     <!-- ================= GRID 1 ================= -->
     <div class="card">
         <div class="card-header">

@@ -232,6 +232,8 @@
         /// true  = Completed
         /// </summary>
         public bool ShowCompleted { get; set; } = false;
+        public bool ShowDelayed { get; set; } = false;
+
     }
 
     /* ============================================================

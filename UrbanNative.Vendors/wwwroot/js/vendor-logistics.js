@@ -474,4 +474,26 @@ document.addEventListener("DOMContentLoaded", function () {
             list.classList.add("d-none");
         }
     });
+
+    const radios = document.querySelectorAll("input[name='filterMode']");
+
+    radios.forEach(r => {
+        r.addEventListener("change", () => {
+            const mode = document.querySelector("input[name='filterMode']:checked").value;
+
+            const params = new URLSearchParams(window.location.search);
+
+            params.delete("showCompleted");
+            params.delete("showDelayed");
+
+            if (mode === "closed") params.set("showCompleted", "true");
+            if (mode === "delayed") params.set("showDelayed", "true");
+
+            window.location.search = params.toString();
+        });
+    });
 });
+
+function resetFilters() {
+    window.location.href = "/Logistics";
+}

@@ -3,7 +3,7 @@
 public interface IVendorLogisticsService
 {
     /* Grid-1 */
-    Task<IReadOnlyList<VendorLogisticsOrderDto>> GetOrdersAsync(bool showCompleted, string? searchText = null);
+    Task<IReadOnlyList<VendorLogisticsOrderDto>> GetOrdersAsync(bool showCompleted, bool showDelayed, string? searchText = null);
 
     /* Grid-2 */
     Task<IReadOnlyList<VendorLogisticsItemDto>> GetOrderItemsAsync(int orderId);

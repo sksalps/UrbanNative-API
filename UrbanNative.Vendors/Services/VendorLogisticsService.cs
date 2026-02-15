@@ -14,9 +14,9 @@ public class VendorLogisticsService : IVendorLogisticsService
 
     /* ================= GRID-1 ================= */
 
-   
     public async Task<IReadOnlyList<VendorLogisticsOrderDto>> GetOrdersAsync(
     bool showCompleted,
+    bool showDelayed,
     string? searchText)
     {
         var url = $"api/vendor/logistics/orders?showCompleted={showCompleted}";

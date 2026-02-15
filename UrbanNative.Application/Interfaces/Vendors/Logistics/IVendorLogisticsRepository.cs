@@ -8,6 +8,7 @@ namespace UrbanNative.Application.Interfaces.Vendors
         Task<IReadOnlyList<VendorLogisticsOrderDto>> GetLogisticsOrdersAsync(
             int vendorId,
             bool showCompleted,
+            bool ShowDelayed,
             string? searchText);
 
         /* Grid-2 */

@@ -3797,6 +3797,14 @@
             }
           },
           {
+            "name": "showDelayed",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
             "name": "searchText",
             "in": "query",
             "schema": {

@@ -23,6 +23,7 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
             GetLogisticsOrdersAsync(
                 int vendorId,
                 bool showCompleted,
+                bool showDelayed,
                 string? searchText)
         {
             using var conn = _connectionFactory.CreateConnection();
@@ -33,6 +34,7 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
                 {
                     VendorID = vendorId,
                     ShowCompleted = showCompleted,
+                    ShowDelayed=showDelayed,
                     SearchText = searchText
                 },
                 commandType: CommandType.StoredProcedure);
