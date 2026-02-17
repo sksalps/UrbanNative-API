@@ -4,10 +4,12 @@ using UrbanNative.Application.Interfaces;
 using UrbanNative.Application.Interfaces.CommonCrossDashboard;
 using UrbanNative.Application.Interfaces.UseCases;
 using UrbanNative.Application.Interfaces.UseCases.VendorInventoryAdd;
+using UrbanNative.Application.Interfaces.UseCases.Wallet;
 using UrbanNative.Application.Interfaces.UseCase.Logistics;
 using UrbanNative.Application.Interfaces.Vendors;
 using UrbanNative.Application.Interfaces.Vendors.InventoryAdd;
 using UrbanNative.Application.Interfaces.Vendors.Orders;
+using UrbanNative.Application.Interfaces.Vendors.Wallet;
 
 
 using UrbanNative.Application.UseCase;
@@ -15,11 +17,14 @@ using UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd;
 using UrbanNative.Application.UseCases.Vendors;
 using UrbanNative.Application.UseCase.Vendors.Orders;
 using UrbanNative.Application.UseCase.Vendors.Logistics;
+using UrbanNative.Application.UseCase.Vendors.Wallet;
 using UrbanNative.Infrastructure.Repositories;
 using UrbanNative.Infrastructure.Repositories.CommonCrossDashboard;
 using UrbanNative.Infrastructure.Repositories.Vendors;
 using UrbanNative.Infrastructure.Repositories.Vendors.InventoryAdd;
 using UrbanNative.Infrastructure.Repositories.Vendors.Orders;
+using UrbanNative.Infrastructure.Repositories.Vendors.Wallet;
+
 
 using UrbanNative.Infrastructure.Repository;
 using UrbanNative.Infrastructure.Services;
@@ -55,7 +60,8 @@ namespace UrbanNative.Infrastructure
             //services.AddScoped<IVendorLoginRepository, VendorLoginRepository>();
             services.AddScoped<IVendorProfileUseCase, VendorProfileUseCase>();
             services.AddScoped<IVendorProfileRepository, VendorProfileRepository>();
-            
+            services.AddScoped<IVendorWalletRepository, VendorWalletRepository>();
+
 
             // UseCases
             services.AddScoped<IVendorSettingsUseCase, VendorSettingsUseCase>();
@@ -65,6 +71,8 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<IAddInventoryInUseCase, AddInventoryInUseCase>();
             services.AddScoped<IVendorOrderUseCase, VendorOrderUseCase>();
             services.AddScoped<IVendorLogisticsUseCase, VendorLogisticsUseCase>();
+            services.AddScoped<IVendorWalletUseCase, VendorWalletUseCase>();
+
 
             // Repositories
             services.AddScoped<IVendorSettingsRepository, VendorSettingsRepository>();

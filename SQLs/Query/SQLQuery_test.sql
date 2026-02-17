@@ -43,6 +43,12 @@ select * from LogisticsProvider
 select * from orderitemreturns
 select * from OrderReturnShipments
 select * from OrderItemReturnImages
+select * from CommissionOverrideConfig
+
+select * from WalletTypeMaster
+select * from WalletAccounts
+select * from WalletAccountHead
+select * from WalletLedger
 
 EXEC sp_ProductInventorySkuGrid_Get 1,1, 1002;
 exec sp_VendorProducts_List 1, 'Men'

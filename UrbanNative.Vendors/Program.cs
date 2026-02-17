@@ -1,6 +1,5 @@
 ﻿using System.Net.Http.Headers;
 using UrbanNative.Application.Interfaces;
-using UrbanNative.Application.Interfaces.UseCases;
 using UrbanNative.Vendors.Security;
 using UrbanNative.Vendors.Services;
 using UrbanNative.Vendors.Services.Interfaces;
@@ -72,13 +71,13 @@ builder.Services.AddScoped<IVendorDashboardService, VendorDashboardService>();
 builder.Services.AddScoped<IVendorProfileService, VendorProfileService>();
 builder.Services.AddScoped<IVendorSettingsService, VendorSettingsService>();
 builder.Services.AddScoped<IVendorProductService,VendorProductService>();
-builder.Services.AddScoped<IVendorSkuService, VendorSkuService>();
+builder.Services.AddScoped<VendorSkuService, VendorSkuService>();
 builder.Services.AddScoped<IVendorInventoryService, VendorInventoryService>();
 builder.Services.AddScoped<ISkuFilterService, SkuFilterService>();
 builder.Services.AddScoped<IVendorAddInventoryService, VendorAddInventoryService>();
 builder.Services.AddScoped<IVendorOrderService, VendorOrderService>();
 builder.Services.AddScoped<IVendorLogisticsService, VendorLogisticsService>();
-
+builder.Services.AddScoped<IVendorWalletService, VendorWalletService>();
 // Later: Orders, Inventory, Wallet, SKUs, etc.
 
 

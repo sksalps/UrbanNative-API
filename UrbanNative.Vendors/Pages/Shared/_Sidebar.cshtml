@@ -6,7 +6,7 @@
     var isInventory = currentPage.StartsWith("/Inventory") || currentPage.StartsWith("/Inventory");
     var isOrders = currentPage.StartsWith("/Orders");
     var isLogistics = currentPage.StartsWith("/Logistics");
-    var isWallet = currentPage.StartsWith("/Wallet");
+    var isWallet = currentPage.StartsWith("/Finance");
     var isBusiness = currentPage.StartsWith("/Business");
     var isReports = currentPage.StartsWith("/Reports");
     var isSettings = currentPage.StartsWith("/Settings");
@@ -183,20 +183,20 @@
         <li class="menu-item has-sub @(isWallet ? "open active" : "")">
             <a href="#">
                 <i class="bi bi-wallet2"></i>
-                <span>Wallet</span>
+                <span>Finance</span>
                 <i class="bi bi-chevron-down"></i>
             </a>
             <ul class="submenu">
                 <li>
                     <a asp-page="/Wallet/Summary"
-                       class="@(currentPage == "/Wallet/Index" ? "active" : "")">
+                       class="@(currentPage == "/Wallet/Summary" ? "active" : "")">
                         Wallet Summary
                     </a>
                 </li>
                 <li>
                     <a asp-page="/Wallet/Index"
-                       class="@(currentPage == "/Wallet/Transactions" ? "active" : "")">
-                        Transactions
+                       class="@(currentPage == "/Wallet/Index" ? "active" : "")">
+                        Wallet Ledger
                     </a>
                 </li>
                 <li>

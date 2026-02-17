@@ -228,7 +228,9 @@ ShipState	nvarchar(100)	Checked
 ShipCity	nvarchar(100)	Checked
 BillPinCode	nvarchar(10)	Checked
 ShipPinCode	nvarchar(10)	Checked
+Mobile	varchar(15)	Checked
 		Unchecked
+		
 
 OrderItems
 OrderItemID	int	Unchecked
@@ -258,8 +260,62 @@ HandlingDays	int	Unchecked
 TransitDays	int	Unchecked
 ReturnPolicyId	int	Unchecked
 ReturnDays	int	Unchecked
-		Unchecked	
+ShippedQuantity	int	Unchecked
+ShippingCharge	decimal(10, 2)	Unchecked
+ShipChargeVendorPart	decimal(10, 2)	Unchecked
+ReturnWindowEndAt	datetime	Checked
+IsReturnWindowClosed	bit	Unchecked
+IsCreditedToVendor	bit	Unchecked
+CreditedAt	datetime	Checked
+IsRefundProcessed	bit	Unchecked
+RefundProcessedAt	datetime	Checked
+IsRTOProcessed	bit	Unchecked
+RTOProcessedAt	datetime	Checked
+IsFinanciallyClosed	bit	Unchecked
+FinancialClosedAt	datetime	Checked
+LastFinancialEvent	varchar(50)	Checked
+		Unchecked
+			
+WalletTypeMaster
+WalletTypeId	int	Unchecked
+WalletTypeCode	varchar(30)	Unchecked
+WalletTypeName	nvarchar(100)	Unchecked
+IsSystem	bit	Unchecked
+IsActive	bit	Unchecked
+		Unchecked
 		
+WalletAccountHead
+AccountHeadId	int	Unchecked
+HeadCode	varchar(50)	Unchecked
+HeadName	nvarchar(100)	Unchecked
+HeadType	varchar(30)	Unchecked
+IsSystem	bit	Unchecked
+IsActive	bit	Unchecked
+CreatedAt	datetime	Unchecked
+		Unchecked
+		
+WalletAccounts
+WalletAccountId	int	Unchecked
+OwnerType	varchar(20)	Unchecked
+OwnerId	int	Unchecked
+WalletType	varchar(20)	Unchecked
+IsActive	bit	Unchecked
+CreatedAt	datetime	Unchecked
+WalletTypeId	int	Checked
+		Unchecked
+		
+LedgerId	bigint	Unchecked
+WalletAccountId	int	Unchecked
+TxnType	varchar(10)	Unchecked
+Amount	decimal(18, 2)	Unchecked
+SourceType	varchar(30)	Unchecked
+SourceId	int	Unchecked
+Narration	nvarchar(300)	Checked
+CreatedAt	datetime	Unchecked
+AccountHeadId	int	Checked
+		Unchecked
+
+*********End Wallet Vendor		
 OrderShipments
 ShipmentID	int	Unchecked
 OrderID	int	Unchecked
