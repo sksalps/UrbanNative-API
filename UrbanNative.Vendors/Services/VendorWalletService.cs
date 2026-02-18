@@ -16,14 +16,14 @@ namespace UrbanNative.Vendors.Services
         {
             //var query = QueryStringHelper.ToQueryString(filter);
             return await _http.GetFromJsonAsync<List<WalletLedgerRowDto>>(
-                $"api/vendors/wallet/ledger{filter}");
+                "api/vendors/wallet/ledger{filter}");
             //await _http.PostAsJsonAsync("api/vendor/logistics/shipments", dto)
         }
         
 
         public async Task<List<AccountHeadDto>> GetAccountHeadsAsync()
         {
-            return await _http.GetFromJsonAsync<List<AccountHeadDto>>("api/vendors/wallet/account-heads");
+            return await _http.GetFromJsonAsync<List<AccountHeadDto>>($"api/vendors/wallet/account-heads");
         }
     }
 

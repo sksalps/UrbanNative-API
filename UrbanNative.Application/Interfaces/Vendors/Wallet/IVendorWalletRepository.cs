@@ -10,7 +10,7 @@ namespace UrbanNative.Application.Interfaces.Vendors.Wallet
     public interface IVendorWalletRepository
     {
         Task<IEnumerable<WalletLedgerRowDto>> GetWalletLedgerAsync(WalletLedgerFilterDto filter);
-        Task<IEnumerable<AccountHeadDto>> GetAccountHeadsAsync();
+        Task<IEnumerable<AccountHeadDto>> GetAccountHeadsAsync(int VendorID);
     }
 
 }

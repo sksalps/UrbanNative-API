@@ -28,7 +28,7 @@ EXEC sp_AdminReturns_GetDetails 1
 exec sp_LogisticsProviders_GetAll
 exec sp_AdminReturnShipment_Create 1,1,'22423'
 
-
+Test@123
 EXEC sp_AdminVariantSetCategories_Assign
     @VariantSetID = 1,
     @CategoryID = 2;

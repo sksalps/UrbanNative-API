@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UrbanNative.Application.DTOs.Vendors.Wallet;
 using UrbanNative.Application.Interfaces.UseCases.Wallet;
+using UrbanNative.Domain.Entities;
 
 namespace UrbanNative.Api.Controllers.Vendors
 {
@@ -30,7 +31,8 @@ namespace UrbanNative.Api.Controllers.Vendors
         [HttpGet("account-heads")]
             public async Task<IActionResult> GetAccountHeads()
             {
-                var result = await _useCase.GetAccountHeadsAsync();
+                int VendorId = GetVendorId(); // extension method
+            var result = await _useCase.GetAccountHeadsAsync(VendorId);
                 return Ok(result);
             }
         /* ================= VENDOR CONTEXT ================= */

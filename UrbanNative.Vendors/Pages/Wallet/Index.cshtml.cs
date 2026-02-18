@@ -1,15 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using UrbanNative.Application.DTOs.Vendors.Wallet;
-using UrbanNative.Vendors.Services;
+using UrbanNative.Vendors.Services.Interfaces;
+
 
 namespace UrbanNative.Vendors.Pages.Wallet
 {
     public class IndexModel : PageModel
     {
-        private readonly VendorWalletService _service;
+        private readonly IVendorWalletService _service;
 
-        public IndexModel(VendorWalletService service)
+        public IndexModel(IVendorWalletService service)
         {
             _service = service;
         }

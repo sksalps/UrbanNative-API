@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using UrbanNative.Application.DTOs.Vendors.Logistics;
 using UrbanNative.Application.DTOs.Vendors.Wallet;
 using UrbanNative.Application.Interfaces.Vendors.Wallet;
+using UrbanNative.Domain.Entities;
 using UrbanNative.Infrastructure.Database;
 
 namespace UrbanNative.Infrastructure.Repositories.Vendors.Wallet
@@ -22,11 +23,15 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors.Wallet
             _connectionFactory = connectionFactory;
         }
 
-        public async Task<IEnumerable<AccountHeadDto>> GetAccountHeadsAsync()
+        public async Task<IEnumerable<AccountHeadDto>> GetAccountHeadsAsync(int VendorId)
         {
             using var conn = _connectionFactory.CreateConnection();
+            var param = new DynamicParameters();
+            param.Add("@OwnerId", VendorId);
+            param.Add("@OwnerType", "VENDOR");
             return await conn.QueryAsync<AccountHeadDto>(
-                "sp_WalletAccountHead_GetActive",
+                "sp_WalletAccountHead_Lookup",
+                 param,
                 commandType: CommandType.StoredProcedure);
         }
 
