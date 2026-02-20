@@ -10,17 +10,22 @@
 <form method="get" class="card p-3 mb-4">
     <div class="row g-3">
         <!-- Order No -->
-        <div class="col-md-2">
+        <div class="col-md-2 position-relative">
             <label class="form-label">Order No</label>
-            <input asp-for="Filter.OrderNo" class="form-control" placeholder="Search order..." />
+            <input id="orderSearch" asp-for="Filter.OrderNo"
+                   class="form-control"
+                   placeholder="Search order..." autocomplete="off" />
+
+            <ul id="orderList" class="list-group position-absolute w-100 d-none" style="z-index:1000;"></ul>
         </div>
+
         <!-- Txn Type -->
         <div class="col-md-2">
             <label class="form-label">Transaction</label>
             <select asp-for="Filter.TxnType" class="form-select">
                 <option value="">All</option>
-                <option value="CR">Credit</option>
-                <option value="DR">Debit</option>
+                <option value="CREDIT">Credit</option>
+                <option value="DEBIT">Debit</option>
             </select>
         </div>
         <!-- Account Head -->
@@ -68,6 +73,30 @@
 
     </div>
 </form>
+<div class="card mb-3">
+    <div class="card-body">
+
+        <!-- Line 1 -->
+        <div class="row text-center fw-bold">
+            <div class="col">C/F Balance<br>@Model.Summary.CFBalance</div>
+            <div class="col text-success">Credit (Real)<br>@Model.Summary.CreditReal</div>
+            <div class="col text-warning">Credit (Locked)<br>@Model.Summary.CreditLocked</div>
+            <div class="col text-danger">Debit (Real)<br>@Model.Summary.DebitReal</div>
+            <div class="col text-warning">Debit (Locked)<br>@Model.Summary.DebitLocked</div>
+        </div>
+
+        <hr />
+
+        <!-- Line 2 -->
+        <div class="row text-center fw-bold">
+            <div class="col text-primary">Balance (Real)<br>@Model.Summary.BalanceReal</div>
+            <div class="col text-secondary">Balance (Locked)<br>@Model.Summary.BalanceLocked</div>
+            <div class="col text-success">Available Balance<br>@Model.Summary.BalanceReal</div>
+            <div class="col text-dark">Ledger Balance<br>@(Model.Summary.BalanceReal + Model.Summary.BalanceLocked)</div>
+        </div>
+
+    </div>
+</div>
 
 <!-- ================= LEDGER GRID ================= -->
 <div class="card">
@@ -143,3 +172,45 @@
 
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const input = document.getElementById("orderSearch");
+            const list = document.getElementById("orderList");
+           // alert ('okk');
+            if (!input || !list) return;
+           
+            input.addEventListener("input", async function () {
+                const q = this.value.trim();
+
+                if (!q || q.length < 2) {
+                    list.classList.add("d-none");
+                    return;
+                }
+
+                const res = await fetch(`?handler=OrderSuggestions&term=${encodeURIComponent(q)}`);
+                const data = await res.json();
+
+                list.innerHTML = "";
+
+                data.forEach(item => {
+                    const li = document.createElement("li");
+                    li.className = "list-group-item list-group-item-action";
+                    li.textContent = item;
+
+                    li.onclick = () => {
+                        input.value = item;
+                        list.classList.add("d-none");
+                    };
+
+                    list.appendChild(li);
+                });
+
+                list.classList.toggle("d-none", data.length === 0);
+            });
+
+        });
+    </script>
+}

@@ -54,6 +54,32 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors.Wallet
                 commandType: CommandType.StoredProcedure);
         return result;
         }
+
+        public async Task<WalletLedgerSummaryDto> GetLedgerSummaryAsync(int vendorId, DateTime fromDate, DateTime toDate)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            return await conn.QueryFirstOrDefaultAsync<WalletLedgerSummaryDto>(
+                "sp_VendorWalletLedger_Summary",
+                new
+                {
+                    VendorId = vendorId,
+                    FromDate = fromDate,
+                    ToDate = toDate
+                },
+                commandType: CommandType.StoredProcedure);
+        }
+        public async Task<IEnumerable<string>> SearchOrdersAsync(int vendorId, string term)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            return await conn.QueryAsync<string>(
+                "sp_VendorWallet_Order_Search",
+                new { VendorId = vendorId, Term = term },
+                commandType: CommandType.StoredProcedure);
+        }
+
+
     }
 
 }

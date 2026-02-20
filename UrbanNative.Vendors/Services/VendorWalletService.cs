@@ -23,13 +23,29 @@ namespace UrbanNative.Vendors.Services
                 .ReadFromJsonAsync<List<WalletLedgerRowDto>>()
                 ?? new();
         }
-
-
-
         public async Task<List<AccountHeadDto>> GetAccountHeadsAsync()
         {
             return await _http.GetFromJsonAsync<List<AccountHeadDto>>($"api/vendors/wallet/account-heads");
         }
+        public async Task<WalletLedgerSummaryDto> GetLedgerSummaryAsync(WalletLedgerFilterDto filter)
+        {
+            var fromDate = filter.FromDate ?? DateTime.Today.AddDays(-30);
+            var toDate = filter.ToDate ?? DateTime.Today;
+
+            var url = $"api/vendors/wallet/ledgersummary?fromDate={fromDate:yyyy-MM-dd}&toDate={toDate:yyyy-MM-dd}";
+
+            var result = await _http.GetFromJsonAsync<WalletLedgerSummaryDto>(url);
+
+            return result ?? new WalletLedgerSummaryDto();
+        }
+
+        public async Task<List<string>> SearchOrdersAsync(string term)
+        {
+            var url = $"api/vendors/wallet/order-search?term={Uri.EscapeDataString(term)}";
+            return await _http.GetFromJsonAsync<List<string>>(url);
+        }
+
+
     }
 
 }

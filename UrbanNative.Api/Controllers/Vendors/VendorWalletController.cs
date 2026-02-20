@@ -38,6 +38,23 @@ namespace UrbanNative.Api.Controllers.Vendors
             var result = await _useCase.GetAccountHeadsAsync(VendorId);
                 return Ok(result);
             }
+        [HttpGet("ledgersummary")]
+        public async Task<IActionResult> GetSummary(DateTime fromDate, DateTime toDate)
+        {
+            var vendorId = GetVendorId(); // secure injection
+
+            var result = await _useCase.ExecuteAsync(vendorId, fromDate, toDate);
+            return Ok(result);
+        }
+        [HttpGet("order-search")]
+        public async Task<IActionResult> SearchOrders(string term)
+        {
+            var vendorId = GetVendorId();
+            var result = await _useCase.SearchOrdersAsync(vendorId, term);
+            return Ok(result);
+        }
+
+
         /* ================= VENDOR CONTEXT ================= */
 
         private int GetVendorId()

@@ -11,6 +11,8 @@ namespace UrbanNative.Application.Interfaces.UseCases.Wallet
     {
         Task<IEnumerable<WalletLedgerRowDto>> ExecuteAsync(WalletLedgerFilterDto filter);
         Task<IEnumerable<AccountHeadDto>> GetAccountHeadsAsync(int VendorId);
+        Task<WalletLedgerSummaryDto> ExecuteAsync(int vendorId, DateTime fromDate, DateTime toDate);
+        Task<List<string>> SearchOrdersAsync(int vendorId, string term);
     }
 
 }

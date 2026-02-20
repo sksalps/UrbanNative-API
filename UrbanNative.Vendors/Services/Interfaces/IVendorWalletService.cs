@@ -7,6 +7,8 @@ namespace UrbanNative.Vendors.Services.Interfaces
     {
         Task<List<WalletLedgerRowDto>> GetLedgerAsync(WalletLedgerFilterDto filter);
         Task<List<AccountHeadDto>> GetAccountHeadsAsync();
+        Task<WalletLedgerSummaryDto> GetLedgerSummaryAsync(WalletLedgerFilterDto filter);
+        Task<List<string>> SearchOrdersAsync(string term);
     }
 
 }

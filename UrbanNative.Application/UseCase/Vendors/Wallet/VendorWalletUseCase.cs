@@ -23,6 +23,13 @@ namespace UrbanNative.Application.UseCase.Vendors.Wallet
 
         public async Task<IEnumerable<AccountHeadDto>> GetAccountHeadsAsync(int VendorId)
             => await _repo.GetAccountHeadsAsync(VendorId);
+        public async Task<WalletLedgerSummaryDto> ExecuteAsync(int vendorId, DateTime fromDate, DateTime toDate)
+        => await _repo.GetLedgerSummaryAsync(vendorId, fromDate, toDate);
+        public async Task<List<string>> SearchOrdersAsync(int vendorId, string term)
+        {
+            return (await _repo.SearchOrdersAsync(vendorId, term)).ToList();
+        }
+
     }
 
 }
