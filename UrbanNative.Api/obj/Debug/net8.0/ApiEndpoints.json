@@ -2870,44 +2870,14 @@
     "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorWalletController",
     "Method": "GetLedger",
     "RelativePath": "api/vendors/wallet/ledger",
-    "HttpMethod": "GET",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "VendorId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "FromDate",
-        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
-      },
-      {
-        "Name": "ToDate",
-        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
-      },
-      {
-        "Name": "TxnType",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "SourceType",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "AccountHeadId",
-        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
-      },
-      {
-        "Name": "OrderNo",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "filter",
+        "Type": "UrbanNative.Application.DTOs.Vendors.Wallet.WalletLedgerFilterDto",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

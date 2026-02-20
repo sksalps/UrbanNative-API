@@ -24,7 +24,7 @@ namespace UrbanNative.Vendors.Pages.Wallet
         public async Task OnGetAsync()
         {
             AccountHeads = (await _service.GetAccountHeadsAsync()).ToList();
-            Rows = (await _service.GetLedgerAsync(Filter)).ToList();
+            Rows = await _service.GetLedgerAsync(Filter);
         }
     }
 }

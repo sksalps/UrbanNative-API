@@ -1,4 +1,5 @@
-﻿using UrbanNative.Application.DTOs.Vendors.Wallet;
+﻿using UrbanNative.Application.DTOs.Vendors.Orders;
+using UrbanNative.Application.DTOs.Vendors.Wallet;
 using UrbanNative.Vendors.Services.Interfaces;
 
 namespace UrbanNative.Vendors.Services
@@ -14,12 +15,16 @@ namespace UrbanNative.Vendors.Services
 
         public async Task<List<WalletLedgerRowDto>> GetLedgerAsync(WalletLedgerFilterDto filter)
         {
-            //var query = QueryStringHelper.ToQueryString(filter);
-            return await _http.GetFromJsonAsync<List<WalletLedgerRowDto>>(
-                "api/vendors/wallet/ledger{filter}");
-            //await _http.PostAsJsonAsync("api/vendor/logistics/shipments", dto)
+            var response = await _http.PostAsJsonAsync($"api/vendors/wallet/ledger", filter);
+
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content
+                .ReadFromJsonAsync<List<WalletLedgerRowDto>>()
+                ?? new();
         }
-        
+
+
 
         public async Task<List<AccountHeadDto>> GetAccountHeadsAsync()
         {

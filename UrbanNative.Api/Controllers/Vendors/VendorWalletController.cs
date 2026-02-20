@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using UrbanNative.Application.DTOs.Vendors.Wallet;
 using UrbanNative.Application.Interfaces.UseCases.Wallet;
 using UrbanNative.Domain.Entities;
 
 namespace UrbanNative.Api.Controllers.Vendors
 {
-
+        [Authorize]
         [ApiController]
         [Route("api/vendors/wallet")]
         public class VendorWalletController : ControllerBase
@@ -17,11 +18,13 @@ namespace UrbanNative.Api.Controllers.Vendors
                 _useCase = useCase;
             }
 
-        [HttpGet("ledger")]
-        public async Task<IActionResult> GetLedger([FromQuery] WalletLedgerFilterDto filter)
+        [HttpPost("ledger")]
+        public async Task<IActionResult> GetLedger([FromBody] WalletLedgerFilterDto filter)
         {
-            // 🔐 Inject VendorId from claims
-            filter.VendorId = GetVendorId(); // extension method
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            filter.VendorId = GetVendorId(); // injected
 
             var result = await _useCase.ExecuteAsync(filter);
             return Ok(result);

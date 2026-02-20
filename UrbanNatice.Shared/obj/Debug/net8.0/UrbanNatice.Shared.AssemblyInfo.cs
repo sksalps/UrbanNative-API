@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UrbanNatice.Shared")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+70c52a0ac0507087f0cf6703bd3251d888ff1e1c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dab3ef9974bde0f838df316ac69703e4d3b5959b")]
 [assembly: System.Reflection.AssemblyProductAttribute("UrbanNatice.Shared")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UrbanNatice.Shared")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

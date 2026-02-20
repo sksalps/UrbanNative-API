@@ -194,7 +194,7 @@ IsActive	bit	Unchecked
 CreatedAt	datetime2(7)	Unchecked
 UpdatedAt	datetime2(7)	Checked
 		Unchecked
-	
+****Vendor Wallet Schema*******
 Orders
 OrderID	int	Unchecked
 OrderNo	nvarchar(50)	Unchecked
@@ -304,6 +304,7 @@ CreatedAt	datetime	Unchecked
 WalletTypeId	int	Checked
 		Unchecked
 		
+WalletLedger
 LedgerId	bigint	Unchecked
 WalletAccountId	int	Unchecked
 TxnType	varchar(10)	Unchecked
@@ -315,7 +316,29 @@ CreatedAt	datetime	Unchecked
 AccountHeadId	int	Checked
 		Unchecked
 
+WalletLedger
+------------
+LedgerId           BIGINT PK
+WalletAccountId    INT
+TxnType            VARCHAR(10)      -- CR / DR
+Amount             DECIMAL(18,2)
+
+SourceType         VARCHAR(30)      -- legacy / compatibility
+SourceId           INT              -- acts as SourceEntityId
+
+SourceEntityType   VARCHAR(30)      -- OrderItem, Settlement, Manual
+FinancialEvent     VARCHAR(30)      -- ORDER, REFUND, RTO, SETTLEMENT, ADJUSTMENT
+
+AccountHeadId      INT
+Narration          NVARCHAR(300)
+ReferenceNo        NVARCHAR(100)  	---- UTR, Payment Ref, etc. external trace (UTR, txn id)
+
+RunningBalance     DECIMAL(18,2)    -- optional snapshot
+CreatedBy          INT              -- audit Admin/System/User
+CreatedAt          DATETIME
+
 *********End Wallet Vendor		
+
 OrderShipments
 ShipmentID	int	Unchecked
 OrderID	int	Unchecked

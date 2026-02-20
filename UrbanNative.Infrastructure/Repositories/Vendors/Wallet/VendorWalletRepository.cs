@@ -47,7 +47,7 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors.Wallet
                     filter.FromDate,
                     filter.ToDate,
                     filter.TxnType,
-                    filter.SourceType,
+                    filter.FinancialEvent,
                     filter.AccountHeadId,
                     filter.OrderNo
                 },

@@ -6,16 +6,21 @@ using System.Threading.Tasks;
 
 namespace UrbanNative.Application.DTOs.Vendors.Wallet
 {
-    public class WalletLedgerFilterDto
+
+
+public class WalletLedgerFilterDto
     {
-        public int VendorId { get; set; }
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
-        public string TxnType { get; set; }
-        public string SourceType { get; set; }
+        public string? TxnType { get; set; }        // nullable
+        public string? FinancialEvent { get; set; }     // nullable
         public int? AccountHeadId { get; set; }
-        public string OrderNo { get; set; }
+        public string? OrderNo { get; set; }
+
+          // 🔥 prevents model binding validation
+        public int VendorId { get; set; }
     }
+
 
     public class WalletSummaryDto
     {
@@ -35,7 +40,8 @@ namespace UrbanNative.Application.DTOs.Vendors.Wallet
     {
         public DateTime Date { get; set; }
         public string TxnType { get; set; }
-        public string SourceType { get; set; }
+        public string FinancialEvent { get; set; }
+        public string ReferenceNo { get; set; }
         public string AccountHead { get; set; }
         public string OrderNo { get; set; }
         public string SKUCode { get; set; }

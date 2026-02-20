@@ -9,7 +9,29 @@
 <!-- ================= FILTER CARD ================= -->
 <form method="get" class="card p-3 mb-4">
     <div class="row g-3">
-
+        <!-- Order No -->
+        <div class="col-md-2">
+            <label class="form-label">Order No</label>
+            <input asp-for="Filter.OrderNo" class="form-control" placeholder="Search order..." />
+        </div>
+        <!-- Txn Type -->
+        <div class="col-md-2">
+            <label class="form-label">Transaction</label>
+            <select asp-for="Filter.TxnType" class="form-select">
+                <option value="">All</option>
+                <option value="CR">Credit</option>
+                <option value="DR">Debit</option>
+            </select>
+        </div>
+        <!-- Account Head -->
+        <div class="col-md-2">
+            <label class="form-label">Account Head</label>
+            <select asp-for="Filter.AccountHeadId"
+                    class="form-select"
+                    asp-items="@(new SelectList(Model.AccountHeads, "AccountHeadId", "HeadName"))">
+                <option value="">All</option>
+            </select>
+        </div>
         <!-- From Date -->
         <div class="col-md-2">
             <label class="form-label">From Date</label>
@@ -21,21 +43,10 @@
             <label class="form-label">To Date</label>
             <input asp-for="Filter.ToDate" type="date" class="form-control" />
         </div>
-
-        <!-- Txn Type -->
-        <div class="col-md-2">
-            <label class="form-label">Transaction</label>
-            <select asp-for="Filter.TxnType" class="form-select">
-                <option value="">All</option>
-                <option value="CR">Credit</option>
-                <option value="DR">Debit</option>
-            </select>
-        </div>
-
         <!-- Source Type -->
         <div class="col-md-2">
             <label class="form-label">Source</label>
-            <select asp-for="Filter.SourceType" class="form-select">
+            <select asp-for="Filter.FinancialEvent" class="form-select">
                 <option value="">All</option>
                 <option value="ORDER">Order</option>
                 <option value="REFUND">Refund</option>
@@ -43,22 +54,6 @@
                 <option value="SETTLEMENT">Settlement</option>
                 <option value="ADJUSTMENT">Adjustment</option>
             </select>
-        </div>
-
-        <!-- Account Head -->
-        <div class="col-md-2">
-            <label class="form-label">Account Head</label>
-            <select asp-for="Filter.AccountHeadId"
-                    class="form-select"
-                    asp-items="@(new SelectList(Model.AccountHeads, "AccountHeadId", "HeadName"))">
-                <option value="">All</option>
-            </select>
-        </div>
-
-        <!-- Order No -->
-        <div class="col-md-2">
-            <label class="form-label">Order No</label>
-            <input asp-for="Filter.OrderNo" class="form-control" placeholder="Search order..." />
         </div>
 
         <!-- Buttons -->
@@ -84,15 +79,16 @@
                 <thead class="table-light">
                     <tr>
                         <th>Date</th>
-                        <th>Txn</th>
-                        <th>Source</th>
                         <th>Account Head</th>
+                        <th>Source</th>
+                        <th>Reference No.</th>
                         <th>Order No</th>
                         <th>SKU</th>
+                        <th>Narration</th>
                         <th class="text-end">Credit</th>
                         <th class="text-end">Debit</th>
                         <th class="text-end">Balance</th>
-                        <th>Narration</th>
+                        
                     </tr>
                 </thead>
 
@@ -103,20 +99,16 @@
                         {
                             <tr>
                                 <td>@row.Date.ToString("dd-MMM-yyyy")</td>
-                                <td>
-                                    <span class="badge @(row.TxnType == "CR" ? "bg-success" : "bg-danger")">
-                                        @row.TxnType
-                                    </span>
-                                </td>
+                                <td>@row.AccountHead</td>
                                 <td>
                                     <span class="badge bg-info text-dark">
-                                        @row.SourceType
+                                        @row.FinancialEvent
                                     </span>
                                 </td>
-                                <td>@row.AccountHead</td>
+                                <td>@row.ReferenceNo</td>
                                 <td>@row.OrderNo</td>
                                 <td>@row.SKUCode</td>
-
+                                <td>@row.Narration</td>
                                 <!-- Credit -->
                                 <td class="text-end text-success fw-semibold">
                                     @(row.Credit > 0 ? row.Credit.ToString("N2") : "-")
@@ -132,7 +124,7 @@
                                     @row.RunningBalance.ToString("N2")
                                 </td>
 
-                                <td>@row.Narration</td>
+                                
                             </tr>
                         }
                     }
