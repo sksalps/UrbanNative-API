@@ -1,4 +1,5 @@
-﻿using UrbanNative.Application.DTOs.Vendors.Wallet;
+﻿using Microsoft.AspNetCore.Mvc;
+using UrbanNative.Application.DTOs.Vendors.Wallet;
 
 namespace UrbanNative.Vendors.Services.Interfaces
 {
@@ -8,7 +9,11 @@ namespace UrbanNative.Vendors.Services.Interfaces
         Task<List<WalletLedgerRowDto>> GetLedgerAsync(WalletLedgerFilterDto filter);
         Task<List<AccountHeadDto>> GetAccountHeadsAsync();
         Task<WalletLedgerSummaryDto> GetLedgerSummaryAsync(WalletLedgerFilterDto filter);
-        Task<List<string>> SearchOrdersAsync(string term);
+        Task<List<WalletSearchSuggestionDto>> SmartSearchAsync(string term);
+        Task<VendorWalletSummaryReportDto> GetWalletSummaryAsync(WalletSummaryFilterDto filter);
+        Task<List<WalletTypeDto>> GetWalletTypesAsync();
+        Task<byte[]> ExportSummaryPdfAsync(WalletSummaryFilterDto filter);
+        Task<byte[]> ExportSummaryExcelAsync(WalletSummaryFilterDto filter);
     }
 
 }

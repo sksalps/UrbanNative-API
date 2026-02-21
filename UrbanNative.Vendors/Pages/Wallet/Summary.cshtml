@@ -1,0 +1,213 @@
+﻿@page
+@model UrbanNative.Vendors.Pages.Wallet.SummaryModel
+@{
+    ViewData["Title"] = "Wallet Summary";
+}
+
+<h4 class="mb-4">Wallet Summary</h4>
+
+<!-- ================= FILTER ================= -->
+<form method="get" class="card p-3 mb-4">
+    <div class="row g-3">
+        <!-- Wallet Type -->
+        <div class="col-md-3">
+            <label class="form-label">Wallet Type</label>
+            <select asp-for="Filter.WalletTypeId"
+                    asp-items="@(new SelectList(Model.WalletTypes, "WalletTypeId", "WalletTypeName"))"
+                    class="form-select">
+                <option value="">All</option>
+            </select>
+        </div>
+        <!-- Financial Year -->
+        <div class="col-md-3">
+            <label class="form-label">Financial Year</label>
+            <select asp-for="Filter.FY" class="form-select" id="fySelect">
+                <option value="current">Current FY</option>
+                <option value="previous">Previous FY</option>
+                <option value="custom">Custom Range</option>
+            </select>
+        </div>
+
+        <!-- From Date -->
+        <div class="col-md-2">
+            <label class="form-label">From Date</label>
+            <input asp-for="Filter.FromDate" type="date" class="form-control" id="fromDate" />
+        </div>
+
+        <!-- To Date -->
+        <div class="col-md-2">
+            <label class="form-label">To Date</label>
+            <input asp-for="Filter.ToDate" type="date" class="form-control" id="toDate" />
+        </div>
+
+        
+
+        <div class="col-md-2 text-end">
+            <label class="form-label d-block">&nbsp;</label>
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="bi bi-search"></i> Apply
+            </button>
+        </div>
+
+    </div>
+</form>
+
+<!-- ================= SUMMARY ================= -->
+
+@if (Model.Report != null)
+{
+    <div class="card mb-3">
+        <div class="card-body fw-bold d-flex justify-content-between align-items-center flex-wrap">
+
+            <!-- Left: Date Range -->
+            <div>
+                <span class="text-primary">@Model.DateRangeLabel</span>
+            </div>
+
+            <!-- Center: Summary -->
+            <div>
+                Credit: @Model.Report.Totals.TotalCredit.ToString("N2") |
+                Debit: @Model.Report.Totals.TotalDebit.ToString("N2") |
+                Locked: @Model.Report.Totals.LockedAmount.ToString("N2") |
+                Available: @Model.Report.Totals.AvailableBalance.ToString("N2") |
+                Net: @Model.Report.Totals.NetBalance.ToString("N2")
+            </div>
+
+            <!-- Right: Report Date -->
+            <div class="text-muted">
+                Report Date: @DateTime.Now.ToString("dd MMM yyyy")
+            </div>
+            <div class="text-end mb-3">
+                <a asp-page-handler="ExportExcel"
+                   asp-route-FY="@Model.Filter.FY"
+                   asp-route-FromDate="@Model.Filter.FromDate"
+                   asp-route-ToDate="@Model.Filter.ToDate"
+                   asp-route-WalletTypeId="@Model.Filter.WalletTypeId"
+                   class="btn btn-success">
+                    Export Excel
+                </a>
+
+                <a asp-page-handler="ExportPdf"
+                   asp-route-FY="@Model.Filter.FY"
+                   asp-route-FromDate="@Model.Filter.FromDate"
+                   asp-route-ToDate="@Model.Filter.ToDate"
+                   asp-route-WalletTypeId="@Model.Filter.WalletTypeId"
+                   class="btn btn-danger">
+                    Export PDF
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+}
+
+
+<!-- ================= REPORT TABLE ================= -->
+<div class="card">
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Account Head</th>
+                        <th>Narration</th>
+                        <th class="text-end">Credit</th>
+                        <th class="text-end">Debit</th>
+                        <th class="text-center">Locked</th>
+                        <th class="text-end">Net Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Report?.Rows?.Any() == true)
+                    {
+                        decimal totalCredit = 0;
+                        decimal totalDebit = 0;
+                        decimal totalNet = 0;
+
+                        foreach (var row in Model.Report.Rows)
+                        {
+                            totalCredit += row.Credit;
+                            totalDebit += row.Debit;
+                            totalNet += row.NetAmount;
+
+                            <tr class="@(row.IsLocked ? "table-warning" : "")">
+                                <td>@row.AccountHead</td>
+                                <td>@row.Narration</td>
+                                <td class="text-end">@row.Credit.ToString("N2")</td>
+                                <td class="text-end">@row.Debit.ToString("N2")</td>
+                                <td class="text-center">
+                                    @(row.IsLocked ? "Yes" : "No")
+                                </td>
+                                <td class="text-end fw-semibold">@row.NetAmount.ToString("N2")</td>
+                            </tr>
+                        }
+
+                        <!-- Grand Total Row -->
+                        <tr class="table-dark text-white fw-bold">
+                            <td colspan="2">TOTAL</td>
+                            <td class="text-end">@totalCredit.ToString("N2")</td>
+                            <td class="text-end">@totalDebit.ToString("N2")</td>
+                            <td></td>
+                            <td class="text-end">@totalNet.ToString("N2")</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">
+                                No data available
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const fySelect = document.getElementById("fySelect");
+            const fromDate = document.getElementById("fromDate");
+            const toDate = document.getElementById("toDate");
+
+            function setFYDates(type) {
+                const today = new Date();
+                const year = today.getFullYear();
+                const month = today.getMonth() + 1;
+
+                const currentFYStartYear = month >= 4 ? year : year - 1;
+
+                let start, end;
+
+                if (type === "current") {
+                    start = new Date(currentFYStartYear, 3, 1);
+                    end = new Date(currentFYStartYear + 1, 2, 31);
+                }
+                else if (type === "previous") {
+                    start = new Date(currentFYStartYear - 1, 3, 1);
+                    end = new Date(currentFYStartYear, 2, 31);
+                }
+                else {
+                    return;
+                }
+
+                fromDate.value = start.toISOString().split("T")[0];
+                toDate.value = end.toISOString().split("T")[0];
+            }
+
+            fySelect.addEventListener("change", () => setFYDates(fySelect.value));
+
+            // default load
+            if (!fromDate.value || !toDate.value) {
+                setFYDates("current");
+            }
+
+        });
+    </script>
+}

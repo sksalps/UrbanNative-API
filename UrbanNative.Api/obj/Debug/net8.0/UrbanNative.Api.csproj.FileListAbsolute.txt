@@ -138,3 +138,11 @@ E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\o
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\obj\Debug\net8.0\UrbanNative.Api.pdb
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\obj\Debug\net8.0\UrbanNative.Api.genruntimeconfig.cache
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\obj\Debug\net8.0\ref\UrbanNative.Api.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\ClosedXML.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\ClosedXML.Parser.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\DocumentFormat.OpenXml.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\DocumentFormat.OpenXml.Framework.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\ExcelNumberFormat.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\RBush.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\SixLabors.Fonts.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\System.IO.Packaging.dll

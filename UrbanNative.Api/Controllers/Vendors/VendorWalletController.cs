@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using UrbanNative.Application.DTOs.Vendors.Wallet;
 using UrbanNative.Application.Interfaces.UseCases.Wallet;
-using UrbanNative.Domain.Entities;
+using UrbanNative.Infrastructure.ExcelDownload;
+using UrbanNative.Infrastructure.PDFdownload;
+
 
 namespace UrbanNative.Api.Controllers.Vendors
 {
@@ -46,15 +48,62 @@ namespace UrbanNative.Api.Controllers.Vendors
             var result = await _useCase.ExecuteAsync(vendorId, fromDate, toDate);
             return Ok(result);
         }
-        [HttpGet("order-search")]
-        public async Task<IActionResult> SearchOrders(string term)
+        
+        [HttpGet("smart-search")]
+        public async Task<IActionResult> SmartSearch(string term)
         {
             var vendorId = GetVendorId();
-            var result = await _useCase.SearchOrdersAsync(vendorId, term);
+            var result = await _useCase.SmartSearchAsync(vendorId, term);
+            return Ok(result);
+        }
+
+        // <Wallet summary Report> 
+        [HttpGet("summary-report")]
+        public async Task<IActionResult> GetSummaryReport(DateTime fromDate, DateTime toDate, int? walletTypeId)
+        {
+            var vendorId = GetVendorId();
+            var result = await _useCase.ExecuteSummaryAsync(vendorId, fromDate, toDate, walletTypeId);
             return Ok(result);
         }
 
 
+        [HttpGet("summary-report/pdf")]
+        public async Task<IActionResult> ExportSummaryPdf(DateTime fromDate, DateTime toDate, int? walletTypeId)
+        {
+            var vendorId = GetVendorId();
+
+            var report = await _useCase.ExecuteSummaryAsync(vendorId, fromDate, toDate, walletTypeId);
+
+            var dateRange = $"{fromDate:dd MMM yyyy} - {toDate:dd MMM yyyy}";
+            var pdfBytes = VendorWalletSummaryPdf.Generate(report, dateRange);
+
+            return File(pdfBytes, "application/pdf", $"WalletSummary_{DateTime.Now:yyyyMMdd}.pdf");
+        }
+
+        [HttpGet("summary-report/excel")]
+            public async Task<IActionResult> ExportSummaryExcel(DateTime fromDate, DateTime toDate, int? walletTypeId)
+            {
+                var vendorId = GetVendorId();
+
+                var report = await _useCase.ExecuteSummaryAsync(vendorId, fromDate, toDate, walletTypeId);
+
+                var dateRange = $"{fromDate:dd MMM yyyy} - {toDate:dd MMM yyyy}";
+                var bytes = VendorWalletSummaryExcel.Generate(report, dateRange);
+
+                return File(bytes,
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    $"WalletSummary_{DateTime.Now:yyyyMMdd}.xlsx");
+            }
+
+
+        [HttpGet("wallet-types")]
+        public async Task<IActionResult> GetWalletTypes()
+        {
+            var result = await _useCase.ExecuteWalletTypeAsync();
+            return Ok(result);
+        }
+
+        
         /* ================= VENDOR CONTEXT ================= */
 
         private int GetVendorId()

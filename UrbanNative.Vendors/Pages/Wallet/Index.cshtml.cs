@@ -34,14 +34,17 @@ namespace UrbanNative.Vendors.Pages.Wallet
             Rows = await _service.GetLedgerAsync(Filter);
             Summary = await _service.GetLedgerSummaryAsync(Filter);
         }
-        public async Task<JsonResult> OnGetOrderSuggestionsAsync(string term)
+        
+
+        public async Task<JsonResult> OnGetSmartSearchAsync(string term)
         {
             if (string.IsNullOrWhiteSpace(term))
-                return new JsonResult(new List<string>());
+                return new JsonResult(new List<object>());
 
-            var results = await _service.SearchOrdersAsync(term);
+            var results = await _service.SmartSearchAsync(term);
             return new JsonResult(results);
         }
+
 
     }
 }

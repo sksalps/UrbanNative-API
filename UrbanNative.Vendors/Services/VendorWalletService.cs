@@ -39,10 +39,39 @@ namespace UrbanNative.Vendors.Services
             return result ?? new WalletLedgerSummaryDto();
         }
 
-        public async Task<List<string>> SearchOrdersAsync(string term)
+        
+        public async Task<List<WalletSearchSuggestionDto>> SmartSearchAsync(string term)
         {
-            var url = $"api/vendors/wallet/order-search?term={Uri.EscapeDataString(term)}";
-            return await _http.GetFromJsonAsync<List<string>>(url);
+            var url = $"api/vendors/wallet/smart-search?term={Uri.EscapeDataString(term)}";
+            return await _http.GetFromJsonAsync<List<WalletSearchSuggestionDto>>(url);
+        }
+        public async Task<VendorWalletSummaryReportDto> GetWalletSummaryAsync(WalletSummaryFilterDto filter)
+        {
+            var url = $"api/vendors/wallet/summary-report?fromDate={filter.FromDate:yyyy-MM-dd}&toDate={filter.ToDate:yyyy-MM-dd}&walletTypeId={filter.WalletTypeId}";
+            return await _http.GetFromJsonAsync<VendorWalletSummaryReportDto>(url);
+        }
+
+        public async Task<List<WalletTypeDto>> GetWalletTypesAsync()
+        {
+            return await _http.GetFromJsonAsync<List<WalletTypeDto>>($"api/vendors/wallet/wallet-types");
+        }
+        public async Task<byte[]> ExportSummaryPdfAsync(WalletSummaryFilterDto filter)
+        {
+            var from = filter.FromDate ?? DateTime.Today.AddDays(-30);
+            var to = filter.ToDate ?? DateTime.Today;
+
+            var url = $"api/vendors/wallet/summary-report/pdf?fromDate={from:yyyy-MM-dd}&toDate={to:yyyy-MM-dd}&walletTypeId={filter.WalletTypeId}";
+
+            return await _http.GetByteArrayAsync(url);
+        }
+        public async Task<byte[]> ExportSummaryExcelAsync(WalletSummaryFilterDto filter)
+        {
+            var from = filter.FromDate ?? DateTime.Today.AddDays(-30);
+            var to = filter.ToDate ?? DateTime.Today;
+
+            var url = $"api/vendors/wallet/summary-report/excel?fromDate={from:yyyy-MM-dd}&toDate={to:yyyy-MM-dd}&walletTypeId={filter.WalletTypeId}";
+
+            return await _http.GetByteArrayAsync(url);
         }
 
 

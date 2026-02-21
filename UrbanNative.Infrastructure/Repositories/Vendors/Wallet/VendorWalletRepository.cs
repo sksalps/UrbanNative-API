@@ -69,16 +69,59 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors.Wallet
                 },
                 commandType: CommandType.StoredProcedure);
         }
-        public async Task<IEnumerable<string>> SearchOrdersAsync(int vendorId, string term)
+        
+        public async Task<IEnumerable<WalletSearchSuggestionDto>> SmartSearchAsync(int vendorId, string term)
         {
             using var conn = _connectionFactory.CreateConnection();
 
-            return await conn.QueryAsync<string>(
-                "sp_VendorWallet_Order_Search",
+            return await conn.QueryAsync<WalletSearchSuggestionDto>(
+                "sp_VendorWallet_SmartSearch",
                 new { VendorId = vendorId, Term = term },
                 commandType: CommandType.StoredProcedure);
         }
+        public async Task<VendorWalletSummaryReportDto> GetWalletSummaryAsync(int vendorId, DateTime from, DateTime to, int? walletTypeId)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+            using var multi = await conn.QueryMultipleAsync(
+                "sp_VendorWalletSummary_Report",
+                new { VendorId = vendorId, FromDate = from, ToDate = to, WalletTypeId = walletTypeId },
+                commandType: CommandType.StoredProcedure);
 
+            var rows = (await multi.ReadAsync<AccountHeadSummaryDto>()).ToList();
+            var totals = await multi.ReadFirstAsync<WalletSummaryTotalsDto>();
+
+            return new VendorWalletSummaryReportDto
+            {
+                Rows = rows,
+                Totals = totals
+            };
+        }
+        public async Task<List<WalletTypeDto>> GetWalletTypesAsync()
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            var result = await conn.QueryAsync<WalletTypeDto>(
+                "sp_WalletType_Lookup",
+                commandType: CommandType.StoredProcedure);
+
+            return result.ToList();
+        }
+        public async Task<VendorContextDto> GetVendorContextAsync(int vendorId)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            var sql = @"
+            SELECT
+                v.VendorID AS VendorId,
+                v.BusinessName,
+                v.GSTNumber,
+                addr.AddressPreview
+            FROM Vendors v
+            OUTER APPLY dbo.fn_AddressPreview(v.BusinessAddressId) addr
+            WHERE v.VendorID = @VendorId";
+
+            return await conn.QueryFirstAsync<VendorContextDto>(sql, new { VendorId = vendorId });
+        }
 
     }
 
