@@ -22,6 +22,17 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors.Wallet
         {
             _connectionFactory = connectionFactory;
         }
+        public async Task<List<VendorWalletTypeDto>> GetWalletTypesAsync(int vendorId)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            var result = await conn.QueryAsync<VendorWalletTypeDto>(
+                "sp_VendorWalletType_Lookup",
+                new { VendorId = vendorId },
+                commandType: CommandType.StoredProcedure);
+
+            return result.ToList();
+        }
 
         public async Task<IEnumerable<AccountHeadDto>> GetAccountHeadsAsync(int VendorId)
         {
@@ -96,16 +107,16 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors.Wallet
                 Totals = totals
             };
         }
-        public async Task<List<WalletTypeDto>> GetWalletTypesAsync()
+        /*public async Task<List<VendorWalletTypeDto>> GetWalletTypesAsync()
         {
             using var conn = _connectionFactory.CreateConnection();
 
-            var result = await conn.QueryAsync<WalletTypeDto>(
+            var result = await conn.QueryAsync<VendorWalletTypeDto>(
                 "sp_WalletType_Lookup",
                 commandType: CommandType.StoredProcedure);
 
             return result.ToList();
-        }
+        }*/
         public async Task<VendorContextDto> GetVendorContextAsync(int vendorId)
         {
             using var conn = _connectionFactory.CreateConnection();

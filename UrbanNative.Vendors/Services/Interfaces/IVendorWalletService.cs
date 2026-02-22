@@ -11,7 +11,7 @@ namespace UrbanNative.Vendors.Services.Interfaces
         Task<WalletLedgerSummaryDto> GetLedgerSummaryAsync(WalletLedgerFilterDto filter);
         Task<List<WalletSearchSuggestionDto>> SmartSearchAsync(string term);
         Task<VendorWalletSummaryReportDto> GetWalletSummaryAsync(WalletSummaryFilterDto filter);
-        Task<List<WalletTypeDto>> GetWalletTypesAsync();
+        Task<List<VendorWalletTypeDto>> GetWalletTypesAsync();
         Task<byte[]> ExportSummaryPdfAsync(WalletSummaryFilterDto filter);
         Task<byte[]> ExportSummaryExcelAsync(WalletSummaryFilterDto filter);
     }

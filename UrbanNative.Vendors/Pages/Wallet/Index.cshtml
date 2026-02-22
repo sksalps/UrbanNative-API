@@ -5,73 +5,102 @@
 }
 
 <h4 class="mb-4">Wallet Ledger</h4>
+@if (Model.Filter.AccountHeadId != null)
+{
+    <div class="alert alert-info">
+        Showing ledger for selected Account Head
+    </div>
+}
 
 <!-- ================= FILTER CARD ================= -->
 <form method="get" class="card p-3 mb-4">
     <div class="row g-3">
-        <!-- Order No -->
-        <div class="col-md-2 position-relative">
-            <label class="form-label">Order / SKU</label>
-            <input id="orderSearch" asp-for="Filter.OrderNo"
-                   class="form-control"
-                   placeholder="Search order / SKU / variant"
-                   autocomplete="off" />
+        <div class="row g-3">
+            <!-- Order / SKU -->
+            <div class="col-md-2">
+                <label class="form-label">Order / SKU</label>
+                <input asp-for="Filter.OrderNo" class="form-control" placeholder="Search order / SKU / var" />
+            </div>
+            <!-- Wallet Type -->
+            <div class="col-md-2">
+                <label class="form-label">Wallet Type</label>
+                <select asp-for="Filter.WalletAccountId"
+                        asp-items="@(new SelectList(Model.WalletTypes, "WalletAccountId", "WalletTypeName"))"
+                        class="form-select">
+                    <option value="">All</option>
+                </select>
+            </div>
 
-            <ul id="orderList" class="list-group position-absolute w-100 d-none" style="z-index:1000;"></ul>
-        </div>
+            
 
-
-        <!-- Txn Type -->
-        <div class="col-md-2">
-            <label class="form-label">Transaction</label>
-            <select asp-for="Filter.TxnType" class="form-select">
-                <option value="">All</option>
-                <option value="CREDIT">Credit</option>
-                <option value="DEBIT">Debit</option>
-            </select>
-        </div>
-        <!-- Account Head -->
-        <div class="col-md-2">
-            <label class="form-label">Account Head</label>
-            <select asp-for="Filter.AccountHeadId"
-                    class="form-select"
+            <!-- Account Head -->
+            <div class="col-md-2">
+                <label class="form-label">Account Head</label>
+                <select asp-for="Filter.AccountHeadId" class="form-select"
                     asp-items="@(new SelectList(Model.AccountHeads, "AccountHeadId", "HeadName"))">
-                <option value="">All</option>
-            </select>
+                    <option value="">All</option>
+                </select>
+
+               
+            </div>
+            <!-- Source -->
+            <div class="col-md-2">
+                <label class="form-label">Source</label>
+                <select asp-for="Filter.FinancialEvent" class="form-select">
+                    <option value="">All</option>
+                    <option value="OrderItem">Order</option>
+                    <option value="Refund">Refund</option>
+                    <option value="RTO">RTO</option>
+                    <option value="Adjustment">Adjustment</option>
+                </select>
+            </div>
+            <!-- From Date -->
+            <div class="col-md-2">
+                <label class="form-label">From Date</label>
+                <input asp-for="Filter.FromDate" type="date" class="form-control" />
+            </div>
+
+            <!-- To Date -->
+            <div class="col-md-2">
+                <label class="form-label">To Date</label>
+                <input asp-for="Filter.ToDate" type="date" class="form-control" />
+            </div>
+
+            
+
         </div>
-        <!-- From Date -->
-        <div class="col-md-2">
-            <label class="form-label">From Date</label>
-            <input asp-for="Filter.FromDate" type="date" class="form-control" />
+        <div class="row mt-3 align-items-center">
+
+            <div class="col-md-6">
+                <label class="form-label me-3">Transaction:</label>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="Filter.TxnType" value="" checked />
+                    <label class="form-check-label">All</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="Filter.TxnType" value="CREDIT" />
+                    <label class="form-check-label">Credit</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="Filter.TxnType" value="DEBIT" />
+                    <label class="form-check-label">Debit</label>
+                </div>
+            </div>
+
+            <div class="col-md-6 text-end">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-search"></i> Search
+                </button>
+                <a asp-page="/Wallet/Index" class="btn btn-secondary">
+                    <i class="bi bi-x-circle"></i> Reset
+                </a>
+            </div>
+
         </div>
 
-        <!-- To Date -->
-        <div class="col-md-2">
-            <label class="form-label">To Date</label>
-            <input asp-for="Filter.ToDate" type="date" class="form-control" />
-        </div>
-        <!-- Source Type -->
-        <div class="col-md-2">
-            <label class="form-label">Source</label>
-            <select asp-for="Filter.FinancialEvent" class="form-select">
-                <option value="">All</option>
-                <option value="ORDER">Order</option>
-                <option value="REFUND">Refund</option>
-                <option value="RTO">RTO</option>
-                <option value="SETTLEMENT">Settlement</option>
-                <option value="ADJUSTMENT">Adjustment</option>
-            </select>
-        </div>
-
-        <!-- Buttons -->
-        <div class="col-md-12 text-end">
-            <button type="submit" class="btn btn-primary">
-                <i class="bi bi-search"></i> Search
-            </button>
-            <a asp-page="/Wallet/Index" class="btn btn-secondary">
-                <i class="bi bi-x-circle"></i> Reset
-            </a>
-        </div>
 
     </div>
 </form>
@@ -131,6 +160,8 @@
                             <tr>
                                 <td>@row.Date.ToString("dd-MMM-yyyy")</td>
                                 <td>@row.AccountHead</td>
+                                
+
                                 <td>
                                     <span class="badge bg-info text-dark">
                                         @row.FinancialEvent

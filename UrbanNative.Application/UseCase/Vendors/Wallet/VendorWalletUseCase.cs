@@ -21,6 +21,8 @@ namespace UrbanNative.Application.UseCase.Vendors.Wallet
 
         public async Task<IEnumerable<WalletLedgerRowDto>> ExecuteAsync(WalletLedgerFilterDto filter)
             => await _repo.GetWalletLedgerAsync(filter);
+        
+        
 
         public async Task<IEnumerable<AccountHeadDto>> GetAccountHeadsAsync(int VendorId)
             => await _repo.GetAccountHeadsAsync(VendorId);
@@ -52,10 +54,10 @@ namespace UrbanNative.Application.UseCase.Vendors.Wallet
                 return report;
             
         }
-        public async Task<List<WalletTypeDto>> ExecuteWalletTypeAsync()
-        {
-            return await _repo.GetWalletTypesAsync();
-        }
+        public async Task<List<VendorWalletTypeDto>> ExecuteWalletTypeAsync(int vendorId)
+            => await _repo.GetWalletTypesAsync(vendorId);
+        
+        
 
 
     }

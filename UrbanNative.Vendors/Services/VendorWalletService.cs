@@ -47,20 +47,20 @@ namespace UrbanNative.Vendors.Services
         }
         public async Task<VendorWalletSummaryReportDto> GetWalletSummaryAsync(WalletSummaryFilterDto filter)
         {
-            var url = $"api/vendors/wallet/summary-report?fromDate={filter.FromDate:yyyy-MM-dd}&toDate={filter.ToDate:yyyy-MM-dd}&walletTypeId={filter.WalletTypeId}";
+            var url = $"api/vendors/wallet/summary-report?fromDate={filter.FromDate:yyyy-MM-dd}&toDate={filter.ToDate:yyyy-MM-dd}&walletTypeId={filter.WalletAccountId}";
             return await _http.GetFromJsonAsync<VendorWalletSummaryReportDto>(url);
         }
 
-        public async Task<List<WalletTypeDto>> GetWalletTypesAsync()
+        public async Task<List<VendorWalletTypeDto>> GetWalletTypesAsync()
         {
-            return await _http.GetFromJsonAsync<List<WalletTypeDto>>($"api/vendors/wallet/wallet-types");
+            return await _http.GetFromJsonAsync<List<VendorWalletTypeDto>>($"api/vendors/wallet/wallet-types");
         }
         public async Task<byte[]> ExportSummaryPdfAsync(WalletSummaryFilterDto filter)
         {
             var from = filter.FromDate ?? DateTime.Today.AddDays(-30);
             var to = filter.ToDate ?? DateTime.Today;
 
-            var url = $"api/vendors/wallet/summary-report/pdf?fromDate={from:yyyy-MM-dd}&toDate={to:yyyy-MM-dd}&walletTypeId={filter.WalletTypeId}";
+            var url = $"api/vendors/wallet/summary-report/pdf?fromDate={from:yyyy-MM-dd}&toDate={to:yyyy-MM-dd}&walletTypeId={filter.WalletAccountId}";
 
             return await _http.GetByteArrayAsync(url);
         }
@@ -69,7 +69,7 @@ namespace UrbanNative.Vendors.Services
             var from = filter.FromDate ?? DateTime.Today.AddDays(-30);
             var to = filter.ToDate ?? DateTime.Today;
 
-            var url = $"api/vendors/wallet/summary-report/excel?fromDate={from:yyyy-MM-dd}&toDate={to:yyyy-MM-dd}&walletTypeId={filter.WalletTypeId}";
+            var url = $"api/vendors/wallet/summary-report/excel?fromDate={from:yyyy-MM-dd}&toDate={to:yyyy-MM-dd}&walletTypeId={filter.WalletAccountId}";
 
             return await _http.GetByteArrayAsync(url);
         }

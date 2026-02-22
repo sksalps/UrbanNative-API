@@ -31,8 +31,7 @@ namespace UrbanNative.Api.Controllers.Vendors
             var result = await _useCase.ExecuteAsync(filter);
             return Ok(result);
         }
-
-
+        
         [HttpGet("account-heads")]
             public async Task<IActionResult> GetAccountHeads()
             {
@@ -99,7 +98,8 @@ namespace UrbanNative.Api.Controllers.Vendors
         [HttpGet("wallet-types")]
         public async Task<IActionResult> GetWalletTypes()
         {
-            var result = await _useCase.ExecuteWalletTypeAsync();
+            var vendorId = GetVendorId();
+            var result = await _useCase.ExecuteWalletTypeAsync(vendorId);
             return Ok(result);
         }
 

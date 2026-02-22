@@ -20,7 +20,7 @@ namespace UrbanNative.Vendors.Pages.Wallet
 
         public VendorWalletSummaryReportDto Report { get; set; } = new();
 
-        public List<WalletTypeDto> WalletTypes { get; set; } = new();
+        public List<VendorWalletTypeDto> WalletTypes { get; set; } = new();
         public string DateRangeLabel { get; set; } = "";
 
         public async Task OnGetAsync()

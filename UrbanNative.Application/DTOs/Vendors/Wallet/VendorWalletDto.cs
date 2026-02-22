@@ -7,8 +7,17 @@ using System.Threading.Tasks;
 namespace UrbanNative.Application.DTOs.Vendors.Wallet
 {
 
+    public class VendorWalletTypeDto
+    {
+        public int WalletAccountId { get; set; }
+        public int WalletTypeId { get; set; }
+        public string WalletType { get; set; } = "";
+        public string WalletTypeName { get; set; } = "";
+    }
+
     public class WalletLedgerFilterDto
     {
+        public int? WalletAccountId { get; set; }
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
         public string? TxnType { get; set; }        // nullable
@@ -86,6 +95,8 @@ namespace UrbanNative.Application.DTOs.Vendors.Wallet
     }
     public class AccountHeadSummaryDto
     {
+        public int WalletAccountId { get; set; }
+        public int AccountHeadId { get; set; }
         public string AccountHead { get; set; }
         public string Narration { get; set; }
         public decimal Credit { get; set; }
@@ -122,10 +133,12 @@ namespace UrbanNative.Application.DTOs.Vendors.Wallet
         /// <summary>
         /// Wallet type filter (null = all)
         /// </summary>
-        public int? WalletTypeId { get; set; }
+        public int? WalletAccountId { get; set; }
+        
+
     }
     //use with Wallet SummaryReportDto to filter by wallet type (e.g. main wallet, cashback wallet, etc.)
-    public class WalletTypeDto 
+    public class WalletTypeDto1
     {
         public int WalletTypeId { get; set; }
         public string WalletTypeName { get; set; }

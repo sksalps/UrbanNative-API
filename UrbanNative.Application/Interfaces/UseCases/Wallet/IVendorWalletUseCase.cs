@@ -14,7 +14,7 @@ namespace UrbanNative.Application.Interfaces.UseCases.Wallet
         Task<WalletLedgerSummaryDto> ExecuteAsync(int vendorId, DateTime fromDate, DateTime toDate);
         Task<List<WalletSearchSuggestionDto>> SmartSearchAsync(int vendorId, string term);
         Task<VendorWalletSummaryReportDto> ExecuteSummaryAsync(int vendorId, DateTime from, DateTime to, int? walletTypeId);
-        Task<List<WalletTypeDto>> ExecuteWalletTypeAsync();
+        Task<List<VendorWalletTypeDto>> ExecuteWalletTypeAsync(int vendorId);
     }
 
 }

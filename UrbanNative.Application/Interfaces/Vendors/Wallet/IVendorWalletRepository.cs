@@ -15,7 +15,7 @@ namespace UrbanNative.Application.Interfaces.Vendors.Wallet
         //Task<IEnumerable<string>> SearchOrdersAsync(int vendorId, string term);
         Task<IEnumerable<WalletSearchSuggestionDto>> SmartSearchAsync(int vendorId, string term);
         Task<VendorWalletSummaryReportDto> GetWalletSummaryAsync(int vendorId, DateTime from, DateTime to, int? walletTypeId);
-        Task<List<WalletTypeDto>> GetWalletTypesAsync();
+        Task<List<VendorWalletTypeDto>> GetWalletTypesAsync(int vendorId);
         Task<VendorContextDto> GetVendorContextAsync(int vendorId);
     }
 }

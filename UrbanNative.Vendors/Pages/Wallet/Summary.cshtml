@@ -12,7 +12,7 @@
         <!-- Wallet Type -->
         <div class="col-md-3">
             <label class="form-label">Wallet Type</label>
-            <select asp-for="Filter.WalletTypeId"
+            <select asp-for="Filter.WalletAccountId"
                     asp-items="@(new SelectList(Model.WalletTypes, "WalletTypeId", "WalletTypeName"))"
                     class="form-select">
                 <option value="">All</option>
@@ -82,7 +82,7 @@
                    asp-route-FY="@Model.Filter.FY"
                    asp-route-FromDate="@Model.Filter.FromDate"
                    asp-route-ToDate="@Model.Filter.ToDate"
-                   asp-route-WalletTypeId="@Model.Filter.WalletTypeId"
+                   asp-route-WalletTypeId="@Model.Filter.WalletAccountId"
                    class="btn btn-success">
                     Export Excel
                 </a>
@@ -91,7 +91,7 @@
                    asp-route-FY="@Model.Filter.FY"
                    asp-route-FromDate="@Model.Filter.FromDate"
                    asp-route-ToDate="@Model.Filter.ToDate"
-                   asp-route-WalletTypeId="@Model.Filter.WalletTypeId"
+                   asp-route-WalletTypeId="@Model.Filter.WalletAccountId"
                    class="btn btn-danger">
                     Export PDF
                 </a>
@@ -133,7 +133,19 @@
                             totalNet += row.NetAmount;
 
                             <tr class="@(row.IsLocked ? "table-warning" : "")">
-                                <td>@row.AccountHead</td>
+                                <td>
+                                    <a asp-page="/Wallet/Index"
+                                       asp-route-WalletAccountId="@row.WalletAccountId"
+                                       asp-route-AccountHeadId="@row.AccountHeadId"
+                                       asp-route-FromDate="@Model.Filter.FromDate"
+                                       asp-route-ToDate="@Model.Filter.ToDate"
+                                       target="_blank"
+                                       rel="noopener noreferrer"
+                                       class="fw-semibold text-decoration-none">
+                                        @row.AccountHead
+                                    </a>
+
+                                </td>
                                 <td>@row.Narration</td>
                                 <td class="text-end">@row.Credit.ToString("N2")</td>
                                 <td class="text-end">@row.Debit.ToString("N2")</td>
