@@ -91,8 +91,7 @@
               "RelativeToolTip": "UrbanNative.Vendors\\Services\\VendorWalletService.cs",
               "ViewState": "AgIAABUAAABANjMzM7MTwBsAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-22T08:49:14.24Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-22T08:49:14.24Z"
             },
             {
               "$type": "Document",
@@ -116,8 +115,7 @@
               "RelativeToolTip": "UrbanNative.Vendors\\Pages\\Wallet\\Summary.cshtml",
               "ViewState": "AgIAAIUAAAAAaGZmZmb0v4gAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-02-22T08:46:27.611Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-22T08:46:27.611Z"
             },
             {
               "$type": "Document",
@@ -141,8 +139,7 @@
               "RelativeToolTip": "UrbanNative.Application\\Interfaces\\UseCases\\Wallet\\IVendorWalletUseCase.cs",
               "ViewState": "AgIAAAEAAAAAAAAAAADgvwwAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-22T08:34:16.065Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-22T08:34:16.065Z"
             },
             {
               "$type": "Document",
@@ -154,8 +151,7 @@
               "RelativeToolTip": "UrbanNative.Api\\Controllers\\Vendors\\VendorWalletController.cs",
               "ViewState": "AgIAAB4AAAAAAAAAAAArwCgAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-22T08:24:27.096Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-22T08:24:27.096Z"
             },
             {
               "$type": "Document",
@@ -167,8 +163,7 @@
               "RelativeToolTip": "UrbanNative.Application\\UseCase\\Vendors\\Wallet\\VendorWalletUseCase.cs",
               "ViewState": "AgIAADAAAAAAAAAAAAArwDkAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-22T08:21:21.815Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-22T08:21:21.815Z"
             },
             {
               "$type": "Document",
@@ -180,8 +175,7 @@
               "RelativeToolTip": "UrbanNative.Infrastructure\\Repositories\\Vendors\\Wallet\\VendorWalletRepository.cs",
               "ViewState": "AgIAAB4AAAAAAAAAAAArwCcAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-22T08:20:41.473Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-22T08:20:41.473Z"
             },
             {
               "$type": "Document",
@@ -193,8 +187,7 @@
               "RelativeToolTip": "UrbanNative.Application\\DTOs\\Vendors\\Wallet\\VendorWalletDto.cs",
               "ViewState": "AgIAAF8AAAAAAwAAAIA2wGEAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-22T08:19:20.739Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-22T08:19:20.739Z"
             },
             {
               "$type": "Document",
@@ -206,8 +199,7 @@
               "RelativeToolTip": "UrbanNative.Vendors\\Pages\\Wallet\\Index.cshtml.cs",
               "ViewState": "AgIAABUAAACQMzMzM5M9wCAAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-22T08:04:48.942Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-22T08:04:48.942Z"
             },
             {
               "$type": "Document",
@@ -219,8 +211,7 @@
               "RelativeToolTip": "UrbanNative.Vendors\\Pages\\Wallet\\Index.cshtml",
               "ViewState": "AgIAAKEAAAAAQGZmZmbwv6IAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-02-22T07:03:40.979Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-22T07:03:40.979Z"
             }
           ]
         }

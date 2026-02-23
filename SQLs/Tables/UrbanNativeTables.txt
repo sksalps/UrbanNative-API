@@ -339,6 +339,107 @@ CreatedAt          DATETIME
 
 *********End Wallet Vendor		
 
+BankMaster
+BankID	int	Unchecked
+EntityType	nvarchar(30)	Unchecked
+EntityID	int	Unchecked
+AccountHolderName	nvarchar(200)	Unchecked
+BankName	nvarchar(200)	Unchecked
+BranchName	nvarchar(200)	Checked
+AccountNo	nvarchar(50)	Unchecked
+AccountType	nvarchar(20)	Checked
+UPIId	nvarchar(100)	Checked
+IFSCCode	nvarchar(20)	Unchecked
+Landmark	nvarchar(150)	Checked
+CountryID	int	Unchecked
+StateID	int	Unchecked
+CityID	int	Unchecked
+Pincode	nvarchar(10)	Unchecked
+IsPrimary	bit	Unchecked
+IsActive	bit	Unchecked
+IsVerified	bit	Unchecked
+VerifiedAt	datetime2(7)	Checked
+VerifiedBy	int	Checked
+CreatedAt	datetime2(7)	Unchecked
+UpdatedAt	datetime2(7)	Checked
+		Unchecked
+WalletLedger
+LedgerId	bigint	Unchecked
+WalletAccountId	int	Unchecked
+TxnType	varchar(10)	Unchecked
+Amount	decimal(18, 2)	Unchecked
+AccountHeadCode	varchar(30)	Unchecked
+SourceId	int	Unchecked
+Narration	nvarchar(300)	Checked
+CreatedAt	datetime	Unchecked
+AccountHeadId	int	Checked
+SourceEntityType	varchar(30)	Checked
+FinancialEvent	varchar(30)	Checked
+ReferenceNo	nvarchar(100)	Checked
+RunningBalance	decimal(18, 2)	Checked
+CreatedBy	int	Checked
+SubHeadCode	nvarchar(100)	Checked
+IsLocked	bit	Unchecked
+IsActive	bit	Unchecked
+		Unchecked
+WalletAccount
+WalletAccountId	int	Unchecked
+OwnerType	varchar(20)	Unchecked
+OwnerId	int	Unchecked
+WalletType	varchar(20)	Unchecked
+IsActive	bit	Unchecked
+CreatedAt	datetime	Unchecked
+WalletTypeId	int	Checked
+		Unchecked
+Settlements
+SettlementID	bigint	Unchecked
+SettlementDate	datetime	Unchecked
+TotalAmount	decimal(18, 2)	Unchecked
+NoOfPersons	int	Unchecked
+Currency	varchar(10)	Unchecked
+LedgerBalanceAtSettlement	decimal(18, 2)	Checked
+CalculatedEligibleAmount	decimal(18, 2)	Checked
+MinPayoutApplied	decimal(18, 2)	Checked
+SettlementMode	varchar(30)	Checked
+Remarks	varchar(255)	Checked
+CreatedBy	int	Checked
+CreatedAt	datetime	Unchecked
+		Unchecked
+SettlementPaymentsBatch
+PaymentBatchID	bigint	Unchecked
+SettlementID	bigint	Unchecked
+PaymentDate	datetime	Unchecked
+TotalAmount	decimal(18, 2)	Unchecked
+PaymentMode	varchar(30)	Unchecked
+PaymentStatus	varchar(30)	Unchecked
+BankReferenceNo	varchar(100)	Checked
+PaymentByBankName	varchar(200)	Checked
+CreatedBy	int	Checked
+CreatedAt	datetime	Unchecked
+UpdatedAt	datetime	Unchecked
+UpdatedBy	int	Checked
+		Unchecked
+		
+SettlementPaymentPersons
+SpsID	bigint	Unchecked
+SettlementID	bigint	Unchecked
+PaymentBatchID	bigint	Checked
+SettlementEntityID	int	Unchecked
+EntityType	varchar(50)	Unchecked
+EntityID	int	Unchecked
+EntityBankID	int	Unchecked
+Amount	decimal(18, 2)	Unchecked
+LockLedgerID	bigint	Unchecked
+PaymentLedgerID	bigint	Checked
+PaymentStatus	varchar(20)	Unchecked
+UpdatedAt	datetime	Unchecked
+UpdatedBy	int	Checked
+PaidAt	datetime	Checked
+FailureReason	varchar(255)	Checked
+CreatedAt	datetime	Unchecked
+		Unchecked
+
+*********END Payout Settlement******
 OrderShipments
 ShipmentID	int	Unchecked
 OrderID	int	Unchecked
