@@ -2853,6 +2853,104 @@
         }
       }
     },
+    "/api/vendors/payout/summary": {
+      "get": {
+        "tags": [
+          "SettlementPayout"
+        ],
+        "parameters": [
+          {
+            "name": "filterType",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "CURRENT_FY"
+            }
+          },
+          {
+            "name": "fromDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendors/payout/settlements": {
+      "get": {
+        "tags": [
+          "SettlementPayout"
+        ],
+        "parameters": [
+          {
+            "name": "filterType",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "CURRENT_FY"
+            }
+          },
+          {
+            "name": "fromDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vendors/payout/payments": {
+      "get": {
+        "tags": [
+          "SettlementPayout"
+        ],
+        "parameters": [
+          {
+            "name": "settlementId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/skufilter/logisticprovider": {
       "get": {
         "tags": [

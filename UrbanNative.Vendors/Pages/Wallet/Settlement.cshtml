@@ -1,0 +1,241 @@
+﻿@page
+@model UrbanNative.Vendors.Pages.Wallet.SettlementModel
+
+<h3 class="mb-3">Payout Report</h3>
+
+<!-- ================= SUMMARY PANEL ================= -->
+<div class="row mb-3 g-2">
+    <div class="col-md-2">
+        <div class="card summary-card text-center">
+            <small>Total Settlements</small>
+            <h6>@Model.Summary.TotalSettlements</h6>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card summary-card text-center">
+            <small>Payable</small>
+            <h6>₹ @Model.Summary.TotalSettlementAmount</h6>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card summary-card text-center bg-success text-white">
+            <small>Paid</small>
+            <h6>₹ @Model.Summary.TotalPaidAmount</h6>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card summary-card text-center bg-warning">
+            <small>Pending</small>
+            <h6>₹ @Model.Summary.PendingAmount</h6>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card summary-card text-center bg-danger text-white">
+            <small>Failed</small>
+            <h6>₹ @Model.Summary.FailedAmount</h6>
+        </div>
+    </div>
+</div>
+
+<!-- ================= FILTER (Slider + Custom Dates) ================= -->
+<form method="get" class="mb-3">
+    <div class="row align-items-center g-2">
+
+        <!-- Slider Buttons -->
+        <div class="col-md-6">
+            <div class="btn-group w-100" role="group">
+                <button type="submit" name="FilterType" value="CURRENT_FY"
+                        class="btn @(Model.FilterType == "CURRENT_FY" ? "btn-primary" : "btn-outline-primary")">
+                    Current FY
+                </button>
+                <button type="submit" name="FilterType" value="PREVIOUS_FY"
+                        class="btn @(Model.FilterType == "PREVIOUS_FY" ? "btn-primary" : "btn-outline-primary")">
+                    Previous FY
+                </button>
+                <button type="submit" name="FilterType" value="ALL"
+                        class="btn @(Model.FilterType == "ALL" ? "btn-primary" : "btn-outline-primary")">
+                    All
+                </button>
+                <button type="button" class="btn @(Model.FilterType == "CUSTOM" ? "btn-primary" : "btn-outline-primary")"
+                        onclick="showCustomFilter()">
+                    Custom
+                </button>
+            </div>
+        </div>
+
+        <!-- Custom Date Range -->
+        <div class="col-md-6" id="customDateRange" style="display:@(Model.FilterType == "CUSTOM" ? "block" : "none")">
+            <div class="row g-2">
+                <div class="col">
+                    <input asp-for="FromDate" type="date" class="form-control" />
+                </div>
+                <div class="col">
+                    <input asp-for="ToDate" type="date" class="form-control" />
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary w-100" name="FilterType" value="CUSTOM">Apply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- ================= GRID 1: SETTLEMENTS ================= -->
+<div class="card mb-3">
+    <div class="card-header py-2">Settlements</div>
+    <div class="card-body p-0">
+        <div class="grid-fixed">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>From Bank</th>
+                        <th>Payment Mode</th>
+                        <th>Amount</th>
+                        <th>Paid</th>
+                        <th>Pending</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var s in Model.Settlements)
+                    {
+                        var isSelected = s.SettlementID == Model.SelectedSettlementId;
+                        <tr class="settlement-row @(isSelected ? "table-primary" : "")"
+                            data-settlement-id="@s.SettlementID"
+                            onclick="selectSettlement(@s.SettlementID)"
+                            style="cursor:pointer">
+
+                            <td>@s.SettlementID</td>
+                            <td>@s.SettlementDate.ToShortDateString()</td>
+                            
+                            <td>@s.PaymentByBankName</td>
+                            <td>@s.PaymentMode</td>
+                            <td>₹ @s.SettlementAmount</td>
+                            <td class="text-success">₹ @s.PaidAmount</td>
+                            <td class="text-warning">₹ @s.PendingAmount</td>
+                            <td>
+                                <span class="badge
+                                        @(s.SettlementStatus == "PAID" ? "bg-success" :
+                                                                            s.SettlementStatus == "FAILED" ? "bg-danger" :
+                                                                            "bg-warning text-dark")">
+                                    @s.SettlementStatus
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ================= GRID 2: PAYMENTS ================= -->
+<div class="card">
+    <div class="card-header py-2">Payment Details</div>
+    <div class="card-body p-0">
+        <div class="grid-fixed">
+            <table id="payments-grid" class="table table-striped mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Batch</th>
+                        <th>Date</th>                      
+                        <th>To Bank</th>
+                        <th>Account</th>
+                        <th>Amount</th>
+                        <th>Paid</th>
+                        <th>Balance</th>
+                        <th>Status</th>
+                        <th>Paid At</th>
+                        <th>Reference</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Payments?.Any() == true)
+                    {
+                        foreach (var p in Model.Payments)
+                        {
+                            <tr data-settlement-id="@Model.SelectedSettlementId">
+                                <td>@p.PaymentBatchID</td>
+                                <td>@p.PaymentDate.ToShortDateString()</td>
+                                
+                                <td>@p.PaymentToBank</td>
+                                <td>@p.BankAccountNo</td>
+                                <td>₹ @p.SettlementAmount</td>
+                                <td class="text-success">₹ @p.PaidAmount</td>
+                                <td class="text-warning">₹ @p.BalanceAmount</td>
+                                <td>
+                                    <span class="badge
+                                                @(p.PaymentStatus == "SUCCESS" ? "bg-success" :
+                                                                                    p.PaymentStatus == "FAILED" ? "bg-danger" :
+                                                                                    "bg-warning text-dark")">
+                                        @p.PaymentStatus
+                                    </span>
+                                </td>
+                                <td>@(p.PaidAt?.ToShortDateString() ?? "-")</td>
+                                <td>@p.BankReferenceNo</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="12" class="text-center text-muted">No payment records</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    .summary-card {
+        padding: 8px 6px;
+        font-size: 13px;
+    }
+
+        .summary-card h6 {
+            margin: 2px 0 0;
+            font-weight: 600;
+        }
+
+    .grid-fixed {
+        height: 240px;
+        overflow-y: auto;
+    }
+</style>
+
+<script>
+    function selectSettlement(id) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("SelectedSettlementId", id);
+        window.location.href = url.toString();
+    }
+
+    function showCustomFilter() {
+        document.getElementById("customDateRange").style.display = "block";
+    }
+
+    // Hover highlight
+    document.addEventListener("DOMContentLoaded", function () {
+        const rows = document.querySelectorAll(".settlement-row");
+
+        rows.forEach(row => {
+            row.addEventListener("mouseenter", function () {
+                const id = this.dataset.settlementId;
+                document.querySelectorAll("#payments-grid tbody tr").forEach(r => {
+                    if (r.dataset.settlementId === id) {
+                        r.classList.add("table-info");
+                    }
+                });
+            });
+
+            row.addEventListener("mouseleave", function () {
+                document.querySelectorAll("#payments-grid tbody tr")
+                    .forEach(r => r.classList.remove("table-info"));
+            });
+        });
+    });
+</script>

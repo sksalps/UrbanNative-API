@@ -61,6 +61,7 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<IVendorProfileUseCase, VendorProfileUseCase>();
             services.AddScoped<IVendorProfileRepository, VendorProfileRepository>();
             services.AddScoped<IVendorWalletRepository, VendorWalletRepository>();
+            services.AddScoped<ISettlementPayoutRepository, SettlementPayoutRepository>();
 
 
             // UseCases
@@ -72,6 +73,7 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<IVendorOrderUseCase, VendorOrderUseCase>();
             services.AddScoped<IVendorLogisticsUseCase, VendorLogisticsUseCase>();
             services.AddScoped<IVendorWalletUseCase, VendorWalletUseCase>();
+            services.AddScoped<ISettlementPayoutUseCase, SettlementPayoutUseCase>();
 
 
             // Repositories

@@ -148,7 +148,6 @@
             </ul>
         </li>
         <!-- Logistics -->
-        <!-- Orders -->
         <li class="menu-item has-sub @(isLogistics ? "open active" : "")">
             <a href="#">
                 <i class="bi bi-bag-check"></i>
@@ -200,9 +199,9 @@
                     </a>
                 </li>
                 <li>
-                    <a asp-page="/Wallet/Payouts"
-                       class="@(currentPage == "/Wallet/Payouts" ? "active" : "")">
-                        Payouts
+                    <a asp-page="/Wallet/Settlement"
+                       class="@(currentPage == "/Wallet/Settlement" ? "active" : "")">
+                        Settlements
                     </a>
                 </li>
             </ul>
