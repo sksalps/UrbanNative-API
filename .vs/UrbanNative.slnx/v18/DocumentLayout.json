@@ -3,56 +3,44 @@
   "WorkspaceRootPath": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\pages\\wallet\\settlement.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\pages\\wallet\\settlement.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\pages\\business\\compliance\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\pages\\business\\compliance\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\dtos\\vendors\\wallet\\settlementpayoutdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\dtos\\vendors\\wallet\\settlementpayoutdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\pages\\business\\compliance\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\pages\\business\\compliance\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\pages\\wallet\\settlement.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\pages\\wallet\\settlement.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FA427025-7986-0D14-9B0E-52112EF7A820}|UrbanNative.Infrastructure\\UrbanNative.Infrastructure.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.infrastructure\\repositories\\commoncrossdashboard\\compliancerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FA427025-7986-0D14-9B0E-52112EF7A820}|UrbanNative.Infrastructure\\UrbanNative.Infrastructure.csproj|solutionrelative:urbannative.infrastructure\\repositories\\commoncrossdashboard\\compliancerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CA4A5139-0EC7-5A64-B20F-3729BD95A448}|UrbanNative.Api\\UrbanNative.Api.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.api\\controllers\\vendors\\settlementpayoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CA4A5139-0EC7-5A64-B20F-3729BD95A448}|UrbanNative.Api\\UrbanNative.Api.csproj|solutionrelative:urbannative.api\\controllers\\vendors\\settlementpayoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{CA4A5139-0EC7-5A64-B20F-3729BD95A448}|UrbanNative.Api\\UrbanNative.Api.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.api\\controllers\\commoncrossdasboard\\compliancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CA4A5139-0EC7-5A64-B20F-3729BD95A448}|UrbanNative.Api\\UrbanNative.Api.csproj|solutionrelative:urbannative.api\\controllers\\commoncrossdasboard\\compliancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\services\\vendorsettlementpayoutservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\services\\vendorsettlementpayoutservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\usecase\\commoncrossdashboard\\compliance\\complianceusecase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\usecase\\commoncrossdashboard\\compliance\\complianceusecase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FA427025-7986-0D14-9B0E-52112EF7A820}|UrbanNative.Infrastructure\\UrbanNative.Infrastructure.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.infrastructure\\repositories\\vendors\\wallet\\settlementpayoutrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FA427025-7986-0D14-9B0E-52112EF7A820}|UrbanNative.Infrastructure\\UrbanNative.Infrastructure.csproj|solutionrelative:urbannative.infrastructure\\repositories\\vendors\\wallet\\settlementpayoutrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\services\\vendorcomplianceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\services\\vendorcomplianceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\services\\vendororderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\services\\vendororderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\dtos\\commoncrossdashboard\\compliance\\compliancecommondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\dtos\\commoncrossdashboard\\compliance\\compliancecommondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FA427025-7986-0D14-9B0E-52112EF7A820}|UrbanNative.Infrastructure\\UrbanNative.Infrastructure.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.infrastructure\\repositories\\vendors\\wallet\\vendorwalletrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FA427025-7986-0D14-9B0E-52112EF7A820}|UrbanNative.Infrastructure\\UrbanNative.Infrastructure.csproj|solutionrelative:urbannative.infrastructure\\repositories\\vendors\\wallet\\vendorwalletrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\services\\interfaces\\ivendorcomplianceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\services\\interfaces\\ivendorcomplianceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CA4A5139-0EC7-5A64-B20F-3729BD95A448}|UrbanNative.Api\\UrbanNative.Api.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.api\\controllers\\vendors\\vendorordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CA4A5139-0EC7-5A64-B20F-3729BD95A448}|UrbanNative.Api\\UrbanNative.Api.csproj|solutionrelative:urbannative.api\\controllers\\vendors\\vendorordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\interfaces\\commoncrossdashboard\\compliance\\icompliancerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\interfaces\\commoncrossdashboard\\compliance\\icompliancerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\services\\interfaces\\ivendorsettlementpayoutservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\services\\interfaces\\ivendorsettlementpayoutservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\interfaces\\usecases\\wallet\\isettlementpayoutusecase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\interfaces\\usecases\\wallet\\isettlementpayoutusecase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\usecase\\vendors\\wallet\\settlementpayoutusecase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\usecase\\vendors\\wallet\\settlementpayoutusecase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\interfaces\\vendors\\wallet\\isettlementpayoutrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\interfaces\\vendors\\wallet\\isettlementpayoutrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\interfaces\\usecases\\commoncrossdashboard\\compliance\\icomplianceusecase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\interfaces\\usecases\\commoncrossdashboard\\compliance\\icomplianceusecase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -62,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -74,165 +62,130 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "VendorOrderService.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Services\\VendorOrderService.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Services\\VendorOrderService.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Services\\VendorOrderService.cs",
-              "RelativeToolTip": "UrbanNative.Vendors\\Services\\VendorOrderService.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAIApwA8AAAAJAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "ComplianceController.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\Controllers\\CommonCrossDasboard\\ComplianceController.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Api\\Controllers\\CommonCrossDasboard\\ComplianceController.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\Controllers\\CommonCrossDasboard\\ComplianceController.cs",
+              "RelativeToolTip": "UrbanNative.Api\\Controllers\\CommonCrossDasboard\\ComplianceController.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAASwDAAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T07:40:26.831Z",
+              "WhenOpened": "2026-02-25T18:03:42.08Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "VendorOrderController.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\Controllers\\Vendors\\VendorOrderController.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Api\\Controllers\\Vendors\\VendorOrderController.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\Controllers\\Vendors\\VendorOrderController.cs",
-              "RelativeToolTip": "UrbanNative.Api\\Controllers\\Vendors\\VendorOrderController.cs",
-              "ViewState": "AgIAAEgAAAAAm5mZmVkgwFEAAAAJAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "VendorComplianceService.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Services\\VendorComplianceService.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Services\\VendorComplianceService.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Services\\VendorComplianceService.cs",
+              "RelativeToolTip": "UrbanNative.Vendors\\Services\\VendorComplianceService.cs",
+              "ViewState": "AgIAAAwAAACAZ2ZmZuYYwBEAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T07:06:14.972Z"
+              "WhenOpened": "2026-02-25T17:46:37.831Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "VendorWalletRepository.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Infrastructure\\Repositories\\Vendors\\Wallet\\VendorWalletRepository.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Infrastructure\\Repositories\\Vendors\\Wallet\\VendorWalletRepository.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Infrastructure\\Repositories\\Vendors\\Wallet\\VendorWalletRepository.cs",
-              "RelativeToolTip": "UrbanNative.Infrastructure\\Repositories\\Vendors\\Wallet\\VendorWalletRepository.cs",
-              "ViewState": "AgIAAAcAAABAZmZmZuYcwAAAAAAAAAAAAAAAAA==",
+              "Title": "IVendorComplianceService.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Services\\Interfaces\\IVendorComplianceService.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Services\\Interfaces\\IVendorComplianceService.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Services\\Interfaces\\IVendorComplianceService.cs",
+              "RelativeToolTip": "UrbanNative.Vendors\\Services\\Interfaces\\IVendorComplianceService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T07:00:31.317Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Settlement.cshtml.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Wallet\\Settlement.cshtml.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Pages\\Wallet\\Settlement.cshtml.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Wallet\\Settlement.cshtml.cs",
-              "RelativeToolTip": "UrbanNative.Vendors\\Pages\\Wallet\\Settlement.cshtml.cs",
-              "ViewState": "AgIAAB8AAADQ/////98ywCYAAAA9AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T06:46:28.673Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Settlement.cshtml",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Wallet\\Settlement.cshtml",
-              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Pages\\Wallet\\Settlement.cshtml",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Wallet\\Settlement.cshtml",
-              "RelativeToolTip": "UrbanNative.Vendors\\Pages\\Wallet\\Settlement.cshtml",
-              "ViewState": "AgIAAGYAAAAABAAAAIAZwGkAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-02-24T06:46:21.331Z",
+              "WhenOpened": "2026-02-25T17:46:01.68Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "VendorSettlementPayoutService.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Services\\VendorSettlementPayoutService.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Services\\VendorSettlementPayoutService.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Services\\VendorSettlementPayoutService.cs",
-              "RelativeToolTip": "UrbanNative.Vendors\\Services\\VendorSettlementPayoutService.cs",
-              "ViewState": "AgIAAA8AAADA//////8PwBUAAAAPAAAAAAAAAA==",
+              "Title": "ComplianceUseCase.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\UseCase\\CommonCrossDashboard\\Compliance\\ComplianceUseCase.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Application\\UseCase\\CommonCrossDashboard\\Compliance\\ComplianceUseCase.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\UseCase\\CommonCrossDashboard\\Compliance\\ComplianceUseCase.cs",
+              "RelativeToolTip": "UrbanNative.Application\\UseCase\\CommonCrossDashboard\\Compliance\\ComplianceUseCase.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAIA1wBcAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T06:20:51.573Z",
+              "WhenOpened": "2026-02-25T17:42:33.771Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "IVendorSettlementPayoutService.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Services\\Interfaces\\IVendorSettlementPayoutService.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Services\\Interfaces\\IVendorSettlementPayoutService.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Services\\Interfaces\\IVendorSettlementPayoutService.cs",
-              "RelativeToolTip": "UrbanNative.Vendors\\Services\\Interfaces\\IVendorSettlementPayoutService.cs",
-              "ViewState": "AgIAAAMAAAAAMzMzMzPbvwkAAAABAAAAAAAAAA==",
+              "Title": "IComplianceUseCase.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\Interfaces\\UseCases\\CommonCrossDashboard\\Compliance\\IComplianceUseCase.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Application\\Interfaces\\UseCases\\CommonCrossDashboard\\Compliance\\IComplianceUseCase.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\Interfaces\\UseCases\\CommonCrossDashboard\\Compliance\\IComplianceUseCase.cs",
+              "RelativeToolTip": "UrbanNative.Application\\Interfaces\\UseCases\\CommonCrossDashboard\\Compliance\\IComplianceUseCase.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAADwvx0AAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T06:19:58.167Z"
+              "WhenOpened": "2026-02-25T17:41:46.693Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "SettlementPayoutController.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\Controllers\\Vendors\\SettlementPayoutController.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Api\\Controllers\\Vendors\\SettlementPayoutController.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\Controllers\\Vendors\\SettlementPayoutController.cs",
-              "RelativeToolTip": "UrbanNative.Api\\Controllers\\Vendors\\SettlementPayoutController.cs",
-              "ViewState": "AgIAABsAAABwzczMzAwrwB8AAAAEAAAAAAAAAA==",
+              "DocumentIndex": 8,
+              "Title": "IComplianceRepository.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\Interfaces\\CommonCrossDashboard\\Compliance\\IComplianceRepository.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Application\\Interfaces\\CommonCrossDashboard\\Compliance\\IComplianceRepository.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\Interfaces\\CommonCrossDashboard\\Compliance\\IComplianceRepository.cs",
+              "RelativeToolTip": "UrbanNative.Application\\Interfaces\\CommonCrossDashboard\\Compliance\\IComplianceRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T06:15:56.807Z",
+              "WhenOpened": "2026-02-25T17:41:33.38Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ComplianceCommonDto.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\DTOs\\CommonCrossDashboard\\Compliance\\ComplianceCommonDto.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Application\\DTOs\\CommonCrossDashboard\\Compliance\\ComplianceCommonDto.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\DTOs\\CommonCrossDashboard\\Compliance\\ComplianceCommonDto.cs",
+              "RelativeToolTip": "UrbanNative.Application\\DTOs\\CommonCrossDashboard\\Compliance\\ComplianceCommonDto.cs",
+              "ViewState": "AgIAAAUAAAAAAgAAAAAJwAgAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-25T17:39:44.63Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "SettlementPayoutUseCase.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\UseCase\\Vendors\\Wallet\\SettlementPayoutUseCase.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Application\\UseCase\\Vendors\\Wallet\\SettlementPayoutUseCase.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\UseCase\\Vendors\\Wallet\\SettlementPayoutUseCase.cs",
-              "RelativeToolTip": "UrbanNative.Application\\UseCase\\Vendors\\Wallet\\SettlementPayoutUseCase.cs",
-              "ViewState": "AgIAAA8AAACQMzMzM7MiwBIAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T06:13:47.415Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "ISettlementPayoutUseCase.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\Interfaces\\UseCases\\Wallet\\ISettlementPayoutUseCase.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Application\\Interfaces\\UseCases\\Wallet\\ISettlementPayoutUseCase.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\Interfaces\\UseCases\\Wallet\\ISettlementPayoutUseCase.cs",
-              "RelativeToolTip": "UrbanNative.Application\\Interfaces\\UseCases\\Wallet\\ISettlementPayoutUseCase.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T06:12:44.46Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "SettlementPayoutRepository.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Infrastructure\\Repositories\\Vendors\\Wallet\\SettlementPayoutRepository.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Infrastructure\\Repositories\\Vendors\\Wallet\\SettlementPayoutRepository.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Infrastructure\\Repositories\\Vendors\\Wallet\\SettlementPayoutRepository.cs",
-              "RelativeToolTip": "UrbanNative.Infrastructure\\Repositories\\Vendors\\Wallet\\SettlementPayoutRepository.cs",
-              "ViewState": "AgIAACoAAAAAzczMzMwPwC0AAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T06:11:01.191Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "ISettlementPayoutRepository.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\Interfaces\\Vendors\\Wallet\\ISettlementPayoutRepository.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Application\\Interfaces\\Vendors\\Wallet\\ISettlementPayoutRepository.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\Interfaces\\Vendors\\Wallet\\ISettlementPayoutRepository.cs",
-              "RelativeToolTip": "UrbanNative.Application\\Interfaces\\Vendors\\Wallet\\ISettlementPayoutRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAIAwwAUAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T06:09:31.4Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "SettlementPayoutDto.cs",
-              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\DTOs\\Vendors\\Wallet\\SettlementPayoutDto.cs",
-              "RelativeDocumentMoniker": "UrbanNative.Application\\DTOs\\Vendors\\Wallet\\SettlementPayoutDto.cs",
-              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\DTOs\\Vendors\\Wallet\\SettlementPayoutDto.cs",
-              "RelativeToolTip": "UrbanNative.Application\\DTOs\\Vendors\\Wallet\\SettlementPayoutDto.cs",
-              "ViewState": "AgIAABkAAACwZmZmZiYnwBsAAAAAAAAAAAAAAA==",
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Business\\Compliance\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Pages\\Business\\Compliance\\Index.cshtml.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Business\\Compliance\\Index.cshtml.cs",
+              "RelativeToolTip": "UrbanNative.Vendors\\Pages\\Business\\Compliance\\Index.cshtml.cs",
+              "ViewState": "AgIAACIAAAAAZ2ZmZmYZwCoAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T06:07:05.191Z",
+              "WhenOpened": "2026-02-25T17:37:20.38Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Business\\Compliance\\Index.cshtml",
+              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Pages\\Business\\Compliance\\Index.cshtml",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Business\\Compliance\\Index.cshtml",
+              "RelativeToolTip": "UrbanNative.Vendors\\Pages\\Business\\Compliance\\Index.cshtml",
+              "ViewState": "AgIAAKQAAABAAAAAAIAewKgAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-02-25T17:37:18.959Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ComplianceRepository.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Infrastructure\\Repositories\\CommonCrossDashboard\\ComplianceRepository.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Infrastructure\\Repositories\\CommonCrossDashboard\\ComplianceRepository.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Infrastructure\\Repositories\\CommonCrossDashboard\\ComplianceRepository.cs",
+              "RelativeToolTip": "UrbanNative.Infrastructure\\Repositories\\CommonCrossDashboard\\ComplianceRepository.cs",
+              "ViewState": "AgIAABMAAAAAUGZmZmbGvxgAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-25T17:19:18.786Z",
               "EditorCaption": ""
             }
           ]

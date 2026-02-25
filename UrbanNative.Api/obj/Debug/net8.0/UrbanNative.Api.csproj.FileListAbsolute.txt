@@ -3,7 +3,6 @@ E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\o
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\obj\Debug\net8.0\UrbanNative.Api.AssemblyInfoInputs.cache
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\obj\Debug\net8.0\UrbanNative.Api.AssemblyInfo.cs
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\obj\Debug\net8.0\UrbanNative.Api.csproj.CoreCompileInputs.cache
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\obj\Debug\net8.0\UrbanNative.Api.MvcApplicationPartsAssemblyInfo.cs
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\obj\Debug\net8.0\UrbanNative.Api.MvcApplicationPartsAssemblyInfo.cache
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\obj\Debug\net8.0\UrbanNative.Api.sourcelink.json
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\appsettings.Development.json
@@ -34,7 +33,12 @@ E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\b
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\UrbanNative.Api.pdb
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\Azure.Core.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\Azure.Identity.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\ClosedXML.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\ClosedXML.Parser.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\Dapper.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\DocumentFormat.OpenXml.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\DocumentFormat.OpenXml.Framework.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\ExcelNumberFormat.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
@@ -60,6 +64,8 @@ E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\b
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\Microsoft.OpenApi.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\QuestPDF.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\RBush.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\SixLabors.Fonts.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -68,6 +74,7 @@ E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\b
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\System.Data.SqlClient.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\System.Diagnostics.EventLog.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\System.IO.Packaging.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\System.Memory.Data.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
@@ -138,11 +145,4 @@ E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\o
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\obj\Debug\net8.0\UrbanNative.Api.pdb
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\obj\Debug\net8.0\UrbanNative.Api.genruntimeconfig.cache
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\obj\Debug\net8.0\ref\UrbanNative.Api.dll
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\ClosedXML.dll
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\ClosedXML.Parser.dll
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\DocumentFormat.OpenXml.dll
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\DocumentFormat.OpenXml.Framework.dll
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\ExcelNumberFormat.dll
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\RBush.dll
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\SixLabors.Fonts.dll
-E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\bin\Debug\net8.0\System.IO.Packaging.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Api\obj\Debug\net8.0\UrbanNative.Api.MvcApplicationPartsAssemblyInfo.cs

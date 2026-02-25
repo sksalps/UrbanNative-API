@@ -79,6 +79,7 @@ builder.Services.AddScoped<IVendorOrderService, VendorOrderService>();
 builder.Services.AddScoped<IVendorLogisticsService, VendorLogisticsService>();
 builder.Services.AddScoped<IVendorWalletService, VendorWalletService>();
 builder.Services.AddScoped<IVendorSettlementPayoutService, VendorSettlementPayoutService>();
+builder.Services.AddScoped<IVendorComplianceService, VendorComplianceService>();
 // Later: Orders, Inventory, Wallet, SKUs, etc.
 
 

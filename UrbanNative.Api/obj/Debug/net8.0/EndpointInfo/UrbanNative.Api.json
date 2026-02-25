@@ -2651,6 +2651,99 @@
         }
       }
     },
+    "/api/compliance/dashboard": {
+      "get": {
+        "tags": [
+          "Compliance"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/compliance/categories": {
+      "get": {
+        "tags": [
+          "Compliance"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/compliance/categories/{groupId}/documents": {
+      "get": {
+        "tags": [
+          "Compliance"
+        ],
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/compliance/documents/{complianceId}/history": {
+      "get": {
+        "tags": [
+          "Compliance"
+        ],
+        "parameters": [
+          {
+            "name": "complianceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/compliance/categories/{groupId}/status": {
+      "get": {
+        "tags": [
+          "Compliance"
+        ],
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/inventory/stock-in": {
       "post": {
         "tags": [

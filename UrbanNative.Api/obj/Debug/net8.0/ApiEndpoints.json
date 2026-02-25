@@ -1708,6 +1708,74 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "UrbanNative.Api.Controllers.Compliance.ComplianceController",
+    "Method": "GetCategoryProgress",
+    "RelativePath": "api/compliance/categories",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Compliance.ComplianceController",
+    "Method": "GetDocumentsByCategory",
+    "RelativePath": "api/compliance/categories/{groupId}/documents",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "groupId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Compliance.ComplianceController",
+    "Method": "GetCategoryStatus",
+    "RelativePath": "api/compliance/categories/{groupId}/status",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "groupId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Compliance.ComplianceController",
+    "Method": "GetDashboardSummary",
+    "RelativePath": "api/compliance/dashboard",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Compliance.ComplianceController",
+    "Method": "GetDocumentHistory",
+    "RelativePath": "api/compliance/documents/{complianceId}/history",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "complianceId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "UrbanNative.Api.Controllers.InventoryController",
     "Method": "Logs",
     "RelativePath": "api/inventory/logs/{variantSetId}",

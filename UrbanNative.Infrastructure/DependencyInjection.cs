@@ -1,31 +1,35 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using UrbanNative.Application.Interfaces;
-using UrbanNative.Application.Interfaces.CommonCrossDashboard;
+//Interfaces UseCases
 using UrbanNative.Application.Interfaces.UseCases;
 using UrbanNative.Application.Interfaces.UseCases.VendorInventoryAdd;
 using UrbanNative.Application.Interfaces.UseCases.Wallet;
 using UrbanNative.Application.Interfaces.UseCase.Logistics;
+using UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compliance;
+//Repostitory Interfaces
+using UrbanNative.Application.Interfaces;
+using UrbanNative.Application.Interfaces.CommonCrossDashboard;
 using UrbanNative.Application.Interfaces.Vendors;
 using UrbanNative.Application.Interfaces.Vendors.InventoryAdd;
 using UrbanNative.Application.Interfaces.Vendors.Orders;
 using UrbanNative.Application.Interfaces.Vendors.Wallet;
+using UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance;
 
-
+// UseCases Implementation
 using UrbanNative.Application.UseCase;
 using UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd;
 using UrbanNative.Application.UseCases.Vendors;
 using UrbanNative.Application.UseCase.Vendors.Orders;
 using UrbanNative.Application.UseCase.Vendors.Logistics;
 using UrbanNative.Application.UseCase.Vendors.Wallet;
+using UrbanNative.Application.UseCase.CommonCroshDashboard.Compliance;
+// Repositories Implementation
 using UrbanNative.Infrastructure.Repositories;
 using UrbanNative.Infrastructure.Repositories.CommonCrossDashboard;
 using UrbanNative.Infrastructure.Repositories.Vendors;
 using UrbanNative.Infrastructure.Repositories.Vendors.InventoryAdd;
 using UrbanNative.Infrastructure.Repositories.Vendors.Orders;
 using UrbanNative.Infrastructure.Repositories.Vendors.Wallet;
-
-
 using UrbanNative.Infrastructure.Repository;
 using UrbanNative.Infrastructure.Services;
 
@@ -37,9 +41,10 @@ namespace UrbanNative.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services,
             IConfiguration configuration)
         {
+            services.AddScoped<IProductService, ProductService>();
+
             services.AddScoped<IAdminRepository, AdminRepository>();
             services.AddScoped<IAdminNotificationRepository, AdminNotificationRepository>();
-            services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IAdminVendorRepository, AdminVendorRepository>();
             services.AddScoped<IAdminCategoryRepository, AdminCategoryRepository>();
@@ -58,13 +63,14 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<IVendorAuthRepository, VendorAuthRepository>();
             services.AddScoped<IVendorDashboardRepository, VendorDashboardRepository>();
             //services.AddScoped<IVendorLoginRepository, VendorLoginRepository>();
-            services.AddScoped<IVendorProfileUseCase, VendorProfileUseCase>();
             services.AddScoped<IVendorProfileRepository, VendorProfileRepository>();
             services.AddScoped<IVendorWalletRepository, VendorWalletRepository>();
             services.AddScoped<ISettlementPayoutRepository, SettlementPayoutRepository>();
-
+            services.AddScoped<IComplianceRepository, ComplianceRepository>();
 
             // UseCases
+            services.AddScoped<IVendorProfileUseCase, VendorProfileUseCase>();
+
             services.AddScoped<IVendorSettingsUseCase, VendorSettingsUseCase>();
             services.AddScoped<IVendorProductsUseCase, VendorProductsUseCase>();
             services.AddScoped<IVendorSkuUseCase, VendorSkuUseCase>();
@@ -74,11 +80,11 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<IVendorLogisticsUseCase, VendorLogisticsUseCase>();
             services.AddScoped<IVendorWalletUseCase, VendorWalletUseCase>();
             services.AddScoped<ISettlementPayoutUseCase, SettlementPayoutUseCase>();
-
+            services.AddScoped<IComplianceUseCase, ComplianceUseCase>();
+            services.AddScoped<IVendorChangePasswordUseCase, VendorChangePasswordUseCase>();
 
             // Repositories
             services.AddScoped<IVendorSettingsRepository, VendorSettingsRepository>();
-            services.AddScoped<IVendorChangePasswordUseCase, VendorChangePasswordUseCase>();
             services.AddScoped<IVendorProductRepository, VendorProductRepository>();
             services.AddScoped<IVendorSkuRepository, VendorSkuRepository>();
             services.AddScoped<IVendorInventoryRepository, VendorInventoryRepository>();

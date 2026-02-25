@@ -1,0 +1,87 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
+{
+    public class ComplianceDashboardSummaryDto
+    {
+        public string ApprovalStatus { get; set; } = string.Empty;   // APPROVED / PENDING
+        public DateTime? ApprovedOn { get; set; }
+        public DateTime? PayoutEligibleOn { get; set; }
+        public decimal OverallProgressPercent { get; set; }
+    }
+    public class ComplianceCategoryProgressDto
+    {
+        public int GroupID { get; set; }
+        public string GroupName { get; set; } = string.Empty;
+
+        public int MinRequired { get; set; }
+        public int TotalDocs { get; set; }
+        public int ApprovedDocs { get; set; }
+        public bool IsComplete { get; set; } = true;
+        public int MissingMandatoryDocs { get; set; }   // PAN missing scenario
+
+        public decimal ProgressPercent =>
+            MinRequired == 0 ? 0 : Math.Min(100, (ApprovedDocs * 100m) / MinRequired);
+    }
+
+    public class ComplianceCategoryGridDto
+    {
+        public int GroupID { get; set; }
+        public string GroupName { get; set; } = string.Empty;
+
+        public int TotalDocs { get; set; }
+        public int UploadedDocs { get; set; }
+        public int ApprovedDocs { get; set; }
+
+        public DateTime? LastUpdated { get; set; }
+    }
+
+
+    public class ComplianceDocumentDto
+    {
+        public int ComplianceID { get; set; }
+        public string ComplianceName { get; set; } = string.Empty;
+
+        public string ImportanceLevel { get; set; } = string.Empty;   // Mandatory/Required/Optional
+        public string ComplianceMode { get; set; } = string.Empty;    // UPLOAD / UPDATE / SYSTEM
+
+        public string? VerificationStatus { get; set; }   // APPROVED / PENDING / REJECTED / NULL
+        public DateTime? ExpiryDate { get; set; }
+        public DateTime? UploadedAt { get; set; }
+
+        public string ActionType { get; set; } = string.Empty;   // Upload / Update / View / Re-upload
+
+        public bool IsMandatoryInGroup { get; set; }   // PAN must scenario
+    }
+
+    public class ComplianceDocumentHistoryDto
+    {
+        public int UploadID { get; set; }
+
+        public string FileName { get; set; } = string.Empty;
+        public string VerificationStatus { get; set; } = string.Empty;
+
+        public DateTime? ExpiryDate { get; set; }
+        public DateTime UploadedAt { get; set; }
+        public DateTime? VerifiedAt { get; set; }
+
+        public string? RejectionReason { get; set; }
+        public string VersionStatus { get; set; } = string.Empty;   // Current / Old
+    }
+
+    public class ComplianceCategoryStatusDto
+    {
+        public string GroupName { get; set; } = string.Empty;
+
+        public int MinRequired { get; set; }
+        public int ApprovedDocs { get; set; }
+        public int UploadedDocs { get; set; }
+        public int MissingMandatoryDocs { get; set; }
+
+        public bool IsComplete => MissingMandatoryDocs == 0 && ApprovedDocs >= MinRequired;
+    }
+}
