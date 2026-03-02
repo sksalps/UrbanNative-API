@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-
+using UrbanNative.Infrastructure.Services;
 using UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compliance;
 using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
 using UrbanNative.Domain.Entities;
@@ -14,16 +14,18 @@ namespace UrbanNative.Api.Controllers.Compliance
     public class ComplianceController : ControllerBase
     {
         private readonly IComplianceUseCase _complianceUseCase;
-
-        public ComplianceController(IComplianceUseCase useCase)
+        private readonly OcrService _ocrService;
+        
+        public ComplianceController(IComplianceUseCase complianceUseCase,OcrService ocrService)
         {
-            _complianceUseCase = useCase;
+            _complianceUseCase = complianceUseCase;
+            _ocrService = ocrService;
         }
 
         // 🔐 Resolve Entity Context
 
 
-    private (string EntityType, int EntityId) ResolveEntity()
+        private (string EntityType, int EntityId) ResolveEntity()
     {
         // ✔ Determine entity type from Role
         var role = User.FindFirst(ClaimTypes.Role)?.Value;
@@ -122,6 +124,24 @@ namespace UrbanNative.Api.Controllers.Compliance
                 return BadRequest(ex.Message);
             }
             
+        }
+
+        [HttpPost("ocr/pan")]
+        public async Task<IActionResult> ExtractPan(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("File missing");
+
+            var tempPath = Path.GetTempFileName();
+
+            using (var stream = System.IO.File.Create(tempPath))
+                await file.CopyToAsync(stream);
+
+            var text = _ocrService.ExtractText(tempPath);
+            System.IO.File.Delete(tempPath);
+
+            var pan = OcrParser.ExtractPan(text); 
+            return Ok(new { value = pan });
         }
     }
 }

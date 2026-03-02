@@ -9,6 +9,7 @@ using UrbanNative.Application.Interfaces;
 using UrbanNative.Application.UseCases.Vendors;
 using UrbanNative.Domain.Exceptions;
 using UrbanNative.Infrastructure;
+using UrbanNative.Infrastructure.Services;
 using UrbanNative.Infrastructure.Caching;
 using UrbanNative.Infrastructure.Database;
 using UrbanNative.Infrastructure.Repositories;
@@ -95,7 +96,7 @@ builder.Services.AddAuthorization();
 // =======================
 builder.Services.AddScoped<VariantMasterCacheLoader>();
 builder.Services.AddSingleton<VariantMasterCacheLoader>();
-
+builder.Services.AddScoped<OcrService>();
 
 /* at time of Change password I have changed this code to below block
 using (var scope = builder.Services.BuildServiceProvider().CreateScope())
