@@ -31,5 +31,8 @@ namespace UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compl
             string entityType,
             int entityId,
             int groupId);
+        Task UploadDocumentAsync(string entityType,int entityId, ComplianceUploadRequest request,
+            Stream fileStream,string fileName);
+        
     }
 }

@@ -1,4 +1,7 @@
 ﻿using Dapper;
+using Microsoft.AspNetCore.Connections;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using System.Data;
 //using UrbanNative.Application.DTOs.Compliance;
 using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
@@ -11,10 +14,17 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
     {
         
         private readonly SqlConnectionFactory _connFactory;
+        private readonly IWebHostEnvironment _env;
+        private readonly IConfiguration _config;
 
-        public ComplianceRepository(SqlConnectionFactory connectionFactory)
+        public ComplianceRepository(
+            SqlConnectionFactory connectionFactory,
+            IWebHostEnvironment env,
+            IConfiguration config)
         {
             _connFactory = connectionFactory;
+            _env = env;
+            _config = config;
         }
 
         // 🔝 Dashboard Summary
@@ -94,11 +104,98 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
                 commandType: CommandType.StoredProcedure);
         }
 
+        
+
+        public async Task UploadDocumentAsync(
+        string entityType,
+        int entityId,
+        ComplianceUploadRequest request,
+        Stream fileStream,
+        string fileName)
+        {
+            using var conn = _connFactory.CreateConnection();
+
+            var basePath = _config["FileStorage:BasePath"];
+
+            if (!Path.IsPathRooted(basePath))
+            {
+                basePath = Path.Combine(_env.ContentRootPath, basePath);
+            }
+
+            var folderPath = Path.Combine(
+                basePath,
+                "compliance",
+                entityType,
+                entityId.ToString());
+
+            if (!Directory.Exists(folderPath))
+                Directory.CreateDirectory(folderPath);
+
+            var uniqueFileName = $"{Guid.NewGuid()}_{fileName}";
+            var fullPath = Path.Combine(folderPath, uniqueFileName);
+
+            using (var fileStreamOut = new FileStream(fullPath, FileMode.Create))
+            {
+                await fileStream.CopyToAsync(fileStreamOut);
+            }
+            var existingStatus = await conn.QueryFirstOrDefaultAsync<string>(
+            "SELECT Top 1 VerificationStatus FROM ComplianceDocumentsUploaded WHERE EntityType=@EntityType AND EntityID=@EntityID AND ComplianceID=@ComplianceID AND IsActive=1 order by UploadID desc",
+            new { entityType, entityId, request.ComplianceID });
+
+            if (existingStatus == "APPROVED")
+            {
+                throw new InvalidOperationException("Document already approved. Re-upload not allowed.");
+            }
+            // 🔹 STEP 7: Fetch expiry policy from master
+            var master = await conn.QueryFirstAsync<(bool HasExpiry, int? DefaultExpiryMonths)>(
+                @"SELECT HasExpiry, DefaultExpiryMonths FROM ComplianceMaster WHERE ComplianceID = @ComplianceID",
+                new { request.ComplianceID });
+
+            // 🔹 Determine final expiry date
+            DateTime? finalExpiry = request.ExpiryDate;
+
+            if (master.HasExpiry && master.DefaultExpiryMonths.HasValue)
+            {
+                var systemExpiry = DateTime.Today.AddMonths(master.DefaultExpiryMonths.Value);
+
+                // Rule: use earlier date if provided, otherwise system expiry
+                if (!request.ExpiryDate.HasValue || request.ExpiryDate > systemExpiry)
+                    finalExpiry = systemExpiry;
+            }
+
+            var fileUrl = $"{folderPath}/{uniqueFileName}";
+            await conn.ExecuteAsync(
+            "sp_ComplianceDocument_Upload",
+            new
+            {
+                EntityType = entityType,
+                EntityID = entityId,
+                ComplianceID = request.ComplianceID,
+                FileName = uniqueFileName,
+                FileURL = fileUrl,
+                ExpiryDate = finalExpiry,
+                DocumentNumber = request.DocumentNumber   // NEW
+            },
+            commandType: CommandType.StoredProcedure);
+        }
+        /*
+        public async Task<ComplianceCategoryStatusDto> GetCategoryStatusAsync(string entityType,int entityId,int groupId)
+        {
+            using var conn = _connFactory.CreateConnection();
+
+            return await conn.QueryFirstAsync<ComplianceCategoryStatusDto>(
+                "sp_Compliance_CategoryStatus",
+                new
+                {
+                    EntityType = entityType,
+                    EntityID = entityId,
+                    GroupID = groupId
+                },
+                commandType: CommandType.StoredProcedure);
+        }
+        */
         // 🟢 Category Status Banner
-        public async Task<ComplianceCategoryStatusDto> GetCategoryStatusAsync(
-            string entityType,
-            int entityId,
-            int groupId)
+        public async Task<ComplianceCategoryStatusDto> GetCategoryStatusAsync(string entityType,int entityId,int groupId)
         {
             using var conn = _connFactory.CreateConnection();
 
@@ -112,6 +209,7 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
                 },
                 commandType: CommandType.StoredProcedure);
         }
+        
     }
 }
 

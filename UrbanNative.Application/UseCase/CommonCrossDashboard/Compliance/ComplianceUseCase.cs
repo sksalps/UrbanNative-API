@@ -66,6 +66,17 @@ namespace UrbanNative.Application.UseCase.CommonCroshDashboard.Compliance
         {
             return await _repository.GetCategoryStatusAsync(entityType, entityId, groupId);
         }
+        
+        public async Task UploadDocumentAsync(
+        string entityType,
+        int entityId,
+        ComplianceUploadRequest request,
+        Stream fileStream,
+        string fileName)
+        {
+            await _repository.UploadDocumentAsync(entityType, entityId, request, fileStream, fileName);
+        }
+
     }
 }
 

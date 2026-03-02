@@ -1,4 +1,5 @@
 ﻿using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
+using Microsoft.AspNetCore.Http;
 
 namespace UrbanNative.Vendors.Services
 {
@@ -15,6 +16,13 @@ namespace UrbanNative.Vendors.Services
         Task<IEnumerable<ComplianceDocumentHistoryDto>> GetDocumentHistoryAsync(int complianceId);
 
         Task<ComplianceCategoryStatusDto?> GetCategoryStatusAsync(int groupId);
+
+
+        Task UploadDocumentAsync(
+    int complianceId,
+    IFormFile file,
+    DateTime? expiryDate,
+    string? documentNumber);
     }
 
 }

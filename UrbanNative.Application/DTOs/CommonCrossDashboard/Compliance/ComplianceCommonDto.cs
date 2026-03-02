@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
 {
     public class ComplianceDashboardSummaryDto
@@ -52,10 +53,17 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
         public string? VerificationStatus { get; set; }   // APPROVED / PENDING / REJECTED / NULL
         public DateTime? ExpiryDate { get; set; }
         public DateTime? UploadedAt { get; set; }
-
+        public bool HasExpiry { get; set; }
+        public int? DefaultExpiryMonths { get; set; }
+        public int? ExpiryAlertDays { get; set; }
         public string ActionType { get; set; } = string.Empty;   // Upload / Update / View / Re-upload
 
-        public bool IsMandatoryInGroup { get; set; }   // PAN must scenario
+        public bool IsMandatoryInGroup { get; set; }   // PAN must              // 
+        public bool HasNumberField { get; set; }
+        public string? NumberFieldLabel { get; set; }
+        public string? NumberFieldRegex { get; set; }
+        public string? FileURL { get; set; }
+
     }
 
     public class ComplianceDocumentHistoryDto
@@ -71,6 +79,7 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
 
         public string? RejectionReason { get; set; }
         public string VersionStatus { get; set; } = string.Empty;   // Current / Old
+        public string? FileURL { get; set; }
     }
 
     public class ComplianceCategoryStatusDto
@@ -84,4 +93,13 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
 
         public bool IsComplete => MissingMandatoryDocs == 0 && ApprovedDocs >= MinRequired;
     }
+
+    public class ComplianceUploadRequest
+    {
+        public int ComplianceID { get; set; }
+        public DateTime? ExpiryDate { get; set; }
+        public string? DocumentNumber { get; set; }   // NEW
+    }
+
+
 }

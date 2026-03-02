@@ -12,11 +12,11 @@
         </div>
         <div class="col-md-4">
             <strong>Approved On:</strong>
-            @Model.Summary?.ApprovedOn?.ToString("dd MMM yyyy") ?? "-"
+            @(Model.Summary?.ApprovedOn?.ToString("dd MMM yyyy") ?? "-")
         </div>
         <div class="col-md-4">
             <strong>Payout Eligible:</strong>
-            @Model.Summary?.PayoutEligibleOn?.ToString("dd MMM yyyy") ?? "-"
+            @(Model.Summary?.PayoutEligibleOn?.ToString("dd MMM yyyy") ?? "-")
         </div>
     </div>
 
@@ -32,7 +32,7 @@
     </div>
 </div>
 
-<!-- 📊 Horizontal Category Progress Strip -->
+<!-- 📊 Category Progress Strip -->
 <div class="card p-3 mb-4">
     <div class="d-flex flex-wrap gap-4">
         @foreach (var cat in Model.Categories)
@@ -79,14 +79,12 @@
                     <td>@row.ApprovedDocs</td>
                     <td>@row.LastUpdated?.ToString("dd MMM yyyy")</td>
                 </tr>
-
-
             }
         </tbody>
     </table>
 </div>
 
-<!-- 📄 Document Grid Placeholder -->
+<!-- 📄 Document Grid -->
 @if (Model.SelectedGroupId.HasValue)
 {
     <div class="card p-3 mt-4">
@@ -118,26 +116,73 @@
                             _ => "secondary"
                         };
 
-                        <tr style="cursor:pointer;"
-                            onclick="location.href='?SelectedGroupId=@Model.SelectedGroupId&SelectedComplianceId=@doc.ComplianceID'">
-
-                            <td>
+                        <tr class="@(doc.ExpiryDate < DateTime.Today ? "table-danger" : "")">
+                            <!-- Clickable document name -->
+                            <td style="cursor:pointer;"
+                                onclick="location.href='?SelectedGroupId=@Model.SelectedGroupId&SelectedComplianceId=@doc.ComplianceID'">
                                 @doc.ComplianceName
                                 @if (doc.IsMandatoryInGroup)
                                 {
                                     <span class="badge bg-danger ms-2">Mandatory</span>
                                 }
                             </td>
+
                             <td>
                                 <span class="badge bg-@statusColor">
-                                    @doc.VerificationStatus ?? "Not Uploaded"
+                                    @(doc.VerificationStatus ?? "Not Uploaded")
                                 </span>
                             </td>
-                            <td>@doc.ExpiryDate?.ToString("dd MMM yyyy")</td>
+                            
                             <td>
-                                <button class="btn btn-sm btn-outline-primary" disabled>
-                                    @doc.ActionType
-                                </button>
+                                @if (doc.ExpiryDate.HasValue)
+                                {
+                                    var alertDays = doc.ExpiryAlertDays ?? 30;
+                                    var daysLeft = (doc.ExpiryDate.Value.Date - DateTime.Today).Days;
+                                    <span>@doc.ExpiryDate.Value.ToString("dd MMM yyyy")</span>
+                                    @if (daysLeft <= alertDays)
+                                    {
+                                        <span class="badge bg-warning">Expiring Soon</span>
+                                    }
+                                    else if (daysLeft < 0)
+                                    {
+                                        <span class="badge bg-danger ms-2">Expired</span>
+                                    }
+                                    
+                                    else
+                                    {
+                                        <span class="badge bg-success ms-2">Valid</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No Expiry</span>
+                                }
+                            </td>
+
+                            <td>
+                                @if (doc.VerificationStatus == "APPROVED")
+                                {
+                                    <button class="btn btn-sm btn-success" disabled>
+                                        ✔ Approved
+                                    </button>
+
+                                }
+                                else
+                                {
+                                    <button type="button"
+                                            class="btn btn-sm btn-outline-primary"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#uploadModal"
+                                            data-id="@doc.ComplianceID"
+                                            data-hasnumber="@doc.HasNumberField"
+                                            data-label="@doc.NumberFieldLabel"
+                                            data-regex="@doc.NumberFieldRegex"
+                                            data-hasexpiry="@doc.HasExpiry"
+                                            data-defaultmonths="@doc.DefaultExpiryMonths"
+                                            onclick="event.stopPropagation();">
+                                        @(doc.VerificationStatus == "REJECTED" ? "Re-upload" : "Upload")
+                                    </button>
+                                }
                             </td>
                         </tr>
                     }
@@ -154,37 +199,31 @@ else
     </div>
 }
 
-<!-- 📄 Category  Status Banner -->
+<!-- 📄 Category Status Banner -->
 @if (Model.SelectedGroupId.HasValue && Model.CategoryStatus != null)
 {
     var status = Model.CategoryStatus;
-    var isComplete = status.IsComplete;
-    var bannerColor = isComplete ? "success" : "warning";
+    var bannerColor = status.IsComplete ? "success" : "warning";
 
     <div class="alert alert-@bannerColor mt-3">
         <strong>@status.GroupName Status:</strong>
 
         @if (status.MissingMandatoryDocs > 0)
         {
-            <span>
-                Mandatory document(s) missing. Please upload required document(s).
-            </span>
+            <span> Mandatory document(s) missing. Please upload required document(s).</span>
         }
-        else if (isComplete)
+        else if (status.IsComplete)
         {
-            <span>
-                Complete (@status.ApprovedDocs / @status.MinRequired documents approved)
-            </span>
+            <span> Complete (@status.ApprovedDocs / @status.MinRequired approved)</span>
         }
         else
         {
-            <span>
-                @status.ApprovedDocs of @status.MinRequired required documents approved.
-            </span>
+            <span> @status.ApprovedDocs of @status.MinRequired required approved.</span>
         }
     </div>
 }
-<!-- 📚 History Grid Placeholder -->
+
+<!-- 📚 History Grid -->
 @if (Model.SelectedComplianceId.HasValue)
 {
     <div class="card p-3 mt-4">
@@ -219,16 +258,49 @@ else
                         };
 
                         <tr>
-                            <td>@item.FileName</td>
                             <td>
-                                <span class="badge bg-@statusColor">
-                                    @item.VerificationStatus
-                                </span>
+                                @if (!string.IsNullOrEmpty(item.FileURL))
+                                {
+                                    <a href="@($"{Model.ApiBaseUrl}{item.FileURL}")" target="_blank">
+                                        @item.FileName
+                                    </a>
+                                }
+                                else
+                                {
+                                    @item.FileName
+                                }
+
                             </td>
+                            <td><span class="badge bg-@statusColor">@item.VerificationStatus</span></td>
                             <td>@item.UploadedAt.ToString("dd MMM yyyy")</td>
                             <td>@item.VerifiedAt?.ToString("dd MMM yyyy")</td>
-                            <td>@item.ExpiryDate?.ToString("dd MMM yyyy")</td>
+                            <td>
+                                @if (item.ExpiryDate.HasValue)
+                                {
+                                    var daysLeft = (item.ExpiryDate.Value.Date - DateTime.Today).Days;
+
+                                    <span>@item.ExpiryDate.Value.ToString("dd MMM yyyy")</span>
+
+                                    @if (daysLeft < 0)
+                                    {
+                                        <span class="badge bg-danger ms-2">Expired</span>
+                                    }
+                                    else if (daysLeft <= 30)
+                                    {
+                                        <span class="badge bg-warning text-dark ms-2">Expiring Soon</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success ms-2">Valid</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No Expiry</span>
+                                }
+                            </td>
                             <td>@item.VersionStatus</td>
+
                         </tr>
                     }
                 </tbody>
@@ -236,10 +308,181 @@ else
         }
     </div>
 }
-else if (Model.SelectedGroupId.HasValue)
-{
-    <div class="card p-3 mt-4">
-        <h5>Document History</h5>
-        <p class="text-muted">Select a document to view history.</p>
+
+<!-- 📤 Upload Modal -->
+<div class="modal fade" id="uploadModal" tabindex="-1">
+    <div class="modal-dialog">
+        <form method="post" enctype="multipart/form-data" asp-page-handler="Upload">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Upload Document</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" name="ComplianceID" id="ComplianceID" />
+
+                    <div class="mb-3">
+                        <label class="form-label">Select File</label>
+                        <input type="file" name="File" class="form-control" required />
+                    </div>
+                    <div id="numberFieldContainer" class="mb-3 d-none">
+                        <label id="numberFieldLabel" class="form-label"></label>
+                        <input type="text"
+                               name="DocumentNumber"
+                               id="DocumentNumber"
+                               class="form-control" />
+                        <div class="invalid-feedback">
+                            Please enter a valid value.
+                        </div>
+                    </div>
+                    
+                    <div id="expiryContainer" class="mb-3 d-none">
+                        <label class="form-label">Expiry Date</label>
+                        <input type="date" name="ExpiryDate" id="ExpiryDate" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+            </div>
+        </form>
     </div>
+</div>
+@if (Model.MissingMandatoryDocs.Any())
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const list = document.getElementById("missingDocsList");
+
+            @foreach (var doc in Model.MissingMandatoryDocs)
+            {
+                    <text>
+                        var li = document.createElement("li");
+                        li.textContent = "@doc";
+                        list.appendChild(li);
+                    </text>
+            }
+
+            var modal = new bootstrap.Modal(document.getElementById('mandatoryModal'));
+            modal.show();
+        });
+    </script>
 }
+<div class="modal fade" id="mandatoryModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">Mandatory Documents Required</h5>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Some mandatory documents are missing or not approved.
+                    Please upload required documents to continue.
+                </p>
+
+                <ul id="missingDocsList"></ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                    Go to Compliance
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 🧠 Modal Script -->
+<script>
+    document.querySelectorAll('[data-bs-target="#uploadModal"]').forEach(btn => {
+        if (btn.disabled) {
+            btn.removeAttribute('data-bs-toggle');
+            btn.removeAttribute('data-bs-target');
+        }
+    });
+    
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        const uploadModal = document.getElementById('uploadModal');
+
+        uploadModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+
+            const complianceId = button.getAttribute('data-id');
+            const hasNumber = button.getAttribute('data-hasnumber');
+            const label = button.getAttribute('data-label');
+            const regex = button.getAttribute('data-regex');
+
+            document.getElementById('ComplianceID').value = complianceId;
+
+            const container = document.getElementById('numberFieldContainer');
+            const labelEl = document.getElementById('numberFieldLabel');
+            const input = document.getElementById('DocumentNumber');
+
+            const showNumberField = hasNumber === "True" || hasNumber === "true";
+
+            if (showNumberField) {
+                container.classList.remove('d-none');
+                labelEl.textContent = label || "Document Number";
+
+                // Apply regex validation
+                if (regex) {
+                    input.setAttribute("pattern", regex);
+                    input.setAttribute("required", "required");
+                    input.setAttribute("title", "Invalid format");
+                    input.oninvalid = function () {
+                        this.setCustomValidity("Please enter a valid " + label);
+                    };
+
+                    input.oninput = function () {
+                        this.setCustomValidity("");
+                    };
+                } else {
+                    input.removeAttribute("pattern");
+                    input.removeAttribute("required");
+                }
+            } else {
+                container.classList.add('d-none');
+                input.removeAttribute("pattern");
+                input.removeAttribute("required");
+                input.value = "";
+            }
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const uploadModal = document.getElementById('uploadModal');
+
+        uploadModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+
+            const hasExpiry = button.getAttribute('data-hasexpiry') === "True";
+            const defaultMonths = button.getAttribute('data-defaultmonths');
+
+            const expiryContainer = document.getElementById('expiryContainer');
+            const expiryInput = document.getElementById('ExpiryDate');
+
+            if (hasExpiry) {
+                expiryContainer.classList.remove('d-none');
+
+                if (defaultMonths && parseInt(defaultMonths) > 0) {
+                    const today = new Date();
+                    today.setMonth(today.getMonth() + parseInt(defaultMonths));
+
+                    const yyyy = today.getFullYear();
+                    const mm = String(today.getMonth() + 1).padStart(2, '0');
+                    const dd = String(today.getDate()).padStart(2, '0');
+
+                    expiryInput.value = `${yyyy}-${mm}-${dd}`;
+                    expiryInput.readOnly = true;   // system-controlled
+                } else {
+                    expiryInput.value = "";
+                    expiryInput.readOnly = false;  // user can set
+                }
+            } else {
+                expiryContainer.classList.add('d-none');
+                expiryInput.value = "";
+            }
+        });
+    });
+</script>

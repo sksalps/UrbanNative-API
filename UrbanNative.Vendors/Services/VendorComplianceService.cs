@@ -1,4 +1,6 @@
-﻿using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
+﻿using Azure.Core;
+using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
+using static System.Net.WebRequestMethods;
 
 
 namespace UrbanNative.Vendors.Services
@@ -52,6 +54,33 @@ namespace UrbanNative.Vendors.Services
         {
             return await _http.GetFromJsonAsync<ComplianceCategoryStatusDto>(
                 $"api/compliance/categories/{groupId}/status");
+        }
+
+        public async Task UploadDocumentAsync(
+        int complianceId,
+        IFormFile file,
+        DateTime? expiryDate,
+        string? documentNumber)
+        {
+            using var content = new MultipartFormDataContent();
+
+            content.Add(new StringContent(complianceId.ToString()), "complianceId");
+
+            if (expiryDate.HasValue)
+                content.Add(new StringContent(expiryDate.Value.ToString("yyyy-MM-dd")), "expiryDate");
+
+            if (!string.IsNullOrWhiteSpace(documentNumber))
+                content.Add(new StringContent(documentNumber), "documentNumber");
+
+            content.Add(new StreamContent(file.OpenReadStream()), "file", file.FileName);
+
+            var response = await _http.PostAsync("api/compliance/documents/upload", content);
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Upload failed: {error}");
+            }
+            response.EnsureSuccessStatusCode();
         }
     }
 

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 using UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compliance;
-using UrbanNative.Application.UseCase.CommonCroshDashboard.Compliance;
+using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
 using UrbanNative.Domain.Entities;
 
 namespace UrbanNative.Api.Controllers.Compliance
@@ -88,6 +88,40 @@ namespace UrbanNative.Api.Controllers.Compliance
 
             var result = await _complianceUseCase.GetCategoryStatusAsync(entityType, entityId, groupId);
             return Ok(result);
+        }
+
+        [HttpPost("documents/upload")]
+        public async Task<IActionResult> UploadDocument(
+            [FromForm] int complianceId,
+            [FromForm] DateTime? expiryDate,
+            [FromForm] string? documentNumber,
+            [FromForm] IFormFile file)
+        {
+            var (entityType, entityId) = ResolveEntity();
+
+            using var stream = file.OpenReadStream();
+
+            var request = new ComplianceUploadRequest
+            {
+                ComplianceID = complianceId,
+                ExpiryDate = expiryDate,
+                DocumentNumber = documentNumber
+            };
+            try
+            {
+                await _complianceUseCase.UploadDocumentAsync(
+                entityType,
+                entityId,
+                request,
+                stream,
+                file.FileName);
+                return Ok();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
     }
 }

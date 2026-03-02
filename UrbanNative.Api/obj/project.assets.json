@@ -1156,7 +1156,10 @@
         },
         "runtime": {
           "bin/placeholder/UrbanNative.Infrastructure.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },

@@ -160,7 +160,7 @@ builder.Services.AddCors(options =>
 // Build App
 // =======================
 var app = builder.Build();
-
+app.UseStaticFiles();
 using (var scope = app.Services.CreateScope())
 {
     var loader = scope.ServiceProvider.GetRequiredService<VariantMasterCacheLoader>();
