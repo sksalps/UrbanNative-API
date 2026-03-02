@@ -47,7 +47,7 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
         public int ComplianceID { get; set; }
         public string ComplianceName { get; set; } = string.Empty;
 
-        public string ImportanceLevel { get; set; } = string.Empty;   // Mandatory/Required/Optional
+        //public string ImportanceLevel { get; set; } = string.Empty;   // Mandatory/Required/Optional
         public string ComplianceMode { get; set; } = string.Empty;    // UPLOAD / UPDATE / SYSTEM
 
         public string? VerificationStatus { get; set; }   // APPROVED / PENDING / REJECTED / NULL

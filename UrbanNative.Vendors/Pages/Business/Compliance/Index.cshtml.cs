@@ -60,9 +60,9 @@ namespace UrbanNative.Vendors.Pages.Business.Compliance
             {
                 Documents = await _complianceService.GetDocumentsByCategoryAsync(SelectedGroupId.Value);
                 CategoryStatus = await _complianceService.GetCategoryStatusAsync(SelectedGroupId.Value);
-                if (Model.CategoryStatus?.MissingMandatoryDocs > 0)
+                if (CategoryStatus?.MissingMandatoryDocs > 0)
                 {
-                    MissingMandatoryDocs = Model.Documents
+                    MissingMandatoryDocs = Documents
                         .Where(d => d.IsMandatoryInGroup && d.VerificationStatus != "APPROVED")
                         .Select(d => d.ComplianceName)
                         .ToList();

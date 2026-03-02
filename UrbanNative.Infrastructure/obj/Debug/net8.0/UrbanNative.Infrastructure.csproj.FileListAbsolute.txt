@@ -35,3 +35,7 @@ E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infra
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net8.0\refint\UrbanNative.Infrastructure.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net8.0\UrbanNative.Infrastructure.pdb
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\obj\Debug\net8.0\ref\UrbanNative.Infrastructure.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\bin\Debug\net8.0\x86\leptonica-1.82.0.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\bin\Debug\net8.0\x86\tesseract50.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\bin\Debug\net8.0\x64\leptonica-1.82.0.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Infrastructure\bin\Debug\net8.0\x64\tesseract50.dll
