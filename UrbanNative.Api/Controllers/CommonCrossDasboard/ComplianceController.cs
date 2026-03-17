@@ -65,7 +65,15 @@ namespace UrbanNative.Api.Controllers.Compliance
             var result = await _complianceUseCase.GetCategoryProgressAsync(entityType, entityId);
             return Ok(result);
         }
+        // 📊 Category/Group Grid
+        [HttpGet("group")]
+        public async Task<IActionResult> GetCategoryGroup()
+        {
+            var (entityType, entityId) = ResolveEntity();
 
+            var result = await _complianceUseCase.GetCategoryGridAsync(entityType, entityId);
+            return Ok(result);
+        }
         // 📄 Documents by Category
         [HttpGet("categories/{groupId}/documents")]
         public async Task<IActionResult> GetDocumentsByCategory(int groupId)

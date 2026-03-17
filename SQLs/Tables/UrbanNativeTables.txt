@@ -716,3 +716,85 @@ SettingsFor	varchar(20)	Unchecked
 OnlyAdminEditable	bit	Unchecked
 		
 		
+*********Compliance Related TABLES***********
+ComplianceMaster
+ComplianceID	int	Unchecked
+ComplianceName	varchar(100)	Unchecked
+Category	varchar(50)	Unchecked
+DocumentType	varchar(20)	Unchecked
+AllowedFileTypes	varchar(100)	Checked
+MaxFileSizeMB	int	Checked
+DefaultExpiryMonths	int	Checked
+ExpiryAlertDays	int	Checked
+IsActive	bit	Checked
+CreatedAt	datetime	Checked
+CreatedBy	int	Checked
+ComplianceMode	varchar(20)	Unchecked
+MsgCode	varchar(50)	Checked
+HasNumberField	bit	Checked
+NumberFieldLabel	varchar(50)	Checked
+NumberFieldRegex	varchar(200)	Checked
+HasExpiry	bit	Checked
+OCRKeywords	varchar(200)	Checked
+		Unchecked
+ComplianceCategory
+ComplianceCategoryId	int	Unchecked
+ComplianceCategory	varchar(100)	Checked
+ComplianceId	int	Unchecked
+IsActive	bit	Unchecked
+IsMandatory	bit	Unchecked
+		Unchecked
+ComplianceGroups
+GroupID	int	Unchecked
+GroupName	varchar(100)	Unchecked
+Description	varchar(255)	Checked
+EntityType	varchar(50)	Unchecked
+Category	varchar(50)	Checked
+MinRequired	int	Unchecked
+IsMandatoryGroup	bit	Checked
+DisplayOrder	int	Checked
+IsActive	bit	Checked
+CreatedAt	datetime	Checked
+CreatedBy	int	Checked
+MsgCode	varchar(50)	Checked
+EnforcementScope	varchar(50)	Checked
+		Unchecked
+ComplianceGroupMappings
+MappingID	int	Unchecked
+GroupID	int	Unchecked
+ComplianceCategoryID	int	Unchecked
+IsActive	bit	Checked
+IsMandatory	bit	Unchecked
+MsgCode	varchar(50)	Checked
+		Unchecked
+ComplianceGroupEntityStatus
+StatusID	int	Unchecked
+EntityType	varchar(50)	Checked
+EntityID	int	Checked
+GroupID	int	Checked
+IsComplete	bit	Checked
+ApprovedDocs	int	Checked
+RequiredDocs	int	Checked
+MissingMandatoryDocs	int	Checked
+LastEvaluatedAt	datetime	Checked
+CompletedAt	datetime	Checked
+		Unchecked
+ComplianceDocumentsUploaded
+UploadID	int	Unchecked
+EntityType	varchar(50)	Unchecked
+EntityID	int	Unchecked
+ComplianceID	int	Unchecked
+FileURL	varchar(500)	Unchecked
+FileName	varchar(255)	Checked
+FileType	varchar(50)	Checked
+ExpiryDate	datetime	Checked
+IsCurrent	bit	Checked
+VerificationStatus	varchar(20)	Checked
+VerifiedBy	int	Checked
+VerifiedAt	datetime	Checked
+RejectionReason	varchar(255)	Checked
+UploadedAt	datetime	Checked
+UploadedBy	int	Checked
+DocumentNumber	varchar(50)	Checked
+IsActive	bit	Unchecked
+		Unchecked

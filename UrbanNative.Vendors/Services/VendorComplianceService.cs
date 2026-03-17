@@ -34,7 +34,7 @@ namespace UrbanNative.Vendors.Services
         public async Task<IEnumerable<ComplianceCategoryGridDto>> GetCategoryGridAsync()
         {
             return await _http.GetFromJsonAsync<IEnumerable<ComplianceCategoryGridDto>>(
-                "api/compliance/categories") ?? Enumerable.Empty<ComplianceCategoryGridDto>();
+                "api/compliance/group") ?? Enumerable.Empty<ComplianceCategoryGridDto>();
         }
 
         // 📄 Documents by Category (Grid-1)

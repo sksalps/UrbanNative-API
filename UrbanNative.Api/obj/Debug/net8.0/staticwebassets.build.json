@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "mtmqUZErqxsNOOUczlDpsKbrcD81IqCRZ8XZtHU9J6I=",
+  "Hash": "Ulil68yuxhJDnCTCKz08P2xN5+8AuOIn437jZzK7XLE=",
   "Source": "UrbanNative.Api",
   "BasePath": "_content/UrbanNative.Api",
   "Mode": "Default",
@@ -16,6 +16,44 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\wwwroot\\uploads\\compliance\\Vendor\\1\\3209252a-26a2-4255-974a-4e4201944bfb_SK_PAN-1.png",
+      "SourceId": "UrbanNative.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\wwwroot\\",
+      "BasePath": "_content/UrbanNative.Api",
+      "RelativePath": "uploads/compliance/Vendor/1/3209252a-26a2-4255-974a-4e4201944bfb_SK_PAN-1.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\compliance\\Vendor\\1\\3209252a-26a2-4255-974a-4e4201944bfb_SK_PAN-1.png"
+    },
+    {
+      "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\wwwroot\\uploads\\compliance\\Vendor\\1\\4c4138fe-d06f-40c1-beaa-46af01048d0a_sample Aadhar.jpeg",
+      "SourceId": "UrbanNative.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\wwwroot\\",
+      "BasePath": "_content/UrbanNative.Api",
+      "RelativePath": "uploads/compliance/Vendor/1/4c4138fe-d06f-40c1-beaa-46af01048d0a_sample Aadhar.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\compliance\\Vendor\\1\\4c4138fe-d06f-40c1-beaa-46af01048d0a_sample Aadhar.jpeg"
+    },
     {
       "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\wwwroot\\uploads\\compliance\\Vendor\\1\\4e1dc97d-acef-4a82-8050-e77d825f6a86_Screenshot 2025-12-12 010457.png",
       "SourceId": "UrbanNative.Api",

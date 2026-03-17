@@ -1,5 +1,37 @@
 ﻿<Project>
   <ItemGroup>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\compliance\Vendor\1\3209252a-26a2-4255-974a-4e4201944bfb_SK_PAN-1.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>UrbanNative.Api</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/UrbanNative.Api</BasePath>
+      <RelativePath>uploads/compliance/Vendor/1/3209252a-26a2-4255-974a-4e4201944bfb_SK_PAN-1.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\compliance\Vendor\1\3209252a-26a2-4255-974a-4e4201944bfb_SK_PAN-1.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\compliance\Vendor\1\4c4138fe-d06f-40c1-beaa-46af01048d0a_sample Aadhar.jpeg))">
+      <SourceType>Package</SourceType>
+      <SourceId>UrbanNative.Api</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/UrbanNative.Api</BasePath>
+      <RelativePath>uploads/compliance/Vendor/1/4c4138fe-d06f-40c1-beaa-46af01048d0a_sample Aadhar.jpeg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\compliance\Vendor\1\4c4138fe-d06f-40c1-beaa-46af01048d0a_sample Aadhar.jpeg))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\compliance\Vendor\1\4e1dc97d-acef-4a82-8050-e77d825f6a86_Screenshot 2025-12-12 010457.png))">
       <SourceType>Package</SourceType>
       <SourceId>UrbanNative.Api</SourceId>

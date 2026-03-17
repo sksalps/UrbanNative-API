@@ -38,11 +38,14 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
         public int ApprovedDocs { get; set; }
 
         public DateTime? LastUpdated { get; set; }
+        public string Descriptions { get; set; } = string.Empty;
     }
     public class ComplianceDocumentDto
     {
         public int ComplianceID { get; set; }
         public string ComplianceName { get; set; } = string.Empty;
+        
+        public string ComplianceCategory { get; set; } = string.Empty;
 
         //public string ImportanceLevel { get; set; } = string.Empty;   // Mandatory/Required/Optional
         public string ComplianceMode { get; set; } = string.Empty;    // UPLOAD / UPDATE / SYSTEM
@@ -61,7 +64,11 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
         public string? NumberFieldLabel { get; set; }
         public string? NumberFieldRegex { get; set; }
         public string? FileURL { get; set; }
+        public string GroupName { get; set; } = string.Empty;
 
+        public bool IsCategoryMandatory { get; set; }
+        public bool IsDocMandatory { get; set; }
+        public int CategoryMandatoryDocCount { get; set; }
     }
     public class ComplianceValidationResultDto
     {

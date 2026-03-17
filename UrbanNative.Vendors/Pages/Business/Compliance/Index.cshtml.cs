@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Reflection;
 using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
 using UrbanNative.Vendors.Services;
 
@@ -12,6 +13,7 @@ namespace UrbanNative.Vendors.Pages.Business.Compliance
         public IEnumerable<ComplianceCategoryGridDto> CategoryGrid { get; set; } = [];
         public ComplianceCategoryStatusDto? CategoryStatus { get; set; }
         public IEnumerable<ComplianceDocumentDto> Documents { get; set; } = [];
+        //public string GroupName { get; set; }//Read from Documents
 
         // ✅ NEW: Document History (Grid-2)
         public IEnumerable<ComplianceDocumentHistoryDto> History { get; set; } = [];

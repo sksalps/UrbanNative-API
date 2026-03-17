@@ -63,6 +63,7 @@ E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.AdminSeeder\bin\Debug\net8.0\QuestPDF.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.AdminSeeder\bin\Debug\net8.0\RBush.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.AdminSeeder\bin\Debug\net8.0\SixLabors.Fonts.dll
+E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.AdminSeeder\bin\Debug\net8.0\SixLabors.ImageSharp.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.AdminSeeder\bin\Debug\net8.0\System.ClientModel.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.AdminSeeder\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
 E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.AdminSeeder\bin\Debug\net8.0\System.Data.SqlClient.dll

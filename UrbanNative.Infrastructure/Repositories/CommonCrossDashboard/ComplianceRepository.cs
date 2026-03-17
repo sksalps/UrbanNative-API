@@ -49,12 +49,12 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
             using var conn = _connFactory.CreateConnection();
 
             return await conn.QueryAsync<ComplianceCategoryProgressDto>(
-                "sp_Compliance_CategoryProgress",
+                "sp_Compliance_GroupProgress",
                 new { EntityType = entityType, EntityID = entityId },
                 commandType: CommandType.StoredProcedure);
         }
 
-        // 📋 Category Grid
+        // 📋 Category Grid-0
         public async Task<IEnumerable<ComplianceCategoryGridDto>> GetCategoryGridAsync(
             string entityType,
             int entityId)
@@ -62,7 +62,7 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
             using var conn = _connFactory.CreateConnection();
 
             return await conn.QueryAsync<ComplianceCategoryGridDto>(
-                "sp_Compliance_CategoryGrid",
+                "sp_Compliance_GroupGrid",
                 new { EntityType = entityType, EntityID = entityId },
                 commandType: CommandType.StoredProcedure);
         }
@@ -76,7 +76,7 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
             using var conn = _connFactory.CreateConnection();
 
             return await conn.QueryAsync<ComplianceDocumentDto>(
-                "sp_Compliance_DocumentsByCategory",
+                "sp_Compliance_DocumentsByGroup",
                 new
                 {
                     EntityType = entityType,
@@ -197,7 +197,7 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
             using var conn = _connFactory.CreateConnection();
 
             return await conn.QueryFirstOrDefaultAsync<ComplianceCategoryStatusDto>(
-                "sp_Compliance_CategoryStatusBanner",
+                "sp_Compliance_GroupStatusBanner",
                 new
                 {
                     EntityType = entityType,

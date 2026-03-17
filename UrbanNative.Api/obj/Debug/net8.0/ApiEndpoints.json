@@ -1833,6 +1833,16 @@
   },
   {
     "ContainingType": "UrbanNative.Api.Controllers.Compliance.ComplianceController",
+    "Method": "GetCategoryGroup",
+    "RelativePath": "api/compliance/group",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Compliance.ComplianceController",
     "Method": "ValidateCompliance",
     "RelativePath": "api/compliance/validate-compliance",
     "HttpMethod": "POST",
