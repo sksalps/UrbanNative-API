@@ -1833,15 +1833,50 @@
   },
   {
     "ContainingType": "UrbanNative.Api.Controllers.Compliance.ComplianceController",
-    "Method": "ExtractPan",
-    "RelativePath": "api/compliance/ocr/pan",
+    "Method": "ValidateCompliance",
+    "RelativePath": "api/compliance/validate-compliance",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "file",
-        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "Name": "ContentType",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ContentDisposition",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Headers",
+        "Type": "Microsoft.AspNetCore.Http.IHeaderDictionary",
+        "IsRequired": false
+      },
+      {
+        "Name": "Length",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FileName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ComplianceId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Regex",
+        "Type": "System.String",
         "IsRequired": false
       }
     ],

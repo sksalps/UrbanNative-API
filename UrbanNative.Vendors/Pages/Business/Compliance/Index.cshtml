@@ -177,11 +177,13 @@
                                             data-hasnumber="@doc.HasNumberField"
                                             data-label="@doc.NumberFieldLabel"
                                             data-regex="@doc.NumberFieldRegex"
+                                            data-filetypes="@doc.AllowedFileTypes"
+                                            data-maxsize="@doc.MaxFileSizeMB"
                                             data-hasexpiry="@doc.HasExpiry"
                                             data-defaultmonths="@doc.DefaultExpiryMonths"
                                             onclick="event.stopPropagation();">
                                         @(doc.VerificationStatus == "REJECTED" ? "Re-upload" : "Upload")
-                                    </button>
+                                    </button>                                    
                                 }
                             </td>
                         </tr>
@@ -312,7 +314,8 @@ else
 <!-- 📤 Upload Modal -->
 <div class="modal fade" id="uploadModal" tabindex="-1">
     <div class="modal-dialog">
-        <form method="post" enctype="multipart/form-data" asp-page-handler="Upload">
+        <form method="post" enctype="multipart/form-data"  asp-page-handler="Upload">
+            @Html.AntiForgeryToken()
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Upload Document</h5>
@@ -321,18 +324,24 @@ else
 
                 <div class="modal-body">
                     <input type="hidden" name="ComplianceID" id="ComplianceID" />
-
+                    <input type="hidden" id="NumberFieldRegex" name="NumberFieldRegex" />
+                    <input type="hidden" id="AllowedFileTypes" />
+                    <input type="hidden" id="MaxFileSizeMB" />
                     <div class="mb-3">
                         <label class="form-label">Select File</label>
-                        <input type="file" name="File" class="form-control" required />
+                        <input type="file" name="File" id="FileInput" class="form-control" required/>
+                        <small id="fileRules" class="text-muted"></small>
+                    </div>
+                    <div class="mb-3">
+                        <img id="filePreview"
+                             src=""
+                             class="img-fluid border rounded"
+                             style="max-height:200px; display:none;" />
                     </div>
                     <div id="numberFieldContainer" class="mb-3 d-none">
                         <label id="numberFieldLabel" class="form-label"></label>
-                        <input type="text"
-                               name="DocumentNumber"
-                               id="DocumentNumber"
-                               class="form-control" />
-                        <input type="file" name="File" id="FileInput" class="form-control" />
+                        <input type="text" name="DocumentNumber" id="DocumentNumber"   class="form-control" />
+                        
                         <div class="invalid-feedback">
                             Please enter a valid value.
                         </div>
@@ -402,7 +411,32 @@ else
         }
     });
     
-    
+        document.addEventListener("DOMContentLoaded", function () {
+
+        const uploadModal = document.getElementById("uploadModal");
+
+        uploadModal.addEventListener("show.bs.modal", function () {
+
+            // Reset file input
+            const fileInput = document.getElementById("FileInput");
+            fileInput.value = "";
+
+            // Reset document number
+            const docNumber = document.getElementById("DocumentNumber");
+            docNumber.value = "";
+            docNumber.classList.remove("border-success");
+
+            // Reset expiry
+            document.getElementById("ExpiryDate").value = "";
+
+            // Clear preview
+            const preview = document.getElementById("filePreview");
+            if (preview) preview.src = "";
+
+        });
+
+    });
+
     document.addEventListener("DOMContentLoaded", function () {
         const uploadModal = document.getElementById('uploadModal');
 
@@ -413,13 +447,17 @@ else
             const hasNumber = button.getAttribute('data-hasnumber');
             const label = button.getAttribute('data-label');
             const regex = button.getAttribute('data-regex');
-
-            document.getElementById('ComplianceID').value = complianceId;
+            const fileTypes = button.getAttribute('data-filetypes');
+            const maxSize = button.getAttribute('data-maxsize');
 
             const container = document.getElementById('numberFieldContainer');
             const labelEl = document.getElementById('numberFieldLabel');
             const input = document.getElementById('DocumentNumber');
 
+            document.getElementById("ComplianceID").value = complianceId;
+            document.getElementById("NumberFieldRegex").value = regex;
+            document.getElementById("AllowedFileTypes").value = fileTypes;
+            document.getElementById("MaxFileSizeMB").value = maxSize;
             const showNumberField = hasNumber === "True" || hasNumber === "true";
 
             if (showNumberField) {
@@ -489,26 +527,114 @@ else
 
     document.getElementById("FileInput").addEventListener("change", async function () {
 
-        const complianceLabel = document.getElementById("numberFieldLabel").innerText;
-        alert("okk");
-        // Run OCR only for PAN
-        if (!complianceLabel.includes("PAN")) return;
+      const file = this.files[0];
+      if (!file) return;
 
-        const file = this.files[0];
-        if (!file) return;
+        const allowedTypes = document.getElementById("AllowedFileTypes").value;
+        const maxSizeMB = document.getElementById("MaxFileSizeMB").value;
 
-        const formData = new FormData();
-        formData.append("file", file);
+        if (allowedTypes) {
 
-        const response = await fetch("/api/compliance/ocr/pan", {
-            method: "POST",
-            body: formData
-        });
+            const allowed = allowedTypes.split(",").map(x => x.trim().toLowerCase());
+            const fileExt = file.name.split('.').pop().toLowerCase();
 
-        const result = await response.json();
-
-        if (result.value) {
-            document.getElementById("DocumentNumber").value = result.value;
+            if (!allowed.includes(fileExt)) {
+                alert("Invalid file type. Allowed: " + allowed.join(", "));
+                this.value = "";
+                return;
+            }
         }
+        
+        if (maxSizeMB) {
+            
+            const maxBytes = parseInt(maxSizeMB) * 1024 * 1024;
+            
+            if (file.size > maxBytes) {
+                alert("File exceeds " + maxSizeMB + " MB limit");
+                this.value = "";
+                return;
+               
+            }
+             //alert(file.size);
+        }
+        
+        const rulesText = document.getElementById("fileRules");
+        rulesText.innerText = "Allowed: " + allowedTypes + " | Max: " + maxSizeMB + " MB";
+        //alert(rulesText.innerText);
+
+
+    // ---------- FILE PREVIEW ----------
+    const preview = document.getElementById("filePreview");
+
+    if (file.type.startsWith("image/")) {
+
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.style.display = "block";
+        };
+
+        reader.readAsDataURL(file);
+
+    } else {
+
+        preview.style.display = "none";
+
+    }
+
+    // ---------- OCR PROCESS ----------
+      const complianceId = document.getElementById("ComplianceID").value;
+      const regex = document.getElementById("NumberFieldRegex").value;
+
+      const formData = new FormData();
+      formData.append("File", file);
+      formData.append("complianceId", complianceId);
+      formData.append("regex", regex);
+
+      const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+        try {
+
+            const res = await fetch("/Business/Compliance?handler=OcrDocument", {
+                method: "POST",
+                headers: {
+                    "RequestVerificationToken": token
+                },
+                body: formData
+            });
+
+            if (!res.ok) {
+                console.error("OCR request failed");
+                return;
+            }
+
+            const result = await res.json();
+
+            console.log("OCR result:", result);
+
+            if (result.value) {
+
+                const numberInput = document.getElementById("DocumentNumber");
+
+                numberInput.value = result.value;
+
+                // highlight auto-filled value
+                numberInput.classList.add("border-success");
+
+            } else {
+
+                console.log("No document number detected.");
+
+            }
+
+        } catch (err) {
+
+            console.error("OCR error:", err);
+
+        }
+
     });
+
+
 </script>

@@ -28,7 +28,6 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
         public decimal ProgressPercent =>
             MinRequired == 0 ? 0 : Math.Min(100, (ApprovedDocs * 100m) / MinRequired);
     }
-
     public class ComplianceCategoryGridDto
     {
         public int GroupID { get; set; }
@@ -40,8 +39,6 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
 
         public DateTime? LastUpdated { get; set; }
     }
-
-
     public class ComplianceDocumentDto
     {
         public int ComplianceID { get; set; }
@@ -57,7 +54,8 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
         public int? DefaultExpiryMonths { get; set; }
         public int? ExpiryAlertDays { get; set; }
         public string ActionType { get; set; } = string.Empty;   // Upload / Update / View / Re-upload
-
+        public int? MaxFileSizeMB { get; set; }
+        public string AllowedFileTypes { get; set; } = string.Empty;
         public bool IsMandatoryInGroup { get; set; }   // PAN must              // 
         public bool HasNumberField { get; set; }
         public string? NumberFieldLabel { get; set; }
@@ -65,7 +63,22 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
         public string? FileURL { get; set; }
 
     }
+    public class ComplianceValidationResultDto
+    {
+        public bool IsValid { get; set; }
 
+        public string? DetectedNumber { get; set; }
+
+        public string Message { get; set; } = "";
+    }
+    public class ComplianceValidateRequestDto
+    {
+        public Stream FileStream { get; set; } = default!;
+        public string FileName { get; set; } = "";
+        public long FileSize { get; set; }
+        public int ComplianceId { get; set; }
+        public string? Regex { get; set; }
+    }
     public class ComplianceDocumentHistoryDto
     {
         public int UploadID { get; set; }
@@ -101,5 +114,8 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
         public string? DocumentNumber { get; set; }   // NEW
     }
 
-
+    public class OcrResponseDto
+    {
+        public string? Value { get; set; }
+    }
 }

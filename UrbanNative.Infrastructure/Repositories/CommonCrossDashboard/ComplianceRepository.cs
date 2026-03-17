@@ -6,6 +6,7 @@ using System.Data;
 //using UrbanNative.Application.DTOs.Compliance;
 using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
 using UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance;
+using UrbanNative.Domain.Entities;
 using UrbanNative.Infrastructure.Database;
 
 namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
@@ -178,22 +179,18 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
             },
             commandType: CommandType.StoredProcedure);
         }
-        /*
-        public async Task<ComplianceCategoryStatusDto> GetCategoryStatusAsync(string entityType,int entityId,int groupId)
+
+        public async Task<ComplianceMaster?> GetComplianceAsync(int complianceId)
         {
             using var conn = _connFactory.CreateConnection();
 
-            return await conn.QueryFirstAsync<ComplianceCategoryStatusDto>(
-                "sp_Compliance_CategoryStatus",
-                new
-                {
-                    EntityType = entityType,
-                    EntityID = entityId,
-                    GroupID = groupId
-                },
-                commandType: CommandType.StoredProcedure);
+            return await conn.QueryFirstOrDefaultAsync<ComplianceMaster>(
+                "sp_ComplianceMaster_GetById",
+                new { ComplianceID = complianceId },
+                commandType: System.Data.CommandType.StoredProcedure
+            );
         }
-        */
+
         // 🟢 Category Status Banner
         public async Task<ComplianceCategoryStatusDto> GetCategoryStatusAsync(string entityType,int entityId,int groupId)
         {

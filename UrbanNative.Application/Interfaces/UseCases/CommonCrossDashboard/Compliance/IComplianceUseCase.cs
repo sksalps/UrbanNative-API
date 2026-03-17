@@ -33,6 +33,6 @@ namespace UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compl
             int groupId);
         Task UploadDocumentAsync(string entityType,int entityId, ComplianceUploadRequest request,
             Stream fileStream,string fileName);
-        
+        Task<string?> ExtractDocumentNumberAsync(Stream fileStream, string regex);
     }
 }

@@ -6,13 +6,16 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using UrbanNative.Api.Services;
 using UrbanNative.Application.Interfaces;
+using UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance;
+using UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compliance;
+using UrbanNative.Application.UseCase.CommonCroshDashboard.Compliance;
 using UrbanNative.Application.UseCases.Vendors;
 using UrbanNative.Domain.Exceptions;
 using UrbanNative.Infrastructure;
-using UrbanNative.Infrastructure.Services;
 using UrbanNative.Infrastructure.Caching;
 using UrbanNative.Infrastructure.Database;
 using UrbanNative.Infrastructure.Repositories;
+using UrbanNative.Infrastructure.Services;
 
 
 
@@ -57,6 +60,9 @@ builder.Services.AddScoped<IProductVariantSetService, ProductVariantSetService>(
 builder.Services.AddScoped<IProductVariantValuesService, ProductVariantValuesService>();
 builder.Services.AddScoped<IInventoryService, InventoryService>();
 
+builder.Services.AddScoped<IComplianceValidationService, ComplianceValidationService>();
+
+builder.Services.AddScoped<IComplianceValidateUseCase, ComplianceValidateUseCase>();
 // =======================
 // Infrastructure
 // =======================
@@ -96,7 +102,6 @@ builder.Services.AddAuthorization();
 // =======================
 builder.Services.AddScoped<VariantMasterCacheLoader>();
 builder.Services.AddSingleton<VariantMasterCacheLoader>();
-builder.Services.AddScoped<OcrService>();
 
 /* at time of Change password I have changed this code to below block
 using (var scope = builder.Services.BuildServiceProvider().CreateScope())

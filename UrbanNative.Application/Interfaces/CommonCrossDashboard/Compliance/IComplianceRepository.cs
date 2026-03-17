@@ -1,4 +1,5 @@
 ﻿using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
+using UrbanNative.Domain.Entities;
 
 
 namespace UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance
@@ -31,7 +32,8 @@ namespace UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance
         Task UploadDocumentAsync(string entityType,int entityId,ComplianceUploadRequest request,
         Stream fileStream,string fileName);
 
-        Task<ComplianceCategoryStatusDto> GetCategoryStatusAsync(string entityType,int entityId,int groupId);
+        Task<ComplianceCategoryStatusDto> GetCategoryStatusAsync(string entityType, int entityId, int groupId);
+        Task<ComplianceMaster?> GetComplianceAsync(int complianceId);
 
     }
 

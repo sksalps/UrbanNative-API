@@ -1,6 +1,8 @@
-﻿using Azure.Core;
+﻿
 using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
-using static System.Net.WebRequestMethods;
+
+using System.Net.Http.Headers;
+
 
 
 namespace UrbanNative.Vendors.Services
@@ -55,7 +57,6 @@ namespace UrbanNative.Vendors.Services
             return await _http.GetFromJsonAsync<ComplianceCategoryStatusDto>(
                 $"api/compliance/categories/{groupId}/status");
         }
-
         public async Task UploadDocumentAsync(
         int complianceId,
         IFormFile file,
@@ -81,6 +82,53 @@ namespace UrbanNative.Vendors.Services
                 throw new Exception($"Upload failed: {error}");
             }
             response.EnsureSuccessStatusCode();
+        }
+
+        public async Task<string?> ExtractPanAsync(IFormFile file)
+        {
+            using var content = new MultipartFormDataContent();
+
+            content.Add(new StreamContent(file.OpenReadStream()), "file", file.FileName);
+
+            var response = await _http.PostAsync("api/compliance/ocr/pan", content);
+
+            response.EnsureSuccessStatusCode();
+
+            var result = await response.Content.ReadFromJsonAsync<OcrResponseDto>();
+
+            return result?.Value;
+        }
+
+        public async Task<string?> ExtractDocumentAsync( IFormFile file, string regex,int complianceId)
+        {
+            using var form = new MultipartFormDataContent();
+
+            // File content
+            var fileContent = new StreamContent(file.OpenReadStream());
+            fileContent.Headers.ContentType =
+                new MediaTypeHeaderValue(file.ContentType);
+
+            form.Add(fileContent, "File", file.FileName);
+            // Other fields
+            form.Add(new StringContent(complianceId.ToString()), "ComplianceId");
+            form.Add(new StringContent(regex ?? ""), "Regex");
+            // API call
+            var response = await _http.PostAsync(
+                "api/compliance/validate-compliance",
+                form);
+
+            response.EnsureSuccessStatusCode();
+
+            var result = await response.Content
+                .ReadFromJsonAsync<ComplianceValidationResultDto>();
+
+            if (result == null)
+                return null;
+
+            if (!result.IsValid)
+                return result.Message;
+
+            return result.DetectedNumber;
         }
     }
 

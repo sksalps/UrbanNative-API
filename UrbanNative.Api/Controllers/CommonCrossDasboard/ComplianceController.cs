@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using UrbanNative.Infrastructure.Services;
-using UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compliance;
+using System.Text.RegularExpressions;
 using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
+using UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance;
+using UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compliance;
 using UrbanNative.Domain.Entities;
+
 
 namespace UrbanNative.Api.Controllers.Compliance
 {
@@ -14,11 +16,13 @@ namespace UrbanNative.Api.Controllers.Compliance
     public class ComplianceController : ControllerBase
     {
         private readonly IComplianceUseCase _complianceUseCase;
-        private readonly OcrService _ocrService;
+        private readonly IComplianceValidateUseCase _complianceValidateUseCase;
+        private readonly IOcrService _ocrService;
         
-        public ComplianceController(IComplianceUseCase complianceUseCase,OcrService ocrService)
+        public ComplianceController(IComplianceUseCase complianceUseCase,IComplianceValidateUseCase complianceValidateUseCase, IOcrService ocrService)
         {
             _complianceUseCase = complianceUseCase;
+            _complianceValidateUseCase = complianceValidateUseCase;
             _ocrService = ocrService;
         }
 
@@ -125,23 +129,45 @@ namespace UrbanNative.Api.Controllers.Compliance
             }
             
         }
-
+/*
         [HttpPost("ocr/pan")]
         public async Task<IActionResult> ExtractPan(IFormFile file)
+        {
+            if (file == null) return BadRequest();
+
+            using var stream = file.OpenReadStream();
+
+            var pan = await _ocrService.ExtractPanAsync(stream);
+
+            return Ok(new { value = pan });
+        }
+
+        [HttpPost("ocr/document")]
+        public async Task<IActionResult> ExtractDocument([FromForm] IFormFile file,[FromForm] string regex)
         {
             if (file == null || file.Length == 0)
                 return BadRequest("File missing");
 
-            var tempPath = Path.GetTempFileName();
+            using var stream = file.OpenReadStream();
+            
+            var value = await _complianceUseCase.ExtractDocumentNumberAsync(stream, regex);
 
-            using (var stream = System.IO.File.Create(tempPath))
-                await file.CopyToAsync(stream);
+            return Ok(new { value });
+        }
+*/
+        [HttpPost("validate-compliance")]
+        public async Task<IActionResult> ValidateCompliance([FromForm] IFormFile File,[FromForm] int ComplianceId,[FromForm] string Regex)
+        {
+            if (File == null || File.Length == 0)
+                return BadRequest("File missing");
 
-            var text = _ocrService.ExtractText(tempPath);
-            System.IO.File.Delete(tempPath);
+            var result = await _complianceValidateUseCase.ExecuteAsync(
+                File.OpenReadStream(),
+                File.FileName,
+                File.Length,
+                ComplianceId);
 
-            var pan = OcrParser.ExtractPan(text); 
-            return Ok(new { value = pan });
+            return Ok(result);
         }
     }
 }

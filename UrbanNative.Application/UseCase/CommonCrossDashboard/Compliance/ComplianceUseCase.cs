@@ -1,4 +1,6 @@
-﻿using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
+﻿using System.IO;
+using System.Text.RegularExpressions;
+using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
 using UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance;
 using UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compliance;
 
@@ -7,10 +9,12 @@ namespace UrbanNative.Application.UseCase.CommonCroshDashboard.Compliance
     public class ComplianceUseCase : IComplianceUseCase
     {
         private readonly IComplianceRepository _repository;
+        private readonly IOcrService _ocrService;
 
-        public ComplianceUseCase(IComplianceRepository repository)
+        public ComplianceUseCase(IComplianceRepository repository, IOcrService ocrService)
         {
             _repository = repository;
+            _ocrService = ocrService;
         }
 
         // 🔝 Dashboard Summary
@@ -23,7 +27,6 @@ namespace UrbanNative.Application.UseCase.CommonCroshDashboard.Compliance
             // Future: attach global messages, approval flags, etc.
             return result;
         }
-
         // 📊 Category Progress Strip
         public async Task<IEnumerable<ComplianceCategoryProgressDto>> GetCategoryProgressAsync(
             string entityType,
@@ -31,7 +34,6 @@ namespace UrbanNative.Application.UseCase.CommonCroshDashboard.Compliance
         {
             return await _repository.GetCategoryProgressAsync(entityType, entityId);
         }
-
         // 📋 Category Grid
         public async Task<IEnumerable<ComplianceCategoryGridDto>> GetCategoryGridAsync(
             string entityType,
@@ -66,7 +68,6 @@ namespace UrbanNative.Application.UseCase.CommonCroshDashboard.Compliance
         {
             return await _repository.GetCategoryStatusAsync(entityType, entityId, groupId);
         }
-        
         public async Task UploadDocumentAsync(
         string entityType,
         int entityId,
@@ -76,7 +77,20 @@ namespace UrbanNative.Application.UseCase.CommonCroshDashboard.Compliance
         {
             await _repository.UploadDocumentAsync(entityType, entityId, request, fileStream, fileName);
         }
+        
+        public async Task<string?> ExtractDocumentNumberAsync(Stream fileStream, string regex)
+        {
+            if (string.IsNullOrWhiteSpace(regex))
+                return null;
+            fileStream.Position = 0;
+            var text = await _ocrService.ExtractTextAsync(fileStream);
 
+            text = text.ToUpper();
+            text = Regex.Replace(text, @"\s+", "");
+
+            var match = Regex.Match(text, regex, RegexOptions.IgnoreCase);
+
+            return match.Success ? match.Value : null;
+        }
     }
 }
-

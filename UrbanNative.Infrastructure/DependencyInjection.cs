@@ -82,6 +82,7 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<ISettlementPayoutUseCase, SettlementPayoutUseCase>();
             services.AddScoped<IComplianceUseCase, ComplianceUseCase>();
             services.AddScoped<IVendorChangePasswordUseCase, VendorChangePasswordUseCase>();
+            services.AddHttpClient<IOcrService, OcrSpaceService>();
 
             // Repositories
             services.AddScoped<IVendorSettingsRepository, VendorSettingsRepository>();

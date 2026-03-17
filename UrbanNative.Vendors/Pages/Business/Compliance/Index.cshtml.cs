@@ -7,8 +7,6 @@ namespace UrbanNative.Vendors.Pages.Business.Compliance
 {
     public class IndexModel : PageModel
     {
-        
-
         public ComplianceDashboardSummaryDto? Summary { get; set; }
         public IEnumerable<ComplianceCategoryProgressDto> Categories { get; set; } = [];
         public IEnumerable<ComplianceCategoryGridDto> CategoryGrid { get; set; } = [];
@@ -40,6 +38,15 @@ namespace UrbanNative.Vendors.Pages.Business.Compliance
         public IEnumerable<string> MissingMandatoryDocs { get; set; } = [];
         public string ApiBaseUrl { get; private set; } = "";
 
+        public class OCRResponse
+        {
+            public List<ParsedResult>? ParsedResults { get; set; }
+        }
+
+        public class ParsedResult
+        {
+            public string? ParsedText { get; set; }
+        }
         //Constructor
         private readonly IVendorComplianceService _complianceService;
         private readonly IConfiguration _config;
@@ -49,7 +56,6 @@ namespace UrbanNative.Vendors.Pages.Business.Compliance
             _config = config;
             ApiBaseUrl = _config["ApiSettings:BaseUrl"] ?? "";
         }
-
         public async Task OnGetAsync()
         {
             Summary = await _complianceService.GetDashboardSummaryAsync();
@@ -77,8 +83,13 @@ namespace UrbanNative.Vendors.Pages.Business.Compliance
             }
 
         }
-        
 
+        public async Task<IActionResult> OnPostOcrDocumentAsync(    IFormFile File,    int complianceId,    string regex)
+        {
+            var value = await _complianceService.ExtractDocumentAsync(File, regex, complianceId);
+
+            return new JsonResult(new { value });
+        }
         public async Task<IActionResult> OnPostUploadAsync()
         {
             await _complianceService.UploadDocumentAsync(
