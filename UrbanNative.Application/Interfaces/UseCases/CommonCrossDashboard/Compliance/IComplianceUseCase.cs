@@ -5,7 +5,7 @@ namespace UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compl
 {
     public interface IComplianceUseCase
     {
-        Task<ComplianceDashboardSummaryDto> GetDashboardSummaryAsync(
+        Task<IEnumerable<ComplianceScopeDashboardSummaryDto>> GetDashboardSummaryAsync(
             string entityType,
             int entityId);
 

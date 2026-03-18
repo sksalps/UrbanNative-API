@@ -9,6 +9,8 @@ namespace UrbanNative.Vendors.Pages.Business.Compliance
     public class IndexModel : PageModel
     {
         public ComplianceDashboardSummaryDto? Summary { get; set; }
+        //public ComplianceScopeDashboardSummaryDto? ScopeSummaries { get; set; }
+        public IEnumerable<ComplianceScopeDashboardSummaryDto> ScopeSummaries { get; set; }
         public IEnumerable<ComplianceCategoryProgressDto> Categories { get; set; } = [];
         public IEnumerable<ComplianceCategoryGridDto> CategoryGrid { get; set; } = [];
         public ComplianceCategoryStatusDto? CategoryStatus { get; set; }
@@ -60,7 +62,7 @@ namespace UrbanNative.Vendors.Pages.Business.Compliance
         }
         public async Task OnGetAsync()
         {
-            Summary = await _complianceService.GetDashboardSummaryAsync();
+            ScopeSummaries = await _complianceService.GetDashboardSummaryAsync();
             Categories = await _complianceService.GetCategoryProgressAsync();
             CategoryGrid = await _complianceService.GetCategoryGridAsync();
 

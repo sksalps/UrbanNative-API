@@ -29,13 +29,13 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
         }
 
         // 🔝 Dashboard Summary
-        public async Task<ComplianceDashboardSummaryDto> GetDashboardSummaryAsync(
+        public async Task<IEnumerable<ComplianceScopeDashboardSummaryDto>> GetDashboardSummaryAsync(
             string entityType,
             int entityId)
         {
             using var conn = _connFactory.CreateConnection();
 
-            return await conn.QueryFirstOrDefaultAsync<ComplianceDashboardSummaryDto>(
+            return await conn.QueryAsync<ComplianceScopeDashboardSummaryDto>(
                 "sp_Compliance_DashboardSummary",
                 new { EntityType = entityType, EntityID = entityId },
                 commandType: CommandType.StoredProcedure);

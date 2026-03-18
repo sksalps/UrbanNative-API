@@ -18,7 +18,7 @@ namespace UrbanNative.Application.UseCase.CommonCroshDashboard.Compliance
         }
 
         // 🔝 Dashboard Summary
-        public async Task<ComplianceDashboardSummaryDto> GetDashboardSummaryAsync(
+        public async Task<IEnumerable<ComplianceScopeDashboardSummaryDto>> GetDashboardSummaryAsync(
             string entityType,
             int entityId)
         {

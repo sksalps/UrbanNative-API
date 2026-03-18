@@ -5,7 +5,7 @@ namespace UrbanNative.Vendors.Services
 {
     public interface IVendorComplianceService
     {
-        Task<ComplianceDashboardSummaryDto?> GetDashboardSummaryAsync();
+        Task<IEnumerable<ComplianceScopeDashboardSummaryDto?>> GetDashboardSummaryAsync();
 
         Task<IEnumerable<ComplianceCategoryProgressDto>> GetCategoryProgressAsync();
 

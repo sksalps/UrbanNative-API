@@ -17,9 +17,9 @@ namespace UrbanNative.Vendors.Services
         }
 
         // 🔝 Dashboard Summary
-        public async Task<ComplianceDashboardSummaryDto?> GetDashboardSummaryAsync()
+        public async Task<IEnumerable<ComplianceScopeDashboardSummaryDto?>> GetDashboardSummaryAsync()
         {
-            return await _http.GetFromJsonAsync<ComplianceDashboardSummaryDto>(
+            return await _http.GetFromJsonAsync < IEnumerable < ComplianceScopeDashboardSummaryDto >>(
                 "api/compliance/dashboard");
         }
 

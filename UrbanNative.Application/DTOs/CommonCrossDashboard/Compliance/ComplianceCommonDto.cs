@@ -14,6 +14,14 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
         public DateTime? PayoutEligibleOn { get; set; }
         public decimal OverallProgressPercent { get; set; }
     }
+    public class ComplianceScopeDashboardSummaryDto
+    {
+        public string ScopeName { get; set; }
+        public string Status { get; set; }
+        public DateTime? ApprovedOn { get; set; }
+        public decimal ProgressPercent { get; set; }
+        public decimal OverallProgressPercent { get; set; }
+    }
     public class ComplianceCategoryProgressDto
     {
         public int GroupID { get; set; }
@@ -38,7 +46,8 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
         public int ApprovedDocs { get; set; }
 
         public DateTime? LastUpdated { get; set; }
-        public string Descriptions { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string Scopes { get; set; } = string.Empty;
     }
     public class ComplianceDocumentDto
     {
@@ -86,12 +95,14 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
         public int ComplianceId { get; set; }
         public string? Regex { get; set; }
     }
+    
     public class ComplianceDocumentHistoryDto
     {
         public int UploadID { get; set; }
 
         public string FileName { get; set; } = string.Empty;
         public string VerificationStatus { get; set; } = string.Empty;
+        public string ApprovedStatus { get; set; } = string.Empty;
 
         public DateTime? ExpiryDate { get; set; }
         public DateTime UploadedAt { get; set; }
