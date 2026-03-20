@@ -262,23 +262,35 @@
                                     }
                                     else
                                     {
-                                        <button type="button"
-                                                class="btn btn-sm btn-outline-primary"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#uploadModal"
-                                                data-id="@doc.ComplianceID"
-                                                data-hasnumber="@doc.HasNumberField"
-                                                data-label="@doc.NumberFieldLabel"
-                                                data-regex="@doc.NumberFieldRegex"
-                                                data-filetypes="@doc.AllowedFileTypes"
-                                                data-maxsize="@doc.MaxFileSizeMB"
-                                                data-hasexpiry="@doc.HasExpiry"
-                                                data-defaultmonths="@doc.DefaultExpiryMonths"
-                                                onclick="event.stopPropagation();">
+                                        @if (doc.DocumentType == "Data")
+                                        {
+                                            var btnText = doc.ActionType == "Re-upload" ? "Update" : doc.ActionType;
+                                            <a class="btn btn-sm btn-outline-primary"
+                                                   href="@doc.NumberFieldRegex?complianceId=@doc.ComplianceID&fileType=@doc.AllowedFileTypes">
+                                                @btnText
+                                            </a>
+                                            
+                                        }
+                                        else 
+                                        {                                        
+                                            <button type="button"
+                                                    class="btn btn-sm btn-outline-primary"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#uploadModal"
+                                                    data-id="@doc.ComplianceID"
+                                                    data-hasnumber="@doc.HasNumberField"
+                                                    data-label="@doc.NumberFieldLabel"
+                                                    data-regex="@doc.NumberFieldRegex"
+                                                    data-filetypes="@doc.AllowedFileTypes"
+                                                    data-maxsize="@doc.MaxFileSizeMB"
+                                                    data-hasexpiry="@doc.HasExpiry"
+                                                    data-defaultmonths="@doc.DefaultExpiryMonths"
+                                                    onclick="event.stopPropagation();">
                                                 
 
-                                            @(doc.VerificationStatus == "REJECTED" ? "Re-upload" : "Upload")
-                                        </button>
+                                                @(doc.VerificationStatus == "REJECTED" ? "Re-upload" : @doc.ComplianceMode)
+                                            </button>
+                                        }
                                     }
                                 </td>
 

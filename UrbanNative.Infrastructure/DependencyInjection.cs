@@ -1,36 +1,37 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-//Interfaces UseCases
-using UrbanNative.Application.Interfaces.UseCases;
-using UrbanNative.Application.Interfaces.UseCases.VendorInventoryAdd;
-using UrbanNative.Application.Interfaces.UseCases.Wallet;
-using UrbanNative.Application.Interfaces.UseCase.Logistics;
-using UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compliance;
 //Repostitory Interfaces
 using UrbanNative.Application.Interfaces;
 using UrbanNative.Application.Interfaces.CommonCrossDashboard;
+using UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance;
+using UrbanNative.Application.Interfaces.UseCase.Logistics;
+//Interfaces UseCases
+using UrbanNative.Application.Interfaces.UseCases;
+using UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compliance;
+using UrbanNative.Application.Interfaces.UseCases.VendorInventoryAdd;
+using UrbanNative.Application.Interfaces.UseCases.Wallet;
 using UrbanNative.Application.Interfaces.Vendors;
 using UrbanNative.Application.Interfaces.Vendors.InventoryAdd;
 using UrbanNative.Application.Interfaces.Vendors.Orders;
 using UrbanNative.Application.Interfaces.Vendors.Wallet;
-using UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance;
-
 // UseCases Implementation
 using UrbanNative.Application.UseCase;
-using UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd;
-using UrbanNative.Application.UseCases.Vendors;
-using UrbanNative.Application.UseCase.Vendors.Orders;
-using UrbanNative.Application.UseCase.Vendors.Logistics;
-using UrbanNative.Application.UseCase.Vendors.Wallet;
 using UrbanNative.Application.UseCase.CommonCroshDashboard.Compliance;
+using UrbanNative.Application.UseCase.Vendors.Logistics;
+using UrbanNative.Application.UseCase.Vendors.Orders;
+using UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd;
+using UrbanNative.Application.UseCase.Vendors.Wallet;
+using UrbanNative.Application.UseCases.Vendors;
 // Repositories Implementation
 using UrbanNative.Infrastructure.Repositories;
 using UrbanNative.Infrastructure.Repositories.CommonCrossDashboard;
+using UrbanNative.Infrastructure.Repositories.CommonCrossDashboard.Compliance;
 using UrbanNative.Infrastructure.Repositories.Vendors;
 using UrbanNative.Infrastructure.Repositories.Vendors.InventoryAdd;
 using UrbanNative.Infrastructure.Repositories.Vendors.Orders;
 using UrbanNative.Infrastructure.Repositories.Vendors.Wallet;
 using UrbanNative.Infrastructure.Repository;
+using UrbanNative.Infrastructure.Services.OcrService;
 using UrbanNative.Infrastructure.Services;
 
 namespace UrbanNative.Infrastructure
@@ -68,6 +69,8 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<ISettlementPayoutRepository, SettlementPayoutRepository>();
             services.AddScoped<IComplianceRepository, ComplianceRepository>();
 
+            services.AddScoped<IBankRepository,BankRepository>();
+            
             // UseCases
             services.AddScoped<IVendorProfileUseCase, VendorProfileUseCase>();
 
@@ -82,8 +85,10 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<ISettlementPayoutUseCase, SettlementPayoutUseCase>();
             services.AddScoped<IComplianceUseCase, ComplianceUseCase>();
             services.AddScoped<IVendorChangePasswordUseCase, VendorChangePasswordUseCase>();
-            services.AddHttpClient<IOcrService, OcrSpaceService>();
-
+            //services.AddHttpClient<OcrSpaceService>();
+            //services.AddHttpClient<TesseractCliService>();
+            services.AddHttpClient<IOcrService, OcrService>();
+            services.AddScoped<IBankUseCase, BankUseCase>();
             // Repositories
             services.AddScoped<IVendorSettingsRepository, VendorSettingsRepository>();
             services.AddScoped<IVendorProductRepository, VendorProductRepository>();
@@ -93,6 +98,7 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<IInventoryAddRepository, InventoryAddRepository>();
             services.AddScoped<IVendorOrderRepository, VendorOrderRepository>();
             services.AddScoped<IVendorLogisticsRepository, VendorLogisticsRepository>();
+            services.AddScoped<IFileStorageService, FileStorageService>();
             return services;
         }
     }

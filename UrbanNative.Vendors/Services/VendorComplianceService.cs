@@ -19,8 +19,7 @@ namespace UrbanNative.Vendors.Services
         // 🔝 Dashboard Summary
         public async Task<IEnumerable<ComplianceScopeDashboardSummaryDto?>> GetDashboardSummaryAsync()
         {
-            return await _http.GetFromJsonAsync < IEnumerable < ComplianceScopeDashboardSummaryDto >>(
-                "api/compliance/dashboard");
+            return await _http.GetFromJsonAsync < IEnumerable < ComplianceScopeDashboardSummaryDto >>("api/compliance/dashboard");
         }
 
         // 📊 Category Progress Strip
@@ -84,20 +83,6 @@ namespace UrbanNative.Vendors.Services
             response.EnsureSuccessStatusCode();
         }
 
-        public async Task<string?> ExtractPanAsync(IFormFile file)
-        {
-            using var content = new MultipartFormDataContent();
-
-            content.Add(new StreamContent(file.OpenReadStream()), "file", file.FileName);
-
-            var response = await _http.PostAsync("api/compliance/ocr/pan", content);
-
-            response.EnsureSuccessStatusCode();
-
-            var result = await response.Content.ReadFromJsonAsync<OcrResponseDto>();
-
-            return result?.Value;
-        }
 
         public async Task<string?> ExtractDocumentAsync( IFormFile file, string regex,int complianceId)
         {
@@ -113,9 +98,7 @@ namespace UrbanNative.Vendors.Services
             form.Add(new StringContent(complianceId.ToString()), "ComplianceId");
             form.Add(new StringContent(regex ?? ""), "Regex");
             // API call
-            var response = await _http.PostAsync(
-                "api/compliance/validate-compliance",
-                form);
+            var response = await _http.PostAsync("api/compliance/validate-compliance",form);
 
             response.EnsureSuccessStatusCode();
 

@@ -1,0 +1,19 @@
+﻿@page
+@model AddBankModel
+
+<form method="post">
+
+    @Html.AntiForgeryToken()
+
+    <!-- 🔐 Hidden -->
+    <input type="hidden" id="UploadId" asp-for="Bank.UploadId" />
+    <input type="hidden" asp-for="Bank.EntityType" />
+
+    <!-- Shared UI -->
+    <partial name="~/Pages/_AddBankForm.cshtml" model="Model.Bank" />
+
+    
+    <button type="submit" class="btn btn-primary mt-3">
+        Save & Upload
+    </button>
+</form>

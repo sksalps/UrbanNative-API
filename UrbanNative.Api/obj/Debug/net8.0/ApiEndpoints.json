@@ -1645,6 +1645,54 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "BankController",
+    "Method": "ExtractOnly",
+    "RelativePath": "api/bank/ocr_extract",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BankController",
+    "Method": "Save",
+    "RelativePath": "api/bank/save",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance.BankSaveRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BankController",
+    "Method": "Upsert",
+    "RelativePath": "api/bank/upsert",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance.BankUpsertRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "UrbanNative.Api.Controllers.CategoryVariantController",
     "Method": "GetByCategory",
     "RelativePath": "api/categoryvariant/{categoryId}",

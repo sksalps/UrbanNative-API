@@ -74,7 +74,7 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
         public string? NumberFieldRegex { get; set; }
         public string? FileURL { get; set; }
         public string GroupName { get; set; } = string.Empty;
-
+        public string DocumentType { get; set; } = string.Empty;
         public bool IsCategoryMandatory { get; set; }
         public bool IsDocMandatory { get; set; }
         public int CategoryMandatoryDocCount { get; set; }
@@ -86,7 +86,11 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
         public string? DetectedNumber { get; set; }
 
         public string Message { get; set; } = "";
+        // 🔥 ADD THIS for Bank details extraction and
+        // other future use cases where we might want to return multiple extracted fields from the document
+        public Dictionary<string, string> ExtractedFields { get; set; } = new();
     }
+    
     public class ComplianceValidateRequestDto
     {
         public Stream FileStream { get; set; } = default!;

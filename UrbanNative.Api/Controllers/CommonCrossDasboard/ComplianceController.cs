@@ -29,7 +29,7 @@ namespace UrbanNative.Api.Controllers.Compliance
         // 🔐 Resolve Entity Context
 
 
-        private (string EntityType, int EntityId) ResolveEntity()
+    private (string EntityType, int EntityId) ResolveEntity()
     {
         // ✔ Determine entity type from Role
         var role = User.FindFirst(ClaimTypes.Role)?.Value;
@@ -47,13 +47,22 @@ namespace UrbanNative.Api.Controllers.Compliance
     }
 
     // 🔝 Dashboard Summary
-    [HttpGet("dashboard")]
+    
+
+        [HttpGet("dashboard")]
         public async Task<IActionResult> GetDashboardSummary()
         {
-            var (entityType, entityId) = ResolveEntity();
+            try
+            {
+                var (entityType, entityId) = ResolveEntity();
 
-            var result = await _complianceUseCase.GetDashboardSummaryAsync(entityType, entityId);
-            return Ok(result);
+                var result = await _complianceUseCase.GetDashboardSummaryAsync(entityType, entityId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString()); // 🔥 IMPORTANT
+            }
         }
 
         // 📊 Category Progress
@@ -177,6 +186,8 @@ namespace UrbanNative.Api.Controllers.Compliance
 
             return Ok(result);
         }
+
+        
     }
 }
 

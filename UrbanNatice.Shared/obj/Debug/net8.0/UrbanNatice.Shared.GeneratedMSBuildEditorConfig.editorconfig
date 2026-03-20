@@ -25,3 +25,7 @@ build_metadata.AdditionalFiles.CssScope =
 [E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNatice.Shared/Component1.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50MS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-hffdbretr9
+
+[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNatice.Shared/Pages/_AddBankForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0FkZEJhbmtGb3JtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
