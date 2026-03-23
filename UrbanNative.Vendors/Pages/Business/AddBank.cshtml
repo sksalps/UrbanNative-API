@@ -3,17 +3,16 @@
 
 <form method="post">
 
-    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="ComplianceName" />
+    <input type="hidden" asp-for="AllowedFileTypes" />
 
-    <!-- 🔐 Hidden -->
-    <input type="hidden" id="UploadId" asp-for="Bank.UploadId" />
-    <input type="hidden" asp-for="Bank.EntityType" />
+    <div asp-validation-summary="All" class="text-danger"></div>
 
-    <!-- Shared UI -->
-    <partial name="~/Pages/_AddBankForm.cshtml" model="Model.Bank" />
+    <!-- 🔥 THIS FIXES EVERYTHING -->
+    @Html.EditorFor(m => m.Bank)
 
-    
     <button type="submit" class="btn btn-primary mt-3">
-        Save & Upload
+        Save
     </button>
+
 </form>

@@ -2,6 +2,7 @@
 using System.Net.Http.Headers;
 using UrbanNative.Vendors.Services.Interfaces;
 using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
+using UrbanNative.Shared.SharedDTOs;
 
  namespace UrbanNative.Vendors.Services
 {
@@ -14,55 +15,42 @@ using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
             _http = factory.CreateClient("ApiClient");
         }
 
-        // ================= OCR + VALIDATE + UPLOAD =================
-
-        public async Task<ComplianceValidationResultDto> ExtractOnlyAsync(IFormFile file)
+        public async Task<ComplianceValidationResultDto> ExtractOnlyAsync(IFormFile file,string complianceName)
         {
-            using var content = new MultipartFormDataContent();
+            var content = new MultipartFormDataContent();
 
-            var fileContent = new StreamContent(file.OpenReadStream());
-            content.Add(fileContent, "file", file.FileName);
+            content.Add(new StreamContent(file.OpenReadStream()), "file", file.FileName);
+            content.Add(new StringContent(complianceName), "complianceName");
 
             var response = await _http.PostAsync("api/bank/ocr_extract", content);
 
-            response.EnsureSuccessStatusCode();
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                throw new Exception($"API ERROR: {response.StatusCode} - {error}");
+            }
 
             return await response.Content.ReadFromJsonAsync<ComplianceValidationResultDto>();
         }
 
 
-        // ================= UPSERT (NO FILE) =================
-        public async Task<int> UpsertComplianceAsync( int uploadId,    string accountNo
-        )
-        {
-            var request = new
-            {
-                UploadId = uploadId,
-                DocumentNumber = accountNo
-            };
-
-            var response = await _http.PostAsJsonAsync("api/bank/upsert", request);
-
-            if (!response.IsSuccessStatusCode)
-            {
-                var error = await response.Content.ReadAsStringAsync();
-                throw new Exception($"Upsert failed: {error}");
-            }
-
-            var result = await response.Content.ReadFromJsonAsync<UploadResponseDto>();
-
-            return result?.UploadId ?? 0;
-        }
 
         // ================= SAVE BANK =================
-        public async Task SaveAsync(BankSaveRequestDto dto)
+        public async Task SaveFullAsync(IFormFile file, BankFormModel dto)
         {
-            var response = await _http.PostAsJsonAsync("api/bank/save", dto);
+            using var content = new MultipartFormDataContent();
 
-            if (!response.IsSuccessStatusCode)
+            content.Add(new StringContent(dto.AccountHolderName ?? ""), "AccountHolderName");
+            content.Add(new StringContent(dto.AccountNo ?? ""), "AccountNo");
+            content.Add(new StringContent(dto.IFSCCode ?? ""), "IFSCCode");
+            content.Add(new StringContent(dto.CityName ?? ""), "CityName");
+
+            var res = await _http.PostAsync("api/bank/save", content);
+
+            if (!res.IsSuccessStatusCode)
             {
-                var error = await response.Content.ReadAsStringAsync();
-                throw new Exception($"Save failed: {error}");
+                var err = await res.Content.ReadAsStringAsync();
+                throw new Exception(err);
             }
         }
     }

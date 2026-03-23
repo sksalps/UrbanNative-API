@@ -34,6 +34,7 @@ namespace UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance
 
         Task<ComplianceCategoryStatusDto> GetCategoryStatusAsync(string entityType, int entityId, int groupId);
         Task<ComplianceMaster?> GetComplianceAsync(int complianceId);
+        Task<int?> GetComplianceByNameAsync(string complianceName);
 
     }
 

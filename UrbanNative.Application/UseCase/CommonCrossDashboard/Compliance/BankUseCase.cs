@@ -24,59 +24,47 @@ public class BankUseCase : IBankUseCase
         _bankRepo = bankRepo;
         _fileStorage = fileStorage;
     }
-
-    // ================= VALIDATE =================
-    public async Task<ComplianceValidationResultDto> ValidateAndUploadAsync(
-        IFormFile file,
-        int uploadId,
-        string entityType,
-        int entityId)
+    // ================= SAVE BANK =================
+    public async Task SaveBankAsync(IFormFile file, BankSaveRequestDto dto)
     {
-        // 🔥 STEP 1: Get ComplianceMaster ONCE
-        //var compliance = await _complianceRepo.GetByNameAsync("Bank Details");
-        var compliance = await _complianceRepo.GetComplianceAsync(9);
-        if (compliance == null)
+        var complianceId = await _complianceRepo.GetComplianceByNameAsync(dto.ComplianceName);
+        if (complianceId == null)
+        {
             throw new Exception("Bank compliance not configured");
-
+        }
+        var compliance = await _complianceRepo.GetComplianceAsync((int)complianceId); //temp hardcoded, should be by name
+        if (compliance == null)
+        {
+            throw new Exception("Bank compliance not configured");
+        }
         using var stream = file.OpenReadStream();
 
-        // 🔥 STEP 2: OCR + Validation
-        var validation = await _validationService.ValidateAsync(
-            stream,
-            file.FileName,
-            file.Length,
-            compliance
-        );
-
-        if (!validation.IsValid)
-            return validation;
-
-        // 🔥 STEP 3: Save file physically
+        // 🔥 Save file physically
         var fileUrl = await _fileStorage.SaveAsync(file, "bank");
-
-        // 🔥 STEP 4: Upsert compliance
-        var newUploadId = await _bankRepo.UpsertComplianceAsync(
-            uploadId,
-            entityType,
-            entityId,
-            compliance.ComplianceID,
-            file.FileName,
-            fileUrl,
-            validation.ExtractedFields.GetValueOrDefault("AccountNo")
-        );
-
-        validation.ExtractedFields["UploadId"] = newUploadId.ToString();
-
-        return validation;
+        dto.FileURL = fileUrl;
+        dto.FileName = file.FileName;
+        dto.ComplianceId = compliance.ComplianceID;
+        await _bankRepo.SaveBankAsync(dto);
     }
 
 
-    public async Task<ComplianceValidationResultDto> ExtractOnlyAsync(IFormFile file)
+    public async Task<ComplianceValidationResultDto> ExtractOnlyAsync(IFormFile file, string complianceName)
     {
-        //var compliance = await _complianceRepo.GetByNameAsync("Bank Details");
-        var compliance = await _complianceRepo.GetComplianceAsync(9);
-        using var stream = file.OpenReadStream();
+        complianceName = complianceName ?? "";
+        
+        if (complianceName == "")
+            throw new Exception("Invalid compliance name");
 
+        var complianceId = await _complianceRepo.GetComplianceByNameAsync(complianceName);
+        if (complianceId == null)
+        {
+            throw new Exception("Bank compliance not configured");
+        }
+        var compliance = await _complianceRepo.GetComplianceAsync((int)complianceId); //temp hardcoded, should be by name
+        if (compliance == null) { 
+            throw new Exception("Bank compliance not configured");
+        }
+        using var stream = file.OpenReadStream();
         var result = await _validationService.ValidateAsync(
             stream,
             file.FileName,
@@ -86,29 +74,6 @@ public class BankUseCase : IBankUseCase
 
         return result; // 🔥 NO DB CALL
     }
-    // ================= UPSERT (NO FILE) =================
-    public async Task<int> UpsertAsync(int uploadId, string documentNumber,string entityType,int entityId)
-    {
-        //var compliance = await _complianceRepo.GetByNameAsync("Bank Details");
-        var compliance = await _complianceRepo.GetComplianceAsync(9);
 
-        if (compliance == null)
-            throw new Exception("Bank compliance not configured");
-
-        return await _bankRepo.UpsertComplianceAsync(
-            uploadId,
-            entityType,
-            entityId,
-            compliance.ComplianceID,
-            fileName: null,
-            fileUrl: null,
-            documentNumber
-        );
-    }
-
-    // ================= SAVE BANK =================
-    public async Task SaveBankAsync(BankSaveRequestDto dto)
-    {
-        await _bankRepo.SaveBankAsync(dto);
-    }
+    
 }

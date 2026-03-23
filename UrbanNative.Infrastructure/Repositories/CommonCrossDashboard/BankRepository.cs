@@ -17,35 +17,6 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard.Complianc
             _connectionFactory = connectionFactory;
         }
 
-        // ================= UPSERT COMPLIANCE =================
-        public async Task<int> UpsertComplianceAsync(
-            int uploadId,
-            string entityType,
-            int entityId,
-            int complianceId,
-            string? fileName,
-            string? fileUrl,
-            string? documentNumber)
-        {
-            using var conn = _connectionFactory.CreateConnection();
-
-            var result = await conn.QuerySingleAsync<int>(
-                "sp_ComplianceBankDetails_Upsert",
-                new
-                {
-                    UploadID = uploadId,
-                    EntityType = entityType,
-                    EntityID = entityId,
-                    ComplianceID = complianceId,
-                    FileName = fileName,
-                    FileURL = fileUrl,
-                    DocumentNumber = documentNumber
-                },
-                commandType: CommandType.StoredProcedure
-            );
-
-            return result;
-        }
 
         // ================= SAVE BANK =================
         public async Task SaveBankAsync(BankSaveRequestDto dto)
@@ -71,7 +42,10 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard.Complianc
                     dto.CityName,
                     dto.Pincode,
                     dto.IsPrimary,
-                    ComplianceUploadId = dto.UploadId
+                    dto.ComplianceId,
+                    dto.FileName,
+                    dto.FileURL,
+                    DocumentNumber=dto.AccountNo
                 },
                 commandType: CommandType.StoredProcedure
             );

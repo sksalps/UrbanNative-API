@@ -1,4 +1,6 @@
-﻿using Dapper;
+﻿using Azure.Core;
+using Dapper;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -206,7 +208,19 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
                 },
                 commandType: CommandType.StoredProcedure);
         }
-        
+        public async Task<int?> GetComplianceByNameAsync(string complianceName)
+        {
+            using var conn = _connFactory.CreateConnection();
+            var ComplianceID = await conn.QueryFirstOrDefaultAsync<int>(
+           "SELECT Top 1 ComplianceId FROM ComplianceMaster where ComplianceName=@complianceName AND IsActive=1",
+           new { complianceName });
+
+            if (ComplianceID ==0)
+            {
+                throw new InvalidOperationException("Compliance Not Configured");
+            }
+            return ComplianceID;
+        }
     }
 }
 

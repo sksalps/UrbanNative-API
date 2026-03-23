@@ -15,7 +15,8 @@
           "Newtonsoft.Json": "13.0.4",
           "System.Net.Http.Json": "10.0.2",
           "UrbanNatice.Shared": "1.0.0",
-          "UrbanNative.Application": "1.0.0"
+          "UrbanNative.Application": "1.0.0",
+          "UrbanNative.Shared": "1.0.0"
         },
         "runtime": {
           "UrbanNative.Vendors.dll": {}
@@ -834,17 +835,6 @@
           }
         }
       },
-      "UrbanNatice.Shared/1.0.0": {
-        "dependencies": {
-          "Microsoft.AspNetCore.Components.Web": "8.0.23"
-        },
-        "runtime": {
-          "UrbanNatice.Shared.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
       "UrbanNative.Application/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Mvc.Abstractions": "2.3.9",
@@ -860,6 +850,17 @@
       "UrbanNative.Domain/1.0.0": {
         "runtime": {
           "UrbanNative.Domain.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "UrbanNative.Shared/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.23"
+        },
+        "runtime": {
+          "UrbanNative.Shared.dll": {
             "assemblyVersion": "1.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -1426,17 +1427,17 @@
       "path": "system.text.json/10.0.2",
       "hashPath": "system.text.json.10.0.2.nupkg.sha512"
     },
-    "UrbanNatice.Shared/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
     "UrbanNative.Application/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
     "UrbanNative.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "UrbanNative.Shared/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

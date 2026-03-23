@@ -9,5 +9,5 @@
   <Project Path="E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Domain/UrbanNative.Domain.csproj" />
   <Project Path="E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Infrastructure/UrbanNative.Infrastructure.csproj" />
   <Project Path="E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Vendors/UrbanNative.Vendors.csproj" Id="8c8510ab-2631-4cbd-a2a4-c1733fb5ffa5" />
-  <Project Path="UrbanNatice.Shared/UrbanNatice.Shared.csproj" Id="a2d5ded9-d2a9-400f-9d2e-70c6ee531958" />
+  <Project Path="UrbanNative.Shared/UrbanNative.Shared.csproj" />
 </Solution>

@@ -9,15 +9,6 @@ namespace UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance
 {
         public interface IBankRepository
         {
-            Task<int> UpsertComplianceAsync(
-                int uploadId,
-                string entityType,
-                int entityId,
-                int complianceId,
-                string? fileName,
-                string? fileUrl,
-                string? documentNumber
-            );
 
             Task SaveBankAsync(BankSaveRequestDto dto);
         }

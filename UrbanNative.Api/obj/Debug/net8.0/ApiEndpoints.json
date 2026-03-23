@@ -1656,6 +1656,11 @@
         "Name": "file",
         "Type": "Microsoft.AspNetCore.Http.IFormFile",
         "IsRequired": false
+      },
+      {
+        "Name": "complianceName",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -1669,25 +1674,49 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "dto",
-        "Type": "UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance.BankSaveRequestDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "BankController",
-    "Method": "Upsert",
-    "RelativePath": "api/bank/upsert",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
+        "Name": "AccountHolderName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
       {
-        "Name": "dto",
-        "Type": "UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance.BankUpsertRequestDto",
-        "IsRequired": true
+        "Name": "AccountNo",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "IFSCCode",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "CityName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "BankName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "BranchName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "UPIId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "StateName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Pincode",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

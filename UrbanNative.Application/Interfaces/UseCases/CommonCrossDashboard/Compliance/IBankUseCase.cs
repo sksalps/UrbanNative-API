@@ -11,14 +11,10 @@ namespace UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compl
 
     public interface IBankUseCase
     {
-        Task<ComplianceValidationResultDto> ValidateAndUploadAsync(
-            IFormFile file,
-            int uploadId,
-            string entityType,
-            int entityId);
+        
 
-        Task<int> UpsertAsync(int uploadId,string documentNumber,string entityType,      int entityId);
-        Task<ComplianceValidationResultDto> ExtractOnlyAsync(IFormFile file);
-        Task SaveBankAsync(BankSaveRequestDto dto);
+        //Task<int> UpsertAsync(IFormFile file, string[] allowed, int uploadId, string documentNumber, string entityType, int entityId);
+        Task<ComplianceValidationResultDto> ExtractOnlyAsync(IFormFile file, string complianceName);
+        Task SaveBankAsync(IFormFile file, BankSaveRequestDto dto);
     }
 }

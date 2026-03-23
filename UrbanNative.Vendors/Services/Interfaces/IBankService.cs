@@ -1,12 +1,11 @@
 ﻿using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
+using UrbanNative.Shared.SharedDTOs;
 
 namespace UrbanNative.Vendors.Services.Interfaces
 {
     public interface IBankService
     {
-        Task<int> UpsertComplianceAsync(int uploadId,         string accountNo       );
-
-        //Task<int> UploadAsync(     IFormFile file,            int complianceId,   string entityType,            int entityId);
-        Task SaveAsync(BankSaveRequestDto dto);
+        Task<ComplianceValidationResultDto> ExtractOnlyAsync(IFormFile file, string complianceName);
+        Task SaveFullAsync(IFormFile file, BankFormModel dto);
     }
 }

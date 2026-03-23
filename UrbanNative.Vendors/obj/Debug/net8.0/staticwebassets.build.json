@@ -1,15 +1,15 @@
 {
   "Version": 1,
-  "Hash": "egdN7WF8A+Ao1Ab0dzBZykWebwC8leJt/Uf9j/qboac=",
+  "Hash": "tHhLOdk2qdiiV9vyQwy3DniV0JqDKzG9sow2M6WzUW4=",
   "Source": "UrbanNative.Vendors",
   "BasePath": "_content/UrbanNative.Vendors",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\UrbanNatice.Shared.csproj",
+      "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\UrbanNative.Shared.csproj",
       "Version": 2,
-      "Source": "UrbanNatice.Shared",
+      "Source": "UrbanNative.Shared",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
       "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
       "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained",
@@ -20,10 +20,10 @@
   ],
   "DiscoveryPatterns": [
     {
-      "Name": "UrbanNatice.Shared\\wwwroot",
-      "Source": "UrbanNatice.Shared",
-      "ContentRoot": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\wwwroot\\",
-      "BasePath": "_content/UrbanNatice.Shared",
+      "Name": "UrbanNative.Shared\\wwwroot",
+      "Source": "UrbanNative.Shared",
+      "ContentRoot": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\wwwroot\\",
+      "BasePath": "_content/UrbanNative.Shared",
       "Pattern": "**"
     },
     {
@@ -36,12 +36,12 @@
   ],
   "Assets": [
     {
-      "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\UrbanNatice.Shared.bundle.scp.css",
-      "SourceId": "UrbanNatice.Shared",
+      "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\UrbanNative.Shared.bundle.scp.css",
+      "SourceId": "UrbanNative.Shared",
       "SourceType": "Project",
-      "ContentRoot": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
-      "BasePath": "_content/UrbanNatice.Shared",
-      "RelativePath": "UrbanNatice.Shared.bundle.scp.css",
+      "ContentRoot": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "BasePath": "_content/UrbanNative.Shared",
+      "RelativePath": "UrbanNative.Shared.bundle.scp.css",
       "AssetKind": "All",
       "AssetMode": "Reference",
       "AssetRole": "Primary",
@@ -52,14 +52,14 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\UrbanNatice.Shared.bundle.scp.css"
+      "OriginalItemSpec": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\UrbanNative.Shared.bundle.scp.css"
     },
     {
-      "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\wwwroot\\background.png",
-      "SourceId": "UrbanNatice.Shared",
+      "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\wwwroot\\background.png",
+      "SourceId": "UrbanNative.Shared",
       "SourceType": "Project",
-      "ContentRoot": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\wwwroot\\",
-      "BasePath": "_content/UrbanNatice.Shared",
+      "ContentRoot": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\wwwroot\\",
+      "BasePath": "_content/UrbanNative.Shared",
       "RelativePath": "background.png",
       "AssetKind": "All",
       "AssetMode": "All",
@@ -74,11 +74,11 @@
       "OriginalItemSpec": "wwwroot\\background.png"
     },
     {
-      "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\wwwroot\\exampleJsInterop.js",
-      "SourceId": "UrbanNatice.Shared",
+      "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\wwwroot\\exampleJsInterop.js",
+      "SourceId": "UrbanNative.Shared",
       "SourceType": "Project",
-      "ContentRoot": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\wwwroot\\",
-      "BasePath": "_content/UrbanNatice.Shared",
+      "ContentRoot": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\wwwroot\\",
+      "BasePath": "_content/UrbanNative.Shared",
       "RelativePath": "exampleJsInterop.js",
       "AssetKind": "All",
       "AssetMode": "All",
