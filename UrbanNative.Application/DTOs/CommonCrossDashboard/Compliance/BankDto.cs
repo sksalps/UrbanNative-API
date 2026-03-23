@@ -7,30 +7,71 @@ using System.Threading.Tasks;
 
 namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
 {
-    // 📁 UrbanNative.Application.DTOs.Vendors
 
-    using System.ComponentModel.DataAnnotations;
+   public class BankSaveRequestDto
+        {
+            public int? BankID { get; set; }
 
-    // BankSaveFormDto.cs
+            // 🔹 Compliance
+            public int ComplianceId { get; set; }
+            public string? ComplianceName { get; set; }
 
-    using System.ComponentModel.DataAnnotations;
+            // 🔹 File (optional)
+            public string? FileName { get; set; }
+            public string? FileURL { get; set; }
 
+            // 🔹 Bank Info
+            [Required(ErrorMessage = "Account Holder Name is required")]
+            public string AccountHolderName { get; set; }
+
+            [Required(ErrorMessage = "Account Number is required")]
+            [RegularExpression(@"^\d{9,18}$",
+                ErrorMessage = "Account Number must be 9–18 digits")]
+            public string AccountNo { get; set; }
+
+            [Required(ErrorMessage = "IFSC Code is required")]
+            [RegularExpression(@"^[A-Z]{4}0[A-Z0-9]{6}$",
+                ErrorMessage = "Invalid IFSC format")]
+            public string IFSCCode { get; set; }
+
+            // 🔹 Optional Bank Details
+            public string? BankName { get; set; }
+            public string? BranchName { get; set; }
+            public string? AccountType { get; set; }
+            public string? UPIId { get; set; }
+
+            // 🔹 Location
+            [Required(ErrorMessage = "City is required")]
+            public string CityName { get; set; }
+
+            public string? StateName { get; set; }
+            public string? CountryName { get; set; }
+            public string? Pincode { get; set; }
+
+            // 🔹 Flags
+            public bool IsPrimary { get; set; } = true;
+            public bool IsFromCompliance { get; set; } = false;
+
+            // 🔹 Entity Context (VERY IMPORTANT)
+            public string? EntityType { get; set; }   // Vendor / Customer / Affiliate
+            public int EntityID { get; set; }
+        }
+
+    
     public class BankSaveFormDto
     {
-        [Required(ErrorMessage = "Account Holder Name is required")]
+        //[Required(ErrorMessage = "Account Holder Name is required")]
         public string AccountHolderName { get; set; }
 
-        [Required(ErrorMessage = "Account Number is required")]
-        [RegularExpression(@"^\d{9,18}$",
-            ErrorMessage = "Account Number must be 9–18 digits")]
+        //[Required(ErrorMessage = "Account Number is required")]
+        //[RegularExpression(@"^\d{9,18}$",            ErrorMessage = "Account Number must be 9–18 digits")]
         public string AccountNo { get; set; }
 
-        [Required(ErrorMessage = "IFSC Code is required")]
-        [RegularExpression(@"^[A-Z]{4}0[A-Z0-9]{6}$",
-            ErrorMessage = "Invalid IFSC format")]
+       // [Required(ErrorMessage = "IFSC Code is required")]
+       // [RegularExpression(@"^[A-Z]{4}0[A-Z0-9]{6}$",            ErrorMessage = "Invalid IFSC format")]
         public string IFSCCode { get; set; }
 
-        [Required(ErrorMessage = "City is required")]
+        //[Required(ErrorMessage = "City is required")]
         public string CityName { get; set; }
 
 
@@ -42,33 +83,6 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
         public string? Pincode { get; set; }
 
         
-    }
-    public class BankSaveRequestDto
-    {
-        public int? BankID { get; set; }
-        public int ComplianceId { get; set; }
-        public string ComplianceName { get; set; }
-        public string FileName { get; set; }
-        public string FileURL { get; set; }
-
-        public string AccountHolderName { get; set; }
-        public string BankName { get; set; }
-        public string BranchName { get; set; }
-        public string AccountNo { get; set; }
-        public string AccountType { get; set; }
-        public string UPIId { get; set; }
-        public string IFSCCode { get; set; }
-
-        public string CountryName { get; set; }
-        public string StateName { get; set; }
-        public string CityName { get; set; }
-        public string Pincode { get; set; }
-
-        public bool IsPrimary { get; set; }
-        public bool IsFromCompliance { get; set; }
-
-        public string EntityType { get; set; }
-        public int EntityID { get; set; }
     }
     /*
     public class BankSaveRequestDto

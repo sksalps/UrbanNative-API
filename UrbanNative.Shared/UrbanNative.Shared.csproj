@@ -25,5 +25,9 @@
   <ItemGroup>
     <None Include="wwwroot\css\common.css" />
   </ItemGroup>
+	
+  <ItemGroup>
+    <Folder Include="Pages\EditorTemplates\" />
+  </ItemGroup>
 
 </Project>

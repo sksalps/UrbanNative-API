@@ -25,11 +25,18 @@ public class BankController : ControllerBase
         return Ok(result);
     }
 
+
     [HttpPost("save")]
-    public async Task<IActionResult> Save([FromForm] BankSaveFormDto formDto)
+    public async Task<IActionResult> Save(
+    [FromForm] IFormFile file,
+    [FromForm] BankSaveRequestDto dto)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
+        var (entityType, entityId) = ResolveEntity();
+
+        dto.EntityType = entityType;
+        dto.EntityID = entityId;
+
+        await _useCase.SaveBankAsync(file, dto);
 
         return Ok();
     }

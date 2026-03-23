@@ -217,7 +217,7 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
 
             if (ComplianceID ==0)
             {
-                throw new InvalidOperationException("Compliance Not Configured");
+                throw new InvalidOperationException("Bank Compliance Not Configured");
             }
             return ComplianceID;
         }

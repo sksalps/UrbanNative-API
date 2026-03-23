@@ -18,11 +18,9 @@ namespace UrbanNative.Application.UseCase.CommonCroshDashboard.Compliance
             _repository = repository;
         }
 
-
-        public async Task<ComplianceValidationResultDto> ExecuteAsync(    Stream fileStream,    string fileName,    long fileSize,
+        public async Task<ComplianceValidationResultDto> ExecuteAsync(Stream fileStream,string fileName,long fileSize,
     int complianceId)
         {
-            
             var compliance = await _repository.GetComplianceAsync(complianceId);
             //Call the validation service to validate the document based on the compliance rules 
             return await _validationService.ValidateAsync(

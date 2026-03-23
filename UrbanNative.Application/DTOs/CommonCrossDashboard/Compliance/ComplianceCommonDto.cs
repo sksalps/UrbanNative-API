@@ -89,6 +89,7 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
         // 🔥 ADD THIS for Bank details extraction and
         // other future use cases where we might want to return multiple extracted fields from the document
         public Dictionary<string, string> ExtractedFields { get; set; } = new();
+        public string? ExtractedText { get; set; } = "";
     }
     
     public class ComplianceValidateRequestDto

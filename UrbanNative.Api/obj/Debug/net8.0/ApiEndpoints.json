@@ -1674,6 +1674,61 @@
     "Order": 0,
     "Parameters": [
       {
+        "Name": "ContentType",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ContentDisposition",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Headers",
+        "Type": "Microsoft.AspNetCore.Http.IHeaderDictionary",
+        "IsRequired": false
+      },
+      {
+        "Name": "Length",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FileName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "BankID",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "ComplianceId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "ComplianceName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FileName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FileURL",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
         "Name": "AccountHolderName",
         "Type": "System.String",
         "IsRequired": false
@@ -1689,11 +1744,6 @@
         "IsRequired": false
       },
       {
-        "Name": "CityName",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
         "Name": "BankName",
         "Type": "System.String",
         "IsRequired": false
@@ -1704,7 +1754,17 @@
         "IsRequired": false
       },
       {
+        "Name": "AccountType",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
         "Name": "UPIId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "CityName",
         "Type": "System.String",
         "IsRequired": false
       },
@@ -1714,8 +1774,33 @@
         "IsRequired": false
       },
       {
+        "Name": "CountryName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
         "Name": "Pincode",
         "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "IsPrimary",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "IsFromCompliance",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "EntityType",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "EntityID",
+        "Type": "System.Int32",
         "IsRequired": false
       }
     ],

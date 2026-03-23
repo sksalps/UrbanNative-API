@@ -1,15 +1,12 @@
 ﻿@page
 @model AddBankModel
 
-<form method="post">
-
+<form method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="ComplianceName" />
     <input type="hidden" asp-for="AllowedFileTypes" />
 
-    <div asp-validation-summary="All" class="text-danger"></div>
-
-    <!-- 🔥 THIS FIXES EVERYTHING -->
-    @Html.EditorFor(m => m.Bank)
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <partial name="~/Pages/_AddBankForm.cshtml" model="Model.Bank" />
 
     <button type="submit" class="btn btn-primary mt-3">
         Save

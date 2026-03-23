@@ -83,8 +83,8 @@ namespace UrbanNative.Application.UseCase.CommonCroshDashboard.Compliance
             if (string.IsNullOrWhiteSpace(regex))
                 return null;
             fileStream.Position = 0;
-            var text = await _ocrService.ExtractTextAsync(fileStream);
-
+            //var text = await _ocrService.ExtractTextAsync(fileStream);
+            var text = "";
             text = text.ToUpper();
             text = Regex.Replace(text, @"\s+", "");
 

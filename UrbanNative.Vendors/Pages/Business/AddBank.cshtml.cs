@@ -35,15 +35,47 @@ public class AddBankModel : PageModel
         return Page();
     }
 
-    public async Task<IActionResult> OnPostAsync()
+    public async Task<IActionResult> OnPostAsync(IFormFile ChequeFile)
     {
         if (!ModelState.IsValid)
             return Page();
 
-        await _bankService.SaveFullAsync(null, Bank);
+        var dto = new BankSaveRequestDto
+        {
+            AccountHolderName = Bank.AccountHolderName,
+            AccountNo = Bank.AccountNo,
+            IFSCCode = Bank.IFSCCode,
+            CityName = Bank.CityName,
+
+            BankName = Bank.BankName,
+            BranchName = Bank.BranchName,
+            UPIId = Bank.UPIId,
+            StateName = Bank.StateName,
+            Pincode = Bank.Pincode,
+
+            ComplianceName = ComplianceName
+        };
+
+        await _bankService.SaveFullAsync(ChequeFile, dto);
 
         TempData["Success"] = "Bank saved successfully";
 
         return RedirectToPage("/Business/Index");
     }
+
+    public async Task<IActionResult> OnPostExtractOnlyAsync(IFormFile ChequeFile)
+    {
+        if (ChequeFile == null || ChequeFile.Length == 0)
+        {
+            return new JsonResult(new { isValid = false, message = "Invalid file" });
+        }
+        // 🔥 ALWAYS ensure ComplianceName
+        if (string.IsNullOrWhiteSpace(ComplianceName))
+            ComplianceName = "Bank Details";
+
+        var result = await _bankService.ExtractOnlyAsync(ChequeFile, ComplianceName);
+
+        return new JsonResult(result);
+    }
+
 }

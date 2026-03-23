@@ -6,6 +6,6 @@ namespace UrbanNative.Vendors.Services.Interfaces
     public interface IBankService
     {
         Task<ComplianceValidationResultDto> ExtractOnlyAsync(IFormFile file, string complianceName);
-        Task SaveFullAsync(IFormFile file, BankFormModel dto);
+        Task SaveFullAsync(IFormFile file, BankSaveRequestDto dto);
     }
 }

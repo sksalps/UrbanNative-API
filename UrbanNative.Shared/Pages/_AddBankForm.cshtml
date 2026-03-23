@@ -1,0 +1,199 @@
+﻿@model UrbanNative.Shared.SharedDTOs.BankFormModel
+
+@{
+    string val(string key, string modelVal)
+    {
+        var v = ViewData.ModelState[key]?.AttemptedValue;
+        return v ?? modelVal ?? "";
+    }
+}
+
+<div class="card p-4">
+
+    <!-- ================= FILE UPLOAD ================= -->
+    <div class="mb-3">
+        <label>Upload Cancelled Cheque (optional)</label>
+
+        <input type="file"
+               name="ChequeFile"
+               id="ChequeFile"
+               class="form-control"
+               accept=".jpg,.jpeg,.png,.pdf"
+               onchange="previewFile(event)" />
+
+        <!-- Preview -->
+        <div class="mt-2">
+            <img id="imgPreview" style="max-height:200px; display:none;" />
+            <iframe id="pdfPreview" style="width:100%; height:300px; display:none;"></iframe>
+
+            <button type="button"
+                    class="btn btn-secondary mt-2"
+                    onclick="extractAndAutofill()">
+                Extract & Autofill
+            </button>
+        </div>
+    </div>
+
+    <!-- ================= BANK DETAILS ================= -->
+    <div class="row g-3">
+
+        <div class="col-md-6">
+            <label>Account Holder Name</label>
+            <input id="AccountHolderName"
+                   name="Bank.AccountHolderName"
+                   value="@val("Bank.AccountHolderName", Model?.AccountHolderName)"
+                   class="form-control" />
+        </div>
+
+        <div class="col-md-6">
+            <label>Account Number</label>
+            <input id="AccountNo"
+                   name="Bank.AccountNo"
+                   value="@val("Bank.AccountNo", Model?.AccountNo)"
+                   class="form-control" />
+        </div>
+
+        <div class="col-md-6">
+            <label>IFSC Code</label>
+            <input id="IFSCCode"
+                   name="Bank.IFSCCode"
+                   value="@val("Bank.IFSCCode", Model?.IFSCCode)"
+                   class="form-control" />
+        </div>
+
+        <div class="col-md-6">
+            <label>Bank Name</label>
+            <input id="BankName"
+                   name="Bank.BankName"
+                   value="@val("Bank.BankName", Model?.BankName)"
+                   class="form-control" />
+        </div>
+
+        <div class="col-md-6">
+            <label>Branch</label>
+            <input id="BranchName"
+                   name="Bank.BranchName"
+                   value="@val("Bank.BranchName", Model?.BranchName)"
+                   class="form-control" />
+        </div>
+
+        <div class="col-md-6">
+            <label>UPI ID</label>
+            <input id="UPIId"
+                   name="Bank.UPIId"
+                   value="@val("Bank.UPIId", Model?.UPIId)"
+                   class="form-control" />
+        </div>
+
+    </div>
+
+    <hr />
+
+    <!-- ================= LOCATION ================= -->
+    <div class="row g-3">
+
+        <div class="col-md-4">
+            <label>Pincode</label>
+            <input id="Pincode"
+                   name="Bank.Pincode"
+                   value="@val("Bank.Pincode", Model?.Pincode)"
+                   class="form-control" />
+        </div>
+
+        <div class="col-md-4">
+            <label>State</label>
+            <input id="StateName"
+                   name="Bank.StateName"
+                   value="@val("Bank.StateName", Model?.StateName)"
+                   class="form-control" />
+        </div>
+
+        <div class="col-md-4">
+            <label>City *</label>
+            <input id="CityName"
+                   name="Bank.CityName"
+                   value="@val("Bank.CityName", Model?.CityName)"
+                   class="form-control" />
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= JS ================= -->
+<script>
+
+    function previewFile(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const img = document.getElementById("imgPreview");
+        const pdf = document.getElementById("pdfPreview");
+
+        img.style.display = "none";
+        pdf.style.display = "none";
+
+        const url = URL.createObjectURL(file);
+
+        if (file.type.includes("image")) {
+            img.src = url;
+            img.style.display = "block";
+        }
+        else if (file.type === "application/pdf") {
+            pdf.src = url;
+            pdf.style.display = "block";
+        }
+    }
+
+    async function extractAndAutofill() {
+
+        const fileInput = document.getElementById("ChequeFile");
+        const file = fileInput.files[0];
+
+        if (!file) {
+            alert("Please upload cancelled cheque first");
+            return;
+        }
+
+        const tokenElement = document.querySelector('input[name="__RequestVerificationToken"]');
+        const token = tokenElement ? tokenElement.value : "";
+
+        let formData = new FormData();
+        formData.append("ChequeFile", file);
+
+        try {
+
+            const res = await fetch("/Business/AddBank?handler=ExtractOnly", {
+                method: "POST",
+                headers: {
+                    "RequestVerificationToken": token
+                },
+                body: formData
+            });
+            //alert (res.AccountNo);
+            if (!res.ok) {
+                alert("OCR API failed");
+                return;
+            }
+
+            const result = await res.json();
+            
+            if (!result.isValid) {
+                alert(result.message);
+                return;
+            }
+
+            const f = result.extractedFields || {};
+            alert (f.BankName);
+            document.getElementById("AccountHolderName").value = f.AccountHolderName || "";
+            document.getElementById("AccountNo").value = f.AccountNo || "";
+            document.getElementById("IFSCCode").value = f.IFSCCode || "";
+            document.getElementById("BankName").value = f.BankName || "";
+
+        } catch (err) {
+            console.error(err);
+            alert("Something went wrong while extracting data");
+        }
+    }
+
+</script>

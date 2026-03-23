@@ -43,36 +43,12 @@ namespace UrbanNative.Infrastructure.Services
 
             // OCR
             fileStream.Position = 0;
-            /*
-            var text = "";
-            for (int i = 0; i < 2; i++)
-            {
-                text = await _ocrService.ExtractTextAsync(fileStream);
-
-                if (string.IsNullOrWhiteSpace(text))
-                {
-                    return new ComplianceValidationResultDto
-                    {
-                        IsValid = false,
-                        Message = $"OCR Call Timeout retry after some time"
-                    };
-                }
-                await Task.Delay(1000);
-            }*/
+            
             var text = await _ocrService.ExtractTextAsync(fileStream);
 
             text = text.ToUpper();
             text = Regex.Replace(text, @"\s+", " ");
-            var fields = ExtractBankFields(text);
-            if (fields != null)
-            {
-                return new ComplianceValidationResultDto
-                {
-                    IsValid = true,
-                    ExtractedFields = fields,
-                    Message = $"{compliance.ComplianceName} detected"
-                };
-            }
+
             // Keyword validation
             if (!ValidateOCRKeywords(text, compliance.OCRKeywords))
             {
@@ -101,6 +77,7 @@ namespace UrbanNative.Infrastructure.Services
                 {
                     IsValid = true,
                     DetectedNumber = number,
+                    //ExtractedText = text,
                     Message = $"{compliance.NumberFieldLabel} detected"
                 };
             }
@@ -108,6 +85,7 @@ namespace UrbanNative.Infrastructure.Services
             return new ComplianceValidationResultDto
             {
                 IsValid = true,
+                ExtractedText = text,
                 Message = "Document validated successfully"
             };
         }
@@ -156,32 +134,6 @@ namespace UrbanNative.Infrastructure.Services
 
             return match.Success ? match.Value : null;
         }
-        private Dictionary<string, string> ExtractBankFields(string text)
-        {
-            var result = new Dictionary<string, string>();
-
-            // Account Number
-            var acc = Regex.Match(text, @"\b\d{9,18}\b");
-            if (acc.Success)
-                result["AccountNo"] = acc.Value;
-
-            // IFSC
-            var ifsc = Regex.Match(text, @"[A-Z]{4}0[A-Z0-9]{6}");
-            if (ifsc.Success)
-                result["IFSCCode"] = ifsc.Value;
-
-            // Bank Name (basic)
-            var bank = Regex.Match(text, @"(HDFC|ICICI|SBI|AXIS)[A-Z\s]*BANK");
-            if (bank.Success)
-                result["BankName"] = bank.Value;
-
-            // Name (fallback first line)
-            var name = text.Split('\n').FirstOrDefault();
-            if (!string.IsNullOrWhiteSpace(name))
-                result["AccountHolderName"] = name.Trim();
-
-            
-            return result;
-        }
+        
     }
 }
