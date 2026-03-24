@@ -21,6 +21,8 @@ public class AddBankModel : PageModel
 
     [BindProperty]
     public string AllowedFileTypes { get; set; }
+    [BindProperty]
+    public IFormFile? ChequeFile { get; set; }
 
     public IActionResult OnGet(string? ComplianceName, string? fileType)
     {
@@ -35,11 +37,31 @@ public class AddBankModel : PageModel
         return Page();
     }
 
-    public async Task<IActionResult> OnPostAsync(IFormFile ChequeFile)
+    public async Task<IActionResult> OnPostAsync(IFormFile? ChequeFile)
     {
+        // 🔹 FIELD LEVEL VALIDATION (INLINE)
+        if (string.IsNullOrWhiteSpace(Bank.AccountHolderName))
+            ModelState.AddModelError("Bank.AccountHolderName", "Account Holder Name is required");
+
+        if (string.IsNullOrWhiteSpace(Bank.BankName))
+            ModelState.AddModelError("Bank.BankName", "Bank Name is required");
+        if (string.IsNullOrWhiteSpace(Bank.AccountType))
+            ModelState.AddModelError("Bank.AccountType", "Please select account type");
+
+        if (string.IsNullOrWhiteSpace(Bank.AccountNo))
+            ModelState.AddModelError("Bank.AccountNo", "Account Number is required");
+
+        if (string.IsNullOrWhiteSpace(Bank.IFSCCode))
+            ModelState.AddModelError("Bank.IFSCCode", "IFSC is required");
+
+        if (string.IsNullOrWhiteSpace(Bank.CityName))
+            ModelState.AddModelError("Bank.CityName", "City is required");
+
+        // 🔴 STOP IF INVALID
         if (!ModelState.IsValid)
             return Page();
 
+        // 🔹 MAP DTO
         var dto = new BankSaveRequestDto
         {
             AccountHolderName = Bank.AccountHolderName,
@@ -56,13 +78,15 @@ public class AddBankModel : PageModel
             ComplianceName = ComplianceName
         };
 
+        // 🔹 SAVE
         await _bankService.SaveFullAsync(ChequeFile, dto);
 
+        // 🔥 SUCCESS MESSAGE (USED BY JS TOAST)
         TempData["Success"] = "Bank saved successfully";
 
-        return RedirectToPage("/Business/Index");
+        // ❌ DO NOT REDIRECT HERE
+        return Page();
     }
-
     public async Task<IActionResult> OnPostExtractOnlyAsync(IFormFile ChequeFile)
     {
         if (ChequeFile == null || ChequeFile.Length == 0)
@@ -71,7 +95,7 @@ public class AddBankModel : PageModel
         }
         // 🔥 ALWAYS ensure ComplianceName
         if (string.IsNullOrWhiteSpace(ComplianceName))
-            ComplianceName = "Bank Details";
+            ComplianceName = "BankDetails";
 
         var result = await _bankService.ExtractOnlyAsync(ChequeFile, ComplianceName);
 

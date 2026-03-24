@@ -27,7 +27,7 @@ public class BankUseCase : IBankUseCase
     }
     // ================= SAVE BANK =================
 
-    public async Task SaveBankAsync(IFormFile file, BankSaveRequestDto dto)
+    public async Task SaveBankAsync(IFormFile? file, BankSaveRequestDto dto)
     {
         // 🔹 Get compliance
         var complianceId = await _complianceRepo.GetComplianceByNameAsync(dto.ComplianceName);

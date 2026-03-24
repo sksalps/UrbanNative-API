@@ -12,116 +12,281 @@
 
     <!-- ================= FILE UPLOAD ================= -->
     <div class="mb-3">
-        <label>Upload Cancelled Cheque (optional)</label>
+        <h6 class="mt-3 text-primary">Upload Cancelled Cheque</h6>
+        <hr class="mt-1 mb-3" />
 
-        <input type="file"
-               name="ChequeFile"
-               id="ChequeFile"
-               class="form-control"
-               accept=".jpg,.jpeg,.png,.pdf"
-               onchange="previewFile(event)" />
-
-        <!-- Preview -->
-        <div class="mt-2">
-            <img id="imgPreview" style="max-height:200px; display:none;" />
-            <iframe id="pdfPreview" style="width:100%; height:300px; display:none;"></iframe>
-
-            <button type="button"
-                    class="btn btn-secondary mt-2"
-                    onclick="extractAndAutofill()">
-                Extract & Autofill
-            </button>
+        <div class="d-flex gap-2 align-items-start">
+            <input type="file"
+                   name="ChequeFile"
+                   id="ChequeFile"
+                   class="form-control"
+                   accept=".jpg,.jpeg,.png,.pdf"
+                   onchange="handleFileChange(event)" />            
         </div>
+        
+        <small class="text-muted">
+            Allowed: jpg, jpeg, png, pdf | Max size: 5MB
+        </small>
+
+        <div id="FileError" class="text-danger small"></div>
+
+        <div class="mt-2 d-flex align-items-start gap-3">
+
+            <!-- Preview -->
+            <div>
+                <img id="imgPreview" style="max-height:120px; display:none;" />
+                <iframe id="pdfPreview" style="width:200px; height:120px; display:none;"></iframe>
+            </div>
+
+            <!-- Action -->
+            <div class="d-flex flex-column justify-content-start">
+                <button type="button"
+                        id="btnExtract"
+                        class="btn btn-outline-primary" onclick="extractAndAutofill()">
+                    Extract & Autofill
+                </button>
+
+            </div>
+
+        </div>
+        
     </div>
 
     <!-- ================= BANK DETAILS ================= -->
+    <h6 class="mt-3 text-primary">Bank Details</h6>
+    <hr class="mt-1 mb-3" />
     <div class="row g-3">
 
         <div class="col-md-6">
-            <label>Account Holder Name</label>
-            <input id="AccountHolderName"
-                   name="Bank.AccountHolderName"
+            <label>Account Holder Name *</label>
+            <input id="AccountHolderName" name="Bank.AccountHolderName"
                    value="@val("Bank.AccountHolderName", Model?.AccountHolderName)"
                    class="form-control" />
+            <span class="text-danger field-validation" data-valmsg-for="Bank.AccountHolderName">
+                @Html.ValidationMessage("Bank.AccountHolderName")
+            </span>
         </div>
 
         <div class="col-md-6">
-            <label>Account Number</label>
-            <input id="AccountNo"
-                   name="Bank.AccountNo"
+            <label>Account Number *</label>
+            <input id="AccountNo" name="Bank.AccountNo"
                    value="@val("Bank.AccountNo", Model?.AccountNo)"
                    class="form-control" />
+            <span class="text-danger field-validation" data-valmsg-for="Bank.AccountNo">
+                @Html.ValidationMessage("Bank.AccountNo")
+            </span>
         </div>
 
         <div class="col-md-6">
-            <label>IFSC Code</label>
-            <input id="IFSCCode"
-                   name="Bank.IFSCCode"
+            <label>IFSC Code *</label>
+            <input id="IFSCCode" name="Bank.IFSCCode"
                    value="@val("Bank.IFSCCode", Model?.IFSCCode)"
                    class="form-control" />
+            <span class="text-danger field-validation" data-valmsg-for="Bank.IFSCCode">
+                @Html.ValidationMessage("Bank.IFSCCode")
+            </span>
         </div>
 
         <div class="col-md-6">
-            <label>Bank Name</label>
-            <input id="BankName"
-                   name="Bank.BankName"
+            <label>Bank Name *</label>
+            <input id="BankName" name="Bank.BankName"
                    value="@val("Bank.BankName", Model?.BankName)"
                    class="form-control" />
+            <span class="text-danger field-validation" data-valmsg-for="Bank.BankName">
+                @Html.ValidationMessage("Bank.BankName")
+            </span>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Account Type *</label>
+
+            <div class="btn-group" role="group">
+                <input type="radio" class="btn-check" name="Bank.AccountType" id="Saving"
+                       value="Saving" autocomplete="off"
+                @(val("Bank.AccountType", Model?.AccountType) == "Saving" ? "checked" : "")>
+                <label class="btn btn-outline-primary" for="Saving">Saving</label>
+
+                <input type="radio" class="btn-check" name="Bank.AccountType" id="Current"
+                       value="Current" autocomplete="off"
+                @(val("Bank.AccountType", Model?.AccountType) == "Current" ? "checked" : "")>
+                <label class="btn btn-outline-primary" for="Current">Current</label>
+            </div>
+            <span class="text-danger field-validation" data-valmsg-for="Bank.AccountType">
+                @Html.ValidationMessage("Bank.AccountType")
+            </span>
+        </div>
+
+        <!-- ✅ Checkbox aligned -->
+        <div class="col-md-6 d-flex align-items-end">
+            <div class="form-check mt-2">
+                <input type="checkbox"
+                       id="IsPrimary"
+                       name="Bank.IsPrimary"
+                       class="form-check-input" />
+                <label class="form-check-label ms-1">
+                    Set as Primary Account
+                </label>
+            </div>
         </div>
 
         <div class="col-md-6">
             <label>Branch</label>
-            <input id="BranchName"
-                   name="Bank.BranchName"
+            <input id="BranchName" name="Bank.BranchName"
                    value="@val("Bank.BranchName", Model?.BranchName)"
                    class="form-control" />
+            <span class="text-danger">
+                @Html.ValidationMessage("Bank.BranchName")
+            </span>
         </div>
 
         <div class="col-md-6">
             <label>UPI ID</label>
-            <input id="UPIId"
-                   name="Bank.UPIId"
+            <input id="UPIId" name="Bank.UPIId"
                    value="@val("Bank.UPIId", Model?.UPIId)"
                    class="form-control" />
+            <span class="text-danger">
+                @Html.ValidationMessage("Bank.UPIId")
+            </span>
         </div>
 
     </div>
 
-    <hr />
-
     <!-- ================= LOCATION ================= -->
-    <div class="row g-3">
+    <h6 class="mt-3 text-primary">Location Details</h6>
+    <hr class="mt-1 mb-3" />
+    <div class="row g-2 align-items-end">
 
-        <div class="col-md-4">
-            <label>Pincode</label>
-            <input id="Pincode"
-                   name="Bank.Pincode"
-                   value="@val("Bank.Pincode", Model?.Pincode)"
-                   class="form-control" />
+        <!-- PINCODE + SEARCH -->
+        <div class="col-md-3">
+            <label class="form-label">Pincode</label>
+            <div class="input-group input-group-sm">
+                <input id="Pincode"
+                       name="Bank.Pincode"
+                       value="@val("Bank.Pincode", Model?.Pincode)"
+                       class="form-control" />
+
+                <button class="btn btn-outline-primary" type="button">
+                    Search
+                </button>
+            </div>
         </div>
 
-        <div class="col-md-4">
-            <label>State</label>
+        <!-- COUNTRY -->
+        <div class="col-md-3">
+            <label class="form-label">Country</label>
+            <input id="CountryName"
+                   name="Bank.CountryName"
+                   value="@val("Bank.CountryName", Model?.CountryName)"
+                   class="form-control form-control-sm" />
+        </div>
+
+        <!-- STATE -->
+        <div class="col-md-3">
+            <label class="form-label">State</label>
             <input id="StateName"
                    name="Bank.StateName"
                    value="@val("Bank.StateName", Model?.StateName)"
-                   class="form-control" />
+                   class="form-control form-control-sm" />
         </div>
 
-        <div class="col-md-4">
-            <label>City *</label>
+        <!-- CITY -->
+        <div class="col-md-3">
+            <label class="form-label">City *</label>
             <input id="CityName"
                    name="Bank.CityName"
                    value="@val("Bank.CityName", Model?.CityName)"
-                   class="form-control" />
+                   class="form-control form-control-sm" />
+
+            <span class="text-danger field-validation small"
+                  data-valmsg-for="Bank.CityName">
+                @Html.ValidationMessage("Bank.CityName")
+            </span>
         </div>
 
     </div>
-
 </div>
 
-<!-- ================= JS ================= -->
+<div id="ocrLoader" style="
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.4);
+    z-index:9999;
+    align-items:center;
+    justify-content:center;
+    ">
+    <div style="
+        background:#fff;
+        padding:20px 30px;
+        border-radius:8px;
+        text-align:center;
+        box-shadow:0 5px 15px rgba(0,0,0,0.3);
+        ">
+        <div class="spinner-border text-primary mb-2"></div>
+        <div>Extracting cheque details...</div>
+    </div>
+</div>
+
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const errors = document.querySelectorAll(".field-validation");
+        for (let err of errors) {
+
+            if (err.innerText.trim() !== "") {
+                //alert (err.innerText.trim());
+                const fieldName = err.getAttribute("data-valmsg-for");
+                //alert (fieldName);
+                if (!fieldName) continue;
+
+                const input = document.querySelector(`[name="${fieldName}"]`);
+
+                if (input) {
+                    input.focus();
+                    input.classList.add("is-invalid");
+
+                    input.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+                }
+
+                break; // first error only
+            }
+        }
+    });
+</script>
+
+<script>
+       
+    function handleFileChange(event) {
+        const file = event.target.files[0];
+        const error = document.getElementById("FileError");
+
+        error.innerText = "";
+
+        if (!file) return;
+
+        const allowed = ["jpg", "jpeg", "png", "pdf"];
+        const ext = file.name.split('.').pop().toLowerCase();
+
+        if (!allowed.includes(ext)) {
+            error.innerText = "Invalid file type";
+            event.target.value = "";
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            error.innerText = "File must be less than 5MB";
+            event.target.value = "";
+            return;
+        }
+
+        previewFile(event);
+    }
 
     function previewFile(event) {
         const file = event.target.files[0];
@@ -138,53 +303,81 @@
         if (file.type.includes("image")) {
             img.src = url;
             img.style.display = "block";
-        }
-        else if (file.type === "application/pdf") {
+        } else if (file.type === "application/pdf") {
             pdf.src = url;
             pdf.style.display = "block";
         }
     }
 
-    async function extractAndAutofill() {
+    async function fetchAddress() {
+        const pin = document.getElementById("Pincode").value;
 
-        const fileInput = document.getElementById("ChequeFile");
-        const file = fileInput.files[0];
-
-        if (!file) {
-            alert("Please upload cancelled cheque first");
+        if (pin.length !== 6) {
+            alert("Enter valid 6 digit pincode");
             return;
         }
 
-        const tokenElement = document.querySelector('input[name="__RequestVerificationToken"]');
-        const token = tokenElement ? tokenElement.value : "";
+        try {
+            const res = await fetch(`/api/common/pincode?pincode=${pin}`);
+            const data = await res.json();
+
+            document.getElementById("StateName").value = data.state || "";
+            document.getElementById("CityName").value = data.city || "";
+
+        } catch (err) {
+            console.error(err);
+            alert("Failed to fetch address");
+        }
+    }
+    function showLoader() {
+        document.getElementById("ocrLoader").style.display = "flex";
+        document.getElementById("btnExtract").disabled = true;
+    }
+
+    function hideLoader() {
+        document.getElementById("ocrLoader").style.display = "none";
+        document.getElementById("btnExtract").disabled = false;
+    }
+
+    async function extractAndAutofill() {
+                alert ('okk');
+
+        const file = document.getElementById("ChequeFile").files[0];
+
+        if (!file) {
+            alert("Upload cheque first");
+            return;
+        }
+
+        const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
 
         let formData = new FormData();
         formData.append("ChequeFile", file);
 
         try {
 
+            showLoader(); // 🔥 START LOADER
+
             const res = await fetch("/Business/AddBank?handler=ExtractOnly", {
                 method: "POST",
-                headers: {
-                    "RequestVerificationToken": token
-                },
+                headers: { "RequestVerificationToken": token },
                 body: formData
             });
-            //alert (res.AccountNo);
+
             if (!res.ok) {
                 alert("OCR API failed");
                 return;
             }
 
             const result = await res.json();
-            
+
             if (!result.isValid) {
                 alert(result.message);
                 return;
             }
 
             const f = result.extractedFields || {};
-            alert (f.BankName);
+
             document.getElementById("AccountHolderName").value = f.AccountHolderName || "";
             document.getElementById("AccountNo").value = f.AccountNo || "";
             document.getElementById("IFSCCode").value = f.IFSCCode || "";
@@ -192,8 +385,31 @@
 
         } catch (err) {
             console.error(err);
-            alert("Something went wrong while extracting data");
+            alert("Something went wrong");
+        }
+        finally {
+            hideLoader(); // 🔥 ALWAYS STOP LOADER
         }
     }
+
+        function showSuccessToast(message) {
+        const toast = document.getElementById("successToast");
+        const msg = document.getElementById("toastMessage");
+
+        msg.innerText = message;
+        toast.style.display = "block";
+
+        // fade effect
+        setTimeout(() => {
+            toast.style.opacity = "0";
+        }, 2000);
+
+        // redirect after 2.5 sec
+        setTimeout(() => {
+            window.location.href = "/Business/Compliance/Index";
+        }, 2500);
+    }
+
+
 
 </script>

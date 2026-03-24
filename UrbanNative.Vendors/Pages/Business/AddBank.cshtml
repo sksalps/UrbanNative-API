@@ -1,6 +1,21 @@
 ﻿@page
 @model AddBankModel
+@if (TempData["Success"] != null)
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            showSuccessToast("@TempData["Success"]");
+        });
+        document.querySelector("form").style.pointerEvents = "none";
+    </script>
+}
 
+<div class="mb-3">
+    <h4 class="mb-0">Add @Model.ComplianceName</h4>
+    <small class="text-muted">
+        Bank Details for Settlement, upload cheque for quick auto-fill or enter manually
+    </small>
+</div>
 <form method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="ComplianceName" />
     <input type="hidden" asp-for="AllowedFileTypes" />
@@ -8,8 +23,26 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <partial name="~/Pages/_AddBankForm.cshtml" model="Model.Bank" />
 
-    <button type="submit" class="btn btn-primary mt-3">
-        Save
-    </button>
+    <div class="mt-4 text-end">
+        <button type="submit" class="btn btn-primary px-4">
+            Save Bank Details
+        </button>
+    </div>
 
 </form>
+
+<div id="successToast" style="
+    position:fixed;
+    top:20px;
+    right:20px;
+    min-width:250px;
+    background:#28a745;
+    color:#fff;
+    padding:12px 20px;
+    border-radius:6px;
+    display:none;
+    z-index:9999;
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+    ">
+    <span id="toastMessage"></span>
+</div>

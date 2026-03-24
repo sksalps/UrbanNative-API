@@ -1749,12 +1749,12 @@
         "IsRequired": false
       },
       {
-        "Name": "BranchName",
+        "Name": "AccountType",
         "Type": "System.String",
         "IsRequired": false
       },
       {
-        "Name": "AccountType",
+        "Name": "BranchName",
         "Type": "System.String",
         "IsRequired": false
       },

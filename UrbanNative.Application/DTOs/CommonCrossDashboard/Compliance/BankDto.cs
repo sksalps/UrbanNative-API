@@ -11,7 +11,6 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
    public class BankSaveRequestDto
         {
             public int? BankID { get; set; }
-
             // 🔹 Compliance
             public int ComplianceId { get; set; }
             public string? ComplianceName { get; set; }
@@ -33,11 +32,13 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
             [RegularExpression(@"^[A-Z]{4}0[A-Z0-9]{6}$",
                 ErrorMessage = "Invalid IFSC format")]
             public string IFSCCode { get; set; }
-
-            // 🔹 Optional Bank Details
+            [Required(ErrorMessage = "Bank Name is required")]
             public string? BankName { get; set; }
-            public string? BranchName { get; set; }
+            [Required(ErrorMessage = "Select, Account Type is required")]
             public string? AccountType { get; set; }
+
+            public string? BranchName { get; set; }
+            
             public string? UPIId { get; set; }
 
             // 🔹 Location
@@ -49,7 +50,7 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
             public string? Pincode { get; set; }
 
             // 🔹 Flags
-            public bool IsPrimary { get; set; } = true;
+            public bool IsPrimary { get; set; } = false;
             public bool IsFromCompliance { get; set; } = false;
 
             // 🔹 Entity Context (VERY IMPORTANT)
