@@ -85,43 +85,6 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
 
         
     }
-    /*
-    public class BankSaveRequestDto
-    {
-        public int? BankID { get; set; }
-        public int? ComplianceId { get; set; }
-        public string? ComplianceName { get; set; }
-        public string FileName { get; set; }
-        public string FileURL { get; set; }
-        [Required(ErrorMessage = "Account Holder Name is required")]
-        public string AccountHolderName { get; set; }
-
-        public string BankName { get; set; }
-        public string BranchName { get; set; }
-        [Required(ErrorMessage = "Account Number is required")]
-        [RegularExpression(@"^\d{9,18}$",   ErrorMessage = "Account Number must be 9–18 digits")]
-        
-        public string AccountNo { get; set; }
-        public string AccountType { get; set; }
-        public string UPIId { get; set; }
-        [Required(ErrorMessage = "IFSC Code is required")]
-        [RegularExpression(@"^[A-Z]{4}0[A-Z0-9]{6}$",        ErrorMessage = "IFSC must be like ABCD0123456")]
-        
-        public string IFSCCode { get; set; }
-
-        public string CountryName { get; set; }
-
-        public string StateName { get; set; }
-        [Required(ErrorMessage = "City is required")]
-        public string CityName { get; set; }
-        public string Pincode { get; set; }
-
-        public bool IsPrimary { get; set; }
-        public bool IsFromCompliance { get; set; } = false;
-       public string EntityType { get; set; }   // Vendor / Affiliate / Customer
-        public int EntityID { get; set; }
-    }
-    */
 
 
     public class UploadResponseDto
@@ -132,5 +95,17 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
     {
         public int UploadId { get; set; }
         public string? DocumentNumber { get; set; }
+    }
+
+    public class ValidationErrorDto
+    {
+        public Dictionary<string, string[]> Errors { get; set; }
+    }
+
+    public class ServiceResult
+    {
+        public bool IsSuccess { get; set; }
+        public string Message { get; set; }
+        public Dictionary<string, string[]> Errors { get; set; }
     }
 }

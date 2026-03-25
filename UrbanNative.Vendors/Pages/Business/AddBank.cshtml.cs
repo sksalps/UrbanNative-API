@@ -70,6 +70,7 @@ public class AddBankModel : PageModel
             CityName = Bank.CityName,
 
             BankName = Bank.BankName,
+            AccountType = Bank.AccountType,
             BranchName = Bank.BranchName,
             UPIId = Bank.UPIId,
             StateName = Bank.StateName,
@@ -78,8 +79,30 @@ public class AddBankModel : PageModel
             ComplianceName = ComplianceName
         };
 
-        // 🔹 SAVE
-        await _bankService.SaveFullAsync(ChequeFile, dto);
+        // 🔹 CALL SERVICE
+        var result = await _bankService.SaveFullAsync(ChequeFile, dto);
+
+     
+        // 🔴 HANDLE VALIDATION ERRORS
+        if (!result.IsSuccess && result.Errors != null && result.Errors.Any())
+        {
+            foreach (var field in result.Errors)
+            {
+                var key = $"Bank.{field.Key}";
+                var message = field.Value.FirstOrDefault();
+
+                ModelState.AddModelError(key, message);
+            }
+
+            return Page();
+        }
+
+        // 🔴 HANDLE SYSTEM ERROR (VERY IMPORTANT)
+        if (!result.IsSuccess && !string.IsNullOrWhiteSpace(result.Message))
+        {
+            ModelState.AddModelError("", result.Message);
+            return Page();
+        }
 
         // 🔥 SUCCESS MESSAGE (USED BY JS TOAST)
         TempData["Success"] = "Bank saved successfully";
