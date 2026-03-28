@@ -1646,6 +1646,48 @@
   },
   {
     "ContainingType": "BankController",
+    "Method": "GetBankList",
+    "RelativePath": "api/bank/bank-list",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BankController",
+    "Method": "DeleteBank",
+    "RelativePath": "api/bank/delete-bank",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "bankId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BankController",
+    "Method": "GetBankById",
+    "RelativePath": "api/bank/getbank/{bankId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "bankId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BankController",
     "Method": "ExtractOnly",
     "RelativePath": "api/bank/ocr_extract",
     "HttpMethod": "POST",
@@ -1729,6 +1771,11 @@
         "IsRequired": false
       },
       {
+        "Name": "ApiBaseUrl",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
         "Name": "AccountHolderName",
         "Type": "System.String",
         "IsRequired": false
@@ -1789,7 +1836,7 @@
         "IsRequired": false
       },
       {
-        "Name": "IsFromCompliance",
+        "Name": "IsVerified",
         "Type": "System.Boolean",
         "IsRequired": false
       },
@@ -1802,6 +1849,22 @@
         "Name": "EntityID",
         "Type": "System.Int32",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BankController",
+    "Method": "SetPrimaryBank",
+    "RelativePath": "api/bank/set-primary-bank",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "bankId",
+        "Type": "System.Int32",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

@@ -1,0 +1,174 @@
+﻿@page
+@model BankListModel
+@Html.AntiForgeryToken()
+<div class="d-flex justify-content-between mb-3">
+    <h4>Bank Accounts</h4>
+    <div id="toastMsg" class="alert alert-success d-none"></div>
+    <a href="/Business/AddBank" class="btn btn-primary">
+        + Add New Bank
+    </a>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Bank</th>
+            <th>Account Holder</th>
+            <th>Account No</th>
+            <th>IFSC</th>
+            <th>Cheque File</th>
+            <th>Status</th>
+            <th>Primary</th>
+            <th>Verification</th>
+            <th>Created</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var b in Model.Banks)
+        {
+            <tr>
+                <td>@b.BankName</td>
+                <td>@b.AccountHolderName</td>
+                <td>@b.AccountNo</td>
+                <td>@b.IFSCCode</td>
+                
+                <td>
+                    @if (!string.IsNullOrEmpty(b.ChequeFileUrl))
+                    {
+                        <a href="@b.ChequeFileUrl" target="_blank">@b.ChequeFileUrl</a>
+                    }
+                    else
+                    {
+                        <span>N/U</span>
+                    }
+                </td>
+                <td>
+                    @(b.IsActive ? "Active" : "Inactive")
+                </td>
+
+                <td>
+                    @if (b.IsPrimary)
+                    {
+                        <span class="badge bg-warning">Yes</span>
+                    }
+                    else
+                    {
+                        <button class="btn btn-sm btn-warning"
+                                onclick="setPrimary(@b.BankID, '@b.BankName')">
+                            Set
+                        </button>
+                    }
+                </td>
+
+                <td>  @b.VerificationStatus            </td>
+
+                <td>@b.CreatedAt.ToString("dd-MMM-yyyy")</td>
+
+               
+
+                <td>
+                    @if (b.VerificationStatus=="APPROVED")
+                    {
+                        <span class="text-muted">🔒 Locked</span>
+                    }
+                    else
+                    {
+                        <button class="btn btn-sm btn-outline-primary"
+                                onclick="editBank(@b.BankID)">
+                            Edit
+                        </button>
+                        @if (!b.IsPrimary)
+                        {
+                            <button class="btn btn-sm btn-danger"
+                                    onclick="deleteBank(@b.BankID)">
+                                Delete
+                            </button>
+                        }
+                        
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<script>
+    async function deleteBank(bankId) {
+
+        if (!confirm("Are you sure you want to delete this bank?")) return;
+
+        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+        const response = await fetch(`/Business/BankList?handler=Delete&bankId=${bankId}`, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                "RequestVerificationToken": token
+            }
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            showToast(result.message);
+                setTimeout(() => location.reload(), 4000);
+            //location.reload();
+        } else {
+            alert(result.message || "Delete failed");
+        }
+    }
+        async function setPrimary(bankId, bankName) {
+        if (!confirm("Set this as primary bank?")) return;
+
+        const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+
+        try {
+            const response = await fetch(`/Business/BankList?handler=SetPrimary&bankId=${bankId}`, {
+                method: 'POST',
+                headers: {
+                    "RequestVerificationToken": token
+                }
+            });
+
+            //alert(bankId); // OK
+
+            // 🔴 Handle server error properly
+            if (!response.ok) {
+                const text = await response.text();
+                alert("Server Error: " + text);
+                return;
+            }
+
+            const result = await response.json(); // ✅ correct order
+
+            //alert(result.message); // now safe
+
+            if (result.success) {
+                showToast(`Successfully ${bankName} set as primary`);
+                setTimeout(() => location.reload(), 4000);
+            } else {
+                alert(result.message || "Failed to update");
+            }
+
+        } catch (err) {
+            alert("JS Error: " + err.message);
+        }
+    }
+
+    function showToast(message) {
+        //alert (message);
+        const el = document.getElementById("toastMsg");
+        el.innerText = message;
+        el.classList.remove("d-none");
+
+        setTimeout(() => {
+            el.classList.add("d-none");
+        }, 4000);
+    }
+
+        function editBank(bankId) {
+        window.location.href = `/Business/AddBank?bankId=${bankId}`;
+    }
+</script>

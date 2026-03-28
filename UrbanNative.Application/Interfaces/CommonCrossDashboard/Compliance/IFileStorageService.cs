@@ -10,6 +10,6 @@ namespace UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance
 {
     public interface IFileStorageService
     {
-        Task<string> SaveAsync(IFormFile file, string folder);
+        Task<string> UploadAsync(IFormFile file, string docFor, string folder, string entityType, int entityId);
     }
 }

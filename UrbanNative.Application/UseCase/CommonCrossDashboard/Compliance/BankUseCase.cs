@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System.IO;
 using System.Text.RegularExpressions;
 using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
 using UrbanNative.Application.DTOs.Vendors;
@@ -6,6 +7,7 @@ using UrbanNative.Application.Interfaces;
 using UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance;
 using UrbanNative.Application.Interfaces.UseCase;
 using UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compliance;
+using UrbanNative.Domain.Entities;
 
 public class BankUseCase : IBankUseCase
 {
@@ -25,8 +27,26 @@ public class BankUseCase : IBankUseCase
         _bankRepo = bankRepo;
         _fileStorage = fileStorage;
     }
-    // ================= SAVE BANK =================
+    public async Task<IEnumerable<BankListDto>> HandleAsync(string entityType,int vendorId)
+    {
+        return await _bankRepo.GetBankListAsync(entityType, vendorId);
+    }
 
+    public async Task ExecuteSetAsync(int bankId, int EntityId,string EntityType)
+    {
+        await _bankRepo.SetPrimaryBankAsync(bankId, EntityId, EntityType);
+    }
+
+    public async Task ExecuteDeleteAsync(int bankId, int EntityId, string EntityType)
+    {
+        await _bankRepo.DeleteBankAsync(bankId, EntityId, EntityType);
+    }
+    public async Task<BankSaveRequestDto> GetByIdAsync(int bankId, int EntityId, string EntityType)
+    {
+        return await _bankRepo.GetByIdAsync(bankId, EntityId, EntityType);
+    }
+
+    // ================= SAVE BANK =================
     public async Task SaveBankAsync(IFormFile? file, BankSaveRequestDto dto)
     {
         // 🔹 Get compliance
@@ -43,7 +63,7 @@ public class BankUseCase : IBankUseCase
             using var stream = file.OpenReadStream();
 
             // 🔥 Save file physically
-            var fileUrl = await _fileStorage.SaveAsync(file, "bank");
+            var fileUrl = await _fileStorage.UploadAsync(file,"compliance", dto.ComplianceName,dto.EntityType,dto.EntityID);
             dto.FileURL = fileUrl;
             dto.FileName = file.FileName;
         }
@@ -121,4 +141,6 @@ public class BankUseCase : IBankUseCase
 
         return result;
     }
+
+    
 }

@@ -10,12 +10,19 @@
     </script>
 }
 
+
 <div class="mb-3">
-    <h4 class="mb-0">Add @Model.ComplianceName</h4>
+    <h4 class="mb-0">@(Model.IsEditMode ? "Edit" + @Model.ComplianceName : "Add" + @Model.ComplianceName)</h4>
     <small class="text-muted">
         Bank Details for Settlement, upload cheque for quick auto-fill or enter manually
     </small>
 </div>
+@if (!ViewData.ModelState.IsValid && !Model.IsEditMode)
+{
+    <div class="text-warning small mt-2">
+        Please reselect the file after validation error.
+    </div>
+}
 <form method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="ComplianceName" />
     <input type="hidden" asp-for="AllowedFileTypes" />
@@ -24,10 +31,27 @@
     <partial name="~/Pages/_AddBankForm.cshtml" model="Model.Bank" />
 
     <div class="mt-4 text-end">
+        @if (Model.IsEditMode)
+        {
+            <a href="/Business/BankList" class="btn btn-secondary">
+                Cancel
+            </a>
+
+            @if (!Model.Bank.IsPrimary)
+            {
+                <button type="button"
+                        class="btn btn-danger"
+                        onclick="deleteBank(@Model.Bank.BankID)">
+                    Delete
+                </button>
+            }
+        }
+        
         <button type="submit" class="btn btn-primary px-4">
-            Save Bank Details
+            @(Model.IsEditMode ? "Update Bank Details" : "Save Bank Details")
         </button>
     </div>
+    
 
 </form>
 

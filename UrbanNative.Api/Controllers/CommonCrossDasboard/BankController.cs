@@ -40,61 +40,43 @@ public class BankController : ControllerBase
 
         return Ok();
     }
-    /*
-    [HttpPost("save")]
-    public async Task<IActionResult> Save([FromForm] IFormFile file,[FromForm] BankSaveFormDto formDto)
+    [HttpGet("bank-list")]
+    public async Task<IActionResult> GetBankList()
     {
-        // 🔴 VALIDATION (ONLY FORM FIELDS NOW)
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
+        var (entityType, entityId) = ResolveEntity(); // your existing pattern
 
-        var (entityType, entityId) = ResolveEntity();
+        var result = await _useCase.HandleAsync(entityType,entityId);
 
-        // 🔥 MAP FORM DTO → FULL DTO
-        var dto = new BankSaveRequestDto
-        {
-            AccountHolderName = formDto.AccountHolderName,
-            AccountNo = formDto.AccountNo,
-            IFSCCode = formDto.IFSCCode,
-            CityName = formDto.CityName,
-
-            BankName = formDto.BankName,
-            BranchName = formDto.BranchName,
-            UPIId = formDto.UPIId,
-            StateName = formDto.StateName,
-            Pincode = formDto.Pincode,
-
-            // 🔐 SYSTEM FIELDS
-            EntityID = entityId,
-            EntityType = entityType,
-            ComplianceName = "Bank Details",
-            IsPrimary = true,
-            IsFromCompliance = true
-        };
-
-        await _useCase.SaveBankAsync(file, dto);
-
-        return Ok(new { message = "Bank saved successfully" });
-    }*/
-    // ================= SAVE BANK =================
-    /*
-    [HttpPost("save")]
-    public async Task<IActionResult> Save( [FromForm] IFormFile file, [FromForm] BankSaveRequestDto dto)
-    {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState); // 🔥 THIS WAS MISSING
-        }
-
-        var (entityType, entityId) = ResolveEntity();
-        dto.EntityType = entityType;
-        dto.EntityID = entityId;
-        await _useCase.SaveBankAsync(file,dto);
-
-        return Ok();
+        return Ok(result);
     }
-    */
-    // ================= HELPERS =================
+    [HttpGet("getbank/{bankId}")]
+    public async Task<IActionResult> GetBankById(int bankId)
+    {
+        var (entityType, entityId) = ResolveEntity();
+        var result = await _useCase.GetByIdAsync(bankId, entityId, entityType);
+        return Ok(result);
+    }
+    [HttpPost("set-primary-bank")]
+    public async Task<IActionResult> SetPrimaryBank([FromBody] int bankId)
+    {
+        var (entityType, entityId) = ResolveEntity();
+
+        await _useCase.ExecuteSetAsync(bankId, entityId,entityType);
+
+        return Ok(new
+        {
+            message = "Primary bank updated successfully."
+        });
+    }
+    [HttpPost("delete-bank")]
+    public async Task<IActionResult> DeleteBank([FromBody] int bankId)
+    {
+        var (entityType, entityId) = ResolveEntity();
+
+        await _useCase.ExecuteDeleteAsync(bankId,entityId,entityType);
+
+        return Ok(new { message = "Bank deleted successfully." });
+    }
     private (string EntityType, int EntityId) ResolveEntity()
     {
         // ✔ Determine entity type from Role

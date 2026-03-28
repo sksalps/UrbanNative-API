@@ -114,8 +114,9 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
         public DateTime? VerifiedAt { get; set; }
 
         public string? RejectionReason { get; set; }
-        public string VersionStatus { get; set; } = string.Empty;   // Current / Old
         public string? FileURL { get; set; }
+
+        public string VersionStatus { get; set; } = string.Empty;   // Current / Old
     }
 
     public class ComplianceCategoryStatusDto

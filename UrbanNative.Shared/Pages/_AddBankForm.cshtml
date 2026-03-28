@@ -16,9 +16,12 @@
         <hr class="mt-1 mb-3" />
 
         <div class="d-flex gap-2 align-items-start">
+            
+            <input type="hidden" id="existingFileUrl"
+                   value="@($"{Model.ApiBaseUrl}{Model.FileURL}")" />
             <input type="file"
                    name="ChequeFile"
-                   id="ChequeFile"
+                   id="ChequeFile" value="@val("Bank.FileName", Model?.FileName)"
                    class="form-control"
                    accept=".jpg,.jpeg,.png,.pdf"
                    onchange="handleFileChange(event)" />            
@@ -59,6 +62,8 @@
 
         <div class="col-md-6">
             <label>Account Holder Name *</label>
+            
+            <input type="hidden" name="Bank.BankID" value="@Model.BankID" />
             <input id="AccountHolderName" name="Bank.AccountHolderName"
                    value="@val("Bank.AccountHolderName", Model?.AccountHolderName)"
                    class="form-control" />
@@ -96,19 +101,22 @@
                 @Html.ValidationMessage("Bank.BankName")
             </span>
         </div>
-
+        
         <div class="col-md-6">
             <label class="form-label">Account Type *</label>
 
             <div class="btn-group" role="group">
+                @{
+                    var accType = val("Bank.AccountType", Model?.AccountType)?.Trim().ToLower();
+                }
                 <input type="radio" class="btn-check" name="Bank.AccountType" id="Saving"
                        value="Saving" autocomplete="off"
-                @(val("Bank.AccountType", Model?.AccountType) == "Saving" ? "checked" : "")>
+                @(accType == "saving" ? "checked" : "") />
                 <label class="btn btn-outline-primary" for="Saving">Saving</label>
 
                 <input type="radio" class="btn-check" name="Bank.AccountType" id="Current"
                        value="Current" autocomplete="off"
-                @(val("Bank.AccountType", Model?.AccountType) == "Current" ? "checked" : "")>
+                @(accType == "current" ? "checked" : "")>
                 <label class="btn btn-outline-primary" for="Current">Current</label>
             </div>
             <span class="text-danger field-validation" data-valmsg-for="Bank.AccountType">
@@ -119,13 +127,21 @@
         <!-- ✅ Checkbox aligned -->
         <div class="col-md-6 d-flex align-items-end">
             <div class="form-check mt-2">
+    
+                <!-- Always send false if unchecked -->
+                 
+                <!-- Send true if checked -->
                 <input type="checkbox"
                        id="IsPrimary"
                        name="Bank.IsPrimary"
-                       class="form-check-input" />
+                       value="true"
+                       class="form-check-input"
+                @(Model?.IsPrimary==true ? "checked" : "") />
+
                 <label class="form-check-label ms-1">
                     Set as Primary Account
                 </label>
+
             </div>
         </div>
 
@@ -231,8 +247,35 @@
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    async function deleteBank(bankId) {
 
+           if (!confirm("Are you sure you want to delete this bank?")) return;
+
+        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+        const response = await fetch(`/Business/AddBank?handler=Delete&bankId=${bankId}`, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                "RequestVerificationToken": token
+            }
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+               showSuccessToast(result.message);
+        } else {
+            alert(result.message || "Delete failed");
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const existingUrl = document.getElementById("existingFileUrl")?.value;
+        //alert(existingUrl);
+        if (existingUrl) {
+            previewFromUrl(existingUrl); // 🔥 reuse same logic
+        }
         const errors = document.querySelectorAll(".field-validation");
         for (let err of errors) {
 
@@ -258,11 +301,10 @@
             }
         }
     });
-</script>
 
-<script>
        
-    function handleFileChange(event) {
+   
+ function handleFileChange(event) {
         const file = event.target.files[0];
         const error = document.getElementById("FileError");
 
@@ -285,10 +327,13 @@
             return;
         }
 
-        previewFile(event);
-    }
+        // 🔥 REUSE SAME PREVIEW
 
-    function previewFile(event) {
+        const url = URL.createObjectURL(file);
+        document.getElementById("existingFileUrl").value = url;
+        previewFromUrl(url);
+    }
+    function previewFile1(event) {
         const file = event.target.files[0];
         if (!file) return;
 
@@ -308,7 +353,23 @@
             pdf.style.display = "block";
         }
     }
+        function previewFromUrl(url) {
+        if (!url) return;
 
+        const img = document.getElementById("imgPreview");
+        const pdf = document.getElementById("pdfPreview");
+
+        img.style.display = "none";
+        pdf.style.display = "none";
+
+        if (url.toLowerCase().endsWith(".pdf")) {
+            pdf.src = url;
+            pdf.style.display = "block";
+        } else {
+            img.src = url;
+            img.style.display = "block";
+        }
+    }
     async function fetchAddress() {
         const pin = document.getElementById("Pincode").value;
 
@@ -395,8 +456,8 @@
         function showSuccessToast(message) {
         const toast = document.getElementById("successToast");
         const msg = document.getElementById("toastMessage");
-
         msg.innerText = message;
+         //  alert(msg.innerText);
         toast.style.display = "block";
 
         // fade effect
@@ -406,7 +467,7 @@
 
         // redirect after 2.5 sec
         setTimeout(() => {
-            window.location.href = "/Business/Compliance/Index";
+            window.location.href = "/Business/BankList";
         }, 2500);
     }
 

@@ -28,6 +28,7 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
             _connFactory = connectionFactory;
             _env = env;
             _config = config;
+            
         }
 
         // 🔝 Dashboard Summary
@@ -116,6 +117,7 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
         Stream fileStream,
         string fileName)
         {
+            
             using var conn = _connFactory.CreateConnection();
 
             var basePath = _config["FileStorage:BasePath"];
@@ -125,11 +127,7 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
                 basePath = Path.Combine(_env.ContentRootPath, basePath);
             }
 
-            var folderPath = Path.Combine(
-                basePath,
-                "compliance",
-                entityType,
-                entityId.ToString());
+            var folderPath = Path.Combine(basePath,"compliance",entityType, entityId.ToString());
 
             if (!Directory.Exists(folderPath))
                 Directory.CreateDirectory(folderPath);
@@ -141,6 +139,7 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
             {
                 await fileStream.CopyToAsync(fileStreamOut);
             }
+
             var existingStatus = await conn.QueryFirstOrDefaultAsync<string>(
             "SELECT Top 1 VerificationStatus FROM ComplianceDocumentsUploaded WHERE EntityType=@EntityType AND EntityID=@EntityID AND ComplianceID=@ComplianceID AND IsActive=1 order by UploadID desc",
             new { entityType, entityId, request.ComplianceID });

@@ -50,5 +50,56 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard.Complianc
                 commandType: CommandType.StoredProcedure
             );
         }
+
+        public async Task<IEnumerable<BankListDto>> GetBankListAsync(string entityType, int entityId)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            return await conn.QueryAsync<BankListDto>(
+                "sp_ComplianceBankDetails_List",
+                new { EntityType = entityType, EntityID = entityId },
+                commandType: CommandType.StoredProcedure
+            );
+        }
+        public async Task<BankSaveRequestDto> GetByIdAsync(int bankId, int entityId, string entityType)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            return await conn.QueryFirstOrDefaultAsync<BankSaveRequestDto>(
+                "sp_ComplianceBankDetails_GetById",
+                new { BankID = bankId, EntityType = entityType, EntityID = entityId },
+                commandType: CommandType.StoredProcedure
+            );
+        }
+        public async Task SetPrimaryBankAsync(int bankId, int entityId, string entityType)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            await conn.ExecuteAsync(
+                "sp_ComplianceBank_SetPrimary",
+                new
+                {
+                    BankID = bankId,
+                    EntityType = entityType,
+                    EntityID = entityId
+                },
+                commandType: CommandType.StoredProcedure
+            );
+        }
+        public async Task DeleteBankAsync(int bankId, int entityId, string entityType)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            await conn.ExecuteAsync(
+                "sp_ComplianceBankDetails_Delete",
+                new
+                {
+                    BankID = bankId,
+                    EntityType = entityType,
+                    EntityID = entityId
+                },
+                commandType: CommandType.StoredProcedure
+            );
+        }
     }
 }

@@ -16,5 +16,9 @@ namespace UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compl
         //Task<int> UpsertAsync(IFormFile file, string[] allowed, int uploadId, string documentNumber, string entityType, int entityId);
         Task<ComplianceValidationResultDto> ExtractOnlyAsync(IFormFile file, string complianceName);
         Task SaveBankAsync(IFormFile file, BankSaveRequestDto dto);
+        Task<IEnumerable<BankListDto>> HandleAsync(string entityType, int vendorId);
+        Task ExecuteSetAsync(int bankId, int EntityId, string EntityType);
+        Task<BankSaveRequestDto> GetByIdAsync(int bankId, int EntityId, string EntityType);
+        Task ExecuteDeleteAsync(int bankId, int EntityId, string EntityType);
     }
 }
