@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "mG6Db975ZdGeSYxPFrSx5gkgG9Nn2If8X6RD8VZCRF4=",
+  "Hash": "xnNS4014PgRcktGtEWqqLiEl4w4IOyBTTIzvEhKtI6U=",
   "Source": "UrbanNative.Api",
   "BasePath": "_content/UrbanNative.Api",
   "Mode": "Default",
@@ -186,6 +186,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\compliance\\Vendor\\1\\b9014e9c-e806-4190-91f9-9659088f17f0_sample Aadhar.jpeg"
+    },
+    {
+      "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\wwwroot\\uploads\\compliance\\Vendor\\1\\BankDetails\\0d7f59b9-136f-408e-966f-d0d73e2c0ef6_sbi.jpg.jpg",
+      "SourceId": "UrbanNative.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\wwwroot\\",
+      "BasePath": "_content/UrbanNative.Api",
+      "RelativePath": "uploads/compliance/Vendor/1/BankDetails/0d7f59b9-136f-408e-966f-d0d73e2c0ef6_sbi.jpg.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\compliance\\Vendor\\1\\BankDetails\\0d7f59b9-136f-408e-966f-d0d73e2c0ef6_sbi.jpg.jpg"
     },
     {
       "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\wwwroot\\uploads\\compliance\\Vendor\\1\\BankDetails\\2397d300-29f4-40b2-b27d-9e5b6532b2ab_sbi.jpg.jpg",

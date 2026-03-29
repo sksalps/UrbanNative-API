@@ -1986,6 +1986,32 @@
   },
   {
     "ContainingType": "UrbanNative.Api.Controllers.Compliance.ComplianceController",
+    "Method": "DeleteDocument",
+    "RelativePath": "api/compliance/deletedoc",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "uploadId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Compliance.ComplianceController",
+    "Method": "GetDocumentsList",
+    "RelativePath": "api/compliance/documents_list",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Compliance.ComplianceController",
     "Method": "GetDocumentHistory",
     "RelativePath": "api/compliance/documents/{complianceId}/history",
     "HttpMethod": "GET",

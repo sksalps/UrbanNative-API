@@ -36,6 +36,9 @@ namespace UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance
         Task<ComplianceMaster?> GetComplianceAsync(int complianceId);
         Task<int?> GetComplianceByNameAsync(string complianceName);
 
+        //============Use this for Menu, Compliance=>Documents List==================//
+        Task<IEnumerable<ComplianceDocumentListDto>> GetUploadedDocumentsAsync(string entityType, int entityId);
+        Task DeleteDocumentAsync(int uploadId, string entityType, int entityId);
     }
 
 }

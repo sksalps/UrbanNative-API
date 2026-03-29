@@ -1,0 +1,96 @@
+﻿@model UrbanNative.Shared.Models.Compliance.ComplianceDocumentViewModel
+
+<div class="modal fade" id="complianceModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    @(Model?.UploadID > 0 ? "Edit Document" : "Upload Document")
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form id="complianceForm" method="post" enctype="multipart/form-data">
+                    
+                    <input type="hidden" name="UploadID" value="@Model?.UploadID" />
+                    <input type="hidden" name="ComplianceID" id="complianceIdInput" value="@Model?.ComplianceID" />
+
+                    <!-- File Upload -->
+                    <div class="mb-3">
+                        <label class="form-label">Upload File</label>
+                        <input type="file" name="File" class="form-control" />
+                    </div>
+
+                    <!-- Document Number -->
+                    <div class="mb-3">
+                        <label class="form-label">Document Number</label>
+                        <input type="text" name="DocumentNumber"
+                               value="@Model?.DocumentNumber"
+                               class="form-control" />
+                    </div>
+
+                    <!-- Expiry -->
+                    <div class="mb-3">
+                        <label class="form-label">Expiry Date</label>
+                        <input type="date" name="ExpiryDate"
+                               value="@(Model?.ExpiryDate?.ToString("yyyy-MM-dd"))"
+                               class="form-control" />
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+                <button class="btn btn-primary" onclick="submitComplianceForm()">
+                    Save
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function openComplianceModal(complianceId, uploadId = 0) {
+
+        document.getElementById("complianceIdInput").value = complianceId;
+
+        // Reset form (optional improvement)
+        document.getElementById("complianceForm").reset();
+
+        var modal = new bootstrap.Modal(document.getElementById('complianceModal'));
+        modal.show();
+    }
+
+    async function submitComplianceForm() {
+
+        const form = document.getElementById("complianceForm");
+        const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+
+        const formData = new FormData(form);
+
+        const res = await fetch("?handler=UploadDocument", {
+            method: "POST",
+            headers: {
+                "RequestVerificationToken": token
+            },
+            body: formData
+        });
+
+        const result = await res.json();
+
+        if (!result.success) {
+            alert(result.message);
+            return;
+        }
+
+        location.reload();
+    }
+</script>

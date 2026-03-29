@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using UrbanNative.Application.Interfaces;
+using UrbanNative.Vendors.Mapping;
 using UrbanNative.Vendors.Security;
 using UrbanNative.Vendors.Services;
 using UrbanNative.Vendors.Services.Interfaces;
@@ -14,7 +15,6 @@ builder.Services.AddHttpContextAccessor();
 
 // JWT → Cookie bridge (same pattern as Admin)
 builder.Services.AddTransient<JwtTokenHandler>();
-
 // =======================
 // 🔐 Vendor Cookie Auth
 // =======================
@@ -81,6 +81,9 @@ builder.Services.AddScoped<IVendorWalletService, VendorWalletService>();
 builder.Services.AddScoped<IVendorSettlementPayoutService, VendorSettlementPayoutService>();
 builder.Services.AddScoped<IVendorComplianceService, VendorComplianceService>();
 builder.Services.AddScoped<IBankService, BankService>();
+//use for Shared UI
+builder.Services.AddAutoMapper(typeof(Program));
+
 //builder.Services.AddScoped< BankService>();
 // Later: Orders, Inventory, Wallet, SKUs, etc.
 

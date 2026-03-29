@@ -1,0 +1,259 @@
+﻿@model List<UrbanNative.Shared.Models.Compliance.ComplianceDocumentViewModel>
+@functions {
+    public string FormatFileName(string fileName)
+    {
+        if (string.IsNullOrEmpty(fileName))
+            return "";
+
+        int extensionIndex = fileName.LastIndexOf('.');
+        if (extensionIndex == -1)
+            return fileName;
+
+        string extension = fileName.Substring(extensionIndex); // .pdf
+        string nameWithoutExt = fileName.Substring(0, extensionIndex);
+
+        if (nameWithoutExt.Length <= 10)
+            return fileName;
+
+        string start = nameWithoutExt.Substring(0, 3);
+        string end = nameWithoutExt.Substring(nameWithoutExt.Length - 7);
+
+        return $"{start}...{end}{extension}";
+    }
+}
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        No documents uploaded yet.
+    </div>
+}
+else
+{
+    @Html.AntiForgeryToken()
+    var grouped = Model
+        .GroupBy(x => x.ComplianceName)
+        .OrderBy(g => g.Key);
+
+    foreach (var group in grouped)
+    {
+        <div class="card mb-4 shadow-sm">
+
+            <!-- 🔷 Group Header -->
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span class="fw-semibold">@group.Key</span>
+
+                
+                <a href="javascript:void(0);"
+                       onclick="openComplianceModal(@group.First().ComplianceID)"
+                       class="btn btn-sm btn-outline-primary">
+                    Upload
+                </a>
+            </div>
+
+            <!-- 🔷 Table -->
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm mb-0 align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>File</th>
+                            <th>Status</th>
+                            <th>Expiry Date</th>
+                            <th>Expiry Status</th>
+                            <th>Uploaded</th>
+                            <th>Verified</th>
+                            <th>Version</th>
+                            <th>Approved</th>
+                            <th>Remarks</th>
+                            <th class="text-end">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var doc in group)
+                        {
+                            <tr class="@(doc.IsApprovedVersion ? "table-success" : "")">
+
+                                <!-- FileName clickable -->
+                                <td>
+                                    <a href="javascript:void(0);"
+                                           onclick="openPreview('@doc.FileURL')"
+                                           class="fw-semibold text-decoration-none">
+                                        @FormatFileName(doc.FileName)
+                                    </a>
+
+                                    @if (!string.IsNullOrEmpty(doc.DocumentNumber))
+                                    {
+                                        <div class="text-muted small">
+                                            @doc.DocumentNumber
+                                        </div>
+                                    }
+                                </td>
+
+                                <!-- VerificationStatus -->
+                                <td>
+                                    <span class="badge bg-secondary">
+                                        @doc.VerificationStatus
+                                    </span>
+                                </td>
+
+                                <!-- Expiry Date -->
+                                <td>
+                                    @(doc.ExpiryDate?.ToString("dd MMM yyyy") ?? "-")
+                                </td>
+
+                                <!-- Expiry Status -->
+                                <td>
+                                    @if (doc.ExpiryStatus == "EXPIRED")
+                                    {
+                                        <span class="badge bg-danger">Expired</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success">Valid</span>
+                                    }
+                                </td>
+
+                                <!-- Uploaded -->
+                                <td>
+                                    @(doc.UploadedAt?.ToString("dd MMM yyyy") ?? "-")
+                                </td>
+
+                                <!-- Verified -->
+                                <td>
+                                    @(doc.VerifiedAt?.ToString("dd MMM yyyy") ?? "-")
+                                </td>
+
+                                <!-- Version -->
+                                <td>
+                                    <span class="badge bg-info text-dark">
+                                        @doc.VersionStatus
+                                    </span>
+                                </td>
+
+                                <!-- Approved -->
+                                <td>
+                                    @if (doc.IsApprovedVersion)
+                                    {
+                                        <span class="badge bg-success">Yes</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">N/A</span>
+                                    }
+                                </td>
+
+                                <!-- RejectionReason -->
+                                <td>
+                                    @if (!string.IsNullOrEmpty(doc.RejectionReason))
+                                    {
+                                        <span class="text-danger small">
+                                            @doc.RejectionReason
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span>-</span>
+                                    }
+                                </td>
+
+                                <!-- Actions -->
+                                <td class="text-end">
+                                    @if (doc.VerificationStatus=="APPROVED")
+                                    {
+                                        <span class="badge bg-dark ms-1">🔒 Locked</span>
+                                        
+                                    }
+                                    else
+                                    {
+                                        @if (doc.CanEdit)
+                                        {
+                                            
+                                            <a href="javascript:void(0);"
+                                                   onclick="openComplianceModal(@doc.ComplianceID, @doc.UploadID)"
+                                                   class="btn btn-sm btn-primary">
+                                                Edit
+                                            </a>
+                                        }
+
+                                        @if (doc.CanDelete)
+                                        {
+                                            <button class="btn btn-sm btn-danger"
+                                                    onclick="deleteDocument(@doc.UploadID)">
+                                                Delete
+                                            </button>
+                                        }
+                                    }
+
+
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+    
+}
+
+<div class="modal fade" id="docPreviewModal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Document Preview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body p-0">
+                <iframe id="docPreviewFrame"
+                        style="width:100%; height:80vh; border:none;"></iframe>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    function openPreview(url) {
+        document.getElementById("docPreviewFrame").src = url;
+
+        var modal = new bootstrap.Modal(document.getElementById('docPreviewModal'));
+        modal.show();
+    }
+
+    async function deleteDocument(uploadId) {
+
+        if (!confirm("Are you sure you want to delete this document?")) return;
+
+        const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+
+        const formData = new FormData();
+        formData.append("uploadId", uploadId);
+
+        try {
+            const res = await fetch("?handler=Delete", {
+                method: "POST",
+                headers: {
+                    "RequestVerificationToken": token
+                },
+                body: formData
+            });
+
+            const result = await res.json();
+
+            if (!result.success) {
+                alert(result.message || "Delete failed");
+                return;
+            }
+
+            location.reload(); // refresh grid
+        }
+        catch (err) {
+            alert("Something went wrong");
+        }
+    }
+
+
+</script>

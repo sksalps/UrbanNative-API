@@ -1,7 +1,8 @@
-﻿
+﻿using AutoMapper;
 using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
-
+using UrbanNative.Shared.Models.Compliance;
 using System.Net.Http.Headers;
+using UrbanNative.Vendors.Mapping.Profiles;
 
 
 
@@ -10,10 +11,12 @@ namespace UrbanNative.Vendors.Services
     public class VendorComplianceService: IVendorComplianceService
     {
         private readonly HttpClient _http;
+        private readonly IMapper _mapper;
 
-        public VendorComplianceService(IHttpClientFactory factory)
+        public VendorComplianceService(IHttpClientFactory factory, IMapper mapper)
         {
             _http = factory.CreateClient("ApiClient");
+            _mapper = mapper;
         }
 
         // 🔝 Dashboard Summary
@@ -112,6 +115,34 @@ namespace UrbanNative.Vendors.Services
                 return result.Message;
 
             return result.DetectedNumber;
+        }
+        
+        //=============================Menu Component - Uploaded Documents List=============================
+
+        public async Task<List<ComplianceDocumentViewModel>> GetUploadedDocumentsListAsync()
+        {
+            var response = await _http.GetAsync("api/compliance/documents_list");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                throw new Exception(error);
+            }
+
+            var data = await response.Content.ReadFromJsonAsync<List<ComplianceDocumentListDto>>();
+
+            return _mapper.Map<List<ComplianceDocumentViewModel>>(data ?? new());
+        }
+
+        public async Task DeleteDocumentAsync(int uploadId)
+        {
+            var response = await _http.DeleteAsync($"api/compliance/deletedoc?uploadId={uploadId}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                throw new Exception(error);
+            }
         }
     }
 

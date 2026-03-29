@@ -92,5 +92,22 @@ namespace UrbanNative.Application.UseCase.CommonCroshDashboard.Compliance
 
             return match.Success ? match.Value : null;
         }
+        //============Use this for Menu, Compliance=>Documents List==================//
+        public async Task<IEnumerable<ComplianceDocumentListDto>> GetUploadedDocumentsAsync(string entityType, int entityId)
+        {
+            // Future scope:
+            // - Add validation if needed
+            // - Add cross-entity rules (Vendor/Admin/Customer)
+            // - Add filtering/transformations if required
+
+            var result = await _repository.GetUploadedDocumentsAsync(entityType, entityId);
+
+            return result;
+        }
+
+        public async Task DeleteDocumentAsync(int uploadId, string entityType, int entityId)
+        {
+            await _repository.DeleteDocumentAsync(uploadId, entityType, entityId);
+        }
     }
 }

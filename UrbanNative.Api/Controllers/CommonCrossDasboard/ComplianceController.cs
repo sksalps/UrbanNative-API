@@ -146,32 +146,7 @@ namespace UrbanNative.Api.Controllers.Compliance
             }
             
         }
-/*
-        [HttpPost("ocr/pan")]
-        public async Task<IActionResult> ExtractPan(IFormFile file)
-        {
-            if (file == null) return BadRequest();
 
-            using var stream = file.OpenReadStream();
-
-            var pan = await _ocrService.ExtractPanAsync(stream);
-
-            return Ok(new { value = pan });
-        }
-
-        [HttpPost("ocr/document")]
-        public async Task<IActionResult> ExtractDocument([FromForm] IFormFile file,[FromForm] string regex)
-        {
-            if (file == null || file.Length == 0)
-                return BadRequest("File missing");
-
-            using var stream = file.OpenReadStream();
-            
-            var value = await _complianceUseCase.ExtractDocumentNumberAsync(stream, regex);
-
-            return Ok(new { value });
-        }
-*/
         [HttpPost("validate-compliance")]
         public async Task<IActionResult> ValidateCompliance([FromForm] IFormFile File,[FromForm] int ComplianceId,[FromForm] string Regex)
         {
@@ -186,8 +161,29 @@ namespace UrbanNative.Api.Controllers.Compliance
 
             return Ok(result);
         }
-
+        //============Use this for Menu, Compliance=>Documents List==================//
         
+        // Get uploaded compliance documents (Vendor/Admin/Customer/Sathi)
+ 
+        [HttpGet("documents_list")]
+        public async Task<IActionResult> GetDocumentsList( )
+        {
+            var (entityType, entityId) = ResolveEntity();
+            
+
+            var result = await _complianceUseCase.GetUploadedDocumentsAsync(entityType, entityId);
+
+            return Ok(result);
+        }
+        [HttpDelete("deletedoc")]
+        public async Task<IActionResult> DeleteDocument(int uploadId)
+        {
+            var (entityType, entityId) = ResolveEntity();
+
+            await _complianceUseCase.DeleteDocumentAsync(uploadId, entityType, entityId);
+
+            return Ok(new { message = "Document deleted successfully" });
+        }
     }
 }
 

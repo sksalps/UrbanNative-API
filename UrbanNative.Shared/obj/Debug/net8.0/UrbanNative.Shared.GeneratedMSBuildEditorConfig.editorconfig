@@ -26,6 +26,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50MS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-lwgqbxvsz7
 
+[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Shared/Pages/Compliance/_ComplianceDocumentsList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcGxpYW5jZVxfQ29tcGxpYW5jZURvY3VtZW50c0xpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Shared/Pages/Compliance/_DocUploadEditModal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcGxpYW5jZVxfRG9jVXBsb2FkRWRpdE1vZGFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Shared/Pages/_AddBankForm.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0FkZEJhbmtGb3JtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

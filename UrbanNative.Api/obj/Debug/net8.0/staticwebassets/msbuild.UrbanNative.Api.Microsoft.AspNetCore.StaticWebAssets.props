@@ -144,6 +144,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\compliance\Vendor\1\b9014e9c-e806-4190-91f9-9659088f17f0_sample Aadhar.jpeg))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\compliance\Vendor\1\BankDetails\0d7f59b9-136f-408e-966f-d0d73e2c0ef6_sbi.jpg.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>UrbanNative.Api</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/UrbanNative.Api</BasePath>
+      <RelativePath>uploads/compliance/Vendor/1/BankDetails/0d7f59b9-136f-408e-966f-d0d73e2c0ef6_sbi.jpg.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\compliance\Vendor\1\BankDetails\0d7f59b9-136f-408e-966f-d0d73e2c0ef6_sbi.jpg.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\compliance\Vendor\1\BankDetails\2397d300-29f4-40b2-b27d-9e5b6532b2ab_sbi.jpg.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>UrbanNative.Api</SourceId>

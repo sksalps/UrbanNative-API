@@ -126,8 +126,8 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
             {
                 basePath = Path.Combine(_env.ContentRootPath, basePath);
             }
-
-            var folderPath = Path.Combine(basePath,"compliance",entityType, entityId.ToString());
+            var relativePath = Path.Combine("\\uploads", "compliance", entityType, entityId.ToString());
+            var folderPath = Path.Combine(basePath,"compliance",relativePath);
 
             if (!Directory.Exists(folderPath))
                 Directory.CreateDirectory(folderPath);
@@ -139,6 +139,7 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
             {
                 await fileStream.CopyToAsync(fileStreamOut);
             }
+            var fileUrl = $"{relativePath}/{uniqueFileName}";
 
             var existingStatus = await conn.QueryFirstOrDefaultAsync<string>(
             "SELECT Top 1 VerificationStatus FROM ComplianceDocumentsUploaded WHERE EntityType=@EntityType AND EntityID=@EntityID AND ComplianceID=@ComplianceID AND IsActive=1 order by UploadID desc",
@@ -165,7 +166,7 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
                     finalExpiry = systemExpiry;
             }
 
-            var fileUrl = $"{folderPath}/{uniqueFileName}";
+            
             await conn.ExecuteAsync(
             "sp_ComplianceDocument_Upload",
             new
@@ -219,6 +220,41 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
                 throw new InvalidOperationException("Bank Compliance Not Configured");
             }
             return ComplianceID;
+        }
+
+        //============Use this for Menu, Compliance=>Documents List==================//
+
+        public async Task<IEnumerable<ComplianceDocumentListDto>> GetUploadedDocumentsAsync(string entityType, int entityId)
+        {
+            using var conn = _connFactory.CreateConnection();
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@EntityType", entityType);
+            parameters.Add("@EntityID", entityId);
+
+            var result = await conn.QueryAsync<ComplianceDocumentListDto>(
+                "sp_ComplianceDocumentsUploaded_List",
+                parameters,
+                commandType: CommandType.StoredProcedure
+            );
+
+            return result;
+        }
+
+        public async Task DeleteDocumentAsync(int uploadId, string entityType, int entityId)
+        {
+            using var connection = _connFactory.CreateConnection();
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@UploadID", uploadId);
+            parameters.Add("@EntityType", entityType);
+            parameters.Add("@EntityID", entityId);
+
+            await connection.ExecuteAsync(
+                "sp_ComplianceDocumentsUploaded_Delete",
+                parameters,
+                commandType: CommandType.StoredProcedure
+            );
         }
     }
 }

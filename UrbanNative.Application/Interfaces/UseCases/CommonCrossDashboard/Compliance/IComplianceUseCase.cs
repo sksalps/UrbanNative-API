@@ -34,5 +34,9 @@ namespace UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compl
         Task UploadDocumentAsync(string entityType,int entityId, ComplianceUploadRequest request,
             Stream fileStream,string fileName);
         Task<string?> ExtractDocumentNumberAsync(Stream fileStream, string regex);
+
+      //============Use this for Menu, Compliance=>Documents List==================//
+        Task<IEnumerable<ComplianceDocumentListDto>> GetUploadedDocumentsAsync(string entityType, int entityId);
+        Task DeleteDocumentAsync(int uploadId, string entityType, int entityId);
     }
 }

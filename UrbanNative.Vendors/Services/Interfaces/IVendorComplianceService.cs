@@ -1,5 +1,6 @@
-﻿using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
+using UrbanNative.Shared.Models.Compliance;
 
 namespace UrbanNative.Vendors.Services
 {
@@ -18,6 +19,9 @@ namespace UrbanNative.Vendors.Services
         Task<ComplianceCategoryStatusDto?> GetCategoryStatusAsync(int groupId);
         Task UploadDocumentAsync(int complianceId, IFormFile file,DateTime? expiryDate,string? documentNumber);
         Task<string?> ExtractDocumentAsync(IFormFile file, string regex, int complianceId);
+
+        Task<List<ComplianceDocumentViewModel>> GetUploadedDocumentsListAsync();
+        Task DeleteDocumentAsync(int uploadId);
     }
 
 }
