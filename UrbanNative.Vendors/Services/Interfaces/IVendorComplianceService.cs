@@ -17,7 +17,7 @@ namespace UrbanNative.Vendors.Services
         Task<IEnumerable<ComplianceDocumentHistoryDto>> GetDocumentHistoryAsync(int complianceId);
 
         Task<ComplianceCategoryStatusDto?> GetCategoryStatusAsync(int groupId);
-        Task UploadDocumentAsync(int complianceId, IFormFile file,DateTime? expiryDate,string? documentNumber);
+        Task UploadDocumentAsync(int complianceId,int uploadId, IFormFile file,DateTime? expiryDate,string? documentNumber);
         Task<string?> ExtractDocumentAsync(IFormFile file, string regex, int complianceId);
 
         Task<List<ComplianceDocumentViewModel>> GetUploadedDocumentsListAsync();

@@ -1,4 +1,5 @@
 ﻿@model List<UrbanNative.Shared.Models.Compliance.ComplianceDocumentViewModel>
+
 @functions {
     public string FormatFileName(string fileName)
     {
@@ -21,6 +22,7 @@
         return $"{start}...{end}{extension}";
     }
 }
+
 @if (!Model.Any())
 {
     <div class="alert alert-info">
@@ -33,7 +35,7 @@ else
     var grouped = Model
         .GroupBy(x => x.ComplianceName)
         .OrderBy(g => g.Key);
-
+        
     foreach (var group in grouped)
     {
         <div class="card mb-4 shadow-sm">
@@ -44,10 +46,22 @@ else
 
                 
                 <a href="javascript:void(0);"
-                       onclick="openComplianceModal(@group.First().ComplianceID)"
+                       data-bs-toggle="modal"
+                       data-bs-target="#complianceModal"
+                       data-id="@group.First().ComplianceID"
+                       data-apiurl=""
+                       data-hasnumber="@group.First().HasNumberField"
+                       data-label="@group.First().NumberFieldLabel"
+                       data-regex="@group.First().NumberFieldRegex"
+                       data-filetypes="@group.First().AllowedFileTypes"
+                       data-maxsize="@group.First().MaxFileSizeMB"
+                       data-hasexpiry="@group.First().HasExpiry"
+                       data-defaultmonths="@group.First().DefaultExpiryMonths"
                        class="btn btn-sm btn-outline-primary">
+
                     Upload
                 </a>
+                
             </div>
 
             <!-- 🔷 Table -->
@@ -76,11 +90,11 @@ else
                                 <!-- FileName clickable -->
                                 <td>
                                     <a href="javascript:void(0);"
-                                           onclick="openPreview('@doc.FileURL')"
+                                           onclick="openPreview('@doc.FileURL.Replace("\\", "\\\\")')"
                                            class="fw-semibold text-decoration-none">
                                         @FormatFileName(doc.FileName)
                                     </a>
-
+                                    
                                     @if (!string.IsNullOrEmpty(doc.DocumentNumber))
                                     {
                                         <div class="text-muted small">
@@ -158,21 +172,34 @@ else
 
                                 <!-- Actions -->
                                 <td class="text-end">
-                                    @if (doc.VerificationStatus=="APPROVED")
+                                    @if (doc.VerificationStatus == "APPROVED")
                                     {
                                         <span class="badge bg-dark ms-1">🔒 Locked</span>
                                         
                                     }
                                     else
                                     {
+                                        
                                         @if (doc.CanEdit)
                                         {
                                             
-                                            <a href="javascript:void(0);"
-                                                   onclick="openComplianceModal(@doc.ComplianceID, @doc.UploadID)"
-                                                   class="btn btn-sm btn-primary">
+                                            <button class="btn btn-sm btn-primary"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#complianceModal"
+                                                    data-id="@doc.ComplianceID"
+                                                    data-uploadid="@doc.UploadID"
+                                                    data-docnumber="@doc.DocumentNumber"
+                                                    data-expiry="@doc.ExpiryDate?.ToString("yyyy-MM-dd")"
+                                                    data-fileurl="@doc.FileURL"
+                                                    data-hasnumber="@doc.HasNumberField"
+                                                    data-label="@doc.NumberFieldLabel"
+                                                    data-regex="@doc.NumberFieldRegex"
+                                                    data-filetypes="@doc.AllowedFileTypes"
+                                                    data-maxsize="@doc.MaxFileSizeMB"
+                                                    data-hasexpiry="@doc.HasExpiry"
+                                                    data-defaultmonths="@doc.DefaultExpiryMonths">
                                                 Edit
-                                            </a>
+                                            </button>
                                         }
 
                                         @if (doc.CanDelete)
@@ -216,8 +243,27 @@ else
     </div>
 </div>
 <script>
-    function openPreview(url) {
-        document.getElementById("docPreviewFrame").src = url;
+
+    function openPreview(fileUrl) {
+
+        //alert (API_BASE_URL + fileUrl);
+
+        if (!fileUrl) return;
+
+        // 🔥 Fix slashes
+        let cleanPath = fileUrl.replace(/\\/g, '/');
+
+        // 🔥 Ensure leading slash
+        if (!cleanPath.startsWith('/')) {
+            cleanPath = '/' + cleanPath;
+        }
+
+        // 🔥 Combine safely
+        const fullUrl = API_BASE_URL.replace(/\/$/, '') + cleanPath;
+        //alert (fullUrl);
+        //console.log(fullUrl); // debug
+
+        document.getElementById("docPreviewFrame").src = fullUrl;
 
         var modal = new bootstrap.Modal(document.getElementById('docPreviewModal'));
         modal.show();

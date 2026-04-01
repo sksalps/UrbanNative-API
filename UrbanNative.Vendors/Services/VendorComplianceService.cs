@@ -61,6 +61,7 @@ namespace UrbanNative.Vendors.Services
         }
         public async Task UploadDocumentAsync(
         int complianceId,
+        int uploadId,
         IFormFile file,
         DateTime? expiryDate,
         string? documentNumber)
@@ -68,6 +69,7 @@ namespace UrbanNative.Vendors.Services
             using var content = new MultipartFormDataContent();
 
             content.Add(new StringContent(complianceId.ToString()), "complianceId");
+            content.Add(new StringContent(uploadId.ToString()), "uploadId");
 
             if (expiryDate.HasValue)
                 content.Add(new StringContent(expiryDate.Value.ToString("yyyy-MM-dd")), "expiryDate");
@@ -75,7 +77,13 @@ namespace UrbanNative.Vendors.Services
             if (!string.IsNullOrWhiteSpace(documentNumber))
                 content.Add(new StringContent(documentNumber), "documentNumber");
 
-            content.Add(new StreamContent(file.OpenReadStream()), "file", file.FileName);
+            if (file != null && file.Length > 0)
+            {
+                var fileContent = new StreamContent(file.OpenReadStream());
+                fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(file.ContentType);
+
+                content.Add(fileContent, "file", file.FileName);
+            }
 
             var response = await _http.PostAsync("api/compliance/documents/upload", content);
             if (!response.IsSuccessStatusCode)

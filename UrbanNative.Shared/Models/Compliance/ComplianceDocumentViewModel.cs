@@ -2,13 +2,12 @@
 {
     public class ComplianceDocumentViewModel
     {
-        public int UploadID { get; set; }
+        public int UploadID { get; set; } = 0;
         public int ComplianceID { get; set; }
         public string ComplianceName { get; set; }
 
         public string FileName { get; set; }
         public string FileURL { get; set; }
-
         public string VerificationStatus { get; set; }
         public string DisplayStatus { get; set; }
 
@@ -29,7 +28,17 @@
         public int RowNum { get; set; }
         public int TotalCount { get; set; }
 
+        public bool HasNumberField { get; set; }
+        public string NumberFieldLabel { get; set; }
+        public string NumberFieldRegex { get; set; }
+        public string AllowedFileTypes { get; set; }
+        public int? MaxFileSizeMB { get; set; }
+        public bool HasExpiry { get; set; }
+        public int? DefaultExpiryMonths { get; set; }
+
         public bool CanEdit { get; set; }
         public bool CanDelete { get; set; }
+
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Microsoft.AspNetCore.Http;
+using System.IO;
 using System.Text.RegularExpressions;
 using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
 using UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance;
@@ -68,16 +69,12 @@ namespace UrbanNative.Application.UseCase.CommonCroshDashboard.Compliance
         {
             return await _repository.GetCategoryStatusAsync(entityType, entityId, groupId);
         }
-        public async Task UploadDocumentAsync(
-        string entityType,
-        int entityId,
-        ComplianceUploadRequest request,
-        Stream fileStream,
-        string fileName)
-        {
-            await _repository.UploadDocumentAsync(entityType, entityId, request, fileStream, fileName);
-        }
         
+        public async Task<int> UploadDocumentAsync(string entityType,int entityId,ComplianceUploadRequest request,
+            IFormFile? file)
+        {
+            return await _repository.UploadDocumentAsync(entityType,entityId,request,file);
+        }
         public async Task<string?> ExtractDocumentNumberAsync(Stream fileStream, string regex)
         {
             if (string.IsNullOrWhiteSpace(regex))

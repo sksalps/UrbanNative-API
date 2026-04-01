@@ -1,4 +1,5 @@
-﻿using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
+﻿using Microsoft.AspNetCore.Http;
+using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
 using UrbanNative.Domain.Entities;
 
 
@@ -29,8 +30,8 @@ namespace UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance
             int entityId,
             int complianceId);
 
-        Task UploadDocumentAsync(string entityType,int entityId,ComplianceUploadRequest request,
-        Stream fileStream,string fileName);
+        Task<int> UploadDocumentAsync(string entityType, int entityId, ComplianceUploadRequest request,
+    IFormFile? file);
 
         Task<ComplianceCategoryStatusDto> GetCategoryStatusAsync(string entityType, int entityId, int groupId);
         Task<ComplianceMaster?> GetComplianceAsync(int complianceId);

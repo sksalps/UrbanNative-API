@@ -116,6 +116,7 @@ namespace UrbanNative.Api.Controllers.Compliance
         [HttpPost("documents/upload")]
         public async Task<IActionResult> UploadDocument(
             [FromForm] int complianceId,
+            [FromForm] int uploadId,
             [FromForm] DateTime? expiryDate,
             [FromForm] string? documentNumber,
             [FromForm] IFormFile file)
@@ -127,17 +128,14 @@ namespace UrbanNative.Api.Controllers.Compliance
             var request = new ComplianceUploadRequest
             {
                 ComplianceID = complianceId,
+                UploadID=uploadId,
                 ExpiryDate = expiryDate,
                 DocumentNumber = documentNumber
+                
             };
             try
             {
-                await _complianceUseCase.UploadDocumentAsync(
-                entityType,
-                entityId,
-                request,
-                stream,
-                file.FileName);
+                await _complianceUseCase.UploadDocumentAsync(entityType,entityId,request,file);
                 return Ok();
             }
             catch (InvalidOperationException ex)

@@ -1,55 +1,68 @@
 ﻿@model UrbanNative.Shared.Models.Compliance.ComplianceDocumentViewModel
 
+<!-- 📤 Upload/Edit Modal -->
 <div class="modal fade" id="complianceModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
 
+            <!-- HEADER -->
             <div class="modal-header">
                 <h5 class="modal-title">
-                    @(Model?.UploadID > 0 ? "Edit Document" : "Upload Document")
+                   @(Model?.UploadID > 0 ? "Edit Document" : "Upload Document")
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
+            <!-- BODY -->
             <div class="modal-body">
 
                 <form id="complianceForm" method="post" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
                     
-                    <input type="hidden" name="UploadID" value="@Model?.UploadID" />
-                    <input type="hidden" name="ComplianceID" id="complianceIdInput" value="@Model?.ComplianceID" />
+                    <input type="hidden" name="UploadID" id="UploadID" />
+                    <input type="hidden" name="ComplianceID" id="ComplianceID" />
+                    
+                    <input type="hidden" id="NumberFieldRegex" name="NumberFieldRegex" />
+                    <input type="hidden" id="AllowedFileTypes" />
+                    <input type="hidden" id="MaxFileSizeMB" />
 
-                    <!-- File Upload -->
+                    <!-- FILE -->
                     <div class="mb-3">
-                        <label class="form-label">Upload File</label>
-                        <input type="file" name="File" class="form-control" />
+                        <label class="form-label">Select File</label>
+                        <input type="file" name="File" id="FileInput" class="form-control" required />
+                        <small id="fileRules" class="text-muted"></small>
                     </div>
 
-                    <!-- Document Number -->
+                    <!-- PREVIEW -->
                     <div class="mb-3">
-                        <label class="form-label">Document Number</label>
-                        <input type="text" name="DocumentNumber"
-                               value="@Model?.DocumentNumber"
-                               class="form-control" />
+                        <img id="filePreview"
+                             class="img-fluid border rounded"
+                             style="max-height:200px; display:none;" />
                     </div>
 
-                    <!-- Expiry -->
-                    <div class="mb-3">
+                    <!-- DOCUMENT NUMBER -->
+                    <div id="numberFieldContainer" class="mb-3 d-none">
+                        <label id="numberFieldLabel" class="form-label"></label>
+                        <input type="text" name="DocumentNumber" id="DocumentNumber" class="form-control" />
+                        <div class="invalid-feedback">
+                            Please enter a valid value.
+                        </div>
+                    </div>
+
+                    <!-- EXPIRY -->
+                    <div id="expiryContainer" class="mb-3 d-none">
                         <label class="form-label">Expiry Date</label>
-                        <input type="date" name="ExpiryDate"
-                               value="@(Model?.ExpiryDate?.ToString("yyyy-MM-dd"))"
-                               class="form-control" />
+                        <input type="date" name="ExpiryDate" id="ExpiryDate" class="form-control" />
                     </div>
 
                 </form>
 
             </div>
 
+            <!-- FOOTER -->
             <div class="modal-footer">
                 <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-
-                <button class="btn btn-primary" onclick="submitComplianceForm()">
-                    Save
-                </button>
+                <button class="btn btn-primary" onclick="submitComplianceForm()">Save</button>
             </div>
 
         </div>
@@ -58,29 +71,267 @@
 
 
 <script>
-    function openComplianceModal(complianceId, uploadId = 0) {
 
-        document.getElementById("complianceIdInput").value = complianceId;
+    // ================= INIT MODAL =================
+    function initComplianceModal(button) {
 
-        // Reset form (optional improvement)
-        document.getElementById("complianceForm").reset();
+        const config = {
+            complianceId: button.getAttribute('data-id'),
+            uploadId: button.getAttribute('data-uploadid'), // 🔥 NEW
+            hasNumber: button.getAttribute('data-hasnumber') === "True",
+            label: button.getAttribute('data-label'),
+            regex: button.getAttribute('data-regex'),
+            fileTypes: button.getAttribute('data-filetypes'),
+            maxSize: button.getAttribute('data-maxsize'),
+            hasExpiry: button.getAttribute('data-hasexpiry') === "True",
+            defaultMonths: button.getAttribute('data-defaultmonths'),
 
-        var modal = new bootstrap.Modal(document.getElementById('complianceModal'));
-        modal.show();
+            // 🔥 NEW (EDIT DATA)
+            docNumber: button.getAttribute('data-docnumber'),
+            expiry: button.getAttribute('data-expiry'),
+            fileUrl: button.getAttribute('data-fileurl')
+        };
+        //alert (config.uploadId);
+        document.getElementById("ComplianceID").value = config.complianceId;
+        document.getElementById("UploadID").value = config.uploadId;
+        document.getElementById("NumberFieldRegex").value = config.regex;
+        document.getElementById("AllowedFileTypes").value = config.fileTypes;
+        document.getElementById("MaxFileSizeMB").value = config.maxSize;
+
+        resetModal();
+
+        toggleNumberField(config);
+        setFileRules(config);
+        toggleExpiry(config);
+
+        // 🔥 APPLY EDIT VALUES
+        applyEditData(config);
     }
 
+
+    // ================= RESET =================
+    function resetModal() {
+
+        document.getElementById("FileInput").value = "";
+        document.getElementById("DocumentNumber").value = "";
+        document.getElementById("ExpiryDate").value = "";
+
+        const preview = document.getElementById("filePreview");
+        preview.src = "";
+        preview.style.display = "none";
+
+        document.getElementById("numberFieldContainer").classList.add("d-none");
+        document.getElementById("expiryContainer").classList.add("d-none");
+    }
+
+
+    // ================= APPLY EDIT DATA =================
+    function applyEditData(config) {
+
+        // Document Number
+        if (config.docNumber) {
+            document.getElementById("DocumentNumber").value = config.docNumber;
+        }
+
+        // Expiry
+        if (config.expiry) {
+            document.getElementById("ExpiryDate").value = config.expiry;
+        }
+
+        // File Preview
+        const preview = document.getElementById("filePreview");
+        //alert (API_BASE_URL + config.fileUrl);
+        if (config.fileUrl) {
+
+            const fullUrl = API_BASE_URL + config.fileUrl;
+            alert (fullUrl);
+            if (fullUrl.match(/\.(jpg|jpeg|png|gif)$/i)) {
+                preview.src = fullUrl;
+                preview.style.display = "block";
+            } else {
+                preview.style.display = "none";
+            }
+        }
+    }
+
+
+    // ================= NUMBER FIELD =================
+    function toggleNumberField(config) {
+
+        const container = document.getElementById("numberFieldContainer");
+        const input = document.getElementById("DocumentNumber");
+        const label = document.getElementById("numberFieldLabel");
+
+        if (config.hasNumber) {
+
+            container.classList.remove("d-none");
+            label.textContent = config.label || "Document Number";
+
+            if (config.regex) {
+                input.setAttribute("pattern", config.regex);
+                input.setAttribute("required", "required");
+
+                input.oninvalid = function () {
+                    this.setCustomValidity("Invalid " + config.label);
+                };
+
+                input.oninput = function () {
+                    this.setCustomValidity("");
+                };
+            }
+
+        } else {
+            container.classList.add("d-none");
+            input.removeAttribute("pattern");
+            input.removeAttribute("required");
+        }
+    }
+
+
+    // ================= FILE RULES =================
+    function setFileRules(config) {
+
+        document.getElementById("AllowedFileTypes").value = config.fileTypes;
+        document.getElementById("MaxFileSizeMB").value = config.maxSize;
+
+        const rulesText = document.getElementById("fileRules");
+
+        if (config.fileTypes || config.maxSize) {
+            rulesText.innerText = `Allowed: ${config.fileTypes} | Max: ${config.maxSize} MB`;
+        }
+    }
+
+
+    // ================= EXPIRY =================
+    function toggleExpiry(config) {
+
+        const container = document.getElementById("expiryContainer");
+        const input = document.getElementById("ExpiryDate");
+
+        if (config.hasExpiry) {
+
+            container.classList.remove("d-none");
+
+            // Only auto-fill if NOT editing
+            if (!config.expiry && config.defaultMonths && parseInt(config.defaultMonths) > 0) {
+
+                const d = new Date();
+                d.setMonth(d.getMonth() + parseInt(config.defaultMonths));
+
+                input.value = d.toISOString().split('T')[0];
+                input.readOnly = true;
+
+            } else {
+                input.readOnly = false;
+            }
+
+        } else {
+            container.classList.add("d-none");
+            input.value = "";
+        }
+    }
+
+
+    // ================= MODAL EVENT =================
+    document.getElementById("complianceModal")
+        .addEventListener("show.bs.modal", function (event) {
+
+            const button = event.relatedTarget;
+            initComplianceModal(button);
+
+        });
+
+
+    // ================= FILE VALIDATION + OCR =================
+    document.getElementById("FileInput").addEventListener("change", async function () {
+
+        const file = this.files[0];
+        if (!file) return;
+
+        const allowedTypes = document.getElementById("AllowedFileTypes").value;
+        const maxSizeMB = document.getElementById("MaxFileSizeMB").value;
+
+        // Type validation
+        if (allowedTypes) {
+            const allowed = allowedTypes.split(",").map(x => x.trim().toLowerCase());
+            const ext = file.name.split('.').pop().toLowerCase();
+
+            if (!allowed.includes(ext)) {
+                alert("Invalid file type: " + allowed.join(", "));
+                this.value = "";
+                return;
+            }
+        }
+
+        // Size validation
+        if (maxSizeMB) {
+            const maxBytes = parseInt(maxSizeMB) * 1024 * 1024;
+
+            if (file.size > maxBytes) {
+                alert("File exceeds " + maxSizeMB + " MB");
+                this.value = "";
+                return;
+            }
+        }
+
+        // Preview
+        const preview = document.getElementById("filePreview");
+
+        if (file.type.startsWith("image/")) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                preview.src = e.target.result;
+                preview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.style.display = "none";
+        }
+
+        // OCR
+        const complianceId = document.getElementById("ComplianceID").value;
+        const regex = document.getElementById("NumberFieldRegex").value;
+
+        const formData = new FormData();
+        formData.append("File", file);
+        formData.append("complianceId", complianceId);
+        formData.append("regex", regex);
+
+        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+        try {
+            const res = await fetch("?handler=OcrDocument", {
+                method: "POST",
+                headers: { "RequestVerificationToken": token },
+                body: formData
+            });
+
+            const result = await res.json();
+
+            if (result.value) {
+                const input = document.getElementById("DocumentNumber");
+                input.value = result.value;
+                input.classList.add("border-success");
+            }
+
+        } catch (err) {
+            console.error("OCR error:", err);
+        }
+
+    });
+
+
+    // ================= SUBMIT =================
     async function submitComplianceForm() {
 
         const form = document.getElementById("complianceForm");
-        const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
         const formData = new FormData(form);
 
         const res = await fetch("?handler=UploadDocument", {
             method: "POST",
-            headers: {
-                "RequestVerificationToken": token
-            },
+            headers: { "RequestVerificationToken": token },
             body: formData
         });
 
@@ -93,4 +344,5 @@
 
         location.reload();
     }
+
 </script>

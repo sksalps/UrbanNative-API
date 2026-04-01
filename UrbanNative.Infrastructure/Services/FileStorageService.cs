@@ -17,34 +17,52 @@ public class FileStorageService : IFileStorageService
         _config = config;
     }
 
-    public async Task<string> UploadAsync(IFormFile file,string docFor, string folder,string entityType, int entityId )
-    {
-        //var uploadsPath = Path.Combine(_env.WebRootPath, "uploads", folder);
-        var basePath = _config["FileStorage:BasePath"];
 
-        if (!Path.IsPathRooted(basePath))
+        public async Task<string> UploadAsync(
+    IFormFile file,
+    string docFor,
+    string folder,
+    string entityType,
+    int entityId)
         {
+            var basePath = _config["FileStorage:BasePath"];
+            var uploadFolder = _config["FileStorage:UploadFolder"];
+
+            if (!Path.IsPathRooted(basePath))
+            {
                 basePath = Path.Combine(_env.ContentRootPath, basePath);
-        }
-        var relativePath = Path.Combine("\\uploads", docFor, entityType, entityId.ToString(), folder);
+            }
 
-        var uploadsPath = Path.Combine(basePath,docFor,entityType,entityId.ToString(), folder);
-        if (!Directory.Exists(uploadsPath))
-        Directory.CreateDirectory(uploadsPath);
+            // 🔥 Build relative path (OS path)
+            string relativePath = folder != null
+                ? Path.Combine(uploadFolder, docFor, entityType, entityId.ToString(), folder)
+                : Path.Combine(uploadFolder, docFor, entityType, entityId.ToString());
 
-        
+            var uploadsPath = Path.Combine(basePath, relativePath);
 
-        //var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
-        var fileName = $"{Guid.NewGuid()}_{file.FileName}" + Path.GetExtension(file.FileName);
-        var filePath = Path.Combine(uploadsPath, fileName);
+            if (!Directory.Exists(uploadsPath))
+                Directory.CreateDirectory(uploadsPath);
 
-        using (var stream = new FileStream(filePath, FileMode.Create))
-        {
-            await file.CopyToAsync(stream);
-        }
-        
-        return $"{relativePath}/{fileName}";
-        //return $"/uploads/{folder}/{fileName}";
+            // 🔥 Clean filename (important)
+            var originalName = Path.GetFileName(file.FileName);
+            var fileName = $"{Guid.NewGuid()}_{originalName}";
+
+            var filePath = Path.Combine(uploadsPath, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            // 🔥 Convert to URL-safe path
+            var urlPath = Path.Combine(relativePath, fileName)
+                                .Replace("\\", "/");
+
+            // 🔥 Ensure leading slash
+            if (!urlPath.StartsWith("/"))
+                urlPath = "/" + urlPath;
+
+            return urlPath;
         }
     }
 }

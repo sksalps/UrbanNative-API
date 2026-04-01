@@ -98,6 +98,7 @@ namespace UrbanNative.Vendors.Pages.Business.Compliance
         {
             await _complianceService.UploadDocumentAsync(
                 ComplianceID,
+                0, // New Upload
                 File,
                 ExpiryDate,
                 DocumentNumber);

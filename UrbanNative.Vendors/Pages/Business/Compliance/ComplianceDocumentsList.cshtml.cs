@@ -6,15 +6,18 @@ using UrbanNative.Vendors.Services;
 public class ComplianceDocumentsModel : PageModel
 {
     private readonly IVendorComplianceService _service;
+    private readonly IConfiguration _configuration;
+    public string ApiBaseUrl { get; private set; } = "";
 
-    public ComplianceDocumentsModel(IVendorComplianceService service)
+    public ComplianceDocumentsModel(IVendorComplianceService service, IConfiguration configuration)
     {
         _service = service;
+        _configuration = configuration;
+        ApiBaseUrl = _configuration["ApiSettings:BaseUrl"] ?? ""; 
     }
 
-    public List<ComplianceDocumentViewModel>
-    Documents
-    { get; set; }
+    public List<ComplianceDocumentViewModel> Documents   { get; set; }
+   
 
     public async Task OnGet()
     {
@@ -42,8 +45,10 @@ public class ComplianceDocumentsModel : PageModel
         {
             var form = Request.Form;
 
-            var uploadId = Convert.ToInt32(form["UploadID"]);
+            //var uploadId = Convert.ToInt32(form["UploadID"]);
+            var uploadId = int.TryParse(form["UploadID"], out var id) ? id : 0;
             var complianceId = Convert.ToInt32(form["ComplianceID"]);
+            
             DateTime? expiryDate = null;
 
             if (DateTime.TryParse(form["ExpiryDate"], out var parsedDate))
@@ -56,7 +61,7 @@ public class ComplianceDocumentsModel : PageModel
 
             var file = Request.Form.Files.FirstOrDefault();
 
-            await _service.UploadDocumentAsync( complianceId, file, expiryDate, documentNumber);
+            await _service.UploadDocumentAsync( complianceId,uploadId, file, expiryDate, documentNumber);
 
             return new JsonResult(new { success = true });
         }
@@ -64,5 +69,13 @@ public class ComplianceDocumentsModel : PageModel
         {
             return new JsonResult(new { success = false, message = ex.Message });
         }
+    }
+
+    public async Task<IActionResult> OnPostOcrDocumentAsync(IFormFile File, int complianceId, string regex)
+    {
+
+        var value = await _service.ExtractDocumentAsync(File, regex, complianceId);
+
+        return new JsonResult(new { value });
     }
 }

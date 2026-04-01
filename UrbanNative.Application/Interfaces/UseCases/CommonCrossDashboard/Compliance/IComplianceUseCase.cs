@@ -1,4 +1,5 @@
-﻿using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
+﻿using Microsoft.AspNetCore.Http;
+using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
 
 namespace UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compliance
 
@@ -31,8 +32,8 @@ namespace UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compl
             string entityType,
             int entityId,
             int groupId);
-        Task UploadDocumentAsync(string entityType,int entityId, ComplianceUploadRequest request,
-            Stream fileStream,string fileName);
+        Task<int> UploadDocumentAsync(string entityType, int entityId, ComplianceUploadRequest request,
+            IFormFile? file);
         Task<string?> ExtractDocumentNumberAsync(Stream fileStream, string regex);
 
       //============Use this for Menu, Compliance=>Documents List==================//
