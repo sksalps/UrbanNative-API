@@ -21,6 +21,14 @@
       "PackagePath": "staticwebassets\\uploads\\compliance\\Vendor\\1\\27545e0b-464c-423d-9642-45c526879f18_SK_PAN-111.png"
     },
     {
+      "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\wwwroot\\uploads\\compliance\\Vendor\\1\\2eff64b5-7c4f-4955-94d7-b4baf46db0c3_Screenshot 2025-12-12 011709.png",
+      "PackagePath": "staticwebassets\\uploads\\compliance\\Vendor\\1\\2eff64b5-7c4f-4955-94d7-b4baf46db0c3_Screenshot 2025-12-12 011709.png"
+    },
+    {
+      "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\wwwroot\\uploads\\compliance\\Vendor\\1\\32015d4e-4068-42f6-815f-a5a67df6c8fc_PAN1.png",
+      "PackagePath": "staticwebassets\\uploads\\compliance\\Vendor\\1\\32015d4e-4068-42f6-815f-a5a67df6c8fc_PAN1.png"
+    },
+    {
       "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\wwwroot\\uploads\\compliance\\Vendor\\1\\44015cad-098b-4b40-acf7-5c0ca1f64e3b_sample Aadhar.jpeg",
       "PackagePath": "staticwebassets\\uploads\\compliance\\Vendor\\1\\44015cad-098b-4b40-acf7-5c0ca1f64e3b_sample Aadhar.jpeg"
     },
@@ -55,6 +63,18 @@
     {
       "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\wwwroot\\uploads\\compliance\\Vendor\\1\\6f97c079-ed83-431c-9ea3-801c4380e5fe_PAN1.png",
       "PackagePath": "staticwebassets\\uploads\\compliance\\Vendor\\1\\6f97c079-ed83-431c-9ea3-801c4380e5fe_PAN1.png"
+    },
+    {
+      "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\wwwroot\\uploads\\compliance\\Vendor\\1\\75854397-89d2-4e1d-a8b5-723ddbd987d6_PAN1.png",
+      "PackagePath": "staticwebassets\\uploads\\compliance\\Vendor\\1\\75854397-89d2-4e1d-a8b5-723ddbd987d6_PAN1.png"
+    },
+    {
+      "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\wwwroot\\uploads\\compliance\\Vendor\\1\\763bf897-684a-4d33-882b-9958c66ebf45_PAN1.png",
+      "PackagePath": "staticwebassets\\uploads\\compliance\\Vendor\\1\\763bf897-684a-4d33-882b-9958c66ebf45_PAN1.png"
+    },
+    {
+      "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\wwwroot\\uploads\\compliance\\Vendor\\1\\863d7cf9-65a4-4f83-a9d9-b03d41313d8e_sample Aadhar.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\compliance\\Vendor\\1\\863d7cf9-65a4-4f83-a9d9-b03d41313d8e_sample Aadhar.jpeg"
     },
     {
       "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\wwwroot\\uploads\\compliance\\Vendor\\1\\931573de-33d8-4dd2-9c7e-a153e806b948_PAN1.png",
@@ -111,6 +131,10 @@
     {
       "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\wwwroot\\uploads\\compliance\\Vendor\\1\\e4f43346-125c-4577-86b3-18033662bf29_sample Aadhar.jpeg",
       "PackagePath": "staticwebassets\\uploads\\compliance\\Vendor\\1\\e4f43346-125c-4577-86b3-18033662bf29_sample Aadhar.jpeg"
+    },
+    {
+      "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\wwwroot\\uploads\\compliance\\Vendor\\1\\f6b3e544-9e7b-4cbc-b644-bc2525cca6d8_PAN1.png",
+      "PackagePath": "staticwebassets\\uploads\\compliance\\Vendor\\1\\f6b3e544-9e7b-4cbc-b644-bc2525cca6d8_PAN1.png"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.UrbanNative.Api.Microsoft.AspNetCore.StaticWebAssets.props",

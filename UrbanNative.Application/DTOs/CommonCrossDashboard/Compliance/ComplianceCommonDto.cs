@@ -115,8 +115,9 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
 
         public string? RejectionReason { get; set; }
         public string? FileURL { get; set; }
-
+        public string DocumentNumber { get; set; } = string.Empty;
         public string VersionStatus { get; set; } = string.Empty;   // Current / Old
+        public bool IsApprovedVersion { get; set; }
     }
 
     public class ComplianceCategoryStatusDto
@@ -184,5 +185,7 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
         public int? DefaultExpiryMonths { get; set; }
         public bool CanEdit { get; set; }
             public bool CanDelete { get; set; }
-        }
+
+        public bool CanUpload { get; set; }
+    }
 }

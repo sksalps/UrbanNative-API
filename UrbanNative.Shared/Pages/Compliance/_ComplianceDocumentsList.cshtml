@@ -43,9 +43,10 @@ else
             <!-- 🔷 Group Header -->
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span class="fw-semibold">@group.Key</span>
-
+                @if (@group.First().CanUpload)
+                {
                 
-                <a href="javascript:void(0);"
+                    <a href="javascript:void(0);"
                        data-bs-toggle="modal"
                        data-bs-target="#complianceModal"
                        data-id="@group.First().ComplianceID"
@@ -58,10 +59,13 @@ else
                        data-hasexpiry="@group.First().HasExpiry"
                        data-defaultmonths="@group.First().DefaultExpiryMonths"
                        class="btn btn-sm btn-outline-primary">
-
-                    Upload
-                </a>
-                
+                        Upload
+                    </a>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">Upload Locked</span>
+                }
             </div>
 
             <!-- 🔷 Table -->

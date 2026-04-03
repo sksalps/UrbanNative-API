@@ -1,6 +1,27 @@
 ﻿@page
 @model UrbanNative.Vendors.Pages.Business.Compliance.IndexModel
+@functions {
+    public string FormatFileName(string fileName)
+    {
+        if (string.IsNullOrEmpty(fileName))
+            return "";
 
+        int extensionIndex = fileName.LastIndexOf('.');
+        if (extensionIndex == -1)
+            return fileName;
+
+        string extension = fileName.Substring(extensionIndex); // .pdf
+        string nameWithoutExt = fileName.Substring(0, extensionIndex);
+
+        if (nameWithoutExt.Length <= 10)
+            return fileName;
+
+        string start = nameWithoutExt.Substring(0, 3);
+        string end = nameWithoutExt.Substring(nameWithoutExt.Length - 7);
+
+        return $"{start}...{end}{extension}";
+    }
+}
 <h3 class="mb-3">Compliance Dashboard</h3>
 
 <!-- 🔝 Summary -->
@@ -354,7 +375,10 @@ else
                         <th>Uploaded</th>
                         <th>Verified</th>
                         <th>Expiry</th>
+                                                
                         <th>Version</th>
+                        <th>Approved</th>
+                        <th>Remarks</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -367,24 +391,34 @@ else
                             "REJECTED" => "danger",
                             _ => "secondary"
                         };
-
                         <tr>
                             <td>
+                                
                                 @if (!string.IsNullOrEmpty(item.FileURL))
                                 {
-                                    <a href="@($"{Model.ApiBaseUrl}{item.FileURL}")" target="_blank">
-                                        @item.FileName
+                                    <a href="javascript:void(0);"
+                                           onclick="openPreview('@item.FileURL.Replace("\\", "\\\\")')"
+                                           class="fw-semibold text-decoration-none">
+                                        @FormatFileName(item.FileName)
                                     </a>
+                                    
                                 }
                                 else
                                 {
-                                    @item.FileName
+                                    @FormatFileName(item.FileName)
                                 }
-
+                                @if (!string.IsNullOrEmpty(item.DocumentNumber))
+                                {
+                                    <div class="text-muted small">
+                                        @item.DocumentNumber
+                                    </div>
+                                }
                             </td>
                             <td><span class="badge bg-@statusColor">@item.VerificationStatus</span></td>
                             <td>@item.UploadedAt.ToString("dd MMM yyyy")</td>
                             <td>@item.VerifiedAt?.ToString("dd MMM yyyy")</td>
+                            <!-- Expiry Date -->
+                            
                             <td>
                                 @if (item.ExpiryDate.HasValue)
                                 {
@@ -410,8 +444,32 @@ else
                                     <span class="text-muted">No Expiry</span>
                                 }
                             </td>
+                            
                             <td>@item.VersionStatus</td>
-
+                            <!-- Approved -->
+                            <td>
+                                @if (item.IsApprovedVersion)
+                                {
+                                    <span class="badge bg-success">Yes</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">N/A</span>
+                                }
+                            </td>
+                            <!-- RejectionReason -->
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.RejectionReason))
+                                {
+                                    <span class="text-danger small">
+                                        @item.RejectionReason
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span>-</span>
+                                }
+                            </td>
                         </tr>
                     }
                 </tbody>
@@ -511,8 +569,28 @@ else
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="docPreviewModal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Document Preview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body p-0">
+                <iframe id="docPreviewFrame"
+                        style="width:100%; height:80vh; border:none;"></iframe>
+            </div>
+
+        </div>
+    </div>
+</div>
 <!-- 🧠 Modal Script -->
 <script>
+    const API_BASE_URL = '@Model.ApiBaseUrl';
+
     document.querySelectorAll('[data-bs-target="#uploadModal"]').forEach(btn => {
         if (btn.disabled) {
             btn.removeAttribute('data-bs-toggle');
@@ -745,5 +823,27 @@ else
 
     });
 
+    function openPreview(fileUrl) {
+
+        if (!fileUrl) return;
+
+        // 🔥 Fix slashes
+        let cleanPath = fileUrl.replace(/\\/g, '/');
+
+        // 🔥 Ensure leading slash
+        if (!cleanPath.startsWith('/')) {
+            cleanPath = '/' + cleanPath;
+        }
+
+        // 🔥 Combine safely
+        const fullUrl = API_BASE_URL.replace(/\/$/, '') + cleanPath;
+        //alert (fullUrl);
+        //console.log(fullUrl); // debug
+
+        document.getElementById("docPreviewFrame").src = fullUrl;
+
+        var modal = new bootstrap.Modal(document.getElementById('docPreviewModal'));
+        modal.show();
+    }
 
 </script>

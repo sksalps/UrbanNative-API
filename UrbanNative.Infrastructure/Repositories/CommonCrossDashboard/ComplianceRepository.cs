@@ -1,8 +1,5 @@
 ﻿using Azure.Core;
 using Dapper;
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
-using Microsoft.AspNetCore.Connections;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Client;
@@ -182,86 +179,6 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
         }
         */
 
-    public async Task<int> UploadDocumentAsync(string entityType,int entityId,ComplianceUploadRequest request,
-    IFormFile? file)
-    {
-        using var conn = _connFactory.CreateConnection();
-
-        // 🔥 STEP 1: VALIDATION (single query)
-        if (request.UploadID > 0)
-        {
-            var existing = await conn.QueryFirstOrDefaultAsync<(int UploadID, string VerificationStatus)>(
-                @"SELECT UploadID, VerificationStatus 
-            FROM ComplianceDocumentsUploaded 
-            WHERE UploadID = @UploadID 
-            AND EntityType = @EntityType 
-            AND EntityID = @EntityID 
-            AND ComplianceID = @ComplianceID
-            AND IsActive = 1",
-                new
-                {
-                    request.UploadID,
-                    entityType,
-                    entityId,
-                    request.ComplianceID
-                });
-
-            if (existing.UploadID == 0)
-                throw new InvalidOperationException("Invalid Compliance selected");
-
-            if (existing.VerificationStatus == "APPROVED")
-                throw new InvalidOperationException("Cannot update an approved document. Please upload new.");
-        }
-
-        // 🔥 STEP 2: FETCH MASTER RULES
-        var master = await conn.QueryFirstAsync<(bool HasExpiry, int? DefaultExpiryMonths)>(
-            @"SELECT HasExpiry, DefaultExpiryMonths 
-        FROM ComplianceMaster 
-        WHERE ComplianceID = @ComplianceID",
-            new { request.ComplianceID });
-
-        // 🔥 STEP 3: EXPIRY LOGIC
-        DateTime? finalExpiry = request.ExpiryDate;
-
-        if (master.HasExpiry && master.DefaultExpiryMonths.HasValue)
-        {
-            var systemExpiry = DateTime.Today.AddMonths(master.DefaultExpiryMonths.Value);
-
-            if (!request.ExpiryDate.HasValue || request.ExpiryDate > systemExpiry)
-                finalExpiry = systemExpiry;
-        }
-
-        // 🔥 STEP 4: FILE UPLOAD (AFTER VALIDATION)
-        string fileUrl = null;
-        string fileName = null;
-
-        if (file != null)
-        {
-            fileUrl = await _fileUpload.UploadAsync(file, "compliance", "", entityType, entityId);
-            fileName = Path.GetFileName(fileUrl);
-        }
-
-        // 🔥 STEP 5: CALL SP WITH OUTPUT
-        var parameters = new DynamicParameters();
-
-        parameters.Add("@UploadID", request.UploadID, DbType.Int32, ParameterDirection.InputOutput);
-        parameters.Add("@EntityType", entityType);
-        parameters.Add("@EntityID", entityId);
-        parameters.Add("@ComplianceID", request.ComplianceID);
-        parameters.Add("@FileName", fileName);
-        parameters.Add("@FileURL", fileUrl);
-        parameters.Add("@ExpiryDate", finalExpiry);
-        parameters.Add("@DocumentNumber", request.DocumentNumber);
-
-        await conn.ExecuteAsync(
-            "sp_ComplianceFormDocument_Upsert",
-            parameters,
-            commandType: CommandType.StoredProcedure
-        );
-
-        // 🔥 STEP 6: RETURN OUTPUT ID
-        return parameters.Get<int>("@UploadID");
-    }
         public async Task<ComplianceMaster?> GetComplianceAsync(int complianceId)
         {
             using var conn = _connFactory.CreateConnection();
@@ -336,6 +253,105 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
                 commandType: CommandType.StoredProcedure
             );
         }
+
+    //============Compliance Upload/Update Logic==================//
+        public async Task<int> UploadDocumentAsync(string entityType, int entityId, ComplianceUploadRequest request,
+            IFormFile? file)
+        {
+            using var conn = _connFactory.CreateConnection();
+
+            // 🔥 STEP 1: VALIDATION (single query)
+            if (request.UploadID > 0)
+            {
+                var existing = await conn.QueryFirstOrDefaultAsync<(int UploadID, string VerificationStatus)>(
+                    @"SELECT UploadID, VerificationStatus 
+                FROM ComplianceDocumentsUploaded 
+                WHERE UploadID = @UploadID 
+                AND EntityType = @EntityType 
+                AND EntityID = @EntityID 
+                AND ComplianceID = @ComplianceID
+                AND IsActive = 1",
+                    new
+                    {
+                        request.UploadID,
+                        entityType,
+                        entityId,
+                        request.ComplianceID
+                    });
+
+                if (existing.UploadID == 0)
+                    throw new InvalidOperationException("Invalid Compliance selected");
+
+                if (existing.VerificationStatus == "APPROVED")
+                    throw new InvalidOperationException("Cannot update an approved document. Please upload new.");
+            }
+            var vStatus = "APPROVED";
+            var pendings = await conn.QueryFirstOrDefaultAsync<(int counts, string VerificationStatus)>(
+                    @"SELECT count(UploadID) as counts FROM ComplianceDocumentsUploaded 
+                        WHERE EntityType = @EntityType AND EntityID = @EntityID 
+                        AND ComplianceID = @ComplianceID AND IsActive = 1
+                        AND VerificationStatus <> @vStatus",
+                    new
+                    {
+                        entityType,
+                        entityId,
+                        request.ComplianceID,
+                        vStatus
+                    });
+
+            if (pendings.counts >=1)
+                throw new InvalidOperationException("No new upload required, edit pending/rejected record");
+
+            // 🔥 STEP 2: FETCH MASTER RULES
+            var master = await conn.QueryFirstAsync<(bool HasExpiry, int? DefaultExpiryMonths)>(
+                @"SELECT HasExpiry, DefaultExpiryMonths 
+            FROM ComplianceMaster 
+            WHERE ComplianceID = @ComplianceID",
+                new { request.ComplianceID });
+
+            // 🔥 STEP 3: EXPIRY LOGIC
+            DateTime? finalExpiry = request.ExpiryDate;
+
+            if (master.HasExpiry && master.DefaultExpiryMonths.HasValue)
+            {
+                var systemExpiry = DateTime.Today.AddMonths(master.DefaultExpiryMonths.Value);
+
+                if (!request.ExpiryDate.HasValue || request.ExpiryDate > systemExpiry)
+                    finalExpiry = systemExpiry;
+            }
+
+            // 🔥 STEP 4: FILE UPLOAD (AFTER VALIDATION)
+            string fileUrl = null;
+            string fileName = null;
+
+            if (file != null)
+            {
+                fileUrl = await _fileUpload.UploadAsync(file, "compliance", "", entityType, entityId);
+                fileName = Path.GetFileName(fileUrl);
+            }
+
+            // 🔥 STEP 5: CALL SP WITH OUTPUT
+            var parameters = new DynamicParameters();
+
+            parameters.Add("@UploadID", request.UploadID, DbType.Int32, ParameterDirection.InputOutput);
+            parameters.Add("@EntityType", entityType);
+            parameters.Add("@EntityID", entityId);
+            parameters.Add("@ComplianceID", request.ComplianceID);
+            parameters.Add("@FileName", fileName);
+            parameters.Add("@FileURL", fileUrl);
+            parameters.Add("@ExpiryDate", finalExpiry);
+            parameters.Add("@DocumentNumber", request.DocumentNumber);
+
+            await conn.ExecuteAsync(
+                "sp_ComplianceFormDocument_Upsert",
+                parameters,
+                commandType: CommandType.StoredProcedure
+            );
+
+            // 🔥 STEP 6: RETURN OUTPUT ID
+            return parameters.Get<int>("@UploadID");
+        }
+
     }
 }
 
