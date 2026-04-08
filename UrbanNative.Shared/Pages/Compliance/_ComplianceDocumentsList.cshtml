@@ -45,22 +45,33 @@ else
                 <span class="fw-semibold">@group.Key</span>
                 @if (@group.First().CanUpload)
                 {
-                
-                    <a href="javascript:void(0);"
-                       data-bs-toggle="modal"
-                       data-bs-target="#complianceModal"
-                       data-id="@group.First().ComplianceID"
-                       data-apiurl=""
-                       data-hasnumber="@group.First().HasNumberField"
-                       data-label="@group.First().NumberFieldLabel"
-                       data-regex="@group.First().NumberFieldRegex"
-                       data-filetypes="@group.First().AllowedFileTypes"
-                       data-maxsize="@group.First().MaxFileSizeMB"
-                       data-hasexpiry="@group.First().HasExpiry"
-                       data-defaultmonths="@group.First().DefaultExpiryMonths"
-                       class="btn btn-sm btn-outline-primary">
-                        Upload
-                    </a>
+                    @if (@group.First().DocumentType == "Data")
+                    {
+                        
+                        <a class="btn btn-sm btn-outline-primary"
+                            href="@group.First().DataCaptureUrl?complianceId=@group.First().ComplianceID&fileType=@group.First().AllowedFileTypes">
+                            Update
+                        </a>
+                                           
+                    }
+                    else
+                    {                        
+                        <a href="javascript:void(0);"
+                            data-bs-toggle="modal"
+                            data-bs-target="#complianceModal"
+                            data-id="@group.First().ComplianceID"
+                            data-apiurl=""
+                            data-hasnumber="@group.First().HasNumberField"
+                            data-label="@group.First().NumberFieldLabel"
+                            data-regex="@group.First().NumberFieldRegex"
+                            data-filetypes="@group.First().AllowedFileTypes"
+                            data-maxsize="@group.First().MaxFileSizeMB"
+                            data-hasexpiry="@group.First().HasExpiry"
+                            data-defaultmonths="@group.First().DefaultExpiryMonths"
+                            class="btn btn-sm btn-outline-primary">
+                            Upload
+                        </a>
+                    }
                 }
                 else
                 {

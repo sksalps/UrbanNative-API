@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text.RegularExpressions;
 using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
+using UrbanNative.Application.Interfaces.CommonCrossDashboard;
 using UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance;
 using UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compliance;
 

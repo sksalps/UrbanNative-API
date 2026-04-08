@@ -18,12 +18,12 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Vendors
 build_property._RazorSourceGeneratorDebug = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Vendors/Pages/Business/AddBank.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQnVzaW5lc3NcQWRkQmFuay5jc2h0bWw=
+[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Vendors/Pages/Business/Compliance/AddBank.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQnVzaW5lc3NcQ29tcGxpYW5jZVxBZGRCYW5rLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Vendors/Pages/Business/BankList.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQnVzaW5lc3NcQmFua0xpc3QuY3NodG1s
+[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Vendors/Pages/Business/Compliance/BankList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQnVzaW5lc3NcQ29tcGxpYW5jZVxCYW5rTGlzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Vendors/Pages/Business/Compliance/ComplianceDocumentsList.cshtml]
@@ -32,6 +32,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Vendors/Pages/Business/Compliance/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQnVzaW5lc3NcQ29tcGxpYW5jZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Vendors/Pages/Business/Compliance/WarehouseAddEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQnVzaW5lc3NcQ29tcGxpYW5jZVxXYXJlaG91c2VBZGRFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Vendors/Pages/Business/Compliance/WarehouseList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQnVzaW5lc3NcQ29tcGxpYW5jZVxXYXJlaG91c2VMaXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Vendors/Pages/Business/Profile.cshtml]

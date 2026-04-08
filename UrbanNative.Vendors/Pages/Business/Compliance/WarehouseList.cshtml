@@ -1,0 +1,114 @@
+﻿@page
+@model WarehouseListModel
+@Html.AntiForgeryToken()
+
+<h3 class="mb-3">Warehouse</h3>
+
+<div class="text-end mb-3">
+    <div id="toastMsg" class="alert alert-success d-none"></div>
+    <a href="/Business/Compliance/WarehouseAddEdit" class="btn btn-primary">
+        + Add Warehouse
+    </a>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>Warehouse</th>
+            <th>Contact</th>
+            <th>Address</th>
+            <th>Location</th>
+            <th>Primary</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var w in Model.Warehouses)
+        {
+            <tr>
+                <td>@w.WarehouseName</td>
+                <td>
+                    @w.ContactPerson <br />
+                    <small>@w.Mobile</small>
+                </td>
+                <td>
+                    @w.AddressLine1 <br />
+                    <small>@w.AddressLine2</small>
+                </td>
+                <td>
+                    @w.CityName, @w.StateName <br />
+                    <small>@w.CountryName - @w.Pincode</small>
+                </td>
+                <td>
+                    @if (w.IsPrimary)
+                    {
+                        <span class="badge bg-success">Primary</span>
+                    }
+                    else
+                    {
+                        <small >-</small>
+                    }
+                </td>
+                <td>
+                    <a href="/Warehouse/Edit/@w.WarehouseId" class="btn btn-sm btn-warning">Edit</a>
+                    
+                    @if (!w.IsPrimary)
+                    {
+                        <button class="btn btn-sm btn-danger"
+                                onclick="deleteWarehouse(@w.WarehouseId)">
+                            Delete
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-sm btn-secondary" disabled>
+                            Primary
+                        </button>
+                    }
+                    
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    async function deleteWarehouse(id) {
+       // alert(id);
+        if (!confirm("Are you sure you want to delete this warehouse?")) return;
+
+        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+        const response = await fetch(`/Business/Compliance/WarehouseList?handler=Delete&warehouseId=${id}`, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                "RequestVerificationToken": token
+            }
+        });
+
+        const result = await response.json();
+        //alert ("OKK "+result.success);
+        if (result.success) {
+            alert ("OKK-2="+result.message);
+            showToast(result.message);
+            setTimeout(() => location.reload(), 4000);
+            //location.reload();
+        } else {
+            alert(result.message || "Delete failed");
+            showToast(result.message);
+        }
+    }
+
+    function showToast(message) {
+        const el = document.getElementById("toastMsg");
+        el.innerText = message;
+        el.classList.remove("d-none");
+
+        setTimeout(() => {
+            el.classList.add("d-none");
+        }, 4000);
+    }
+
+</script>

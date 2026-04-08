@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
 using UrbanNative.Application.DTOs.Vendors;
 using UrbanNative.Application.Interfaces;
+using UrbanNative.Application.Interfaces.CommonCrossDashboard;
 using UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance;
 using UrbanNative.Application.Interfaces.UseCase;
 using UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compliance;
@@ -12,13 +13,13 @@ using UrbanNative.Domain.Entities;
 public class BankUseCase : IBankUseCase
 {
     private readonly IComplianceRepository _complianceRepo; 
-    private readonly IComplianceValidationService _validationService;
+    private readonly IOcrComplianceInfraService _validationService;
     private readonly IBankRepository _bankRepo;
     private readonly IFileStorageService _fileStorage;
 
     public BankUseCase(
         IComplianceRepository complianceRepo,
-        IComplianceValidationService validationService,
+        IOcrComplianceInfraService validationService,
         IBankRepository bankRepo,
         IFileStorageService fileStorage)
     {
@@ -86,7 +87,7 @@ public class BankUseCase : IBankUseCase
 
         using var stream = file.OpenReadStream();
 
-        var result = await _validationService.ValidateAsync(
+        var result = await _validationService.ValidateExtractAsync(
             stream,
             file.FileName,
             file.Length,

@@ -66,6 +66,7 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
         public int? DefaultExpiryMonths { get; set; }
         public int? ExpiryAlertDays { get; set; }
         public string ActionType { get; set; } = string.Empty;   // Upload / Update / View / Re-upload
+        public string DataCaptureUrl { get; set; } = string.Empty;
         public int? MaxFileSizeMB { get; set; }
         public string AllowedFileTypes { get; set; } = string.Empty;
         public bool IsMandatoryInGroup { get; set; }   // PAN must              // 
@@ -153,8 +154,9 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance
         public int UploadID { get; set; } =0;
             public int ComplianceID { get; set; }
             public string ComplianceName { get; set; }
-
-            public string FileName { get; set; }
+        public string DocumentType { get; set; } = string.Empty;
+        public string DataCaptureUrl { get; set; } = string.Empty;
+        public string FileName { get; set; }
             public string FileURL { get; set; }
 
         public string VerificationStatus { get; set; }

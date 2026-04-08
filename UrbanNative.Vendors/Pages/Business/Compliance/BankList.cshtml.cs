@@ -4,7 +4,7 @@ using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
 using UrbanNative.Application.DTOs.Vendors;
 using UrbanNative.Vendors.Services.Interfaces;
 
-namespace UrbanNative.Vendors.Pages.Business
+namespace UrbanNative.Vendors.Pages.Business.Compliance
 {
     public class BankListModel : PageModel
     {

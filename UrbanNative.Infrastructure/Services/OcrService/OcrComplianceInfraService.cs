@@ -1,21 +1,26 @@
-﻿using System.Text.RegularExpressions;
+﻿using Microsoft.AspNetCore.Http;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Text.RegularExpressions;
 using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
-using UrbanNative.Application.DTOs.Vendors;
-using UrbanNative.Application.Interfaces;
-using UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance;
+using UrbanNative.Application.Interfaces.CommonCrossDashboard;
 using UrbanNative.Domain.Entities;
-namespace UrbanNative.Infrastructure.Services
+
+namespace UrbanNative.Infrastructure.Services.OcrService
 {
-    public class ComplianceValidationService : IComplianceValidationService
+    public class OcrComplianceInfraService : IOcrComplianceInfraService
     {
         private readonly IOcrService _ocrService;
 
-        public ComplianceValidationService(IOcrService ocrService)
+        public OcrComplianceInfraService(IOcrService ocrService)
         {
             _ocrService = ocrService;
         }
 
-        public async Task<ComplianceValidationResultDto> ValidateAsync(
+        
+
+        //Call 3rd party OCR API to extract text and then validate against regex or keywords
+        public async Task<ComplianceValidationResultDto> ValidateExtractAsync(
             Stream fileStream,
             string fileName,
             long fileSize,
@@ -43,7 +48,7 @@ namespace UrbanNative.Infrastructure.Services
 
             // OCR
             fileStream.Position = 0;
-            
+
             var text = await _ocrService.ExtractTextAsync(fileStream);
 
             text = text.ToUpper();
@@ -134,6 +139,6 @@ namespace UrbanNative.Infrastructure.Services
 
             return match.Success ? match.Value : null;
         }
-        
+
     }
 }

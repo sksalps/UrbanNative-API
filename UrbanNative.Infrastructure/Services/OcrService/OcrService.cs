@@ -6,7 +6,7 @@ using SixLabors.ImageSharp.Processing;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance;
+using UrbanNative.Application.Interfaces.CommonCrossDashboard;
 using static System.Net.WebRequestMethods;
 //Interface use with OCR.Space API to extract docs from uploaded image
 

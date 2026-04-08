@@ -21,6 +21,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "UrbanNative.Api.Controllers.CommonCrossDasboard.VendorAddressController",
+    "Method": "Get",
+    "RelativePath": "api/address/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "UrbanNative.Api.Controllers.MasterAddressController",
     "Method": "DeactivateAddress",
     "RelativePath": "api/address/deactivate/{addressId}",
@@ -37,6 +53,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "UrbanNative.Api.Controllers.CommonCrossDasboard.VendorAddressController",
+    "Method": "List",
+    "RelativePath": "api/address/list",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "type",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "UrbanNative.Api.Controllers.MasterAddressController",
     "Method": "SaveAddress",
     "RelativePath": "api/address/save",
@@ -47,6 +79,22 @@
       {
         "Name": "dto",
         "Type": "UrbanNative.Application.DTOs.Address.AddressCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.CommonCrossDasboard.VendorAddressController",
+    "Method": "Save",
+    "RelativePath": "api/address/save",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "UrbanNative.Application.DTOs.CommonCrossDashboard.AddressSaveDto",
         "IsRequired": true
       }
     ],
@@ -2098,9 +2146,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "UrbanNative.Api.Controllers.Compliance.ComplianceController",
-    "Method": "ValidateCompliance",
-    "RelativePath": "api/compliance/validate-compliance",
+    "ContainingType": "UrbanNative.Api.Controllers.CommonCrossDasboard.OcrComplianceController",
+    "Method": "ValidateExtractCompliance",
+    "RelativePath": "api/complianceocr/validate-extract",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -3550,6 +3598,69 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorWarehouseController",
+    "Method": "DeleteWarehouse",
+    "RelativePath": "api/vendors/warehouses/deletewh",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorWarehouseController",
+    "Method": "GetWarehouseById",
+    "RelativePath": "api/vendors/warehouses/getwarehouse/{bankId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "warehouseId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "bankId",
+        "Type": "",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorWarehouseController",
+    "Method": "GetWarehouses",
+    "RelativePath": "api/vendors/warehouses/list",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorWarehouseController",
+    "Method": "SaveWarehouse",
+    "RelativePath": "api/vendors/warehouses/savewh",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "UrbanNative.Application.DTOs.Vendors.VendorWarehouseSaveDto",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

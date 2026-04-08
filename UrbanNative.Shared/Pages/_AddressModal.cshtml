@@ -1,0 +1,249 @@
+﻿
+
+<div class="modal fade" id="addressModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- HEADER -->
+            <div class="modal-header">
+                <h5 class="modal-title">Manage Address</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- BODY -->
+            <div class="modal-body">
+                <!-- Address Type (LOCKED) -->
+                <div class="mb-3">
+                    <label class="form-label">Address Type</label>
+                    <input type="text"
+                           id="addressTypeDisplay"
+                           class="form-control"
+                           disabled />
+                </div>
+                <!-- Existing Address -->
+                <div class="mb-3">
+                    <label class="form-label">Select Existing Address</label>
+                    <select id="existingAddress"
+                            class="form-select"
+                            onchange="onAddressChange()">
+                        <option value="">-- Select Address --</option>
+                    </select>
+                </div>
+
+                <!-- Pincode -->
+                <div class="mb-3">
+                    <label class="form-label">Pincode</label>
+                    <input type="text"
+                           id="pincode"
+                           class="form-control"
+                           maxlength="10"
+                           placeholder="Enter Pincode" />
+                </div>
+
+                <hr />
+                <!-- Nickname -->
+                <div class="mb-3">
+                    <label class="form-label">Address Nickname</label>
+                    <input type="text"
+                           id="nickname"
+                           class="form-control"
+                           placeholder="e.g. Main Warehouse" />
+                </div>
+                <!-- Address Line 1 -->
+                <div class="mb-3">
+                    <label class="form-label">Address Line 1 *</label>
+                    <input type="text"
+                           id="line1"
+                           class="form-control"
+                           placeholder="Flat, Building, Street"
+                           required />
+                </div>
+
+                <!-- Address Line 2 -->
+                <div class="mb-3">
+                    <label class="form-label">Address Line 2</label>
+                    <input type="text"
+                           id="line2"
+                           class="form-control"
+                           placeholder="Area, Sector, Colony" />
+                </div>
+
+                <!-- Landmark -->
+                <div class="mb-3">
+                    <label class="form-label">Landmark</label>
+                    <input type="text"
+                           id="landmark"
+                           class="form-control"
+                           placeholder="Nearby landmark" />
+                </div>
+
+                
+
+                <!-- Primary -->
+                <div class="form-check mt-2">
+                    <input type="checkbox"
+                           id="isPrimary"
+                           class="form-check-input" />
+                    <label class="form-check-label">
+                        Set as Primary Address
+                    </label>
+                </div>
+
+            </div>
+
+            <!-- FOOTER -->
+            <div class="modal-footer">
+                <button class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                    Cancel
+                </button>
+
+                <button class="btn btn-success"
+                        onclick="saveAddress()">
+                    Save Address
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- 🔥 Shared JS
+<script src="~/_content/UrbanNative.Shared/js/address-modal.js"></script>
+ -->
+
+<script>
+    let currentAddressType = '';
+
+    async function openAddressModal(type, selectedId = null) {
+        currentAddressType = type;
+
+        document.getElementById("addressTypeDisplay").value = type;
+
+        const res = await fetch(`/Business/Compliance/WarehouseAddEdit?handler=AddressLookup&type=${type}`);
+        //alert (res.ok);
+
+        if (!res.ok) {
+            alert("11Failed to load addresses");
+            return;
+        }
+
+        const data = await res.json();
+
+        let ddl = document.getElementById("existingAddress");
+        ddl.innerHTML = '<option value="">-- Select Address --</option>';
+
+        data.forEach(x => {
+            ddl.innerHTML += `<option value="${x.addressID}">
+                ${x.addressLine1} (${x.pincode})
+            </option>`;
+        });
+
+        new bootstrap.Modal(document.getElementById('addressModal')).show();
+
+        // 🔥 EDIT MODE
+        if (selectedId) {
+            ddl.value = selectedId;
+            //alert (type +"ok 11" +selectedId);
+            await loadAddressById(selectedId);
+        } else {
+            clearAddressForm();
+        }
+    }
+
+    async function onAddressChange() {
+
+        const id = document.getElementById("existingAddress").value;
+        if (!id) {
+            clearAddressForm();
+            return;
+        }
+
+        await loadAddressById(id);
+    }
+    async function loadAddressById(id) {
+        //alert (id +" ok 12");
+        const res = await fetch(`/Business/Compliance/WarehouseAddEdit?handler=AddressById&addressId=${id}`);
+        alert (id +" ok 13" + res.ok);
+        if (!res.ok) {
+            alert("Failed to load address");
+            return;
+        }
+
+        const a = await res.json();
+
+        document.getElementById("line1").value = a.addressLine1 || '';
+        document.getElementById("line2").value = a.addressLine2 || '';
+        document.getElementById("landmark").value = a.landmark || '';
+        document.getElementById("pincode").value = a.pincode || '';
+        document.getElementById("nickname").value = a.addressNickName || '';
+        document.getElementById("isPrimary").checked = a.isPrimary || false;
+    }
+
+    function clearAddressForm() {
+
+        document.getElementById("line1").value = '';
+        document.getElementById("line2").value = '';
+        document.getElementById("landmark").value = '';
+        document.getElementById("pincode").value = '';
+        document.getElementById("nickname").value = '';
+        document.getElementById("isPrimary").checked = false;
+    }
+
+     async function loadAddressById(id) {
+         alert (id );
+        const res = await fetch(`/Business/Compliance/WarehouseAddEdit?handler=AddressById&addressId=${id}`);
+
+        if (!res.ok) {
+            alert("Failed to load address");
+            return;
+        }
+
+        const a = await res.json();
+
+        document.getElementById("line1").value = a.addressLine1 || '';
+        document.getElementById("line2").value = a.addressLine2 || '';
+        document.getElementById("landmark").value = a.landmark || '';
+        document.getElementById("pincode").value = a.pincode || '';
+        document.getElementById("nickname").value = a.addressNickName || '';
+        document.getElementById("isPrimary").checked = a.isPrimary || false;
+    }
+
+    async function saveAddress() {
+
+        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+        const dto = {
+            addressID: document.getElementById("existingAddress").value || null,
+            addressLine1: document.getElementById("line1").value,
+            addressLine2: document.getElementById("line2").value,
+            landmark: document.getElementById("landmark").value,
+            pincode: document.getElementById("pincode").value,
+            addressNickName: document.getElementById("nickname").value,
+            isPrimary: document.getElementById("isPrimary").checked,
+            addressType: currentAddressType
+        };
+
+        const res = await fetch(`/Business/Compliance/WarehouseAddEdit?handler=SaveAddress`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "RequestVerificationToken": token
+            },
+            body: JSON.stringify(dto)
+        });
+
+        const result = await res.json();
+
+        if (!result.success) {
+            alert(result.message);
+            return;
+        }
+
+        await refreshAddressDropdown(result.addressId);
+
+        bootstrap.Modal.getInstance(document.getElementById('addressModal')).hide();
+    }
+
+</script>

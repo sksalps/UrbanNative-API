@@ -60,9 +60,9 @@ builder.Services.AddScoped<IProductVariantSetService, ProductVariantSetService>(
 builder.Services.AddScoped<IProductVariantValuesService, ProductVariantValuesService>();
 builder.Services.AddScoped<IInventoryService, InventoryService>();
 
-builder.Services.AddScoped<IComplianceValidationService, ComplianceValidationService>();
+//builder.Services.AddScoped<IComplianceValidationService, ComplianceValidationService>();
 
-builder.Services.AddScoped<IComplianceValidateUseCase, ComplianceValidateUseCase>();
+//builder.Services.AddScoped<IComplianceValidateUseCase, ComplianceValidateUseCase>();
 // =======================
 // Infrastructure
 // =======================

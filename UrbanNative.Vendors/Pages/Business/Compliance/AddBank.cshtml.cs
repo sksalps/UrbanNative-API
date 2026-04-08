@@ -189,7 +189,7 @@ public class AddBankModel : PageModel
 
         return new JsonResult(result);
     }
-
+    
     public async Task<IActionResult> OnPostDeleteAsync(int bankId)
     {
         try

@@ -6,6 +6,9 @@
         public int ComplianceID { get; set; }
         public string ComplianceName { get; set; }
 
+        public string DocumentType { get; set; } = string.Empty;
+        
+        public string DataCaptureUrl { get; set; } = string.Empty;
         public string FileName { get; set; }
         public string FileURL { get; set; }
         public string VerificationStatus { get; set; }

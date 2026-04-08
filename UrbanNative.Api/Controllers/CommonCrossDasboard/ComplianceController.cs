@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Text.RegularExpressions;
 using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
-using UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance;
+using UrbanNative.Application.Interfaces.CommonCrossDashboard;
 using UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compliance;
 using UrbanNative.Domain.Entities;
 
@@ -16,13 +16,12 @@ namespace UrbanNative.Api.Controllers.Compliance
     public class ComplianceController : ControllerBase
     {
         private readonly IComplianceUseCase _complianceUseCase;
-        private readonly IComplianceValidateUseCase _complianceValidateUseCase;
+        //private readonly IComplianceValidateUseCase _complianceValidateUseCase;
         private readonly IOcrService _ocrService;
         
-        public ComplianceController(IComplianceUseCase complianceUseCase,IComplianceValidateUseCase complianceValidateUseCase, IOcrService ocrService)
+        public ComplianceController(IComplianceUseCase complianceUseCase,IOcrService ocrService)
         {
             _complianceUseCase = complianceUseCase;
-            _complianceValidateUseCase = complianceValidateUseCase;
             _ocrService = ocrService;
         }
 
@@ -144,7 +143,7 @@ namespace UrbanNative.Api.Controllers.Compliance
             }
             
         }
-
+        /*
         [HttpPost("validate-compliance")]
         public async Task<IActionResult> ValidateCompliance([FromForm] IFormFile File,[FromForm] int ComplianceId,[FromForm] string Regex)
         {
@@ -159,6 +158,7 @@ namespace UrbanNative.Api.Controllers.Compliance
 
             return Ok(result);
         }
+       */
         //============Use this for Menu, Compliance=>Documents List==================//
         
         // Get uploaded compliance documents (Vendor/Admin/Customer/Sathi)

@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using UrbanNative.Application.Interfaces.CommonCrossDashboard;
+using UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard;
 using UrbanNative.Shared.Models.Compliance;
 using UrbanNative.Vendors.Services;
 
@@ -7,6 +9,7 @@ public class ComplianceDocumentsModel : PageModel
 {
     private readonly IVendorComplianceService _service;
     private readonly IConfiguration _configuration;
+    private readonly IOcrComplianceInfraService _infraservice;
     public string ApiBaseUrl { get; private set; } = "";
 
     public ComplianceDocumentsModel(IVendorComplianceService service, IConfiguration configuration)
@@ -30,7 +33,6 @@ public class ComplianceDocumentsModel : PageModel
         try
         {
             await _service.DeleteDocumentAsync(uploadId);
-
             return new JsonResult(new { success = true });
         }
         catch (Exception ex)
@@ -73,9 +75,11 @@ public class ComplianceDocumentsModel : PageModel
 
     public async Task<IActionResult> OnPostOcrDocumentAsync(IFormFile File, int complianceId, string regex)
     {
-
+        if (File == null || File.Length == 0)
+        {
+            return new JsonResult(new { isValid = false, message = "Invalid file" });
+        }
         var value = await _service.ExtractDocumentAsync(File, regex, complianceId);
-
         return new JsonResult(new { value });
     }
 }

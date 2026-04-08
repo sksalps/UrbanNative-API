@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+using System.Net.Http.Headers;
+using System.Text.Json;
 using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
 using UrbanNative.Shared.Models.Compliance;
-using System.Net.Http.Headers;
 using UrbanNative.Vendors.Mapping.Profiles;
 
 
@@ -95,26 +96,50 @@ namespace UrbanNative.Vendors.Services
         }
 
 
-        public async Task<string?> ExtractDocumentAsync( IFormFile file, string regex,int complianceId)
+        
+        public async Task<string?> ExtractDocumentAsync(IFormFile file, string regex,int complianceId)
         {
+            if (file == null || file.Length == 0)
+                throw new Exception("File is required");
+
             using var form = new MultipartFormDataContent();
 
-            // File content
-            var fileContent = new StreamContent(file.OpenReadStream());
+            // 🔥 File content (with using)
+            using var stream = file.OpenReadStream();
+            var fileContent = new StreamContent(stream);
             fileContent.Headers.ContentType =
-                new MediaTypeHeaderValue(file.ContentType);
+                new MediaTypeHeaderValue(file.ContentType ?? "application/octet-stream");
 
             form.Add(fileContent, "File", file.FileName);
-            // Other fields
+
+            // 🔥 Other fields
             form.Add(new StringContent(complianceId.ToString()), "ComplianceId");
             form.Add(new StringContent(regex ?? ""), "Regex");
-            // API call
-            var response = await _http.PostAsync("api/compliance/validate-compliance",form);
 
-            response.EnsureSuccessStatusCode();
+            // 🔥 API call
+            //var response = await _http.PostAsync("api/compliance/validate-compliance", form);
+            var response = await _http.PostAsync("api/complianceocr/validate-extract", form);
 
-            var result = await response.Content
-                .ReadFromJsonAsync<ComplianceValidationResultDto>();
+            var responseText = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("OCR API ERROR: " + responseText);
+                throw new Exception(responseText);
+            }
+
+            // 🔥 Safe JSON parsing
+            ComplianceValidationResultDto? result = null;
+
+            try
+            {
+                result = System.Text.Json.JsonSerializer.Deserialize<ComplianceValidationResultDto>(responseText,
+                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            }
+            catch
+            {
+                throw new Exception("Invalid response from OCR API: " + responseText);
+            }
 
             if (result == null)
                 return null;
@@ -124,7 +149,7 @@ namespace UrbanNative.Vendors.Services
 
             return result.DetectedNumber;
         }
-        
+
         //=============================Menu Component - Uploaded Documents List=============================
 
         public async Task<List<ComplianceDocumentViewModel>> GetUploadedDocumentsListAsync()

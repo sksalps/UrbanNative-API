@@ -1,0 +1,124 @@
+﻿@page "{id?}"
+@model WarehouseAddEditModel
+
+@{
+    ViewData["Title"] = Model.IsEditMode ? "Edit Warehouse" : "Add Warehouse";
+}
+
+<h3 class="mb-3">
+    @(Model.IsEditMode ? "Edit Warehouse" : "Add Warehouse")
+</h3>
+
+<form method="post">
+
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" asp-for="Warehouse.WarehouseId" />
+
+    <div class="row">
+
+        <!-- Warehouse Name -->
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Warehouse Name</label>
+            <input asp-for="Warehouse.WarehouseName" class="form-control" required />
+        </div>
+
+        <!-- Contact Person -->
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Contact Person</label>
+            <input asp-for="Warehouse.ContactPerson" class="form-control" required />
+        </div>
+
+        <!-- Mobile -->
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Mobile</label>
+            <input asp-for="Warehouse.Mobile" class="form-control" required />
+        </div>
+
+        <!-- Address Dropdown + Actions -->
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Warehouse Address</label>
+
+            <div class="d-flex gap-2">
+
+                <select asp-for="Warehouse.AddressID"
+                        class="form-select"
+                        required>
+                    <option value="">-- Select Address --</option>
+                    @foreach (var a in Model.AddressList)
+                    {
+                        <option value="@a.AddressID">
+                           @a.AddressNickName [@a.AddressLine1 (@a.Pincode)]
+                        </option>
+                    }
+                </select>
+
+                <!-- Add Address -->
+                <button type="button"
+                        class="btn btn-outline-primary"
+                        onclick="openAddressModal('WAREHOUSE')">
+                    +
+                </button>
+
+                <!-- Edit Address -->
+                <button type="button"
+                        class="btn btn-outline-secondary"
+                        onclick="editSelectedAddress()">
+                    ✏️
+                </button>
+            </div>
+        </div>
+
+        <!-- Primary Checkbox -->
+        <div class="col-md-6 mb-3">
+            <label class="form-label d-block">Primary Warehouse</label>
+
+            <div class="form-check">
+                <input asp-for="Warehouse.IsPrimary"class="form-check-input" />
+                <label class="form-check-label">
+                    Set as Primary
+                </label>
+            </div>
+
+            <small class="text-muted">
+                Only one primary warehouse allowed per vendor.
+            </small>
+        </div>
+
+    </div>
+
+    <!-- Actions -->
+    <div class="mt-4 text-end">
+        <a href="/Warehouse/List" class="btn btn-secondary">
+            Cancel
+        </a>
+
+        <button type="submit" class="btn btn-success">
+            Save Warehouse
+        </button>
+    </div>
+
+</form>
+
+<!-- 🔥 Shared Address Modal -->
+<partial name="~/Pages/_AddressModal.cshtml" />
+
+<script>
+
+    // Edit selected address from dropdown
+    function editSelectedAddress() {
+
+        const ddl = document.querySelector('[name="Warehouse.AddressID"]');
+        const id = ddl.value;
+
+        if (!id) {
+            alert("Please select an address first.");
+            return;
+        }
+
+        openAddressModal('WAREHOUSE', id); // 🔥 PASS ID
+    }
+    
+    
+
+</script>

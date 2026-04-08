@@ -4,6 +4,7 @@ using UrbanNative.Vendors.Mapping;
 using UrbanNative.Vendors.Security;
 using UrbanNative.Vendors.Services;
 using UrbanNative.Vendors.Services.Interfaces;
+using UrbanNative.Application.Interfaces.CommonCrossDashboard;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -81,6 +82,9 @@ builder.Services.AddScoped<IVendorWalletService, VendorWalletService>();
 builder.Services.AddScoped<IVendorSettlementPayoutService, VendorSettlementPayoutService>();
 builder.Services.AddScoped<IVendorComplianceService, VendorComplianceService>();
 builder.Services.AddScoped<IBankService, BankService>();
+builder.Services.AddScoped<IVendorWarehouseService, VendorWarehouseService>();
+builder.Services.AddScoped<IAddressEngineService, VendorAddressService>();
+
 //use for Shared UI
 builder.Services.AddAutoMapper(typeof(Program));
 

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using UrbanNative.Application.DTOs.Vendors;
 using UrbanNative.Application.Interfaces.UseCases;
 
 namespace UrbanNative.Api.Controllers.Vendors
@@ -8,10 +10,12 @@ namespace UrbanNative.Api.Controllers.Vendors
     public class VendorWarehouseController : ControllerBase
     {
         private readonly IVendorProductsUseCase _useCase;
+        private readonly IVendorWarehouseUseCase _useCaseWH;
 
-        public VendorWarehouseController(IVendorProductsUseCase useCase)
+        public VendorWarehouseController(IVendorProductsUseCase useCase, IVendorWarehouseUseCase useCaseWH)
         {
             _useCase = useCase;
+            _useCaseWH = useCaseWH;
         }
 
         //all active inactive both
@@ -54,6 +58,47 @@ namespace UrbanNative.Api.Controllers.Vendors
             return Ok(data);
         }
 
+        [HttpGet("list")]
+        public async Task<IActionResult> GetWarehouses()
+        {
+            var vendorId = GetVendorId(); // your existing auth helper
+
+            var result = await _useCaseWH.GetWarehousesListAsync(vendorId);
+
+            return Ok(result);
+        }
+        [HttpPost("deletewh")]
+        public async Task<IActionResult> DeleteWarehouse([FromBody] int id)
+        {
+            var vendorId = GetVendorId();
+
+            try
+            {
+                await _useCaseWH.DeleteWarehouseAsync(id, vendorId);
+                return Ok("Deleted successfully");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("getwarehouse/{bankId}")]
+        public async Task<IActionResult> GetWarehouseById(int warehouseId)
+        {
+            var (entityType, entityId) = ResolveEntity();
+            var result = await _useCaseWH.GetWarehouseByIdAsync(warehouseId, entityId, entityType);
+            return Ok(result);
+        }
+
+        [HttpPost("savewh")]
+        public async Task<IActionResult> SaveWarehouse([FromBody] VendorWarehouseSaveDto dto)
+        {
+            var (entityType, entityId) = ResolveEntity();
+
+            await _useCaseWH.SaveWarehouseAsync(dto, entityId, entityType);
+
+            return Ok();
+        }
         //Get VendorId from JWT token claims
         private int GetVendorId()
         {
@@ -63,6 +108,24 @@ namespace UrbanNative.Api.Controllers.Vendors
                 throw new UnauthorizedAccessException("VendorID claim missing");
 
             return int.Parse(vendorIdClaim);
+        }
+
+
+        private (string EntityType, int EntityId) ResolveEntity()
+        {
+            // ✔ Determine entity type from Role
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (string.IsNullOrWhiteSpace(role))
+                throw new UnauthorizedAccessException("Role claim missing.");
+
+            // ✔ Get entity ID from NameIdentifier (standard)
+            var idClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrWhiteSpace(idClaim))
+                throw new UnauthorizedAccessException("NameIdentifier claim missing.");
+
+            return (role, int.Parse(idClaim));
         }
     }
 

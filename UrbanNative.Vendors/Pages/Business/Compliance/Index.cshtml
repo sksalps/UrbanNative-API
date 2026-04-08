@@ -287,7 +287,7 @@
                                         {
                                             var btnText = doc.ActionType == "Re-upload" ? "Update" : doc.ActionType;
                                             <a class="btn btn-sm btn-outline-primary"
-                                                   href="@doc.NumberFieldRegex?complianceId=@doc.ComplianceID&fileType=@doc.AllowedFileTypes">
+                                                   href="@doc.DataCaptureUrl?complianceId=@doc.ComplianceID&fileType=@doc.AllowedFileTypes">
                                                 @btnText
                                             </a>
                                             
