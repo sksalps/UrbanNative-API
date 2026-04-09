@@ -8,15 +8,16 @@ using UrbanNative.Vendors.Services.Interfaces;
 
 namespace UrbanNative.Vendors.Pages
 {
+
     public class WarehouseAddEditModel : PageModel
     {
         private readonly IVendorWarehouseService _warehouseService;
-        private readonly IAddressEngineService _addressService;
+        private readonly IAddressEngineService _addressLookup;
 
         public WarehouseAddEditModel( IVendorWarehouseService warehouseService,IAddressEngineService addressService)
         {
             _warehouseService = warehouseService;
-            _addressService = addressService;
+            _addressLookup = addressService;
         }
 
         // 🔹 Bind Warehouse
@@ -33,7 +34,7 @@ namespace UrbanNative.Vendors.Pages
         public async Task OnGetAsync(int? id)
         {
             // Load Address List
-            AddressList = await _addressService.GetAddressesAsync("WAREHOUSE");
+            AddressList = await _addressLookup.GetAddressesLookupAsync("WAREHOUSE");
 
             if (id.HasValue)
             {
@@ -50,7 +51,7 @@ namespace UrbanNative.Vendors.Pages
         {
             if (!ModelState.IsValid)
             {
-                AddressList = await _addressService.GetAddressesAsync("WAREHOUSE");
+                AddressList = await _addressLookup.GetAddressesLookupAsync("WAREHOUSE");
                 return Page();
             }
 
@@ -61,52 +62,6 @@ namespace UrbanNative.Vendors.Pages
             return RedirectToPage("/Warehouse/List");
         }
 
-        // ============================================================
-        // 🔷 ADDRESS HANDLERS (MODAL)
-        // ============================================================
-
-        // 🔹 Get Address List
-        public async Task<JsonResult> OnGetAddressLookupAsync(string type)
-        {
-            var data = await _addressService.GetAddressesAsync(type);
-            return new JsonResult(data);
-        }
-
-        // 🔹 Get Address By ID (Edit Mode)
-        public async Task<JsonResult> OnGetAddressByIdAsync(int addressId)
-        {
-            var data = await _addressService.GetByIdAsync(addressId);
-            return new JsonResult(data);
-        }
-
-        // 🔹 Save Address
-        public async Task<JsonResult> OnPostSaveAddressAsync([FromBody] AddressSaveDto dto)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(dto.AddressLine1))
-                    return new JsonResult(new { success = false, message = "Address Line 1 is required" });
-
-                if (string.IsNullOrWhiteSpace(dto.Pincode))
-                    return new JsonResult(new { success = false, message = "Pincode is required" });
-
-                var id = await _addressService.SaveAsync(dto);
-
-                return new JsonResult(new
-                {
-                    success = true,
-                    addressId = id,
-                    message = "Address saved successfully"
-                });
-            }
-            catch (Exception ex)
-            {
-                return new JsonResult(new
-                {
-                    success = false,
-                    message = ex.Message
-                });
-            }
-        }
+        
     }
 }

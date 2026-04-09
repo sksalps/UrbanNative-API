@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.AspNetCore.Connections;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -52,7 +53,7 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
                 using var conn = _db.CreateConnection();
 
                 return await conn.ExecuteScalarAsync<int>(
-                    "sp_AddressMaster_Save",
+                    "sp_AddressMaster_Upsert",
                     new
                     {
                         dto.AddressID,
@@ -61,17 +62,47 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
                         dto.AddressLine1,
                         dto.AddressLine2,
                         dto.Landmark,
-                        dto.CountryID,
-                        dto.StateID,
-                        dto.CityID,
+                        dto.Country,
+                        dto.State,
+                        dto.City,
                         dto.Pincode,
+                        dto.AddressType,
                         dto.IsPrimary,
-                        dto.AddressNickName,
-                        dto.AddressType
+                        dto.AddressNickName
+                        
                     },
                     commandType: CommandType.StoredProcedure
                 );
             }
-        
+
+        public async Task<IEnumerable<CountryDto>> GetCountriesAsync(int? countryId)
+        {
+            using var conn = _db.CreateConnection();
+
+            return await conn.QueryAsync<CountryDto>(
+                "sp_AddressCountry_Lookup",
+                new { CountryID = countryId },
+                commandType: CommandType.StoredProcedure);
+        }
+
+        public async Task<IEnumerable<StateDto>> GetStatesAsync(int? countryId, int? stateId)
+        {
+            using var conn = _db.CreateConnection();
+
+            return await conn.QueryAsync<StateDto>(
+                "sp_AddressState_Lookup",
+                new { CountryID = countryId, StateID = stateId },
+                commandType: CommandType.StoredProcedure);
+        }
+
+        public async Task<IEnumerable<CityDto>> GetCitiesAsync(int? stateId, int? cityId)
+        {
+            using var conn = _db.CreateConnection();
+
+            return await conn.QueryAsync<CityDto>(
+                "sp_AddressCity_Lookup",
+                new { StateID = stateId, CityID = cityId },
+                commandType: CommandType.StoredProcedure);
+        }
     }
 }

@@ -1,0 +1,119 @@
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using UrbanNative.Application.DTOs.CommonCrossDashboard;
+using UrbanNative.Application.Interfaces.CommonCrossDashboard; // change for Admin
+
+namespace UrbanNative.Vendors.Pages.Common
+{
+    public class AddressEngineHandlerModel : PageModel
+    {
+        private readonly IAddressEngineService _addressService;
+
+        public AddressEngineHandlerModel(IAddressEngineService addressService)
+        {
+            _addressService = addressService;
+        }
+
+        /* =========================
+           🔹 COUNTRY
+        ========================= */
+        public async Task<IActionResult> OnGetCountries()
+        {
+            var data = await _addressService.GetCountriesAsync(null);
+            return new JsonResult(data);
+        }
+
+        /* =========================
+           🔹 STATE
+        ========================= */
+        public async Task<IActionResult> OnGetStates(int countryId)
+        {
+            var data = await _addressService.GetStatesAsync(countryId, null);
+            return new JsonResult(data);
+        }
+
+        /* =========================
+           🔹 CITY
+        ========================= */
+        public async Task<IActionResult> OnGetCities(int stateId)
+        {
+            var data = await _addressService.GetCitiesAsync(stateId, null);
+            return new JsonResult(data);
+        }
+
+        // ============================================================
+        // 🔷 ADDRESS HANDLERS (MODAL)
+        // ============================================================
+
+        // 🔹 Get Address List
+        public async Task<JsonResult> OnGetAddressLookupAsync(string type)
+        {
+            var data = await _addressService.GetAddressesLookupAsync(type);
+            return new JsonResult(data);
+        }
+
+        // 🔹 Get Address By ID (Edit Mode)
+        public async Task<JsonResult> OnGetAddressByIdAsync(int addressId)
+        {
+            var data = await _addressService.GetByIdAsync(addressId);
+            return new JsonResult(data);
+        }
+
+
+        /* =========================
+           🔹 SAVE ADDRESS
+        ========================= */
+        public async Task<IActionResult> OnPostSaveAddress([FromBody] AddressSaveDto dto)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ServiceResult
+                {
+                    IsSuccess = false,
+                    Message = "Validation failed"
+                });
+            }
+
+            var result = await _addressService.SaveAddressAsync(dto);
+
+            return new JsonResult(new
+            { 
+                success = result.IsSuccess,
+                message = result.Message,
+                addressId = result.AddressId
+            });
+        }
+
+        /*/ 🔹 Save Address
+        public async Task<JsonResult> OnPostSaveAddressAsync([FromBody] AddressSaveDto dto)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(dto.AddressLine1))
+                    return new JsonResult(new { success = false, message = "Address Line 1 is required" });
+
+                if (string.IsNullOrWhiteSpace(dto.Pincode))
+                    return new JsonResult(new { success = false, message = "Pincode is required" });
+
+                var id = await _addressService.SaveAsync(dto);
+
+                return new JsonResult(new
+                {
+                    success = true,
+                    addressId = id,
+                    message = "Address saved successfully"
+                });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
+        }
+        */
+    }
+}

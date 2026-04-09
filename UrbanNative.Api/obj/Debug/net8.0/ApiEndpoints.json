@@ -1,8 +1,114 @@
 [
   {
-    "ContainingType": "UrbanNative.Api.Controllers.MasterAddressController",
+    "ContainingType": "UrbanNative.Api.Controllers.CommonCrossDasboard.AddressEngineController",
+    "Method": "Get",
+    "RelativePath": "api/address/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.CommonCrossDasboard.AddressEngineController",
+    "Method": "GetCities",
+    "RelativePath": "api/address/city",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "stateId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "cityId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.CommonCrossDasboard.AddressEngineController",
+    "Method": "GetCountries",
+    "RelativePath": "api/address/country",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "countryId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.CommonCrossDasboard.AddressEngineController",
+    "Method": "List",
+    "RelativePath": "api/address/list",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "type",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.CommonCrossDasboard.AddressEngineController",
+    "Method": "Save",
+    "RelativePath": "api/address/save",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "UrbanNative.Application.DTOs.CommonCrossDashboard.AddressSaveDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.CommonCrossDasboard.AddressEngineController",
+    "Method": "GetStates",
+    "RelativePath": "api/address/state",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "countryId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "stateId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.XXXMasterAddressController",
     "Method": "GetAddresses",
-    "RelativePath": "api/address",
+    "RelativePath": "api/address1",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -21,25 +127,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "UrbanNative.Api.Controllers.CommonCrossDasboard.VendorAddressController",
-    "Method": "Get",
-    "RelativePath": "api/address/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "UrbanNative.Api.Controllers.MasterAddressController",
+    "ContainingType": "UrbanNative.Api.Controllers.XXXMasterAddressController",
     "Method": "DeactivateAddress",
-    "RelativePath": "api/address/deactivate/{addressId}",
+    "RelativePath": "api/address1/deactivate/{addressId}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -53,25 +143,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "UrbanNative.Api.Controllers.CommonCrossDasboard.VendorAddressController",
-    "Method": "List",
-    "RelativePath": "api/address/list",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "type",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "UrbanNative.Api.Controllers.MasterAddressController",
+    "ContainingType": "UrbanNative.Api.Controllers.XXXMasterAddressController",
     "Method": "SaveAddress",
-    "RelativePath": "api/address/save",
+    "RelativePath": "api/address1/save",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -79,22 +153,6 @@
       {
         "Name": "dto",
         "Type": "UrbanNative.Application.DTOs.Address.AddressCreateDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "UrbanNative.Api.Controllers.CommonCrossDasboard.VendorAddressController",
-    "Method": "Save",
-    "RelativePath": "api/address/save",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "UrbanNative.Application.DTOs.CommonCrossDashboard.AddressSaveDto",
         "IsRequired": true
       }
     ],

@@ -14,6 +14,10 @@ namespace UrbanNative.Application.Interfaces.CommonCrossDashboard
         Task<List<AddressListDto>> GetListAsync(string entityType, int entityId, string addressType);
             Task<AddressListDto> GetByIdAsync(int addressId, string entityType, int entityId);
             Task<int> SaveAsync(AddressSaveDto dto, string entityType, int entityId);
+
+        Task<IEnumerable<CountryDto>> GetCountriesAsync(int? countryId);
+        Task<IEnumerable<StateDto>> GetStatesAsync(int? countryId, int? stateId);
+        Task<IEnumerable<CityDto>> GetCitiesAsync(int? stateId, int? cityId);
     }
     
 }

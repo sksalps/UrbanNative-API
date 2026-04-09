@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using UrbanNative.Application.DTOs.Vendors;
 using UrbanNative.Application.Interfaces.UseCases;
 
 namespace UrbanNative.Api.Controllers.Vendors
 {
+    [Authorize]
     [ApiController]
     [Route("api/vendors/warehouses")]
     public class VendorWarehouseController : ControllerBase

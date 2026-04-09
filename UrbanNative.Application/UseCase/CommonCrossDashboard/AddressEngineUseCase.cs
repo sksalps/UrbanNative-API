@@ -27,5 +27,19 @@ namespace UrbanNative.Application.UseCase.CommonCrossDashboard
 
         public Task<int> SaveAsync(AddressSaveDto dto, int entityId, string entityType)
             => _repo.SaveAsync(dto, entityType, entityId);
+
+        public async Task<IEnumerable<CountryDto>> GetCountriesAsync(int? countryId)
+            =>     await _repo.GetCountriesAsync(countryId);
+        
+
+        public async Task<IEnumerable<StateDto>> GetStatesAsync(int? countryId, int? stateId)
+        {
+            return await _repo.GetStatesAsync(countryId, stateId);
+        }
+
+        public async Task<IEnumerable<CityDto>> GetCitiesAsync(int? stateId, int? cityId)
+        {
+            return await _repo.GetCitiesAsync(stateId, cityId);
+        }
     }
 }

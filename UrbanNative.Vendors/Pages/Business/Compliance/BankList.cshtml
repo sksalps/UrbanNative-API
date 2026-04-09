@@ -113,7 +113,7 @@
 
         if (result.success) {
             showToast(result.message);
-                setTimeout(() => location.reload(), 4000);
+            setTimeout(() => location.reload(), 4000);
             //location.reload();
         } else {
             alert(result.message || "Delete failed");

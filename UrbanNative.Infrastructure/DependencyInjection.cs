@@ -56,7 +56,7 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<IAdminVariantRepository, AdminVariantRepository>();
             services.AddScoped<IAdminVariantSetRepository, AdminVariantSetRepository>();
             services.AddScoped<IAdminSkuRepository, AdminSkuRepository>();
-            services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IAddressRepository, XXXAddressRepository>();
             services.AddScoped<IAdminGSTRepository, AdminGSTRepository>();
             services.AddScoped<IAdminHSNRepository, AdminHSNRepository>();
             services.AddScoped<IAdminCategoryHSNRepository, AdminCategoryHSNRepository>();

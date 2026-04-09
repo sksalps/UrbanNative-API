@@ -27,9 +27,7 @@ public class BankController : ControllerBase
 
 
     [HttpPost("save")]
-    public async Task<IActionResult> Save(
-    [FromForm] IFormFile? file,
-    [FromForm] BankSaveRequestDto dto)
+    public async Task<IActionResult> Save([FromForm] IFormFile? file,[FromForm] BankSaveRequestDto dto)
     {
         var (entityType, entityId) = ResolveEntity();
 
