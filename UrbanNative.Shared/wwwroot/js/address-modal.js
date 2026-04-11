@@ -60,6 +60,21 @@ function initTomSelects() {
     }
 }
 
+function setAddressMode(isEdit) {
+
+    const title = document.getElementById("addressModeTitle");
+    const btn = document.getElementById("btnSave");
+
+    if (isEdit) {
+        title.innerText = "Edit Address";
+        btn.innerText = "Update Address";
+    } else {
+        title.innerText = "Add New Address";
+        btn.innerText = "Save Address";
+    }
+}
+
+
 /* =========================
    🔹 MODAL OPEN
 ========================= */
@@ -209,8 +224,10 @@ async function onAddressChange() {
         clearAddressForm();
         return;
     }
+    clearMap();
     setAddressMode(!!id);
     await loadAddressById(id);
+    loadMapFromLocation(`${cityTS.value}, ${stateTS.value}, India`);
 }
 
 /* =========================
@@ -237,8 +254,9 @@ async function loadAddressById(id) {
    🔹 CLEAR FORM
 ========================= */
 function clearAddressForm() {
-    
-    //document.getElementById("existingAddress").innerHTML = '<option value="">-- Select --</option>';
+    //alert("reset");
+    document.getElementById("existingAddress").innerHTML = '<option value="">-- Select Address --</option>';
+    loadExistingAddresses(currentAddressType);
     document.getElementById("line1").value = '';
     document.getElementById("line2").value = '';
     document.getElementById("landmark").value = '';
@@ -251,7 +269,11 @@ function clearAddressForm() {
     stateTS?.clearOptions();
     cityTS?.clear();
     cityTS?.clearOptions();
-    document.getElementById("save").disable = false
+
+    setAddressMode(false);
+    //document.getElementById("btnSave").innerText = 'Save Address';
+    document.getElementById("btnSave").disabled = false;
+    clearMap();
     // Clear errors
     document.querySelectorAll("[id^='err_']").forEach(x => {
         x.innerText = '';
@@ -259,7 +281,6 @@ function clearAddressForm() {
     });
 
 }
-
 
 /* =========================
    🔹 SAVE (TEXT OR ID)
@@ -312,10 +333,9 @@ async function saveAddress() {
     if (result.success) {
         //alert(result.message);
         showToast(result.message);
-        btn.disabled = true;
+        clearAddressForm();      
         //btn.innerText = originalText;
     }
-
     else {
         alert(result.message || "Address Save failed");
         showToast(result.message || "Address Save failed");
@@ -323,7 +343,8 @@ async function saveAddress() {
         btn.innerText = originalText;
     }
     
-    await clearAddressForm();
+        await clearAddressForm();
+
     await loadExistingAddresses(currentAddressType);
 
         //bootstrap.Modal.getInstance(document.getElementById('addressModal')).hide();
@@ -388,46 +409,95 @@ function validateAddressForm() {
 
     return isValid;
 }
+
 async function fetchPincodeDetails() {
+    const pincodeInput = document.getElementById("pincode");
+    const pincode = pincodeInput.value.trim();
 
-    const pincode = document.getElementById("pincode").value.trim();
+    // 🔥 Clear previous error
+    showPincodeError("");
 
-    if (!pincode || pincode.length !== 6) return;
-    
+    if (!pincode) return;
+
+    // 🔥 BASIC VALIDATION
+    if (!/^[1-9][0-9]{5}$/.test(pincode)) {
+        showPincodeError("Invalid pincode format");
+        clearMap();
+        return;
+    }
+
+    clearMap();
+
     try {
 
         const res = await fetch(`https://api.postalpincode.in/pincode/${pincode}`);
         const data = await res.json();
-        
+
         if (!data || data[0].Status !== "Success") {
-            console.warn("Invalid pincode");
+            showPincodeError("Pincode not found");
             return;
         }
 
         const post = data[0].PostOffice[0];
 
+        const area = post.Name;        // 🔥 Area
         const stateName = post.State;
         const cityName = post.District;
         const countryName = "India";
-        alert(stateName + data[0].Status);
-        // 🔥 Set values in dropdowns
+
+        // 🔥 Autofill Address Line 2 (only if empty)
+        const line2 = document.getElementById("line2");
+        if (!line2.value) {
+            line2.value = area;
+        }
+
+        // 🔥 Dropdown handling (match or create)
         await loadCountries();
-        countryTS.setValue(countryName);
+        setOrCreateValue(countryTS, countryName);
 
-        await loadStates(countryName);
-        stateTS.setValue(stateName);
+        await loadStates(countryTS.getValue());
+        setOrCreateValue(stateTS, stateName);
 
-        await loadCities(stateName);
-        cityTS.setValue(cityName);
+        await loadCities(stateTS.getValue());
+        setOrCreateValue(cityTS, cityName);
 
-        // 🔥 Load map
-        loadMapFromLocation(`${cityName}, ${stateName}, India`);
+        // 🔥 Map
+        loadMapFromLocation(`${area}, ${cityName}, ${stateName}`);
 
     } catch (err) {
-        console.error("Pincode fetch failed", err);
+        showToast("Pincode fetch failed, "+ err);
+        showPincodeError("Unable to fetch pincode details");
     }
 }
 
+function showPincodeError(msg) {
+
+    const el = document.getElementById("err_pincode");
+
+    if (!msg) {
+        el.innerText = "";
+        el.classList.add("d-none");
+    } else {
+        el.innerText = msg;
+        el.classList.remove("d-none");
+    }
+}
+function setOrCreateValue(ts, text) {
+
+    if (!text) return;
+
+    // 🔍 Try match existing option
+    const match = Object.values(ts.options)
+        .find(x => x.text.toLowerCase() === text.toLowerCase());
+
+    if (match) {
+        ts.setValue(match.value); // existing ID
+    } else {
+        // 🔥 Create new option dynamically
+        ts.addOption({ value: text, text: text });
+        ts.setValue(text); // set as TEXT
+    }
+}
 function loadMapFromLocation(locationText) {
 
     const mapContainer = document.getElementById("mapContainer");
@@ -439,7 +509,19 @@ function loadMapFromLocation(locationText) {
 
     mapContainer.classList.remove("d-none");
 }
+function clearMap() {
 
+    const mapContainer = document.getElementById("mapContainer");
+    const iframe = document.getElementById("mapFrame");
+
+    if (iframe) {
+        iframe.src = ""; // 🔥 clear map
+    }
+
+    if (mapContainer) {
+        mapContainer.classList.add("d-none"); // 🔥 hide
+    }
+}
 
 function showToast(message) {
     //alert (message);

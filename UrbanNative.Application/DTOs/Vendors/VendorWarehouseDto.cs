@@ -36,8 +36,8 @@ namespace UrbanNative.Application.DTOs.Vendors
         public int AddressID { get; set; }
 
         public bool IsPrimary { get; set; }
-        public int EntityId { get; set; }
-        public string EntityType { get; set; }
+        //public int EntityId { get; set; }
+        //public string EntityType { get; set; }
     }
     public class ServiceResult
     {

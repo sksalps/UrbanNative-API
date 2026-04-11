@@ -34,7 +34,7 @@ namespace UrbanNative.Application.UseCase.Vendors
         // ================= SAVE Warehouse =================
         public async Task SaveWarehouseAsync(VendorWarehouseSaveDto dto, int EntityId, string EntityType)
         {
-            await _repository.SaveWarehouseAsync(dto);
+            await _repository.SaveWarehouseAsync(dto, EntityId, EntityType);
         }
 
     }

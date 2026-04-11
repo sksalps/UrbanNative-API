@@ -27,6 +27,7 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
                 _db = db;
             }
 
+            
             public async Task<List<AddressListDto>> GetListAsync(string entityType, int entityId, string addressType)
             {
                 using var conn = _db.CreateConnection();
@@ -34,10 +35,10 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
 
                 return (await conn.QueryAsync<AddressListDto>(
                     "sp_AddressMaster_Lookup", param, commandType: CommandType.StoredProcedure)).ToList();
-            
-            }
+            //For DDL lokup and Grid Listing same SP
+        }
 
-            public async Task<AddressListDto> GetByIdAsync(int addressId, string entityType, int entityId)
+        public async Task<AddressListDto> GetByIdAsync(int addressId, string entityType, int entityId)
             {
                 using var conn = _db.CreateConnection();
 

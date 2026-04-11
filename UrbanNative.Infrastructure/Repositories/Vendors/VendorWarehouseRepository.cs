@@ -35,15 +35,24 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
         {
             using var conn = _connectionFactory.CreateConnection();
 
-            return await conn.QueryFirstOrDefaultAsync<VendorWarehouseSaveDto>(
-                "sp_WarehouseDetails_GetById",
+            var data= await conn.QueryFirstOrDefaultAsync<VendorWarehouseSaveDto>(
+                "sp_WarehouseDetails_GetByWHId",
                 new { WarehouseId = warehouseId, EntityType = entityType, EntityID = entityId },
                 commandType: CommandType.StoredProcedure
             );
+
+            
+
+            if (data == null)
+            {
+                throw new Exception("Warehouse not found or unauthorized");
+            }
+
+            return data;
         }
 
         // ================= SAVE Warehouse =================
-        public async Task SaveWarehouseAsync(VendorWarehouseSaveDto dto)
+        public async Task SaveWarehouseAsync(VendorWarehouseSaveDto dto, int EntityId, string EntityType)
         {
             using var conn = _connectionFactory.CreateConnection();
             var param = new
@@ -54,12 +63,12 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
                 dto.Mobile,
                 dto.AddressID,
                 dto.IsPrimary,
-                dto.EntityType,
-                EntityID = dto.EntityId,
-                UpdatedBy = dto.EntityType,
-                UpdatedByID = dto.EntityId
+                EntityType,
+                EntityId,
+                UpdatedBy = EntityType,
+                UpdatedByID = EntityId
             };
-            await conn.ExecuteAsync("sp_Warehouse_Save", param);
+            await conn.ExecuteAsync("sp_WarehouseDetails_Upsert", param);
         }
         public async Task DeleteWarehouseAsync(int warehouseId, int entityId)
         {

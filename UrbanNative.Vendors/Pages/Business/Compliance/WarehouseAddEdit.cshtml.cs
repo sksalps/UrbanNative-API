@@ -49,17 +49,18 @@ namespace UrbanNative.Vendors.Pages
         // 🔷 POST (Save Warehouse)
         public async Task<IActionResult> OnPostAsync()
         {
+            
             if (!ModelState.IsValid)
             {
                 AddressList = await _addressLookup.GetAddressesLookupAsync("WAREHOUSE");
                 return Page();
             }
 
-            await _warehouseService.SaveWarehouseAsync(Warehouse);
+             await _warehouseService.SaveWarehouseAsync(Warehouse);
 
             TempData["SuccessMessage"] = "Warehouse saved successfully";
 
-            return RedirectToPage("/Warehouse/List");
+            return Page(); // RedirectToPage("/WarehouseList");
         }
 
         

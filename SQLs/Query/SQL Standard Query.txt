@@ -1,4 +1,12 @@
-﻿select * from Products
+﻿foreach (var modelError in ModelState)
+{
+    foreach (var error in modelError.Value.Errors)
+    {
+        Console.WriteLine($"{modelError.Key}: {error.ErrorMessage}");
+    }
+}
+
+select * from Products
 select * from Vendors
 select * from InventoryLogs
 select * from VariantSetCategories

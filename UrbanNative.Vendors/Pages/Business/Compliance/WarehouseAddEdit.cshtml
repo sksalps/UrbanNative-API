@@ -2,14 +2,20 @@
 @model WarehouseAddEditModel
 
 @{
-    ViewData["Title"] = Model.IsEditMode ? "Edit Warehouse" : "Add Warehouse";
+    //ViewData["Title"] = Model.IsEditMode ? "Edit Warehouse" : "Add Warehouse";
 }
 
 <h3 class="mb-3">
     @(Model.IsEditMode ? "Edit Warehouse" : "Add Warehouse")
 </h3>
-
-<form method="post">
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+<!--form method="post" onsubmit="return submitWarehouseForm()"-->
+    <form method="post" id="warehouseForm">
 
     @Html.AntiForgeryToken()
 
@@ -19,62 +25,40 @@
 
         <!-- Warehouse Name -->
         <div class="col-md-6 mb-3">
-            <label class="form-label">Warehouse Name</label>
-            <input asp-for="Warehouse.WarehouseName" class="form-control" required />
+            <label class="form-label">Warehouse Name *</label>
+            <input asp-for="Warehouse.WarehouseName"
+                   id="warehouseName"
+                   class="form-control"
+                   placeholder="Enter warehouse name (e.g. Main Warehouse)" />
+            <span class="text-danger small" id="errName"></span>
         </div>
 
         <!-- Contact Person -->
         <div class="col-md-6 mb-3">
-            <label class="form-label">Contact Person</label>
-            <input asp-for="Warehouse.ContactPerson" class="form-control" required />
+            <label class="form-label">Contact Person *</label>
+            <input asp-for="Warehouse.ContactPerson"
+                   id="contactPerson"
+                   class="form-control"
+                   placeholder="Enter contact person name" />
+            <span class="text-danger small" id="errContact"></span>
         </div>
 
         <!-- Mobile -->
         <div class="col-md-6 mb-3">
-            <label class="form-label">Mobile</label>
-            <input asp-for="Warehouse.Mobile" class="form-control" required />
+            <label class="form-label">Mobile *</label>
+            <input asp-for="Warehouse.Mobile"
+                   id="mobile"
+                   class="form-control"
+                   placeholder="Enter 10 digit mobile number"
+                   maxlength="10" />
+            <span class="text-danger small" id="errMobile"></span>
         </div>
 
-        <!-- Address Dropdown + Actions -->
+        <!-- Primary -->
         <div class="col-md-6 mb-3">
-            <label class="form-label">Warehouse Address</label>
-
-            <div class="d-flex gap-2">
-
-                <select asp-for="Warehouse.AddressID"
-                        class="form-select"
-                        required>
-                    <option value="">-- Select Address --</option>
-                    @foreach (var a in Model.AddressList)
-                    {
-                        <option value="@a.AddressID">
-                           @a.AddressNickName [@a.AddressLine1 (@a.Pincode)]
-                        </option>
-                    }
-                </select>
-
-                <!-- Add Address -->
-                <button type="button"
-                        class="btn btn-outline-primary"
-                        onclick="loadAddressEngine()">
-                    +
-                </button>
-                
-                <!-- Edit Address -->
-                <button type="button"
-                        class="btn btn-outline-secondary"
-                        onclick="editSelectedAddress()">
-                    ✏️
-                </button>
-            </div>
-        </div>
-
-        <!-- Primary Checkbox -->
-        <div class="col-md-6 mb-3">
-            <label class="form-label d-block">Primary Warehouse</label>
-
-            <div class="form-check">
-                <input asp-for="Warehouse.IsPrimary"class="form-check-input" />
+            <div class="form-check mt-4">
+                <input asp-for="Warehouse.IsPrimary"
+                       class="form-check-input" />
                 <label class="form-check-label">
                     Set as Primary
                 </label>
@@ -85,40 +69,271 @@
             </small>
         </div>
 
+        <!-- Address Section -->
+        <div class="row">
+
+            <!-- LEFT: Address Dropdown -->
+            <div class="col-md-6 mb-3">
+                <label class="form-label">
+                    <i class="bi bi-geo-alt"></i> Warehouse Address *
+                </label>
+
+                <div class="d-flex gap-2">
+                    <select asp-for="Warehouse.AddressID"
+                            id="addressId"
+                            class="form-select"
+                            onchange="previewAddressById()">
+                        <option value="">-- Select Address --</option>
+                        @foreach (var a in Model.AddressList)
+                        {
+                            <option value="@a.AddressID">
+                                @a.AddressNickName [@a.AddressLine1 (@a.Pincode)]
+                            </option>
+                        }
+                    </select>
+
+                    <!-- Add Address _AddressModal Function call from address-modal.js-->
+                    <button type="button"
+                            class="btn btn-outline-primary"
+                            onclick="loadAddressEngine()">
+                        +
+                    </button>
+
+                    <!-- Edit Address -->
+                    <button type="button"
+                            class="btn btn-outline-secondary"
+                            onclick="editSelectedAddress()">
+                        ✏️
+                    </button>
+                </div>
+
+                <span class="text-danger small" id="errAddress"></span>
+            </div>
+
+            <!-- RIGHT: Preview -->
+            <div class="col-md-6">
+
+                <div id="selectedAddressPreview"
+                     class="p-2 border rounded bg-light mb-2"
+                     style="min-height:110px; display:none;">
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
     <!-- Actions -->
-    <div class="mt-4 text-end">
-        <a href="/Warehouse/List" class="btn btn-secondary">
+    <div class="mt-4 text-end d-flex gap-2 justify-content-end">
+        <a href="/Business/Compliance/WarehouseList" class="btn btn-secondary">
             Cancel
         </a>
 
-        <button type="submit" class="btn btn-success">
+        <button type="submit" class="btn btn-success" id="btnSave">
             Save Warehouse
         </button>
     </div>
 
 </form>
 
+
 <!-- 🔥 Shared Address Modal -->
 <partial name="~/Pages/_AddressModal.cshtml" />
 
 <script>
+    document.getElementById("warehouseForm").addEventListener("submit", function (e) {
 
-    // Edit selected address from dropdown
+        if (!submitWarehouseForm()) {
+            e.preventDefault(); // ❌ stop submit
+            //alert ("Please fix validation errors before submitting.");
+            return;
+        }
+
+        // 🔥 loading state
+        const btn = document.getElementById("btnSave");
+        btn.innerText = "Saving...";
+        //alert ("Saved");
+        btn.disabled = true;
+
+        // allow submit ✔
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+        previewAddressById();
+    });
+
+    // Edit selected address from dropdown 
     function editSelectedAddress() {
-
+        
         const ddl = document.querySelector('[name="Warehouse.AddressID"]');
         const id = ddl.value;
-
+        alert ("okk "+id);
         if (!id) {
             alert("Please select an address first.");
             return;
         }
 
-        openAddressModal('WAREHOUSE', id); // 🔥 PASS ID
+        //openAddressModal('WAREHOUSE', id); // 🔥 PASS ID call _AddressModal
+        loadAddressEngine(id); // 🔥 PASS ID call _AddressModal
     }
-    
+
+       
+    async function previewAddressById() {
+
+        const ddl = document.querySelector('[name="Warehouse.AddressID"]');
+        const id = ddl.value;
+
+        if (!id) {
+            //alert("Please select valid address");
+            return;
+        }
+
+        try {
+            const res = await fetch(`/Common/AddressEngineHandler?handler=AddressById&addressId=${id}`);
+
+            if (!res.ok) {
+                alert("Failed to fetch address");
+                return;
+            }
+
+            const a = await res.json();
+
+            const preview = document.getElementById("selectedAddressPreview");
+
+            if (!a) {
+                preview.style.display = "none";
+                preview.innerHTML = "";
+                return;
+            }
+            // 🔥 Correct property mapping
+            const nickname = a.addressNickName || '';
+            const line1 = a.addressLine1 || '';
+            const line2 = a.addressLine2 || '';
+            const city = a.cityName || '';
+            const state = a.stateName || '';
+            const country = a.countryName || '';
+            const pincode = a.pincode || '';
+            const isPrimary = a.isPrimary || false;
+            
+            // 🔥 Build HTML cleanly
+                let html = `
+                <div class="fw-semibold">${nickname || line1}</div>
+                <div>${line1}</div>
+                ${line2 ? `<div>${line2}</div>` : ""}
+                <div>${city}, ${state}</div>
+                <div>${country} - ${pincode}</div>
+            `;
+
+            
+            // 🔥 Primary badge
+            if (isPrimary) {
+                html += `<br/><span class="badge bg-success">Primary</span>`;
+            }
+            preview.innerHTML = html;
+            preview.style.display = "block";
+
+        } catch (err) {
+            console.error("Preview error:", err);
+            alert("Error loading address preview");
+        }
+    }
+
+    function validateWarehouseForm() {
+
+        let isValid = true;
+
+        // Clear errors
+        document.querySelectorAll(".text-danger").forEach(e => e.innerText = "");
+
+        const name = document.getElementById("warehouseName").value.trim();
+        const contact = document.getElementById("contactPerson").value.trim();
+        const mobile = document.getElementById("mobile").value.trim();
+        const address = document.getElementById("addressId").value;
+
+        // Name
+        if (!name) {
+            document.getElementById("errName").innerText = "Warehouse name is required";
+            isValid = false;
+        }
+
+        // Contact
+        if (!contact) {
+            document.getElementById("errContact").innerText = "Contact person is required";
+            isValid = false;
+        }
+
+        // Mobile
+        if (!mobile) {
+            document.getElementById("errMobile").innerText = "Mobile number is required";
+            isValid = false;
+        } else if (!/^[0-9]{10}$/.test(mobile)) {
+            document.getElementById("errMobile").innerText = "Enter valid 10 digit mobile number";
+            isValid = false;
+        }
+   
+        // Address
+        if (!address) {
+            document.getElementById("errAddress").innerText = "Please select address";
+            isValid = false;
+        }
+
+        if (!isValid) {
+            document.querySelector(".text-danger:not(:empty)")?.previousElementSibling?.focus();
+        }
+
+        return isValid;
+    }
+
+    function submitWarehouseForm() {
+
+        let isValid = true;
+        //alert ("okk");
+        // Clear previous errors
+        document.querySelectorAll(".text-danger").forEach(e => e.innerText = "");
+
+        if (!validateWarehouseForm()) {
+            document.querySelector(".text-danger:not(:empty)")?.previousElementSibling?.focus();
+            isValid=false;
+        }
+        else {
+            // 🔥 Loading state
+            const btn = document.getElementById("btnSave");
+            btn.innerText = "Saving...";
+            btn.disabled = true;
+        }
+
     
 
+        return isValid;
+    }
+
+
+function showToast(msg) {
+    const t = document.createElement("div");
+    t.className = "toast align-items-center text-bg-success show position-fixed bottom-0 end-0 m-3";
+    t.innerHTML = `<div class="d-flex"><div class="toast-body">${msg}</div></div>`;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 3000);
+}
+setTimeout(() => {
+        document.querySelectorAll(".alert").forEach(a => a.remove());
+    }, 3000);
 </script>
+
+
+<style>
+    #selectedAddressPreview {
+        font-size: 14px;
+        line-height: 1.4;
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+    }
+    .form-control, .form-select {
+        height: 38px;
+    }
+
+    #selectedAddressPreview:hover {
+        border-color: #0d6efd;
+    }
+
+</style>

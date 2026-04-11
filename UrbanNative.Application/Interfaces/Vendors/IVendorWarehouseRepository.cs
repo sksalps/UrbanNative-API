@@ -13,6 +13,6 @@ namespace UrbanNative.Application.Interfaces.Vendors
         Task<List<VendorWarehouseListDto>> GetWarehousesListAsync(int vendorId);
         Task DeleteWarehouseAsync(int warehouseId, int entityId);
         Task<VendorWarehouseSaveDto> GetWarehouseByIdAsync(int warehouseId, int entityId, string entityType);
-        Task SaveWarehouseAsync(VendorWarehouseSaveDto dto);
+        Task SaveWarehouseAsync(VendorWarehouseSaveDto dto, int EntityId, string EntityType);
     }
 }

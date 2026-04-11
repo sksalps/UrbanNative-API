@@ -3677,7 +3677,7 @@
   {
     "ContainingType": "UrbanNative.Api.Controllers.Vendors.VendorWarehouseController",
     "Method": "GetWarehouseById",
-    "RelativePath": "api/vendors/warehouses/getwarehouse/{bankId}",
+    "RelativePath": "api/vendors/warehouses/getwarehouse/{warehouseId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -3685,11 +3685,6 @@
       {
         "Name": "warehouseId",
         "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "bankId",
-        "Type": "",
         "IsRequired": true
       }
     ],

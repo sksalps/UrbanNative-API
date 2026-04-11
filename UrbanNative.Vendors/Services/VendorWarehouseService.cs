@@ -18,7 +18,7 @@ namespace UrbanNative.Vendors.Services
         }
         public async Task<VendorWarehouseSaveDto> GetWarehouseByIdAsync(int? warehouseId)
         {
-            var res = await _http.GetAsync($"api/vendors/warehouses/{warehouseId}");
+            var res = await _http.GetAsync($"api/vendors/warehouses/getwarehouse/{warehouseId}");
             res.EnsureSuccessStatusCode();
 
             return await res.Content.ReadFromJsonAsync<VendorWarehouseSaveDto>();

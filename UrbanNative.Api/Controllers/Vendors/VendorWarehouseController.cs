@@ -84,7 +84,7 @@ namespace UrbanNative.Api.Controllers.Vendors
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet("getwarehouse/{bankId}")]
+        [HttpGet("getwarehouse/{warehouseId}")]
         public async Task<IActionResult> GetWarehouseById(int warehouseId)
         {
             var (entityType, entityId) = ResolveEntity();

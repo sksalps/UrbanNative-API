@@ -34,7 +34,21 @@
                 </div>
 
                 <hr class="my-4" />
+            
+                <!-- PINCODE -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Pincode <span class="text-danger">*</span></label>
+                    <input type="text" id="pincode"
+                           class="form-control"
+                           placeholder="Enter 6-digit pincode to auto-fill location"
+                           oninput="clearMap(); showPincodeError('')"
+                           onblur="fetchPincodeDetails()" />
+                    <small id="err_pincode" class="text-danger d-none"></small> 
+                    <small class="text-muted">Auto-detect location from pincode</small>
+                    
+                </div>
 
+                <hr class="my-4" />
                 <!-- NICKNAME -->
                 <div class="mb-3">
                     <label class="form-label fw-semibold">
@@ -44,16 +58,6 @@
                            placeholder="Eg: Home, Office" />
                     <small class="text-danger d-none" id="err_nickname"></small>
                 </div>
-                <!-- PINCODE -->
-                <div class="mb-3">
-                    <label class="form-label fw-semibold">Pincode <span class="text-danger">*</span></label>
-                    <input type="text" id="pincode" class="form-control"
-                           placeholder="Type Pincode to autofill location"
-                           onblur="fetchPincodeDetails()" />
-                    <small class="text-muted">Auto-detect location from pincode</small>
-                </div>
-
-                <hr class="my-4" />
                 <!-- LOCATION -->
                 <div class="row g-3">
 
@@ -160,7 +164,7 @@
 <script>
         let addressScriptLoaded = false;
 
-    async function loadAddressEngine() {
+    async function loadAddressEngine(id=null) {
         if (!addressScriptLoaded) {
             await loadScript('/_content/UrbanNative.Shared/js/address-modal.js');
             addressScriptLoaded = true;
@@ -168,7 +172,7 @@
                 //alert ("addressScriptLoaded11"+addressScriptLoaded);
 
         // Now safe to call
-        openAddressModal('Warehouse');
+        openAddressModal('Warehouse', id);
     }
 
     function loadScript(src) {
@@ -182,17 +186,4 @@
     }
 
 
-        function setAddressMode(isEdit) {
-
-        const title = document.getElementById("addressModeTitle");
-        const btn = document.getElementById("btnSave");
-
-        if (isEdit) {
-            title.innerText = "Edit Address";
-            btn.innerText = "Update Address";
-        } else {
-            title.innerText = "Add New Address";
-            btn.innerText = "Save Address";
-        }
-    }
 </script>

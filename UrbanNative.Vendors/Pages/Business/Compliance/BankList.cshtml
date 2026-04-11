@@ -101,7 +101,7 @@
 
         const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
-        const response = await fetch(`/Business/BankList?handler=Delete&bankId=${bankId}`, {
+        const response = await fetch(`/Business/Compliance/BankList?handler=Delete&bankId=${bankId}`, {
             method: 'POST',
             credentials: 'same-origin',
             headers: {
@@ -169,6 +169,6 @@
     }
 
         function editBank(bankId) {
-        window.location.href = `/Business/AddBank?bankId=${bankId}`;
+        window.location.href = `/Business/Compliance/AddBank?bankId=${bankId}`;
     }
 </script>
