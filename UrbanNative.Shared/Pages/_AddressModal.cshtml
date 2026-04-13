@@ -162,17 +162,19 @@
 <!--script src="~/_content/UrbanNative.Shared/js/address-modal.js"></script -->
 
 <script>
-        let addressScriptLoaded = false;
+    let addressScriptLoaded = false;
 
-    async function loadAddressEngine(id=null) {
+    async function loadAddressEngine(type,id=null) {
         if (!addressScriptLoaded) {
             await loadScript('/_content/UrbanNative.Shared/js/address-modal.js');
             addressScriptLoaded = true;
         }
-                //alert ("addressScriptLoaded11"+addressScriptLoaded);
+        //alert (type) ;
+        //currentAddressType = type;
 
+        
         // Now safe to call
-        openAddressModal('Warehouse', id);
+        openAddressModal(type, id);
     }
 
     function loadScript(src) {

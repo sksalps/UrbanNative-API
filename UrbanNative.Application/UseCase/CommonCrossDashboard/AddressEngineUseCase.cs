@@ -21,6 +21,16 @@ namespace UrbanNative.Application.UseCase.CommonCrossDashboard
 
         public Task<List<AddressListDto>> GetListAsync(int entityId,string entityType, string type)
             => _repo.GetListAsync(entityType, entityId, type);
+        public Task<List<AddressListDto>> GetListAllAsync(int entityId, string entityType)
+           => _repo.GetListAllAsync(entityType, entityId);
+        public async Task DeleteAddressAsync(int addressId, int entityId, string entityType)
+           =>  _repo.DeleteAddressAsync(addressId, entityId, entityType);
+        
+
+        public async Task ExecuteSetPrimaryAsync(int addressId, int entityId, string entityType)
+            => _repo.SetPrimaryAddressAsync(addressId, entityId, entityType);
+        
+
 
         public Task<AddressListDto> GetByIdAsync(int id, string entityType, int entityId)
             => _repo.GetByIdAsync(id,entityType,entityId);

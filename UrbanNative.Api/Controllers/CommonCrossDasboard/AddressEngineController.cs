@@ -27,6 +27,42 @@ namespace UrbanNative.Api.Controllers.CommonCrossDasboard
             return Ok(await _useCase.GetListAsync(entityId, entityType, type));
         }
 
+        [HttpGet("listall")]
+        public async Task<IActionResult> ListAll()
+        {
+            var (entityType, entityId) = ResolveEntity();
+            return Ok(await _useCase.GetListAllAsync(entityId, entityType));
+        }
+        [HttpPost("delete")]
+        public async Task<IActionResult> DeleteWarehouse([FromBody] int id)
+        {
+            var (entityType, entityId) = ResolveEntity();
+
+            try
+            {
+                await _useCase.DeleteAddressAsync(id, entityId,entityType);
+                return Ok("Deleted successfully");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("set-primary-address")]
+        public async Task<IActionResult> SetPrimaryAddress([FromBody] int addressId)
+        {
+            var (entityType, entityId) = ResolveEntity();
+
+            await _useCase.ExecuteSetPrimaryAsync(addressId, entityId, entityType);
+
+            return Ok(new
+            {
+                message = "Primary Address updated successfully."
+            });
+        }
+
+
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {

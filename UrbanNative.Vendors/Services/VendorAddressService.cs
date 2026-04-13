@@ -20,6 +20,44 @@ namespace UrbanNative.Vendors.Services
         public Task<AddressListDto> GetByIdAsync(int id)
             => _http.GetFromJsonAsync<AddressListDto>($"api/address/{id}");
 
+        public Task<List<AddressListDto>> GetAddressListAsync()
+        {
+            return  _http.GetFromJsonAsync<List<AddressListDto>>($"api/address/listall");
+        }
+
+        public async Task<ServiceResult> DeleteAddressAsync(int addressId)
+        {
+            var res = await _http.PostAsJsonAsync("api/address/delete", addressId);
+            var content = await res.Content.ReadAsStringAsync();
+            if (!res.IsSuccessStatusCode)
+            {
+                return new ServiceResult { IsSuccess = false, Message = content };
+            }
+
+            return new ServiceResult { IsSuccess = true, Message = content };
+        }
+
+        public async Task<ServiceResult> SetPrimaryAddressAsync(int addressId)
+        {
+            var res = await _http.PostAsJsonAsync(
+                "api/address/set-primary-address", addressId     // ✅ this sends proper JSON
+            );
+
+            var content = await res.Content.ReadAsStringAsync();
+
+            if (!res.IsSuccessStatusCode)
+            {
+                return new ServiceResult
+                {
+                    IsSuccess = false,
+                    Message = content
+                };
+            }
+
+            return new ServiceResult { IsSuccess = true };
+        }
+
+
         public async Task<ServiceResult> SaveAddressAsync(AddressSaveDto dto)
         {
             var res = await _http.PostAsJsonAsync("api/address/save", dto);

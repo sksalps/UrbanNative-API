@@ -1,10 +1,6 @@
 ﻿using Dapper;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
 using UrbanNative.Application.DTOs.Vendors;
 using UrbanNative.Application.Interfaces.Vendors;
 using UrbanNative.Domain.Entities;
@@ -81,6 +77,22 @@ namespace UrbanNative.Infrastructure.Repositories.Vendors
                     WarehouseId = warehouseId,
                     EntityType = "VENDOR",
                     VendorID = entityId
+                },
+                commandType: CommandType.StoredProcedure
+            );
+        }
+
+        public async Task SetPrimaryWarehouseAsync(int warehouseId, int entityId, string entityType)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            await conn.ExecuteAsync(
+                "sp_VendorWarehouse_SetPrimary",
+                new
+                {
+                    WarehouseID = warehouseId,
+                    EntityType = entityType,
+                    EntityID = entityId
                 },
                 commandType: CommandType.StoredProcedure
             );

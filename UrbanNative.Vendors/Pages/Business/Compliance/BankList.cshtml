@@ -125,7 +125,7 @@
         const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
 
         try {
-            const response = await fetch(`/Business/BankList?handler=SetPrimary&bankId=${bankId}`, {
+            const response = await fetch(`/Business/Compliance/BankList?handler=SetPrimary&bankId=${bankId}`, {
                 method: 'POST',
                 headers: {
                     "RequestVerificationToken": token

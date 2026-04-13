@@ -27,6 +27,11 @@ namespace UrbanNative.Application.UseCase.Vendors
         {
             await _repository.DeleteWarehouseAsync(warehouseId, EntityId);
         }
+
+        public async Task ExecuteSetPrimaryAsync(int warehouseId, int EntityId, string EntityType)
+        {
+            await _repository.SetPrimaryWarehouseAsync(warehouseId, EntityId, EntityType);
+        }
         public async Task<VendorWarehouseSaveDto> GetWarehouseByIdAsync(int warehouseId, int EntityId, string EntityType)
         {
             return await _repository.GetWarehouseByIdAsync(warehouseId, EntityId, EntityType);

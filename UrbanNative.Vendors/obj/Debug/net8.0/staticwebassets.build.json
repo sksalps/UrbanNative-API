@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "aRlXWI4XBa8VWNSM3+lz4pKnKys7l33LH7mbcCFaaiQ=",
+  "Hash": "xFb/sKnQa5VRdoexIYC5rPTOU5D8ZY9fjSrrEfl9GoQ=",
   "Source": "UrbanNative.Vendors",
   "BasePath": "_content/UrbanNative.Vendors",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\exampleJsInterop.js"
+    },
+    {
+      "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\wwwroot\\js\\address-list.js",
+      "SourceId": "UrbanNative.Shared",
+      "SourceType": "Project",
+      "ContentRoot": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\wwwroot\\",
+      "BasePath": "_content/UrbanNative.Shared",
+      "RelativePath": "js/address-list.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\address-list.js"
     },
     {
       "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\wwwroot\\js\\address-modal.js",

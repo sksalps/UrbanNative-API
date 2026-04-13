@@ -42,6 +42,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQnVzaW5lc3NcQ29tcGxpYW5jZVxXYXJlaG91c2VMaXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Vendors/Pages/Business/Compliance/YourAddressList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQnVzaW5lc3NcQ29tcGxpYW5jZVxZb3VyQWRkcmVzc0xpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Vendors/Pages/Business/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQnVzaW5lc3NcUHJvZmlsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

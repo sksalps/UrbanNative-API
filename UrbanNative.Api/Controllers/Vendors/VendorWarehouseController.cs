@@ -84,6 +84,20 @@ namespace UrbanNative.Api.Controllers.Vendors
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("set-primary-warehouse")]
+        public async Task<IActionResult> SetPrimaryBank([FromBody] int warehouseId)
+        {
+            var (entityType, entityId) = ResolveEntity();
+
+            await _useCaseWH.ExecuteSetPrimaryAsync(warehouseId, entityId, entityType);
+
+            return Ok(new
+            {
+                message = "Primary Warehouse updated successfully."
+            });
+        }
+
         [HttpGet("getwarehouse/{warehouseId}")]
         public async Task<IActionResult> GetWarehouseById(int warehouseId)
         {

@@ -13,6 +13,9 @@ namespace UrbanNative.Application.Interfaces.CommonCrossDashboard
         Task<List<AddressListDto>> GetAddressesLookupAsync(string type);
         Task<AddressListDto> GetByIdAsync(int id);
         Task<ServiceResult> SaveAddressAsync(AddressSaveDto dto);
+        Task<List<AddressListDto>> GetAddressListAsync();
+        Task<ServiceResult> DeleteAddressAsync(int addressId);
+        Task<ServiceResult> SetPrimaryAddressAsync(int addressId);
 
         Task<List<CountryDto>> GetCountriesAsync(int? countryId);
         Task<List<StateDto>> GetStatesAsync(int? countryId, int? stateId);

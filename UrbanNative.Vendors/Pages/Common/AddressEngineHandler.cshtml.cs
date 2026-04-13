@@ -85,24 +85,28 @@ namespace UrbanNative.Vendors.Pages.Common
             });
         }
 
-        /*/ 🔹 Save Address
-        public async Task<JsonResult> OnPostSaveAddressAsync([FromBody] AddressSaveDto dto)
+
+        /* =========================
+         * AddressList Page
+         ===========================*/
+
+        public async Task<IActionResult> OnGetAddressList()
         {
+            var data = await _addressService.GetAddressListAsync();
+            return new JsonResult(data);
+        }
+
+        public async Task<IActionResult> OnPostDeleteAddress(int id)
+        {
+
             try
             {
-                if (string.IsNullOrWhiteSpace(dto.AddressLine1))
-                    return new JsonResult(new { success = false, message = "Address Line 1 is required" });
-
-                if (string.IsNullOrWhiteSpace(dto.Pincode))
-                    return new JsonResult(new { success = false, message = "Pincode is required" });
-
-                var id = await _addressService.SaveAsync(dto);
+                var result = await _addressService.DeleteAddressAsync(id);
 
                 return new JsonResult(new
                 {
-                    success = true,
-                    addressId = id,
-                    message = "Address saved successfully"
+                    success = result.IsSuccess,
+                    message = result.Message
                 });
             }
             catch (Exception ex)
@@ -114,6 +118,30 @@ namespace UrbanNative.Vendors.Pages.Common
                 });
             }
         }
-        */
+
+
+
+
+        public async Task<IActionResult> OnPostSetPrimaryAsync(int id)
+        {
+            try
+            {
+                var result = await _addressService.SetPrimaryAddressAsync(id);
+
+                return new JsonResult(new
+                {
+                    success = result.IsSuccess,
+                    message = result.Message
+                });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
+        }
     }
 }

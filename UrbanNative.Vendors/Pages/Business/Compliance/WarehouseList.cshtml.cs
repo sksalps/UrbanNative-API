@@ -21,11 +21,32 @@ public class WarehouseListModel : PageModel
         Warehouses = await _service.GetWarehousesAsync();
     }
 
-    public async Task<IActionResult> OnPostDeleteAsync(int id)
+    public async Task<IActionResult> OnPostDeleteAsync(int warehouseId)
     {
         try
         {
-            var result = await _service.DeleteWarehouseAsync(12);
+            var result = await _service.DeleteWarehouseAsync(warehouseId);
+
+            return new JsonResult(new
+            {
+                success = result.IsSuccess,
+                message = result.Message
+            });
+        }
+        catch (Exception ex)
+        {
+            return new JsonResult(new
+            {
+                success = false,
+                message = ex.Message
+            });
+        }
+    }
+    public async Task<IActionResult> OnPostSetPrimaryAsync(int warehouseId)
+    {
+        try
+        {
+            var result = await _service.SetPrimaryWarehouseAsync(warehouseId);
 
             return new JsonResult(new
             {

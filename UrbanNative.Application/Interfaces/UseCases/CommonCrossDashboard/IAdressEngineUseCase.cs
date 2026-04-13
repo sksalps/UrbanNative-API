@@ -11,6 +11,9 @@ namespace UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard
     public interface IAddressEngineUseCase
     {
         Task<List<AddressListDto>> GetListAsync(int entityId, string entityType, string type);
+        Task<List<AddressListDto>> GetListAllAsync(int entityId, string entityType);
+        Task DeleteAddressAsync(int addressId, int entityId, string entityType);
+        Task ExecuteSetPrimaryAsync(int addressId, int entityId, string entityType);
         Task<AddressListDto> GetByIdAsync(int addressId, string entityType, int entityId);
         Task<int> SaveAsync(AddressSaveDto dto, int entityId, string entityType);
 

@@ -46,8 +46,13 @@
                     }
                     else
                     {
-                        <small >-</small>
+                        <button class="btn btn-sm btn-warning"
+                                onclick="setPrimary(@w.WarehouseId, '@w.WarehouseName')">
+                            Set
+                        </button>
                     }
+
+                    
                 </td>
                 <td>
                     <a href="/Business/Compliance/WarehouseAddEdit/@w.WarehouseId" class="btn btn-sm btn-warning">Edit</a>
@@ -91,13 +96,50 @@
         const result = await response.json();
         //alert ("OKK "+result.success);
         if (result.success) {
-            alert ("OKK-2="+result.message);
+            //alert ("OKK-2="+result.message);
             showToast(result.message);
             setTimeout(() => location.reload(), 4000);
             //location.reload();
         } else {
             alert(result.message || "Delete failed");
             showToast(result.message);
+        }
+    }
+
+    async function setPrimary(warehouseId, warehouseName) {
+        if (!confirm("Set this as primary Warehouse?")) return;
+
+        const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+
+        try {
+            const response = await fetch(`/Business/Compliance/WarehouseList?handler=SetPrimary&warehouseId=${warehouseId}`, {
+                method: 'POST',
+                headers: {
+                    "RequestVerificationToken": token
+                }
+            });
+
+
+            // 🔴 Handle server error properly
+            if (!response.ok) {
+                const text = await response.text();
+                alert("Server Error: " + text);
+                return;
+            }
+
+            const result = await response.json(); // ✅ correct order
+
+            //alert(result.message); // now safe
+
+            if (result.success) {
+                showToast(`Successfully ${warehouseName} set as primary`);
+                setTimeout(() => location.reload(), 4000);
+            } else {
+                alert(result.message || "Failed to update");
+            }
+
+        } catch (err) {
+            alert("JS Error: " + err.message);
         }
     }
 

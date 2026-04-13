@@ -10,6 +10,7 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard
     public class AddressListDto
     {
         public int AddressID { get; set; }
+        public string AddressType { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
         public string Landmark { get; set; }

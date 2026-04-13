@@ -1,0 +1,103 @@
+﻿@page
+@model UrbanNative.Vendors.Pages.Common.YourAddressListModel
+@Html.AntiForgeryToken()
+
+
+<div class="address-container">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0">Your Addresses</h5>
+        <div id="toastMsg" class="alert alert-success d-none"></div>
+
+        <button class="btn btn-primary"
+                onclick="loadAddressEngine('Warehouse')">
+            + Add New Address
+        </button>
+    </div>
+
+    <!-- ADDRESS GRID -->
+    <div id="addressList" class="row g-3"></div>
+
+</div>
+
+<!-- TEMPLATE -->
+<script type="text/template" id="addressCardTemplate">
+
+    <div class="col-md-4">
+        <div class="card address-card h-100">
+
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                    <h6 class="mb-1 text-muted small">{{addressType}}</h6>
+                    
+                </div>
+                <div class="d-flex justify-content-between align-items-start">
+                    <h6 class="fw-bold mb-1">{{nickname}}</h6>
+                    {{primaryBadge}}
+                </div>
+
+                <p class="mb-1 text-muted small">
+                    {{line1}} {{line2}}
+                </p>
+
+                <p class="mb-1 small">
+                    {{city}}, {{state}}
+                </p>
+
+                <p class="mb-2 small text-muted">
+                    Pincode: {{pincode}}
+                </p>
+
+            </div>
+
+            <div class="card-footer bg-white border-0 pt-0">
+                <div class="d-flex justify-content-between">
+
+                    <button class="btn btn-sm btn-outline-primary"
+                            onclick="editSelectedAddress('{{addressType}}', {{id}})">
+                        Edit
+                    </button>
+
+                    {{deleteBtn}}
+
+
+
+                    {{setPrimaryBtn}}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</script>
+<!-- 🔥 Shared Address Modal -->
+<partial name="~/Pages/_AddressModal.cshtml" />
+
+@section Scripts {
+    <script src="~/_content/UrbanNative.Shared/js/address-list.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            loadAddressList(); 
+        });
+    </script>
+}
+
+ <style>
+        .address-card {
+        border-radius: 12px;
+        transition: 0.2s;
+        }
+
+        .address-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .add-address-card:hover {
+            border-color: #198754;
+            background: #f8fff9;
+        }
+                    
+ </style>

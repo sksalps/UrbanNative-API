@@ -11,6 +11,7 @@ namespace UrbanNative.Application.Interfaces.UseCases
     {
         Task<List<VendorWarehouseListDto>> GetWarehousesListAsync(int vendorId);
         Task DeleteWarehouseAsync(int warehouseId, int EntityId);
+        Task ExecuteSetPrimaryAsync(int warehouseId, int EntityId, string EntityType);
         Task<VendorWarehouseSaveDto> GetWarehouseByIdAsync(int warehouseId, int EntityId, string EntityType);
         Task SaveWarehouseAsync(VendorWarehouseSaveDto dto, int EntityId, string EntityType);
     }

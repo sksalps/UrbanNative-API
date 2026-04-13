@@ -38,5 +38,25 @@ namespace UrbanNative.Vendors.Services
 
             return new ServiceResult { IsSuccess = true, Message = content };
         }
+
+        public async Task<ServiceResult> SetPrimaryWarehouseAsync(int warehouseId)
+        {
+            var res = await _http.PostAsJsonAsync(
+                "api/vendors/warehouses/set-primary-warehouse", warehouseId // ✅ this sends proper JSON
+            );
+
+            var content = await res.Content.ReadAsStringAsync();
+
+            if (!res.IsSuccessStatusCode)
+            {
+                return new ServiceResult
+                {
+                    IsSuccess = false,
+                    Message = content
+                };
+            }
+
+            return new ServiceResult { IsSuccess = true };
+        }
     }
 }

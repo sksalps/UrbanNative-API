@@ -95,14 +95,14 @@
                     <!-- Add Address _AddressModal Function call from address-modal.js-->
                     <button type="button"
                             class="btn btn-outline-primary"
-                            onclick="loadAddressEngine()">
+                            onclick="loadAddressEngine('Warehouse')">
                         +
                     </button>
 
                     <!-- Edit Address -->
                     <button type="button"
                             class="btn btn-outline-secondary"
-                            onclick="editSelectedAddress()">
+                            onclick="editSelectedAddress('Warehouse')">
                         ✏️
                     </button>
                 </div>
@@ -163,18 +163,18 @@
     });
 
     // Edit selected address from dropdown 
-    function editSelectedAddress() {
+    function editSelectedAddress(type) {
         
         const ddl = document.querySelector('[name="Warehouse.AddressID"]');
         const id = ddl.value;
-        alert ("okk "+id);
+        //alert ("okk "+id);
         if (!id) {
             alert("Please select an address first.");
             return;
         }
 
         //openAddressModal('WAREHOUSE', id); // 🔥 PASS ID call _AddressModal
-        loadAddressEngine(id); // 🔥 PASS ID call _AddressModal
+        loadAddressEngine(type,id); // 🔥 PASS ID call _AddressModal
     }
 
        

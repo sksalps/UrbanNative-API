@@ -19,23 +19,61 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
 
     public class AddressEngineRepository : IAddressEngineRepository
     {
-        
         private readonly SqlConnectionFactory _db;
-
             public AddressEngineRepository(SqlConnectionFactory db)
             {
                 _db = db;
             }
+        public async Task<List<AddressListDto>> GetListAsync(string entityType, int entityId, string addressType)
+        {
+            using var conn = _db.CreateConnection();
+            var param = new { EntityType = entityType, EntityID = entityId, AddressType = addressType };
 
-            
-            public async Task<List<AddressListDto>> GetListAsync(string entityType, int entityId, string addressType)
-            {
-                using var conn = _db.CreateConnection();
-                var param = new { EntityType = entityType, EntityID = entityId };
+            return (await conn.QueryAsync<AddressListDto>(
+                "sp_AddressMaster_Lookup", param, commandType: CommandType.StoredProcedure)).ToList();
+        //For DDL lokup SP
+        }
 
-                return (await conn.QueryAsync<AddressListDto>(
-                    "sp_AddressMaster_Lookup", param, commandType: CommandType.StoredProcedure)).ToList();
-            //For DDL lokup and Grid Listing same SP
+        public async Task<List<AddressListDto>> GetListAllAsync(string entityType, int entityId)
+        {
+            using var conn = _db.CreateConnection();
+            var param = new { EntityType = entityType, EntityID = entityId };
+
+            return (await conn.QueryAsync<AddressListDto>(
+                "sp_AddressMaster_List", param, commandType: CommandType.StoredProcedure)).ToList();
+            //For Grid Listing SP
+        }
+
+        public async Task DeleteAddressAsync(int addressId, int entityId,string entityType)
+        {
+            using var conn = _db.CreateConnection();
+
+            await conn.ExecuteAsync(
+                "sp_AddressMaster_Delete",
+                new
+                {
+                    AddressID = addressId,
+                    EntityType = entityType,
+                    EntityID = entityId
+                },
+                commandType: CommandType.StoredProcedure
+            );
+        }
+
+        public async Task SetPrimaryAddressAsync(int addressId, int entityId, string entityType)
+        {
+            using var conn = _db.CreateConnection();
+
+            await conn.ExecuteAsync(
+                "sp_AddressMaster_SetPrimary",
+                new
+                {
+                    AddressID = addressId,
+                    EntityType = entityType,
+                    EntityID = entityId
+                },
+                commandType: CommandType.StoredProcedure
+            );
         }
 
         public async Task<AddressListDto> GetByIdAsync(int addressId, string entityType, int entityId)
