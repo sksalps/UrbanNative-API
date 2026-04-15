@@ -333,7 +333,8 @@ async function saveAddress() {
     if (result.success) {
         //alert(result.message);
         showToast(result.message);
-        clearAddressForm();      
+        document.dispatchEvent(new Event("addressSaved"));
+        //await clearAddressForm();      
         //btn.innerText = originalText;
     }
     else {
@@ -343,7 +344,7 @@ async function saveAddress() {
         btn.innerText = originalText;
     }
     
-        await clearAddressForm();
+    //await clearAddressForm();
 
     await loadExistingAddresses(currentAddressType);
 

@@ -36,6 +36,217 @@ Change variant order
 Create illegal combinations
 
 **********TABLES***********
+USER Login and Registration
+SystemSettingMaster (pasted the record)
+
+SystemSettingValue
+SettingValueId	int	Unchecked
+SystemSettingId	int	Unchecked
+Value	decimal(10, 2)	Unchecked
+EffectiveFrom	datetime	Unchecked
+EffectiveTo	datetime	Checked
+IsActive	bit	Unchecked
+CreatedAt	datetime	Unchecked
+CreatedByAdminId	int	Checked
+UpdatedBy	varchar(20)	Checked
+UpdatedById	int	Checked
+UpdatedAt	datetime	Unchecked
+		Unchecked
+Users
+UserID	int	Unchecked
+Name	varchar(100)	Unchecked
+Mobile	varchar(15)	Unchecked
+Email	varchar(150)	Checked
+PasswordHash	varchar(255)	Checked
+ReferralCode	varchar(20)	Checked
+ReferredByUserID	int	Unchecked
+CreatedAt	datetime	Checked
+IsAffiliate	bit	Unchecked
+AffiliateActivatedAt	datetime	Checked
+IsSathi	bit	Unchecked
+SathiActivatedAt	datetime	Checked
+IsActive	bit	Unchecked
+LastLoginAt	datetime	Checked
+		Unchecked
+
+ReferralLandingEntities
+ReferralLandingEntityID	int	Unchecked
+EntityCode	varchar(50)	Unchecked
+EntityName	nvarchar(100)	Unchecked
+IsActive	bit	Unchecked
+
+Referrals	
+ReferralID	int	Unchecked
+ReferredByUserID	int	Unchecked
+ReferralLandingEntityID	int	Unchecked
+ReferredUserD	int	Unchecked
+ReferralCode	varchar(50)	Checked
+ReferredAt	datetime	Unchecked
+ReferralSource	varchar(20)	Checked
+ReferredMobile	varchar(15)	Checked
+LandingEntityType	varchar(20)	Checked
+LandingEntityID	int	Checked
+ReferralSourceType	varchar(20)	Checked
+		Unchecked
+
+*********Customer Dashboard*******
+ReferralEntities
+ReferralEntityID	int	Unchecked
+EntityCode	varchar(50)	Unchecked
+EntityName	nvarchar(100)	Unchecked
+IsActive	bit	Unchecked
+		Unchecked
+Referrals
+ReferralID	int	Unchecked
+ReferrerUserID	int	Unchecked
+ReferralEntityID	int	Unchecked
+ReferredEntityID	int	Unchecked
+ReferralCode	varchar(50)	Checked
+ReferredAt	datetime	Unchecked
+		Unchecked
+Users
+UserID	int	Unchecked
+Name	varchar(100)	Unchecked
+Mobile	varchar(15)	Unchecked
+Email	varchar(150)	Checked
+PasswordHash	varchar(255)	Checked
+ReferralCode	varchar(20)	Checked
+ReferredBy	int	Checked
+CreatedAt	datetime	Checked
+		Unchecked
+
+***********Orders *********
+Orders
+OrderID	int	Unchecked
+OrderNo	nvarchar(50)	Unchecked
+UserID	int	Unchecked
+BillAddressID	int	Unchecked
+ShipAddressID	int	Unchecked
+SubTotalAmount	decimal(10, 2)	Unchecked
+GSTAmount	decimal(10, 2)	Unchecked
+WalletUsedAmount	decimal(10, 2)	Unchecked
+TotalAmount	decimal(10, 2)	Unchecked
+PayableAmount	decimal(10, 2)	Unchecked
+VendorSharedMargin	decimal(10, 2)	Unchecked
+PlatformCommission	decimal(10, 2)	Unchecked
+PaymentMode	varchar(20)	Unchecked
+PaymentStatus	varchar(20)	Unchecked
+PaymentTxnID	nvarchar(100)	Checked
+OrderStatus	varchar(30)	Unchecked
+CancelReason	nvarchar(300)	Checked
+CreatedAt	datetime	Unchecked
+UpdatedAt	datetime	Checked
+ReferralUserID	int	Unchecked
+BillAddressLines	nvarchar(200)	Checked
+BillCountry	nchar(100)	Checked
+BillState	nvarchar(100)	Checked
+BillCity	nvarchar(100)	Checked
+ShipAddressLines	nvarchar(200)	Checked
+BillLandmark	nvarchar(200)	Checked
+ShipLandmark	nvarchar(200)	Checked
+ShipCountry	nvarchar(100)	Checked
+ShipState	nvarchar(100)	Checked
+ShipCity	nvarchar(100)	Checked
+BillPinCode	nvarchar(10)	Checked
+ShipPinCode	nvarchar(10)	Checked
+Mobile	varchar(15)	Checked
+SathiUserId	int	Unchecked
+		UncheckedOrderItems
+OrderItemID	int	Unchecked
+OrderID	int	Unchecked
+ProductID	int	Unchecked
+SKUId	int	Unchecked
+VendorID	int	Unchecked
+ProductName	nvarchar(200)	Unchecked
+SKUCode	nvarchar(100)	Unchecked
+Quantity	int	Unchecked
+UnitPrice	decimal(10, 2)	Unchecked
+SubTotal	decimal(10, 2)	Unchecked
+HSNCode	nvarchar(20)	Unchecked
+CGSTPercent	decimal(5, 2)	Unchecked
+SGSTPercent	decimal(5, 2)	Unchecked
+IGSTPercent	decimal(5, 2)	Unchecked
+CGSTAmount	decimal(10, 2)	Unchecked
+SGSTAmount	decimal(10, 2)	Unchecked
+IGSTAmount	decimal(10, 2)	Unchecked
+GSTAmount	decimal(10, 2)	Unchecked
+ItemStatus	varchar(30)	Unchecked
+ReturnReason	nvarchar(300)	Checked
+CreatedAt	datetime	Unchecked
+VendorSharedMargin	decimal(10, 2)	Unchecked
+VendorWarehouseAddressID	int	Checked
+HandlingDays	int	Unchecked
+TransitDays	int	Unchecked
+ReturnPolicyId	int	Unchecked
+ReturnDays	int	Unchecked
+ShippedQuantity	int	Unchecked
+ShippingCharge	decimal(10, 2)	Unchecked
+ShipChargeVendorPart	decimal(10, 2)	Unchecked
+ReturnWindowEndAt	datetime	Checked
+IsReturnWindowClosed	bit	Unchecked
+IsCreditedToVendor	bit	Unchecked
+CreditedAt	datetime	Checked
+IsRefundProcessed	bit	Unchecked
+RefundProcessedAt	datetime	Checked
+IsRTOProcessed	bit	Unchecked
+RTOProcessedAt	datetime	Checked
+IsFinanciallyClosed	bit	Unchecked
+FinancialClosedAt	datetime	Checked
+LastFinancialEvent	varchar(50)	Checked
+		Unchecked
+**********Wallet System********
+WalletAccounts
+WalletAccountId	int	Unchecked
+OwnerType	varchar(20)	Unchecked
+OwnerId	int	Unchecked
+WalletType	varchar(20)	Unchecked
+IsActive	bit	Unchecked
+CreatedAt	datetime	Unchecked
+WalletTypeId	int	Checked
+		Unchecked
+
+WalletAccountHead
+AccountHeadId	int	Unchecked
+AccountHeadCode	varchar(50)	Unchecked
+AccountHead	nvarchar(100)	Unchecked
+HeadType	varchar(30)	Unchecked
+IsSystem	bit	Unchecked
+IsActive	bit	Unchecked
+CreatedAt	datetime	Unchecked
+Description	nvarchar(150)	Checked
+SubHeadCode	nvarchar(100)	Checked
+SubHeadDesc	nvarchar(100)	Checked
+		Unchecked
+WalletLedger
+LedgerId	bigint	Unchecked
+WalletAccountId	int	Unchecked
+TxnType	varchar(10)	Unchecked
+Amount	decimal(18, 2)	Unchecked
+AccountHeadCode	varchar(30)	Unchecked
+SourceId	int	Unchecked
+Narration	nvarchar(300)	Checked
+CreatedAt	datetime	Unchecked
+AccountHeadId	int	Checked
+SourceEntityType	varchar(30)	Checked
+FinancialEvent	varchar(30)	Checked
+ReferenceNo	nvarchar(100)	Checked
+RunningBalance	decimal(18, 2)	Checked
+CreatedBy	int	Checked
+SubHeadCode	nvarchar(100)	Checked
+IsLocked	bit	Unchecked
+IsActive	bit	Unchecked
+ReferenceLedgerId	int	Unchecked
+		Unchecked
+		
+WalletType
+WalletTypeId	int	Unchecked
+WalletTypeCode	varchar(30)	Unchecked
+WalletTypeName	nvarchar(100)	Unchecked
+IsSystem	bit	Unchecked
+IsActive	bit	Unchecked
+EntityOwner	nchar(10)	Unchecked
+		
+***===============*********
 Categories
 CategoryID	int	Unchecked
 CategoryName	varchar(150)	Unchecked
