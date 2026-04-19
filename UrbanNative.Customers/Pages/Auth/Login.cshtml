@@ -1,0 +1,94 @@
+﻿@page
+@model UrbanNative.Customers.Pages.Auth.LoginModel
+@{
+    Layout = "_PublicLayout";
+}
+
+<div class="card shadow-lg p-4" style="width:380px;border-radius:16px;">
+
+    <h4 class="text-center fw-bold">UrbanNative</h4>
+    <p class="text-center text-muted small mb-3">Login to your account</p>
+
+    <!-- Anti-forgery token (IMPORTANT) -->
+    @Html.AntiForgeryToken()
+
+    <!-- Messages -->
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-success">@TempData["msg"]</div>
+    }
+    @if (TempData["error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["error"]</div>
+    }
+
+    <!-- STEP 1 -->
+    <div id="step1">
+
+        <input id="txtIdentifier"
+               class="form-control mb-3"
+               placeholder="Enter Mobile or Email" />
+
+        <button id="btnSendOtp"
+                type="button"
+                class="btn btn-dark w-100">
+            Send OTP
+        </button>
+
+    </div>
+
+    <!-- STEP 2 -->
+    <div id="step2" style="display:none;">
+        <div class="small text-muted mb-2">
+            OTP sent to <span id="displayIdentifier"></span>
+            <a href="#" onclick="changeNumber(); return false;">Change</a>
+        </div>
+
+        <div class="text-end mb-2">
+            <span id="resendTimer">Resend in 30s</span>
+            <a href="#" id="resendLink" style="display:none;" onclick="resendOtp(); return false;">
+                Resend OTP
+            </a>
+        </div>
+
+        <input id="txtOtp"
+               class="form-control mb-2 text-center"
+               placeholder="Enter OTP"
+               maxlength="6" />
+
+        <button id="btnVerifyOtp"
+                type="button"
+                class="btn btn-success w-100">
+            Verify OTP
+        </button>
+    </div>
+
+    <!-- Divider -->
+    <div class="text-center my-3 text-muted">or</div>
+
+    <!-- Toggle -->
+    <div class="text-center">
+        <a href="#" onclick="togglePassword(); return false;">
+            Login by another way
+        </a>
+    </div>
+
+    <!-- PASSWORD LOGIN -->
+    <div id="passwordSection" style="display:none;">
+        <input id="txtLoginId"
+               class="form-control mt-3"
+               placeholder="Mobile / Email / RandomID / NickName" />
+
+        <input id="txtPassword"
+               type="password"
+               class="form-control mt-2"
+               placeholder="Password" />
+
+        <button id="btnPasswordLogin"
+                type="button"
+                class="btn btn-primary w-100 mt-3">
+            Login
+        </button>
+    </div>
+
+</div>

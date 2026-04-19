@@ -4,8 +4,13 @@ using Microsoft.Extensions.DependencyInjection;
 using UrbanNative.Application.Interfaces;
 using UrbanNative.Application.Interfaces.CommonCrossDashboard;
 using UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance;
-using UrbanNative.Application.Interfaces.UseCase.Logistics;
+
+//Customer related repository interfaces start here on 160426
+using UrbanNative.Application.Interfaces.Customers;
+
 //Interfaces UseCases
+using UrbanNative.Application.Interfaces.UseCase.Logistics;
+
 using UrbanNative.Application.Interfaces.UseCases;
 using UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard;
 using UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compliance;
@@ -15,6 +20,9 @@ using UrbanNative.Application.Interfaces.Vendors;
 using UrbanNative.Application.Interfaces.Vendors.InventoryAdd;
 using UrbanNative.Application.Interfaces.Vendors.Orders;
 using UrbanNative.Application.Interfaces.Vendors.Wallet;
+
+// UseCase Interfaces for Customer related services start here on 160426
+
 // UseCases Implementation
 using UrbanNative.Application.UseCase;
 using UrbanNative.Application.UseCase.CommonCroshDashboard.Compliance;
@@ -25,6 +33,9 @@ using UrbanNative.Application.UseCase.Vendors.Orders;
 using UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd;
 using UrbanNative.Application.UseCase.Vendors.Wallet;
 using UrbanNative.Application.UseCases.Vendors;
+
+// UseCase Implementation for Customer related services start here on 160426
+//using UrbanNative.Application.UseCase.Customers;
 
 // Repositories Implementation
 using UrbanNative.Infrastructure.Repositories;
@@ -37,6 +48,10 @@ using UrbanNative.Infrastructure.Repositories.Vendors.Wallet;
 using UrbanNative.Infrastructure.Repository;
 using UrbanNative.Infrastructure.Services;
 using UrbanNative.Infrastructure.Services.OcrService;
+
+// Customer related repository implementation statements start here on 160426
+using UrbanNative.Infrastructure.Repositories.Customers;
+
 
 namespace UrbanNative.Infrastructure
 {
@@ -75,7 +90,23 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<IVendorWarehouseRepository, VendorWarehouseRepository>();
             services.AddScoped<IBankRepository,BankRepository>();
             services.AddScoped<IAddressEngineRepository, AddressEngineRepository>();
-            
+
+            // Repositories
+            services.AddScoped<IVendorSettingsRepository, VendorSettingsRepository>();
+            services.AddScoped<IVendorProductRepository, VendorProductRepository>();
+            services.AddScoped<IVendorSkuRepository, VendorSkuRepository>();
+            services.AddScoped<IVendorInventoryRepository, VendorInventoryRepository>();
+            services.AddScoped<ISkuFilterRepository, SkuFilterRepository>();
+            services.AddScoped<IInventoryAddRepository, InventoryAddRepository>();
+            services.AddScoped<IVendorOrderRepository, VendorOrderRepository>();
+            services.AddScoped<IVendorLogisticsRepository, VendorLogisticsRepository>();
+            services.AddScoped<IFileStorageService, FileStorageService>();
+            services.AddScoped<IOcrComplianceInfraService, OcrComplianceInfraService>();
+
+            //Repository for Customer repository Services start here on 160426
+            services.AddScoped<ICustomerAuthRepository, CustomerAuthRepository>();
+
+
             // UseCases
             services.AddScoped<IVendorProfileUseCase, VendorProfileUseCase>();
 
@@ -94,22 +125,15 @@ namespace UrbanNative.Infrastructure
             services.AddScoped<IVendorWarehouseUseCase, VendorWarehouseUseCase>();
             services.AddScoped<IAddressEngineUseCase, AddressEngineUseCase>();
 
+            // UseCase for Customer related services start here on 160426
+            //services.AddScoped<ICustomerAuthUseCase, CustomerAuthUseCase>();
+
             //services.AddHttpClient<OcrSpaceService>();
             //services.AddHttpClient<TesseractCliService>();
             services.AddHttpClient<IOcrService, OcrService>();
             
             services.AddScoped<IBankUseCase, BankUseCase>();
-            // Repositories
-            services.AddScoped<IVendorSettingsRepository, VendorSettingsRepository>();
-            services.AddScoped<IVendorProductRepository, VendorProductRepository>();
-            services.AddScoped<IVendorSkuRepository, VendorSkuRepository>();
-            services.AddScoped<IVendorInventoryRepository, VendorInventoryRepository>();
-            services.AddScoped<ISkuFilterRepository, SkuFilterRepository>();
-            services.AddScoped<IInventoryAddRepository, InventoryAddRepository>();
-            services.AddScoped<IVendorOrderRepository, VendorOrderRepository>();
-            services.AddScoped<IVendorLogisticsRepository, VendorLogisticsRepository>();
-            services.AddScoped<IFileStorageService, FileStorageService>();
-            services.AddScoped<IOcrComplianceInfraService, OcrComplianceInfraService>();
+            
             return services;
         }
     }

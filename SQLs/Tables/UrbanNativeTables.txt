@@ -38,7 +38,17 @@ Create illegal combinations
 **********TABLES***********
 USER Login and Registration
 SystemSettingMaster (pasted the record)
-
+SystemSettingId	int	Unchecked
+SettingKey	varchar(50)	Unchecked
+DisplayName	nvarchar(100)	Unchecked
+Description	nvarchar(300)	Checked
+ValueType	varchar(20)	Unchecked
+IsActive	bit	Unchecked
+CreatedAt	datetime	Unchecked
+SettingsFor	varchar(20)	Checked
+OnlyAdminEditable	bit	Checked
+		Unchecked
+		
 SystemSettingValue
 SettingValueId	int	Unchecked
 SystemSettingId	int	Unchecked
@@ -52,12 +62,25 @@ UpdatedBy	varchar(20)	Checked
 UpdatedById	int	Checked
 UpdatedAt	datetime	Unchecked
 		Unchecked
+OTPValidity
+OTPID	int	Unchecked
+Identifier	nvarchar(100)	Unchecked
+OTPHash	varbinary(256)	Unchecked
+ExpiryAt	datetime	Unchecked
+AttemptCount	int	Checked
+IsVerified	bit	Checked
+CreatedAt	datetime	Checked
+LastAttemptAt	datetime	Checked
+ProcessSource	nvarchar(50)	Checked
+IPAddress	nvarchar(50)	Checked
+UserAgent	nvarchar(255)	Checked
+IdentifierType	varchar(10)	Checked
+		Unchecked
 Users
 UserID	int	Unchecked
 Name	varchar(100)	Unchecked
 Mobile	varchar(15)	Unchecked
 Email	varchar(150)	Checked
-PasswordHash	varchar(255)	Checked
 ReferralCode	varchar(20)	Checked
 ReferredByUserID	int	Unchecked
 CreatedAt	datetime	Checked
@@ -67,13 +90,32 @@ IsSathi	bit	Unchecked
 SathiActivatedAt	datetime	Checked
 IsActive	bit	Unchecked
 LastLoginAt	datetime	Checked
+IsSystemUser	bit	Checked
+UserRandomID	bigint	Unchecked
+UserNickName	varchar(20)	Checked
+PasswordHash	varbinary(MAX)	Checked
+PasswordSalt	varbinary(MAX)	Checked
 		Unchecked
-
+UserTemp
+TempID	int	Unchecked
+Mobile	varchar(15)	Checked
+Email	varchar(150)	Checked
+OTPVerified	bit	Checked
+ReferredByUserID	int	Unchecked
+LandingSource	varchar(50)	Checked
+UserType	varchar(20)	Checked
+TempToken	varchar(200)	Unchecked
+CreatedAt	datetime	Checked
+ExpiryAt	datetime	Unchecked
+		Unchecked
 ReferralLandingEntities
 ReferralLandingEntityID	int	Unchecked
 EntityCode	varchar(50)	Unchecked
 EntityName	nvarchar(100)	Unchecked
 IsActive	bit	Unchecked
+1	USER	Customer	True
+2	VENDOR	Vendor	True
+3	ORDER	ORDER	True
 
 Referrals	
 ReferralID	int	Unchecked
@@ -90,30 +132,7 @@ ReferralSourceType	varchar(20)	Checked
 		Unchecked
 
 *********Customer Dashboard*******
-ReferralEntities
-ReferralEntityID	int	Unchecked
-EntityCode	varchar(50)	Unchecked
-EntityName	nvarchar(100)	Unchecked
-IsActive	bit	Unchecked
-		Unchecked
-Referrals
-ReferralID	int	Unchecked
-ReferrerUserID	int	Unchecked
-ReferralEntityID	int	Unchecked
-ReferredEntityID	int	Unchecked
-ReferralCode	varchar(50)	Checked
-ReferredAt	datetime	Unchecked
-		Unchecked
-Users
-UserID	int	Unchecked
-Name	varchar(100)	Unchecked
-Mobile	varchar(15)	Unchecked
-Email	varchar(150)	Checked
-PasswordHash	varchar(255)	Checked
-ReferralCode	varchar(20)	Checked
-ReferredBy	int	Checked
-CreatedAt	datetime	Checked
-		Unchecked
+
 
 ***********Orders *********
 Orders

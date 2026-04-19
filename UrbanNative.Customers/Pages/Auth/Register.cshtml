@@ -1,0 +1,12 @@
+﻿@page
+@model RegisterModel
+@{
+    Layout = "_PublicLayoutPage";
+}
+
+<h3>Complete Registration</h3>
+
+<form method="post">
+    <input asp-for="Name" class="form-control" placeholder="Enter Name" />
+    <button class="btn btn-success mt-2">Submit</button>
+</form>

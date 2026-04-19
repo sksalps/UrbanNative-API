@@ -2297,6 +2297,54 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "UrbanNative.Api.Controllers.Customer.CustomerAuthController",
+    "Method": "LoginWithPassword",
+    "RelativePath": "api/customer/auth/login-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "UrbanNative.Application.DTOs.Customers.AuthLogin.CustomerPasswordLoginRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Customer.CustomerAuthController",
+    "Method": "SendOtp",
+    "RelativePath": "api/customer/auth/send-otp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "UrbanNative.Application.DTOs.Customers.AuthLogin.SendOtpRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Customer.CustomerAuthController",
+    "Method": "VerifyOtp",
+    "RelativePath": "api/customer/auth/verify-otp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "UrbanNative.Application.DTOs.Customers.AuthLogin.VerifyOtpRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "UrbanNative.Api.Controllers.InventoryController",
     "Method": "Logs",
     "RelativePath": "api/inventory/logs/{variantSetId}",
