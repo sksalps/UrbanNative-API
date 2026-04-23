@@ -59,7 +59,7 @@ function initTomSelects() {
         cityTS = new TomSelect("#city", getTomConfig());
     }
 }
-
+/*
 function setAddressMode(isEdit) {
 
     const title = document.getElementById("addressModeTitle");
@@ -73,14 +73,48 @@ function setAddressMode(isEdit) {
         btn.innerText = "Save Address";
     }
 }
+*/
+/* =========================
+   🔹 MODE HANDLING
+========================= */
+function setAddressMode(mode) {
 
+    currentMode = mode;
 
+    const title = document.getElementById("addressModeTitle");
+    const btnSave = document.getElementById("btnSave");
+    const btnSelectGo = document.getElementById("btnSelectGo");
+
+    switch (mode) {
+
+        case "NEW":
+            title.innerText = "Add New Address";
+            btnSave.innerText = "Save Address";
+            btnSave.disabled = false;
+            btnSelectGo.classList.add("d-none");
+            break;
+
+        case "VIEW":
+            title.innerText = "Select Address";
+            btnSave.innerText = "Edit Address";
+            btnSave.disabled = false;
+            btnSelectGo.classList.remove("d-none");
+            break;
+
+        case "EDIT":
+            title.innerText = "Edit Address";
+            btnSave.innerText = "Update Address";
+            btnSave.disabled = false;
+            btnSelectGo.classList.add("d-none");
+            break;
+    }
+}
 /* =========================
    🔹 MODAL OPEN
 ========================= */
 
-async function openAddressModal(type, selectedId = null) {
-
+async function openAddressModal(type, selectedId = null, pincode = null) {
+    
     currentAddressType = type;
     document.getElementById("addressTypeDisplay").value = type;
 
@@ -102,22 +136,35 @@ async function openAddressModal(type, selectedId = null) {
 
         if (selectedId) {
             document.getElementById("existingAddress").value = selectedId;
-            await loadCountries();
-            await loadAddressById(selectedId);
+            setAddressMode("VIEW");
+            await loadAddressById(id);
         } else {
             clearAddressForm();
-            await loadCountries();
+            setAddressMode("NEW");
         }
+
+        await loadCountries();
     });
+
+    
+
+    // 🔥 PINCODE PREFILL
+    if (pincode && pincode.length === 6) {
+        document.getElementById("pincode").value = pincode;
+        fetchPincodeDetails();
+        //setTimeout(fetchPincodeDetails, 200);
+    }
 }
 /* =========================
    🔹 LOAD EXISTING ADDRESS
 ========================= */
 async function loadExistingAddresses(type) {
 
-    const res = await fetch(`/Common/AddressEngineHandler?handler=AddressLookup&type=${type}`);
-    const data = await res.json();
 
+    const res = await fetch(`/Common/AddressEngineHandler?handler=AddressLookup&type=${type}`);
+    
+    const data = await res.json();
+    if (!data) return;
     let ddl = document.getElementById("existingAddress");
     ddl.innerHTML = '<option value="">-- Select Address --</option>';
 
@@ -132,10 +179,10 @@ async function loadExistingAddresses(type) {
    🔹 LOAD COUNTRIES
 ========================= */
 async function loadCountries(selectedId = null) {
-
+    //alert("cntry");
     const res = await fetch(`/Common/AddressEngineHandler?handler=Countries`);
     const data = await res.json();
-
+    if (!data) return;
     countryTS.clearOptions();
 
     countryTS.addOptions(
@@ -164,7 +211,7 @@ async function loadCountries(selectedId = null) {
    🔹 LOAD STATES
 ========================= */
 async function loadStates(countryId, selectedId = null) {
-
+    //alert("state");
     stateTS.clear();
     stateTS.clearOptions();
 
@@ -175,7 +222,7 @@ async function loadStates(countryId, selectedId = null) {
 
     const res = await fetch(`/Common/AddressEngineHandler?handler=States&countryId=${countryId}`);
     const data = await res.json();
-
+    if (!data) return;
     stateTS.addOptions(
         data.map(x => ({
             value: x.stateID,
@@ -200,7 +247,7 @@ async function loadCities(stateId, selectedId = null) {
 
     const res = await fetch(`/Common/AddressEngineHandler?handler=Cities&stateId=${stateId}`);
     const data = await res.json();
-
+    if (!data) return;
     cityTS.addOptions(
         data.map(x => ({
             value: x.cityID,
@@ -289,7 +336,7 @@ async function saveAddress() {
     if (!validateAddressForm()) return;
 
     const btn = document.getElementById("btnSave");
-    
+
     // 🔥 Save original text (important)
     const originalText = btn.innerText;
 
@@ -300,53 +347,72 @@ async function saveAddress() {
 
 
     try {
+        let UserTempID = 0;          // ✅ FIXED
+        let TempEntityType = null;   // ✅ FIXED
 
-    const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+        if (currentAddressType == "NATIVE") {
 
-    const dto = {
-        addressID: document.getElementById("existingAddress").value || null,
-        addressLine1: document.getElementById("line1").value,
-        addressLine2: document.getElementById("line2").value,
-        landmark: document.getElementById("landmark").value,
-        pincode: document.getElementById("pincode").value,
-        addressNickName: document.getElementById("nickname").value,
-        isPrimary: document.getElementById("isPrimary").checked,
-        addressType: currentAddressType,
+            const UserTempSession = localStorage.getItem("TEMP_SESSION");
 
-        // 🔥 ALWAYS SEND STRING
-        country: countryTS?.getValue()?.toString() || '',
-        state: stateTS?.getValue()?.toString() || '',
-        city: cityTS?.getValue()?.toString() || ''
-    };
+            if (UserTempSession) {
+                UserTempID = localStorage.getItem("TEMP_ID");
+                TempEntityType = currentAddressType;
+            } else {
+                await ensureTempUser(); // 🔥 important
+                UserTempID = localStorage.getItem("TEMP_ID");
+                TempEntityType = currentAddressType;
+            }
+        }
 
-    const res = await fetch(`/Common/AddressEngineHandler?handler=SaveAddress`, {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-            "RequestVerificationToken": token
-        },
-        body: JSON.stringify(dto)
-    });
+        //alert(currentAddressType); // ✅ now will execute
 
-    const result = await res.json();
+        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+        const dto = {
+            addressID: document.getElementById("existingAddress").value || null,
+            addressLine1: document.getElementById("line1").value,
+            addressLine2: document.getElementById("line2").value,
+            landmark: document.getElementById("landmark").value,
+            pincode: document.getElementById("pincode").value,
+            addressNickName: document.getElementById("nickname").value,
+            isPrimary: document.getElementById("isPrimary").checked,
+            addressType: currentAddressType,
+            entityID: UserTempID,
+            entityType: TempEntityType,
+
+            country: countryTS?.getValue()?.toString() || '',
+            state: stateTS?.getValue()?.toString() || '',
+            city: cityTS?.getValue()?.toString() || ''
+        };
+
+        const res = await fetch(`/Common/AddressEngineHandler?handler=SaveAddress`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "RequestVerificationToken": token
+            },
+            body: JSON.stringify(dto)
+        });
+
+        const result = await res.json();
         btn.innerText = "Save Address";
-    if (result.success) {
-        //alert(result.message);
-        showToast(result.message);
-        document.dispatchEvent(new Event("addressSaved"));
-        //await clearAddressForm();      
-        //btn.innerText = originalText;
-    }
-    else {
-        alert(result.message || "Address Save failed");
-        showToast(result.message || "Address Save failed");
-        btn.disabled = false;
-        btn.innerText = originalText;
-    }
-    
-    //await clearAddressForm();
+        if (result.success) {
+            //alert(result.message);
+            showToast(result.message);
+            document.dispatchEvent(new Event("addressSaved"));
+            //await clearAddressForm();      
+            //btn.innerText = originalText;
+        }
+        else {
+            alert(result.message || "Address Save failed");
+            showToast(result.message || "Address Save failed");
+            btn.disabled = false;
+            btn.innerText = originalText;
+        }
 
-    await loadExistingAddresses(currentAddressType);
+        //await clearAddressForm();
+
+        await loadExistingAddresses(currentAddressType,UserTempID);
 
         //bootstrap.Modal.getInstance(document.getElementById('addressModal')).hide();
     } catch (e) {
@@ -412,9 +478,10 @@ function validateAddressForm() {
 }
 
 async function fetchPincodeDetails() {
+    
     const pincodeInput = document.getElementById("pincode");
     const pincode = pincodeInput.value.trim();
-
+    //alert(pincode);
     // 🔥 Clear previous error
     showPincodeError("");
 
@@ -428,45 +495,44 @@ async function fetchPincodeDetails() {
     }
 
     clearMap();
-
+    
     try {
-
         const res = await fetch(`https://api.postalpincode.in/pincode/${pincode}`);
         const data = await res.json();
+        //if (!data) return;
 
         if (!data || data[0].Status !== "Success") {
             showPincodeError("Pincode not found");
             return;
         }
-
+        
         const post = data[0].PostOffice[0];
 
         const area = post.Name;        // 🔥 Area
         const stateName = post.State;
         const cityName = post.District;
         const countryName = "India";
-
+        
         // 🔥 Autofill Address Line 2 (only if empty)
         const line2 = document.getElementById("line2");
         if (!line2.value) {
             line2.value = area;
         }
-
+        
         // 🔥 Dropdown handling (match or create)
         await loadCountries();
         setOrCreateValue(countryTS, countryName);
-
         await loadStates(countryTS.getValue());
         setOrCreateValue(stateTS, stateName);
-
         await loadCities(stateTS.getValue());
         setOrCreateValue(cityTS, cityName);
+        //alert("city read");
 
         // 🔥 Map
         loadMapFromLocation(`${area}, ${cityName}, ${stateName}`);
 
     } catch (err) {
-        showToast("Pincode fetch failed, "+ err);
+        showToast("Pincode fetch failed, " + err);
         showPincodeError("Unable to fetch pincode details");
     }
 }
@@ -524,7 +590,7 @@ function clearMap() {
     }
 }
 
-function showToast(message) {
+function showToast1(message) {
     //alert (message);
     const el = document.getElementById("toastMsg");
     el.innerText = message;
@@ -532,5 +598,5 @@ function showToast(message) {
 
     setTimeout(() => {
         el.classList.add("d-none");
-    }, 4000);
+    }, 7000);
 }

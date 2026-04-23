@@ -90,9 +90,18 @@ JOIN sys.tables tp ON fk.parent_object_id = tp.object_id
 JOIN sys.tables tr ON fk.referenced_object_id = tr.object_id
 WHERE tr.name IN ('Orders', 'OrderItems', 'OrderShipments');
 
+Rename columns
+EXEC sp_rename 
+    'Referrals.ReferredUserD', 
+    'ReferredUserID', 
+    'COLUMN';
+	
+for getting any TRIGGER
+sp_helptext 'trg_UserReferralBonus';
 
-
-
+Drop TRIGGER
+IF OBJECT_ID('trg_UserReferralBonus', 'TR') IS NOT NULL
+    DROP TRIGGER trg_UserReferralBonus;
 
 
 sp_AssignVariantToCategory removed

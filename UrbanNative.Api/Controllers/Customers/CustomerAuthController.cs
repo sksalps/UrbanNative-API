@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -90,7 +91,7 @@ namespace UrbanNative.Api.Controllers.Customer
             if (otpRecord.ExpiryAt < DateTime.UtcNow)
                 return Unauthorized("OTP expired");
 
-            // 🔐 VERIFY USING HELPER
+            // 🔐 VERIFY HASHED OTP USING HELPER
             var isValid = PasswordHelper.VerifyPassword(
                 req.OTP.ToString(),
                 otpRecord.OTPHash,
@@ -101,21 +102,25 @@ namespace UrbanNative.Api.Controllers.Customer
                 return Unauthorized("Invalid OTP");
 
             // ✅ Mark verified
-            await _repo.MarkOtpVerifiedAsync(otpRecord.OTPID);
+            //await _repo.MarkOtpVerifiedAsync(otpRecord.OTPID);
 
             // ==========================
             // CHECK USER EXISTENCE
-            /* ==========================
-            var user = await _repo.GetUserByIdentifierAsync(req.Identifier);
+            // ==========================
+            var user = await _repo.GetUserAsync(null, req.Identifier);
 
             if (user != null)
             {
                 var token = GenerateJwt(user);
 
+
                 return Ok(new
                 {
-                    Status = "SUCCESS",
+                    success = true,
+                    Status = user.Status,
                     UserID = user.UserID,
+                    UserRandomID = user.UserRandomID,
+                    ReferralCode = user.ReferralCode,
                     Token = token
                 });
             }
@@ -125,17 +130,27 @@ namespace UrbanNative.Api.Controllers.Customer
 
                 return Ok(new
                 {
+                    success = true,
                     Status = "NEW_USER",
                     TempID = temp.TempID,
                     TempToken = temp.TempToken
                 });
-            }*/
-             return Ok(new
-            {
-                Status = "SUCCESS"
-            });
+            }
+             
         }
+        [HttpPost("insert-tempuser")]
+        public async Task<IActionResult> InsertTempUser([FromBody] CreateTempUserRequestDto dto)
+        {
+            if (dto == null)
+                return BadRequest("Invalid request");
 
+            var result = await _repo.InsertTempUserAsync(dto);
+
+            if (result == null)
+                return BadRequest("Unable to create temp user");
+
+            return Ok(result);
+        }
 
         // ==========================================
         // 🔐 PASSWORD LOGIN
@@ -162,15 +177,82 @@ namespace UrbanNative.Api.Controllers.Customer
 
             if (!verified)
                 return Unauthorized("Invalid credentials");
+            // ==========================
+            // CHECK USER EXISTENCE
+            // ==========================
+            user = await _repo.GetUserAsync(null, req.Identifier);
 
-            var token = GenerateJwt(user);
-
-            return Ok(new VerifyOtpResponseDto
+            if (user != null)
             {
-                Status = "SUCCESS",
-                UserID = user.UserID,
-                Token = token
-            });
+                var token = GenerateJwt(user);
+
+
+                return Ok(new
+                {
+                    Status = user.Status,
+                    UserID = user.UserID,
+                    UserRandomID = user.UserRandomID,
+                    ReferralCode = user.ReferralCode,
+                    Token = token
+                });
+            }
+            else
+            {
+                return Unauthorized("Invalid credentials");
+            }
+
+            
+        }
+
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterRequestDto req)
+        {
+            try
+            {
+                var result = await _repo.CompleteRegistrationAsync(req);
+
+                if (result == null)
+                {
+                    return BadRequest(new
+                    {
+                        Status = "ERROR",
+                        Message = "Registration failed"
+                    });
+                }
+
+                var user = await _repo.GetUserAsync(result.UserID, null);
+
+                var token = GenerateJwt(user);
+
+                return Ok(new
+                {
+                    Status = result.Status,
+                    UserID = result.UserID,
+                    UserRandomID=result.UserRandomID,
+                    ReferralCode=result.ReferralCode,
+                    Token = token
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Status = "ERROR",
+                    Message = ex.Message   // 🔥 important
+                });
+            }
+        }
+
+        [HttpGet("temp-user")]
+        public async Task<IActionResult> GetTempUser(int tempId, string token)
+        {
+            var temp = await _repo.GetTempUserAsync(tempId, token);
+
+            if (temp == null)
+                return NotFound();
+
+            return Ok(temp);
         }
 
         // ==========================================
@@ -209,5 +291,8 @@ namespace UrbanNative.Api.Controllers.Customer
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+
     }
+
 }

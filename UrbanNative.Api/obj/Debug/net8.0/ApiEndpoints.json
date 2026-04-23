@@ -80,6 +80,11 @@
         "Name": "type",
         "Type": "System.String",
         "IsRequired": false
+      },
+      {
+        "Name": "EntityId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -98,6 +103,22 @@
     "ContainingType": "UrbanNative.Api.Controllers.CommonCrossDasboard.AddressEngineController",
     "Method": "Save",
     "RelativePath": "api/address/save",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "UrbanNative.Application.DTOs.CommonCrossDashboard.AddressSaveDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.CommonCrossDasboard.AddressEngineController",
+    "Method": "SaveNative",
+    "RelativePath": "api/address/savenative",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -2298,6 +2319,22 @@
   },
   {
     "ContainingType": "UrbanNative.Api.Controllers.Customer.CustomerAuthController",
+    "Method": "InsertTempUser",
+    "RelativePath": "api/customer/auth/insert-tempuser",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "UrbanNative.Application.DTOs.Customers.AuthLogin.CreateTempUserRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Customer.CustomerAuthController",
     "Method": "LoginWithPassword",
     "RelativePath": "api/customer/auth/login-password",
     "HttpMethod": "POST",
@@ -2307,6 +2344,22 @@
       {
         "Name": "req",
         "Type": "UrbanNative.Application.DTOs.Customers.AuthLogin.CustomerPasswordLoginRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Customer.CustomerAuthController",
+    "Method": "Register",
+    "RelativePath": "api/customer/auth/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "UrbanNative.Application.DTOs.Customers.AuthLogin.RegisterRequestDto",
         "IsRequired": true
       }
     ],
@@ -2324,6 +2377,27 @@
         "Name": "req",
         "Type": "UrbanNative.Application.DTOs.Customers.AuthLogin.SendOtpRequestDto",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrbanNative.Api.Controllers.Customer.CustomerAuthController",
+    "Method": "GetTempUser",
+    "RelativePath": "api/customer/auth/temp-user",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "tempId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

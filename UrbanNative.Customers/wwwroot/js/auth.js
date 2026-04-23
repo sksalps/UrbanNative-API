@@ -18,7 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
     
     const sendBtn = document.getElementById("btnSendOtp");
     const verifyBtn = document.getElementById("btnVerifyOtp");
-    const passwordBtn = document.getElementById("btnPasswordLogin");
+    const passwordBtn = document.getElementById("btnPasswordLogin"); 
+    const regOTP = document.getElementById("txtOtp"); 
     
     if (sendBtn) {
         sendBtn.addEventListener("click", async function () {
@@ -35,17 +36,17 @@ document.addEventListener("DOMContentLoaded", function () {
             this.innerText = "Sending...";
 
             try {
-
+                /*
                 const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
                 const res = await fetch(`/Auth/Login?handler=SendOtp&identifier=${identifier}`, {
-                //var res = await fetch("/Auth/Login?handler=SendOtp", {
                     method: 'POST',
                     credentials: 'same-origin',
                     headers: {
                         "RequestVerificationToken": token
                     }
                 });
-                
+                */
+                const res= await sendAuthOtp(identifier);
                 // 🔥 Handle HTTP error
                 if (!res.ok) {
                     showToast("Failed to send OTP", "error");
@@ -93,35 +94,22 @@ document.addEventListener("DOMContentLoaded", function () {
     if (verifyBtn) {
         //alert("OKK script loaded");
         verifyBtn.addEventListener("click", async function () {
-            
-            var identifier = document.getElementById("txtIdentifier").value;
-            var otp = document.getElementById("txtOtp").value;
+             {
+                var identifier = document.getElementById("txtIdentifier").value;
+                var otp = document.getElementById("txtOtp").value;
 
-            // 🔍 Validation
-            if (!otp || otp.length !== 6) {
-                showToast("Enter valid 6-digit OTP", "error");
-                return;
+                // 🔍 Validation
+                if (!otp || otp.length !== 6) {
+                    showToast("Enter valid 6-digit OTP", "error");
+                    return;
+                }
             }
 
             this.disabled = true;
             this.innerText = "Verifying...";
 
             try {
-
-                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
-
-                var res = await fetch("/Auth/Login?handler=VerifyOtp", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "RequestVerificationToken": token
-                    },
-                    body: JSON.stringify({
-                        Identifier: identifier,
-                        OTP: parseInt(otp)
-                    })
-                });
-
+                const result = verifyAuthOTP(identifier, parseInt(otp));
                 // 🔥 Handle HTTP error
                 if (!res.ok) {
                     showToast("Verification failed. Try again", "error");
@@ -130,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     return;
                 }
                 
-                var data = await res.json();
+                var data = await result.json();
                 console.log("Verify Response:", data);
 
                 // Normalize response
@@ -144,15 +132,16 @@ document.addEventListener("DOMContentLoaded", function () {
                     }, 800);
                 }
                 else if (status === "NEW_USER") {
+                    showToast("Verified successfully");
+                     { 
+                        showToast("Redirecting to registration");
 
-                    showToast("Redirecting to registration");
+                        var tempId = data.tempID || data.TempID;
+                        var tempToken = data.tempToken || data.TempToken;
 
-                    var tempId = data.tempID || data.TempID;
-                    var tempToken = data.tempToken || data.TempToken;
-
-                    window.location.href =
-                        "/Auth/Register?tempId=" + tempId +
-                        "&token=" + tempToken;
+                        window.location.href =
+                            "/Auth/Register?tempId=" + tempId + "&token=" + tempToken;
+                    }
                 }
                 else {
                     showToast("Invalid OTP", "error");
@@ -234,8 +223,7 @@ function togglePassword() {
         el.style.display = "none";
 }
 
-
-function showToast(message, type = "success") {
+function showToast1(message, type = "success") {
 
     var container = document.getElementById("toastContainer");
 
@@ -298,4 +286,182 @@ function startResendTimer() {
         }
 
     }, 1000);
+}
+async function sendOTPs(identifier) {
+    alert(identifier);
+}
+
+async function sendAuthOtp(identifier) {
+    //window.sendAuthOtp = sendAuthOtp;
+    alert(identifier);
+    try {
+        if (!identifier) {
+            showToast("Enter mobile or email", "error");
+            return { success: false };
+        }
+
+        const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+
+        const res = await fetch("/Auth/Login?handler=SendOtp", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "RequestVerificationToken": token
+            },
+            body: JSON.stringify({
+                Identifier: identifier
+            })
+
+        });
+
+        if (!res.ok) {
+            showToast("Failed to send OTP", "error");
+            return { success: false };
+        }
+
+        const data = await res.json();
+
+        if (data?.success) {
+            showToast("OTP sent successfully");
+            return data;// { success: true,  };
+        }
+
+        showToast(data?.message || "Failed to send OTP", "error");
+        return { success: false };
+
+    } catch (err) {
+        console.error("sendOtp error:", err);
+        showToast("Something went wrong", "error");
+        return { success: false };
+    }
+}
+
+/*
+async function verifyAuthOtp(identifier, otp) {
+    try {
+        if (!otp || otp.length !== 6) {
+            showToast("Enter valid OTP", "error");
+            return { success: false };
+        }
+
+        const sessionId = localStorage.getItem("UN_SESSION");
+
+        const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+
+        const res = await fetch("/Auth/Login?handler=VerifyOtp", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "RequestVerificationToken": token
+            },
+            body: JSON.stringify({
+                Identifier: identifier,
+                OTP: parseInt(otp),
+                SessionID: sessionId
+            })
+        });
+
+        if (!res.ok) {
+            showToast("Verification failed", "error");
+            return { success: false };
+        }
+
+        const data = await res.json();
+
+        // ==========================
+        // ✅ SUCCESS
+        // ==========================
+        if (data.status === "SUCCESS") {
+            showToast("Verified successfully");
+            return {
+                success: true,
+                sessionId: sessionId
+            };
+        }
+
+        // ==========================
+        // ❌ INVALID OTP
+        // ==========================
+        showToast("Invalid OTP", "error");
+
+        return { success: false };
+
+    } catch (err) {
+        console.error("verifyOtp error:", err);
+        showToast("Something went wrong", "error");
+        return { success: false };
+    }
+}
+*/
+async function verifyAuthOTP(identifier, otp) {
+    try {
+        if (!otp || otp.length !== 6) {
+            showToast("Enter valid OTP", "error");
+            return { success: false };
+        }
+
+        const sessionId = localStorage.getItem("UN_SESSION");
+
+        const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+
+        const res = await fetch("/Auth/Login?handler=VerifyOtp", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "RequestVerificationToken": token
+            },
+            body: JSON.stringify({
+                Identifier: identifier,
+                OTP: parseInt(otp),
+                SessionID: sessionId
+            })
+        });
+
+        if (!res.ok) {
+            showToast("Verification failed", "error");
+            return { success: false };
+        }
+
+        const data = await res.json();
+        const result = data.result;
+        // ==========================
+        // ✅ SUCCESS
+        // ==========================
+        if (result?.status === "SUCCESS") {
+            showToast("Verified successfully");
+            result.status = "LOGIN";
+            return {
+                //success: true,
+                //type: "LOGIN"
+                result
+            };
+        }
+
+        // ==========================
+        // 🆕 NEW USER
+        // ==========================
+        else if (result?.status === "NEW_USER") {
+
+            // 🔥 store temp
+            localStorage.setItem("TEMP_ID", result.tempID);
+            localStorage.setItem("TEMP_TOKEN", result.tempToken);
+            localStorage.setItem("TEMP_SESSION", sessionId);
+            localStorage.setItem("IS_VERIFIED", "true");
+            showToast("Verified successfully");
+            
+            return {  result };
+        }
+
+        // ==========================
+        // ❌ INVALID OTP
+        // ==========================
+        showToast("Invalid OTP", "error");
+
+        return { success: false };
+
+    } catch (err) {
+        console.error("verifyOtp error:", err);
+        showToast("Something went wrong", "error");
+        return { success: false };
+    }
 }

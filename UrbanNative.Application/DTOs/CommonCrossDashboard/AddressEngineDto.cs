@@ -33,6 +33,9 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard
     public class AddressSaveDto
     {
         public int? AddressID { get; set; }
+        public int? EntityID { get; set; }
+        public string? EntityType { get; set; } = null;
+
 
         [Required]
         [MinLength(7)]

@@ -1,9 +1,10 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using UrbanNative.Customers.Services;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Security.Claims;
+using UrbanNative.Application.DTOs.Customers.AuthLogin;
+using UrbanNative.Customers.Services;
 
 namespace UrbanNative.Customers.Pages.Auth
 {
@@ -80,11 +81,13 @@ namespace UrbanNative.Customers.Pages.Auth
 
         */
 
-        public async Task<IActionResult> OnPostSendOtpAsync(string identifier)
+        public async Task<IActionResult> OnPostSendOtpAsync([FromBody] SendOtpRequestDto input)
         {
+            if (input == null)
+                throw new Exception("Input is null");
             try
             {
-                var result = await _service.SendOtpAsync(identifier);
+                var result = await _service.SendOtpAsync(input.Identifier);
 
                 return new JsonResult(new
                 {
@@ -104,11 +107,26 @@ namespace UrbanNative.Customers.Pages.Auth
             }
         }
 
-        public async Task<IActionResult> OnPostVerifyOtpAsync([FromBody] LoginInputModel input)
+        public async Task<IActionResult> OnPostVerifyOtpAsync([FromBody] VerifyOtpRequestDto input)
         {
-            var result = await _service.VerifyOtpAsync(input.Identifier, input.OTP);
+            try
+            {
+                var result = await _service.VerifyOtpAsync(input.Identifier, input.OTP);
 
-            return new JsonResult(result);
+                //return new JsonResult(result);
+                return new JsonResult(new
+                {
+                    result
+                });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
         }
     }
 }

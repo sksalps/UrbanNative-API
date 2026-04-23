@@ -10,7 +10,7 @@ namespace UrbanNative.Application.Interfaces.CommonCrossDashboard
 {
     public interface IAddressEngineService
     {
-        Task<List<AddressListDto>> GetAddressesLookupAsync(string type);
+        Task<List<AddressListDto>> GetAddressesLookupAsync(string type, int? entityId = null);
         Task<AddressListDto> GetByIdAsync(int id);
         Task<ServiceResult> SaveAddressAsync(AddressSaveDto dto);
         Task<List<AddressListDto>> GetAddressListAsync();

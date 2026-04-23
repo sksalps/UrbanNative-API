@@ -15,7 +15,7 @@ namespace UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard
         Task DeleteAddressAsync(int addressId, int entityId, string entityType);
         Task ExecuteSetPrimaryAsync(int addressId, int entityId, string entityType);
         Task<AddressListDto> GetByIdAsync(int addressId, string entityType, int entityId);
-        Task<int> SaveAsync(AddressSaveDto dto, int entityId, string entityType);
+        Task<int> SaveAsync(AddressSaveDto dto);
 
         Task<IEnumerable<CountryDto>> GetCountriesAsync(int? countryId);
         Task<IEnumerable<StateDto>> GetStatesAsync(int? countryId, int? stateId);

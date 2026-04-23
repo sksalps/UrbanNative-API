@@ -1,7 +1,7 @@
 using System.Net.Http.Headers;
-using UrbanNative.Customers.Services;
+using UrbanNative.Application.Interfaces.CommonCrossDashboard;
 using UrbanNative.Customers.Security;
-using UrbanNative.Customers.Services.Interfaces;
+using UrbanNative.Customers.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -71,6 +71,7 @@ builder.Services.AddHttpClient("ApiClient", client =>
 // 🧩 Customer Services
 // =======================
 builder.Services.AddScoped <CustomerAuthService>();
+builder.Services.AddScoped<IAddressEngineService, CustomerAddressService>();
 
 // later:
 // builder.Services.AddScoped<ICustomerDashboardService, CustomerDashboardService>();

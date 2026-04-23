@@ -87,7 +87,7 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
                 );
             }
 
-            public async Task<int> SaveAsync(AddressSaveDto dto, string entityType, int entityId)
+            public async Task<int> SaveAsync(AddressSaveDto dto)
             {
                 using var conn = _db.CreateConnection();
 
@@ -96,8 +96,8 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
                     new
                     {
                         dto.AddressID,
-                        EntityType = entityType,
-                        EntityID = entityId,
+                        dto.EntityType,
+                        dto.EntityID,
                         dto.AddressLine1,
                         dto.AddressLine2,
                         dto.Landmark,

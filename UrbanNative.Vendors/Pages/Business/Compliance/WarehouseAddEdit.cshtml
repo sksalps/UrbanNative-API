@@ -82,7 +82,7 @@
                     <select asp-for="Warehouse.AddressID"
                             id="addressId"
                             class="form-select"
-                            onchange="previewAddressById()">
+                            onchange="callPreviewAddressById()">
                         <option value="">-- Select Address --</option>
                         @foreach (var a in Model.AddressList)
                         {
@@ -159,7 +159,7 @@
         // allow submit ✔
     });
     document.addEventListener("DOMContentLoaded", function () {
-        previewAddressById();
+        callPreviewAddressById();
     });
 
     // Edit selected address from dropdown 
@@ -177,7 +177,13 @@
         loadAddressEngine(type,id); // 🔥 PASS ID call _AddressModal
     }
 
-       
+    async function callPreviewAddressById() {
+        const ddl = document.querySelector('[name="Warehouse.AddressID"]');
+        const id = ddl.value;
+        previewAddressById(id);
+    }
+
+   /*    
     async function previewAddressById() {
 
         const ddl = document.querySelector('[name="Warehouse.AddressID"]');
@@ -237,7 +243,7 @@
             alert("Error loading address preview");
         }
     }
-
+    */
     function validateWarehouseForm() {
 
         let isValid = true;

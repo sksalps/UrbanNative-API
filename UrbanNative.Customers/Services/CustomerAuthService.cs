@@ -33,6 +33,34 @@ namespace UrbanNative.Customers.Services
 
             return await res.Content.ReadFromJsonAsync<VerifyOtpResponseDto>();
         }
+
+        public async Task<CreateTempUserResponseDto?> InsertTempUserAsync(CreateTempUserRequestDto dto)
+        {
+            var res = await _http.PostAsJsonAsync("api/customer/auth/insert-tempuser", dto);
+
+            if (!res.IsSuccessStatusCode)
+                return null;
+
+            return await res.Content.ReadFromJsonAsync<CreateTempUserResponseDto>();
+        }
+        public async Task<TempUserDto> GetTempUserAsync(int tempId, string token)
+        {
+            var res = await _http.GetAsync(
+                $"api/customer/auth/temp-user?tempId={tempId}&token={token}"
+            );
+
+            if (!res.IsSuccessStatusCode)
+                return null;
+
+            return await res.Content.ReadFromJsonAsync<TempUserDto>();
+        }
+
+        public async Task<RegisterResponseDto> RegisterAsync(RegisterRequestDto req)
+        {
+            var res = await _http.PostAsJsonAsync("api/customer/auth/register",req);
+
+            return await res.Content.ReadFromJsonAsync<RegisterResponseDto>();
+        }
     }
 
     

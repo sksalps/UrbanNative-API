@@ -19,8 +19,7 @@ namespace UrbanNative.Infrastructure.Repositories.Customers
             _connectionFactory = connectionFactory;
         }
 
-        public async Task InsertOtpAsync(
-    string identifier,
+    public async Task InsertOtpAsync(string identifier,
     string identifierType,
     byte[] otpHash,
     byte[] otpSalt,
@@ -31,7 +30,7 @@ namespace UrbanNative.Infrastructure.Repositories.Customers
             using var conn = _connectionFactory.CreateConnection();
 
             await conn.ExecuteAsync(
-                "UserLogin_InsertOTP",
+                "sp_UserLogin_InsertOTP",
                 new
                 {
                     Identifier = identifier,
@@ -51,7 +50,7 @@ namespace UrbanNative.Infrastructure.Repositories.Customers
             using var conn = _connectionFactory.CreateConnection();
 
             return await conn.QueryFirstOrDefaultAsync(
-                "UserLogin_GetUserForPasswordLogin",
+                "sp_UserLogin_GetUserForPasswordLogin",
                 new
                 {
                     Identifier = identifier,
@@ -66,7 +65,7 @@ namespace UrbanNative.Infrastructure.Repositories.Customers
             using var conn = _connectionFactory.CreateConnection();
 
             return await conn.QueryFirstOrDefaultAsync(
-                "UserLogin_VerifyOTP",
+                "sp_UserLogin_VerifyOTP",
                 new
                 {
                     Identifier = identifier,
@@ -80,7 +79,7 @@ namespace UrbanNative.Infrastructure.Repositories.Customers
             using var conn = _connectionFactory.CreateConnection();
 
             return await conn.QueryFirstOrDefaultAsync<OtpRecordDto>(
-                "UserLogin_GetLatestOTP",
+                "sp_UserLogin_GetLatestOTP",
                 new { Identifier = identifier },
                 commandType: CommandType.StoredProcedure
             );
@@ -91,7 +90,7 @@ namespace UrbanNative.Infrastructure.Repositories.Customers
             using var conn = _connectionFactory.CreateConnection();
 
             await conn.ExecuteAsync(
-                "UserLogin_MarkOTPVerified",
+                "sp_UserLogin_MarkOTPVerified",
                 new { OTPID = otpId },
                 commandType: CommandType.StoredProcedure
             );
@@ -103,10 +102,95 @@ namespace UrbanNative.Infrastructure.Repositories.Customers
             using var conn = _connectionFactory.CreateConnection();
 
             return await conn.QueryFirstOrDefaultAsync(
-                "UserLogin_GetAuthUser",
+                "sp_UserLogin_GetAuthUser",
                 new
                 {
                     UserID = userId
+                },
+                commandType: CommandType.StoredProcedure
+            );
+        }
+
+        public async Task<dynamic> GetUserAsync(int? userId, string identifier)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            return await conn.QueryFirstOrDefaultAsync(
+                "sp_UserLogin_GetUserByUid_Identifier",
+                new
+                {
+                    UserID = userId,
+                    Identifier = identifier
+                },
+                commandType: CommandType.StoredProcedure
+            );
+        }
+
+        public async Task<CreateTempUserResponseDto?> InsertTempUserAsync(CreateTempUserRequestDto dto)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            var result = await conn.QueryFirstOrDefaultAsync<CreateTempUserResponseDto>(
+                "sp_UserRegistration_CreateTempUser",
+                new
+                {
+                    Identifier = dto.Identifier,
+                    SessionID = dto.SessionID,
+                    ReferredByUserID = dto.ReferredByUserID,
+                    UserAgent = dto.UserAgent,
+                    IPAddress = dto.IPAddress
+                },
+                commandType: CommandType.StoredProcedure
+            );
+
+            return result;
+        }
+
+        //On OTP verfication, if user is new we create a temp user record
+        //and return tempId and tempToken to client, which will be used for final registration
+        public async Task<dynamic> CreateTempUserAsync(string identifier) 
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            return await conn.QueryFirstOrDefaultAsync(
+                "sp_UserRegistration_CreateTempUser",
+                new
+                {
+                    Identifier = identifier
+                },
+                commandType: CommandType.StoredProcedure
+            );
+        }
+        public async Task<TempUserDto> GetTempUserAsync(int tempId, string tempToken)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            return await conn.QueryFirstOrDefaultAsync<TempUserDto>(
+                "sp_UserRegistration_GetTempUser",
+                new
+                {
+                    TempID = tempId,
+                    TempToken = tempToken
+                },
+                commandType: CommandType.StoredProcedure
+            );
+        }
+        public async Task<RegisterResponseDto> CompleteRegistrationAsync(RegisterRequestDto req)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            return await conn.QueryFirstOrDefaultAsync<RegisterResponseDto>(
+                "sp_UserRegistration_Complete",
+                new
+                {
+                    TempID = req.TempID,
+                    TempToken = req.TempToken,
+                    ReferredByUserID = req.ReferredByUserID,
+                    Name = req.Name,
+                    Mobile = req.Mobile,
+                    Email = req.Email,
+                    Pincode = req.Pincode,
+                    AddressID = req.AddressID
                 },
                 commandType: CommandType.StoredProcedure
             );

@@ -6,5 +6,8 @@ namespace UrbanNative.Customers.Services.Interfaces
     {
         Task<SendOtpResponseDto> SendOtpAsync(string identifier);
         Task<VerifyOtpResponseDto> VerifyOtpAsync(string identifier, int otp);
+        Task<TempUserDto> GetTempUserAsync(int tempId, string token);
+        Task<RegisterResponseDto> RegisterAsync(RegisterRequestDto req);
+        Task<CreateTempUserResponseDto?> InsertTempUserAsync(CreateTempUserRequestDto dto);
     }
 }

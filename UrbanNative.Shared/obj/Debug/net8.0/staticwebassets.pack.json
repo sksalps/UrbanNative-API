@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\background.png"
     },
     {
+      "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\wwwroot\\css\\core.css",
+      "PackagePath": "staticwebassets\\css\\core.css"
+    },
+    {
       "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\wwwroot\\exampleJsInterop.js",
       "PackagePath": "staticwebassets\\exampleJsInterop.js"
     },
@@ -19,6 +23,18 @@
     {
       "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\wwwroot\\js\\address-modal.js",
       "PackagePath": "staticwebassets\\js\\address-modal.js"
+    },
+    {
+      "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\wwwroot\\js\\api-helper.js",
+      "PackagePath": "staticwebassets\\js\\api-helper.js"
+    },
+    {
+      "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\wwwroot\\js\\core.js",
+      "PackagePath": "staticwebassets\\js\\core.js"
+    },
+    {
+      "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\wwwroot\\js\\toast.js",
+      "PackagePath": "staticwebassets\\js\\toast.js"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.UrbanNative.Shared.Microsoft.AspNetCore.StaticWebAssets.props",

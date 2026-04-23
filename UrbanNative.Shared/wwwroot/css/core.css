@@ -1,0 +1,28 @@
+/* =========================
+   GLOBAL UI POLISH
+========================= */
+
+body {
+    background-color: #f5f7fa;
+}
+
+/* Card polish */
+.card {
+    border-radius: 16px;
+}
+
+/* Input focus */
+.form-control:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 0.1rem rgba(25,135,84,.25);
+}
+
+/* Button polish */
+.btn {
+    border-radius: 10px;
+}
+
+/* Smooth transitions */
+* {
+    transition: all 0.2s ease-in-out;
+}

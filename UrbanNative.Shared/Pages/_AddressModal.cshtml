@@ -145,7 +145,12 @@
                             data-bs-dismiss="modal">
                         Cancel
                     </button>
-
+                    <!-- 🔥 NEW BUTTON -->
+                    <button id="btnSelectGo"
+                            class="btn btn-primary px-4 d-none"
+                            onclick="selectAndGo()">
+                        Select & Go
+                    </button>
                     <button id="btnSave"
                             class="btn btn-success px-4"
                             onclick="saveAddress()">
@@ -163,8 +168,10 @@
 
 <script>
     let addressScriptLoaded = false;
+    
 
-    async function loadAddressEngine(type,id=null) {
+    async function loadAddressEngine(type,id=null, pincode = null) {
+        alert ("AddressEngine ");
         if (!addressScriptLoaded) {
             await loadScript('/_content/UrbanNative.Shared/js/address-modal.js');
             addressScriptLoaded = true;
@@ -173,8 +180,10 @@
         //currentAddressType = type;
 
         
-        // Now safe to call
-        openAddressModal(type, id);
+        // Now safe to call 🔥 pass pincode forward
+       // openAddressModal(type, id);
+        
+        openAddressModal(type, id, pincode);
     }
 
     function loadScript(src) {

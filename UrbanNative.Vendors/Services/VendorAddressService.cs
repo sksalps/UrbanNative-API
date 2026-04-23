@@ -14,9 +14,8 @@ namespace UrbanNative.Vendors.Services
             _http = factory.CreateClient("ApiClient");
         }
 
-        public Task<List<AddressListDto>> GetAddressesLookupAsync(string type)
-            => _http.GetFromJsonAsync<List<AddressListDto>>($"api/address/list?type={type}");
-
+        public Task<List<AddressListDto>> GetAddressesLookupAsync(string type, int? entityId = null)
+            => _http.GetFromJsonAsync<List<AddressListDto>>($"api/address/list?type={type}&EntityId={entityId}");
         public Task<AddressListDto> GetByIdAsync(int id)
             => _http.GetFromJsonAsync<AddressListDto>($"api/address/{id}");
 

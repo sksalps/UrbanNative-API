@@ -19,10 +19,20 @@ namespace UrbanNative.Vendors.Pages.Common
         ========================= */
         public async Task<IActionResult> OnGetCountries()
         {
-            var data = await _addressService.GetCountriesAsync(null);
-            return new JsonResult(data);
-        }
+            try
+            {
+                var data = await _addressService.GetCountriesAsync(null);
 
+                if (data == null)
+                    return new JsonResult(new List<object>()); // ✅ never null
+
+                return new JsonResult(data);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
         /* =========================
            🔹 STATE
         ========================= */

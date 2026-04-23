@@ -1,12 +1,105 @@
 ﻿@page
 @model RegisterModel
 @{
-    Layout = "_PublicLayoutPage";
+    Layout = "_PublicLayout";
 }
 
-<h3>Complete Registration</h3>
+<div class="card p-4 shadow-lg" style="max-width:420px;margin:auto;margin-top:60px;border-radius:18px;">
 
-<form method="post">
-    <input asp-for="Name" class="form-control" placeholder="Enter Name" />
-    <button class="btn btn-success mt-2">Submit</button>
-</form>
+    <h4 class="text-center fw-bold mb-1">Connect to Your Native</h4>
+    <p class="text-center text-muted small mb-3">Enter details to get your native products</p>
+
+    @Html.AntiForgeryToken()
+
+    <!-- Name -->
+    <input asp-for="Name" class="form-control mb-2" placeholder="Full Name" />
+
+    <!-- Mobile / Email -->
+    <div class="mb-2 position-relative">
+
+        <input asp-for="Mobile" id="Mobile"
+               class="form-control"
+               placeholder="Mobile (or Email below)" />
+        <!-- Verified Badge -->
+        <span id="verifiedBadge"
+              class="badge bg-success position-absolute"
+              style="top:8px; right:8px; display:none;">
+            ✔ Verified
+        </span>
+
+        <input asp-for="Email" id="Email"
+               class="form-control mt-2"
+               placeholder="Email (optional)" />
+
+        <!-- Verified Badge -->
+        <span id="verifiedBadgeEmail"
+              class="badge bg-success position-absolute"
+              style="top:8px; right:8px; display:none;">
+            ✔ Verified
+        </span>
+    </div>
+
+    <!-- OTP Section -->
+    <div id="otpSection" style="display:none;">
+        <div class="d-flex gap-2 mb-2">
+            <input id="txtOtp"
+                   class="form-control text-center"
+                   maxlength="6"
+                   placeholder="Enter OTP" />
+
+            <button id="btnRegVerifyOtp"
+                    type="button"
+                    class="btn btn-success" onclick="verifyRegOtp()">
+                Verify
+            </button>
+        </div>
+
+        <div class="small text-muted mb-2">
+            Didn't get OTP?
+            <a href="#" onclick="resendRegOtp(); return false;">Resend</a>
+        </div>
+    </div>
+
+    <!-- Send OTP -->
+    <button id="btnRegSendOtp"
+            type="button"
+            class="btn btn-dark w-100 mb-3">
+        Send OTP
+    </button>
+
+    <!-- PIN + Address -->
+    <div class="input-group mb-2">
+        <input id="txtPincode"
+               class="form-control"
+               placeholder="Pincode (optional)" />
+
+        <button id="btnAddAddress"
+                type="button"
+                class="btn btn-outline-primary"
+                disabled>
+            + Address
+        </button>
+    </div>
+
+    <!-- Address Preview -->
+    <div id="addressPreview"
+         class="small text-muted mb-3">
+        No address selected
+    </div>
+
+    <!-- Hidden -->
+    <input type="hidden" id="selectedAddressId" />
+    <input type="hidden" id="referredByUserId" value="@Model.ReferredByUserID" />
+
+    <!-- Submit -->
+    <button id="btnRegister"
+            type="button"
+            class="btn btn-success w-100">
+        Complete Registration
+    </button>
+
+</div>
+
+
+<!-- ADDRESS MODAL -->
+@await Html.PartialAsync("~/Pages/_AddressModal.cshtml")

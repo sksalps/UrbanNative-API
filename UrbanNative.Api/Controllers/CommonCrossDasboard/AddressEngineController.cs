@@ -21,9 +21,19 @@ namespace UrbanNative.Api.Controllers.CommonCrossDasboard
         }
 
         [HttpGet("list")]
-        public async Task<IActionResult> List(string type)
+        public async Task<IActionResult> List(string type,int? EntityId=null)
         {
-            var (entityType, entityId) = ResolveEntity();
+            var entityType = string.Empty;
+            var entityId = 0;
+            if (type == "NATIVE")
+            {
+                entityType = type;
+                entityId = EntityId ?? 0;
+            }
+            else
+            {
+                (entityType, entityId) = ResolveEntity();
+            }
             return Ok(await _useCase.GetListAsync(entityId, entityType, type));
         }
 
@@ -73,12 +83,37 @@ namespace UrbanNative.Api.Controllers.CommonCrossDasboard
         [HttpPost("save")]
         public async Task<IActionResult> Save(AddressSaveDto dto)
         {
-            var (entityType, entityId) = ResolveEntity();
-            var id = await _useCase.SaveAsync(dto, entityId,entityType);
+            var entityType = string.Empty;
+            var entityId = 0;
+            if (dto.EntityType == null) {
+                (entityType, entityId) = ResolveEntity();
+                dto.EntityType = entityType;
+                dto.EntityID = entityId;
+            }
+                        
+            var id = await _useCase.SaveAsync(dto);
+            return Ok(id);
+        }
+
+        [HttpPost("savenative")]
+        [AllowAnonymous]
+        public async Task<IActionResult> SaveNative(AddressSaveDto dto)
+        {
+            var entityType = string.Empty;
+            var entityId = 0;
+            if (dto.EntityType == null)
+            {
+                (entityType, entityId) = ResolveEntity();
+                dto.EntityType = entityType;
+                dto.EntityID = entityId;
+            }
+
+            var id = await _useCase.SaveAsync(dto);
             return Ok(id);
         }
 
         [HttpGet("country")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetCountries([FromQuery] int? countryId)
         {
             var data = await _useCase.GetCountriesAsync(countryId);
@@ -86,6 +121,7 @@ namespace UrbanNative.Api.Controllers.CommonCrossDasboard
         }
 
         [HttpGet("state")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetStates(
             [FromQuery] int? countryId,
             [FromQuery] int? stateId)
@@ -95,6 +131,7 @@ namespace UrbanNative.Api.Controllers.CommonCrossDasboard
         }
 
         [HttpGet("city")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetCities(
             [FromQuery] int? stateId,
             [FromQuery] int? cityId)
