@@ -86,12 +86,17 @@ namespace UrbanNative.Application.DTOs.CommonCrossDashboard
         public int StateID { get; set; }
         public string CityName { get; set; }
     }
-    public class ServiceResult
+    public class ServiceResultDto
     {
         public bool IsSuccess { get; set; }
         public string Message { get; set; }
         public int? AddressId { get; set; }
+        public int ? EntityId { get; set; } = null;
         public Dictionary<string, string[]> Errors { get; set; }
     }
-
+    public class AddressSaveResultDto
+    {
+        public int AddressId { get; set; }
+        public int EntityId{ get; set; }
+    }
 }

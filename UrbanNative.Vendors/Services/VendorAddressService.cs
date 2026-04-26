@@ -2,6 +2,7 @@
 using UrbanNative.Application.DTOs.Address;
 using UrbanNative.Application.DTOs.CommonCrossDashboard;
 using UrbanNative.Application.Interfaces.CommonCrossDashboard;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace UrbanNative.Vendors.Services
 {
@@ -16,27 +17,27 @@ namespace UrbanNative.Vendors.Services
 
         public Task<List<AddressListDto>> GetAddressesLookupAsync(string type, int? entityId = null)
             => _http.GetFromJsonAsync<List<AddressListDto>>($"api/address/list?type={type}&EntityId={entityId}");
-        public Task<AddressListDto> GetByIdAsync(int id)
-            => _http.GetFromJsonAsync<AddressListDto>($"api/address/{id}");
+        public Task<AddressListDto> GetByIdAsync(int id, string? entityType, int? entityId)
+            => _http.GetFromJsonAsync<AddressListDto>($"api/address/{id}?EntityType={entityType}&EntityId={entityId}");
 
         public Task<List<AddressListDto>> GetAddressListAsync()
         {
             return  _http.GetFromJsonAsync<List<AddressListDto>>($"api/address/listall");
         }
 
-        public async Task<ServiceResult> DeleteAddressAsync(int addressId)
+        public async Task<ServiceResultDto> DeleteAddressAsync(int addressId)
         {
             var res = await _http.PostAsJsonAsync("api/address/delete", addressId);
             var content = await res.Content.ReadAsStringAsync();
             if (!res.IsSuccessStatusCode)
             {
-                return new ServiceResult { IsSuccess = false, Message = content };
+                return new ServiceResultDto { IsSuccess = false, Message = content };
             }
 
-            return new ServiceResult { IsSuccess = true, Message = content };
+            return new ServiceResultDto { IsSuccess = true, Message = content };
         }
 
-        public async Task<ServiceResult> SetPrimaryAddressAsync(int addressId)
+        public async Task<ServiceResultDto> SetPrimaryAddressAsync(int addressId)
         {
             var res = await _http.PostAsJsonAsync(
                 "api/address/set-primary-address", addressId     // ✅ this sends proper JSON
@@ -46,33 +47,49 @@ namespace UrbanNative.Vendors.Services
 
             if (!res.IsSuccessStatusCode)
             {
-                return new ServiceResult
+                return new ServiceResultDto
                 {
                     IsSuccess = false,
                     Message = content
                 };
             }
 
-            return new ServiceResult { IsSuccess = true };
+            return new ServiceResultDto { IsSuccess = true };
         }
 
 
-        public async Task<ServiceResult> SaveAddressAsync(AddressSaveDto dto)
+        public async Task<ServiceResultDto> SaveAddressAsync(AddressSaveDto dto)
         {
-            var res = await _http.PostAsJsonAsync("api/address/save", dto);
+            var response = await _http.PostAsJsonAsync("api/address/save", dto);
+                       
 
-            var content = await res.Content.ReadAsStringAsync();
-
-            if (!res.IsSuccessStatusCode)
+            // 🔥 Handle failure first
+            if (!response.IsSuccessStatusCode)
             {
-                return new ServiceResult
+                var errorContent = await response.Content.ReadAsStringAsync();
+
+                return new ServiceResultDto
                 {
                     IsSuccess = false,
-                    Message = $"API Error: {res.StatusCode} - {content}"
+                    Message = $"API Error: {response.StatusCode} - {errorContent}"
                 };
             }
 
-            return new ServiceResult { IsSuccess = true, Message = "Address Saved Successfully", AddressId=dto.AddressID };
+            // 🔥 Read response properly (ONLY once)
+            var data = await response.Content.ReadFromJsonAsync<ServiceResultDto>();
+
+            if (data == null)
+            {
+                return new ServiceResultDto
+                {
+                    IsSuccess = false,
+                    Message = "Empty response from API"
+                };
+            }
+
+            // 🔥 Return actual API result (don't override blindly)
+            return (new ServiceResultDto { IsSuccess = true, Message = "Address Saved Successfully", AddressId = data.AddressId, EntityId = data.EntityId });
+
         }
 
 

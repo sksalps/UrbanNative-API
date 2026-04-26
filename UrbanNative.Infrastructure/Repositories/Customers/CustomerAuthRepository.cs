@@ -189,7 +189,7 @@ namespace UrbanNative.Infrastructure.Repositories.Customers
                     Name = req.Name,
                     Mobile = req.Mobile,
                     Email = req.Email,
-                    Pincode = req.Pincode,
+                    //Pincode = req.Pincode,
                     AddressID = req.AddressID
                 },
                 commandType: CommandType.StoredProcedure

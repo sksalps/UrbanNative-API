@@ -58,14 +58,14 @@ namespace UrbanNative.Customers.Pages.Common
         // 🔹 Get Address List
         public async Task<JsonResult> OnGetAddressLookupAsync(string type, int? entityId = null)
         {
-            var data = await _addressService.GetAddressesLookupAsync(type);
+            var data = await _addressService.GetAddressesLookupAsync(type, entityId);
             return new JsonResult(data);
         }
 
         // 🔹 Get Address By ID (Edit Mode)
-        public async Task<JsonResult> OnGetAddressByIdAsync(int addressId)
+        public async Task<JsonResult> OnGetAddressByIdAsync(int addressId, string entityType, int entityId)
         {
-            var data = await _addressService.GetByIdAsync(addressId);
+            var data = await _addressService.GetByIdAsync(addressId, entityType, entityId);
             return new JsonResult(data);
         }
 
@@ -78,7 +78,7 @@ namespace UrbanNative.Customers.Pages.Common
 
             if (!ModelState.IsValid)
             {
-                return BadRequest(new ServiceResult
+                return BadRequest(new ServiceResultDto
                 {
                     IsSuccess = false,
                     Message = "Validation failed"
@@ -91,7 +91,8 @@ namespace UrbanNative.Customers.Pages.Common
             { 
                 success = result.IsSuccess,
                 message = result.Message,
-                addressId = result.AddressId
+                addressId = result.AddressId,
+                entityId=result.EntityId
             });
         }
 

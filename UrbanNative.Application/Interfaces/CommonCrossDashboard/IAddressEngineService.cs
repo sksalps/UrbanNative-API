@@ -11,11 +11,11 @@ namespace UrbanNative.Application.Interfaces.CommonCrossDashboard
     public interface IAddressEngineService
     {
         Task<List<AddressListDto>> GetAddressesLookupAsync(string type, int? entityId = null);
-        Task<AddressListDto> GetByIdAsync(int id);
-        Task<ServiceResult> SaveAddressAsync(AddressSaveDto dto);
+        Task<AddressListDto> GetByIdAsync(int id, string? type, int? entityId);
+        Task<ServiceResultDto> SaveAddressAsync(AddressSaveDto dto);
         Task<List<AddressListDto>> GetAddressListAsync();
-        Task<ServiceResult> DeleteAddressAsync(int addressId);
-        Task<ServiceResult> SetPrimaryAddressAsync(int addressId);
+        Task<ServiceResultDto> DeleteAddressAsync(int addressId);
+        Task<ServiceResultDto> SetPrimaryAddressAsync(int addressId);
 
         Task<List<CountryDto>> GetCountriesAsync(int? countryId);
         Task<List<StateDto>> GetStatesAsync(int? countryId, int? stateId);

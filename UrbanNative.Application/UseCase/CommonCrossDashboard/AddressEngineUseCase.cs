@@ -35,7 +35,7 @@ namespace UrbanNative.Application.UseCase.CommonCrossDashboard
         public Task<AddressListDto> GetByIdAsync(int id, string entityType, int entityId)
             => _repo.GetByIdAsync(id,entityType,entityId);
 
-        public Task<int> SaveAsync(AddressSaveDto dto)
+        public Task<AddressSaveResultDto> SaveAsync(AddressSaveDto dto)
             => _repo.SaveAsync(dto);
 
         public async Task<IEnumerable<CountryDto>> GetCountriesAsync(int? countryId)

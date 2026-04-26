@@ -34,7 +34,7 @@ namespace UrbanNative.Application.DTOs.Customers.AuthLogin
         public string? Status { get; set; }
         public int? TempID { get; set; }
         public string? TempToken { get; set; }
-        public string? SessionID { get; set; }= string.Empty;
+        //public string? SessionID { get; set; }= string.Empty;
         public verifiedResponseDto? userExist { get; set; }
     }
 
@@ -42,7 +42,7 @@ namespace UrbanNative.Application.DTOs.Customers.AuthLogin
     { 
         public string? StatusLogin { get; set; }=string.Empty;
         public int? UserID { get; set; }
-        public string? UserRandomID { get; set; }
+        public long? UserRandomID { get; set; }
         public string? ReferralCode { get; set; }
         public string? Token { get; set; } // JWT (only for existing user)
 
@@ -72,11 +72,10 @@ namespace UrbanNative.Application.DTOs.Customers.AuthLogin
         public int TempID { get; set; }
         public string TempToken { get; set; }
         public int? ReferredByUserID { get; set; }=0;
-
         public string Name { get; set; }
         public string Mobile { get; set; }
         public string? Email { get; set; }=null;
-        public string? Pincode { get; set; }=null;
+        //public string? Pincode { get; set; }=null;
         public int? AddressID { get; set; } = 0;
     }
 

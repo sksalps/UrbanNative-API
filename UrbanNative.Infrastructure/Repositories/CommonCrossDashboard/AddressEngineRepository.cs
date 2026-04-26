@@ -87,11 +87,11 @@ namespace UrbanNative.Infrastructure.Repositories.CommonCrossDashboard
                 );
             }
 
-            public async Task<int> SaveAsync(AddressSaveDto dto)
+            public async Task<AddressSaveResultDto> SaveAsync(AddressSaveDto dto)
             {
                 using var conn = _db.CreateConnection();
 
-                return await conn.ExecuteScalarAsync<int>(
+                return await conn.QueryFirstOrDefaultAsync<AddressSaveResultDto>(
                     "sp_AddressMaster_Upsert",
                     new
                     {

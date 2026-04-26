@@ -1,13 +1,34 @@
-﻿// =============================
+﻿let resendInterval = null;
+let resendTime = 30;
+
+
+// =============================
 // 🔍 VALIDATION
 // =============================
-function validateIdentifier(val) {
+function validateIdentifier(identifier) {
     //alert("Validating: " + val);
-    if (!val) return false;
 
-    if (/^[6-9]\d{9}$/.test(val)) return true;
-    if (/^\S+@\S+\.\S+$/.test(val)) return true;
+    if (!identifier) return false;
 
+    //If email entered, validate it
+    if (identifier.includes("@") && !checkEmail(identifier)) {
+        showToast("Enter valid email/mobile", "error");
+        return false;
+    }
+
+    //if mobile is entered and it's less than 10 digits, show error
+    if (!identifier.includes("@") && identifier.length < 10) {
+        showToast("Enter valid mobile", "error");
+        return false;
+    }
+    if (identifier.includes("@") && !checkEmail(email)) {
+        showToast("Enter valid email", "error");
+        return false;
+    }
+
+    if (/^[6-9]\d{9}$/.test(identifier)) return true;
+    if (/^\S+@\S+\.\S+$/.test(identifier)) return true;
+    showToast("Enter valid mobile or email", "error");
     return false;
 }
 
@@ -23,72 +44,50 @@ document.addEventListener("DOMContentLoaded", function () {
     
     if (sendBtn) {
         sendBtn.addEventListener("click", async function () {
-            document.getElementById("txtIdentifier").value = '9878886567';
-            var identifier = document.getElementById("txtIdentifier").value;
+        //document.getElementById("txtIdentifier").value = '9878886567';
+        var identifier = document.getElementById("txtIdentifier").value;
+        if (identifier && identifier.includes("@")) {
+            identifier = identifier.toLowerCase();
+        }
+        // 🔍 Validation
+        if (!validateIdentifier(identifier)) {
+            return;
+        }
 
-            // 🔍 Validation
-            if (!validateIdentifier(identifier)) {
-                showToast("Enter valid mobile or email", "error");
+        this.disabled = true;
+        this.innerText = "Sending...";
+
+        try {           
+            const res = await sendAuthOtp(identifier);
+            if (!res.success) {
+                showToast("Failed to send OTP", "error");
+                this.disabled = false;
+                this.innerText = "Send OTP";
                 return;
             }
-
-            this.disabled = true;
-            this.innerText = "Sending...";
-
-            try {
-                /*
-                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
-                const res = await fetch(`/Auth/Login?handler=SendOtp&identifier=${identifier}`, {
-                    method: 'POST',
-                    credentials: 'same-origin',
-                    headers: {
-                        "RequestVerificationToken": token
-                    }
-                });
-                */
-                const res= await sendAuthOtp(identifier);
-                // 🔥 Handle HTTP error
-                if (!res.ok) {
-                    showToast("Failed to send OTP", "error");
-                    this.disabled = false;
-                    this.innerText = "Send OTP";
-                    return;
-                }
-
-               
-                //alert("OTP send response received"); 
-                //var data = await res.json();
+                          
+            // ==========================
+            // ✅ SUCCESS
+            // ==========================
                 
-                // ==========================
-                // ✅ SUCCESS
-                // ==========================
-                
-                const data = await res.json();
-                //alert("okk" + data.success);
-                if (data.success) {
-
-                    var otpValue = data.otp || data.OTP;
-
-                    showToast("OTP: " + otpValue); //temp - remove in prod
-                    showToast(data.message || "OTP sent successfully");
-                    document.getElementById("step1").style.display = "none";
-                    document.getElementById("step2").style.display = "block";
-                    document.getElementById("displayIdentifier").innerText = identifier;
-                    document.getElementById("txtOtp").value = otpValue;//remove after testing
-                    startResendTimer();
-                    document.getElementById("txtOtp").focus();
-                }
-                else {
-                    showToast(data.message, "error");
-                }
-                
-
-            } catch (err) {
-                showToast("Something went wrong", "error");
+            if (res.success) {
+                //showToast(res.message || "OTP sent successfully");
+                document.getElementById("step1").style.display = "none";
+                document.getElementById("step2").style.display = "block";
+                document.getElementById("displayIdentifier").innerText = identifier;
+                document.getElementById("txtOtp").value = res.otp;//remove after testing
+                startResendTimer();
+                document.getElementById("txtOtp").focus();
             }
+            else {
+                showToast(data.message, "error");
+            }
+        } catch (err) {
+            showToast("Something went wrong", "error");
+        }
 
-            this.disabled = false;
-            this.innerText = "Send OTP";
+        this.disabled = false;
+        this.innerText = "Send OTP";
         });
     }
     if (verifyBtn) {
@@ -96,6 +95,13 @@ document.addEventListener("DOMContentLoaded", function () {
         verifyBtn.addEventListener("click", async function () {
              {
                 var identifier = document.getElementById("txtIdentifier").value;
+                if (identifier && identifier.includes("@")) {
+                    identifier = identifier.toLowerCase();
+                }
+                // 🔍 Validation
+                if (!validateIdentifier(identifier)) {
+                    return;
+                }
                 var otp = document.getElementById("txtOtp").value;
 
                 // 🔍 Validation
@@ -109,26 +115,27 @@ document.addEventListener("DOMContentLoaded", function () {
             this.innerText = "Verifying...";
 
             try {
-                const result = verifyAuthOTP(identifier, parseInt(otp));
+                const res = await verifyAuthOTP(identifier, otp);
+                //const data = res.result;
+                
+                const data = res.result;
+
                 // 🔥 Handle HTTP error
-                if (!res.ok) {
+                if (!data.success) {
                     showToast("Verification failed. Try again", "error");
                     this.disabled = false;
                     this.innerText = "Verify OTP";
                     return;
                 }
                 
-                var data = await result.json();
-                console.log("Verify Response:", data);
-
                 // Normalize response
                 var status = data.status || data.Status;
 
-                if (status === "SUCCESS") {
+                if (status === "LOGIN") {
                     showToast("Login successful");
 
                     setTimeout(function () {
-                        //window.location.href = "/Dashboard/Index";
+                        window.location.href = "/Dashboard/Index";
                     }, 800);
                 }
                 else if (status === "NEW_USER") {
@@ -260,16 +267,20 @@ function showToast1(message, type = "success") {
     }, 3000);
 }
 
-let resendSeconds = 30;
-let timerInterval;
+
 
 // Start timer
+/*
+
+let resendSeconds = 30;
+let timerInterval;
 function startResendTimer() {
 
     resendSeconds = 30;
 
     document.getElementById("resendLink").style.display = "none";
     document.getElementById("resendTimer").style.display = "inline";
+
 
     timerInterval = setInterval(function () {
 
@@ -287,14 +298,35 @@ function startResendTimer() {
 
     }, 1000);
 }
-async function sendOTPs(identifier) {
-    alert(identifier);
-}
+*/
+// ==========================
+// 🔹 RESEND TIMER
+// ==========================
+function startResendTimer() {
 
+    const timerEl = document.getElementById("resendTimer");
+    const link = document.getElementById("resendLink");
+
+    //resendTime = 30;
+    link.style.display = "none";
+
+    if (resendInterval) clearInterval(resendInterval);
+
+    resendInterval = setInterval(() => {
+
+        resendTime--;
+        timerEl.innerText = `Resend in ${resendTime}s`;
+
+        if (resendTime <= 0) {
+            clearInterval(resendInterval);
+            timerEl.innerText = "";
+            link.style.display = "inline";
+        }
+
+    }, 1000);
+}
 async function sendAuthOtp(identifier) {
-    //window.sendAuthOtp = sendAuthOtp;
-    alert(identifier);
-    try {
+     try {
         if (!identifier) {
             showToast("Enter mobile or email", "error");
             return { success: false };
@@ -322,7 +354,9 @@ async function sendAuthOtp(identifier) {
         const data = await res.json();
 
         if (data?.success) {
-            showToast("OTP sent successfully");
+            var otpValue = data.otp || data.OTP;
+            showToast("OTP: " + otpValue); //temp - remove in prod
+            showToast(data.message || "OTP sent successfully");
             return data;// { success: true,  };
         }
 
@@ -399,11 +433,8 @@ async function verifyAuthOTP(identifier, otp) {
             showToast("Enter valid OTP", "error");
             return { success: false };
         }
-
         const sessionId = localStorage.getItem("UN_SESSION");
-
         const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
-
         const res = await fetch("/Auth/Login?handler=VerifyOtp", {
             method: "POST",
             headers: {
@@ -422,19 +453,15 @@ async function verifyAuthOTP(identifier, otp) {
             return { success: false };
         }
 
-        const data = await res.json();
-        const result = data.result;
+        const result = await res.json();
+        
         // ==========================
         // ✅ SUCCESS
         // ==========================
-        if (result?.status === "SUCCESS") {
+        if (result?.status === "LOGIN") {
             showToast("Verified successfully");
-            result.status = "LOGIN";
-            return {
-                //success: true,
-                //type: "LOGIN"
-                result
-            };
+            //result.status = "LOGIN";
+            return {result};
         }
 
         // ==========================

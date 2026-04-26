@@ -1,5 +1,5 @@
 let countryTS = null, stateTS = null, cityTS = null;
-let currentAddressType = '';
+let currentAddressType = ''; let UserEntityID = null; let currentMode = ''; // NEW, VIEW, EDIT
 
 /* =========================
    🔹 CONFIG (CREATE ENABLED)
@@ -131,13 +131,13 @@ async function openAddressModal(type, selectedId = null, pincode = null) {
         modalEl.removeEventListener('shown.bs.modal', handler);
 
         initTomSelects();
-
-        await loadExistingAddresses(type);
+        if (currentAddressType == "NATIVE") { UserEntityID = localStorage.getItem("TEMP_ID"); EntityType = currentAddressType; }; // ✅ FIXED - fetch temp user ID for native flow
+        await loadExistingAddresses(type,UserEntityID);
 
         if (selectedId) {
             document.getElementById("existingAddress").value = selectedId;
             setAddressMode("VIEW");
-            await loadAddressById(id);
+            await loadAddressById(selectedId, EntityType, UserEntityID);
         } else {
             clearAddressForm();
             setAddressMode("NEW");
@@ -152,16 +152,43 @@ async function openAddressModal(type, selectedId = null, pincode = null) {
     if (pincode && pincode.length === 6) {
         document.getElementById("pincode").value = pincode;
         fetchPincodeDetails();
-        //setTimeout(fetchPincodeDetails, 200);
+        //setTimeout(fetchPincodeDetails(), 200);
     }
 }
 /* =========================
+   🔹 ADDRESS CHANGE
+========================= */
+async function onAddressChange() {
+
+    const selectedId = document.getElementById("existingAddress").value;
+
+    if (!selectedId) {
+        clearAddressForm();
+        return;
+    }
+    clearMap();
+    if (currentAddressType == "NATIVE") { UserEntityID = localStorage.getItem("TEMP_ID"); EntityType = currentAddressType; }; // ✅ FIXED - fetch temp user ID for native flow
+    //EntityType = currentAddressType; // ✅ set entity type based on current address type (important for native flow)
+    if (selectedId) {
+        document.getElementById("existingAddress").value = selectedId;
+        setAddressMode("VIEW");
+        await loadAddressById(selectedId, EntityType,  UserEntityID);
+    } else {
+        clearAddressForm();
+        setAddressMode("NEW");
+    }
+    //await loadAddressById(selectedId);
+    loadMapFromLocation(`${cityTS.value}, ${stateTS.value}, India`);
+}
+
+
+/* =========================
    🔹 LOAD EXISTING ADDRESS
 ========================= */
-async function loadExistingAddresses(type) {
+async function loadExistingAddresses(type, entityId = null) {
 
 
-    const res = await fetch(`/Common/AddressEngineHandler?handler=AddressLookup&type=${type}`);
+    const res = await fetch(`/Common/AddressEngineHandler?handler=AddressLookup&type=${type}&entityId=${entityId}`);
     
     const data = await res.json();
     if (!data) return;
@@ -260,29 +287,14 @@ async function loadCities(stateId, selectedId = null) {
     if (selectedId) cityTS.setValue(selectedId);
 }
 
-/* =========================
-   🔹 ADDRESS CHANGE
-========================= */
-async function onAddressChange() {
 
-    const id = document.getElementById("existingAddress").value;
-
-    if (!id) {
-        clearAddressForm();
-        return;
-    }
-    clearMap();
-    setAddressMode(!!id);
-    await loadAddressById(id);
-    loadMapFromLocation(`${cityTS.value}, ${stateTS.value}, India`);
-}
 
 /* =========================
    🔹 LOAD ADDRESS
 ========================= */
-async function loadAddressById(id) {
+async function loadAddressById(id, entityType=null, entityId=null) {
 
-    const res = await fetch(`/Common/AddressEngineHandler?handler=AddressById&addressId=${id}`);
+    const res = await fetch(`/Common/AddressEngineHandler?handler=AddressById&addressId=${id}&entityType=${entityType}&entityId=${entityId}`);
     const a = await res.json();
 
     document.getElementById("line1").value = a.addressLine1 || '';
@@ -303,7 +315,7 @@ async function loadAddressById(id) {
 function clearAddressForm() {
     //alert("reset");
     document.getElementById("existingAddress").innerHTML = '<option value="">-- Select Address --</option>';
-    loadExistingAddresses(currentAddressType);
+    loadExistingAddresses(currentAddressType, UserEntityID);
     document.getElementById("line1").value = '';
     document.getElementById("line2").value = '';
     document.getElementById("landmark").value = '';
@@ -317,7 +329,7 @@ function clearAddressForm() {
     cityTS?.clear();
     cityTS?.clearOptions();
 
-    setAddressMode(false);
+    setAddressMode("NEW");
     //document.getElementById("btnSave").innerText = 'Save Address';
     document.getElementById("btnSave").disabled = false;
     clearMap();
@@ -347,20 +359,20 @@ async function saveAddress() {
 
 
     try {
-        let UserTempID = 0;          // ✅ FIXED
-        let TempEntityType = null;   // ✅ FIXED
-
+        let EntityType = currentAddressType   // ✅ FIXED
+        //In case of Native Address on register form for NEW USER,
+        //we need to ensure temp user is created before saving address, 
+        //as address is linked to temp user in this case. 
+        //So we will check if temp user details are present in local storage, 
+        //if not we will create temp user first and then proceed with address save.
         if (currentAddressType == "NATIVE") {
 
-            const UserTempSession = localStorage.getItem("TEMP_SESSION");
-
-            if (UserTempSession) {
-                UserTempID = localStorage.getItem("TEMP_ID");
-                TempEntityType = currentAddressType;
-            } else {
+            UserEntityID = localStorage.getItem("TEMP_ID")         // ✅ FIXED
+            
+            let UserTempSession = localStorage.getItem("TEMP_SESSION");  // ✅ FIXED
+            let UserTempToken = localStorage.getItem("TEMP_TOKEN");  // ✅ FIXED
+            if (!UserEntityID   && !UserTempToken) {
                 await ensureTempUser(); // 🔥 important
-                UserTempID = localStorage.getItem("TEMP_ID");
-                TempEntityType = currentAddressType;
             }
         }
 
@@ -377,8 +389,8 @@ async function saveAddress() {
             addressNickName: document.getElementById("nickname").value,
             isPrimary: document.getElementById("isPrimary").checked,
             addressType: currentAddressType,
-            entityID: UserTempID,
-            entityType: TempEntityType,
+            entityID: UserEntityID,// ✅ FIXED - will be null for non-native (existing user will fetch in controller), temp user ID for native
+            entityType: EntityType,
 
             country: countryTS?.getValue()?.toString() || '',
             state: stateTS?.getValue()?.toString() || '',
@@ -396,10 +408,14 @@ async function saveAddress() {
 
         const result = await res.json();
         btn.innerText = "Save Address";
+        let addressId = null;
         if (result.success) {
             //alert(result.message);
-            showToast(result.message);
+            UserEntityID = result.entityId; // ✅ Update temp user ID after save (important for native flow)
+            addressId = result.addressId; // ✅ return new/updated address ID for chaining if needed
+            
             document.dispatchEvent(new Event("addressSaved"));
+            showToast(result.message);
             //await clearAddressForm();      
             //btn.innerText = originalText;
         }
@@ -408,13 +424,28 @@ async function saveAddress() {
             showToast(result.message || "Address Save failed");
             btn.disabled = false;
             btn.innerText = originalText;
+            addressId = 0;
         }
 
         //await clearAddressForm();
 
-        await loadExistingAddresses(currentAddressType,UserTempID);
+        await loadExistingAddresses(currentAddressType, UserEntityID);
 
-        //bootstrap.Modal.getInstance(document.getElementById('addressModal')).hide();
+        // 🔥 AUTO SELECT SAVED ADDRESS
+        if (addressId) {
+
+            const ddl = document.getElementById("existingAddress");
+
+            ddl.value = addressId;
+
+            // 🔥 Trigger change (loads full address)
+            await onAddressChange();
+
+            // 🔥 Switch to VIEW mode (important for Select & Go)
+            setAddressMode("VIEW");
+        }
+
+        return addressId;
     } catch (e) {
         btn.disabled = false;
         console.error(e);
@@ -483,7 +514,7 @@ async function fetchPincodeDetails() {
     const pincode = pincodeInput.value.trim();
     //alert(pincode);
     // 🔥 Clear previous error
-    showPincodeError("");
+    showPincodeError(pincode);
 
     if (!pincode) return;
 
@@ -590,6 +621,7 @@ function clearMap() {
     }
 }
 
+//Not in use, now defined in toast.js for global use across modules
 function showToast1(message) {
     //alert (message);
     const el = document.getElementById("toastMsg");
@@ -599,4 +631,129 @@ function showToast1(message) {
     setTimeout(() => {
         el.classList.add("d-none");
     }, 7000);
+}
+
+
+/* ===============================================
+🔹 Preview Address on calling form 
+* Calling form can listen to "addressSaved" event to refresh preview after save
+* Calling form must have a global container  
+* to show the preview (or pass custom id as 2nd param)
+================================================== */
+async function previewAddressById(id, containerId = "selectedAddressPreview") {
+
+    const preview = document.getElementById(containerId);
+
+    if (!preview) {
+        console.warn("Preview container not found:", containerId);
+        return;
+    }
+
+    if (!id) {
+        preview.style.display = "none";
+        preview.innerHTML = "";
+        return;
+    }
+    if (currentAddressType == "NATIVE") { entityId = localStorage.getItem("TEMP_ID"); entityType = currentAddressType; }; // ✅ FIXED - fetch temp user ID for native flow
+
+    preview.style.display = "block";
+    preview.innerHTML = `<div class="text-muted">Loading address...</div>`;
+
+    try {
+
+        //const res = await fetch(`/Common/AddressEngineHandler?handler=AddressById&addressId=${id}`);
+        const res = await fetch(`/Common/AddressEngineHandler?handler=AddressById&addressId=${id}&entityType=${entityType}&entityId=${entityId}`);
+
+        if (!res.ok) {
+            showToast("Failed to fetch address", "error");
+            preview.style.display = "none";
+            return;
+        }
+
+        const text = await res.text();
+        let a;
+
+        try {
+            a = JSON.parse(text);
+        } catch {
+            console.error("Invalid JSON:", text);
+            showToast("Invalid response", "error");
+            preview.style.display = "none";
+            return;
+        }
+
+        if (!a) {
+            preview.style.display = "none";
+            preview.innerHTML = "";
+            return;
+        }
+
+        const nickname = a.addressNickName || '';
+        const line1 = a.addressLine1 || '';
+        const line2 = a.addressLine2 || '';
+        const city = a.cityName || '';
+        const state = a.stateName || '';
+        const country = a.countryName || '';
+        const pincode = a.pincode || '';
+        const isPrimary = a.isPrimary || false;
+
+        /* 🔥 NEW: Sync pincode with parent input */
+        const pincodeInput = document.getElementById("txtPincode");
+        if (pincodeInput && pincode) {
+            pincodeInput.value = pincode;
+        }
+
+        let html = `
+            <div class="fw-semibold">${nickname || line1}</div>
+            <div>${line1}</div>
+            ${line2 ? `<div>${line2}</div>` : ""}
+            <div>${city}, ${state}</div>
+            <div>${country} - ${pincode}</div>
+        `;
+
+       
+        // 🔥 Primary badge
+        if (isPrimary) {
+            html += `<br/><span class="badge bg-success">Primary</span>`;
+        }
+        preview.innerHTML = html;
+        preview.style.display = "block";
+
+    } catch (err) {
+        console.error("Preview error:", err);
+        showToast("Error loading address", "error");
+        preview.style.display = "none";
+    }
+}
+
+function selectAndGo() {
+
+    const ddl = document.getElementById("existingAddress");
+    const addressId = ddl.value;
+
+    if (!addressId) {
+        showToast("Please select an address", "error");
+        return;
+    }
+
+    const selectedText = ddl.options[ddl.selectedIndex]?.text || '';
+
+    // 🔥 Send to parent
+    if (window.onAddressSelected) {
+        window.onAddressSelected({
+            addressID: parseInt(addressId),
+            fullAddress: selectedText
+        });
+    }
+
+    /* 🔥 Preview (safe)
+    if (window.addressPreviewContainerId) {
+        previewAddressById(addressId, window.addressPreviewContainerId);
+    }
+    */
+    // 🔥 Close modal safely
+    const modalEl = document.getElementById("addressModal");
+    const modal = bootstrap.Modal.getInstance(modalEl);
+
+    if (modal) modal.hide();
 }

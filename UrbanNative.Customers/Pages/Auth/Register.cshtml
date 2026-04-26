@@ -12,66 +12,88 @@
     @Html.AntiForgeryToken()
 
     <!-- Name -->
-    <input asp-for="Name" class="form-control mb-2" placeholder="Full Name" />
+    <input asp-for="Name" class="form-control mb-1" placeholder="Full Name" />
+    <div class="text-danger small" id="err_name"></div>
 
-    <!-- Mobile / Email -->
+
+    <!-- MOBILE -->
+    
     <div class="mb-2 position-relative">
 
-        <input asp-for="Mobile" id="Mobile"
-               class="form-control"
-               placeholder="Mobile (or Email below)" />
-        <!-- Verified Badge -->
+        <input asp-for="Mobile" id="Mobile" class="form-control" placeholder="Mobile" />
+
+        <!-- 🔥 Change FIRST -->
+        
+        <span id="changeMobile"
+              class="position-absolute"
+              style="top:50%; right:60px; transform:translateY(-50%); display:none; cursor:pointer;"
+              onclick="resetMobile()"
+              title="Change Mobile">
+            ✏️
+        </span>
+        <!-- Verified -->
         <span id="verifiedBadge"
               class="badge bg-success position-absolute"
-              style="top:8px; right:8px; display:none;">
-            ✔ Verified
+              style="top:50%; right:8px; transform:translateY(-50%); display:none;">
+            ✔
         </span>
 
-        <input asp-for="Email" id="Email"
-               class="form-control mt-2"
-               placeholder="Email (optional)" />
-
-        <!-- Verified Badge -->
-        <span id="verifiedBadgeEmail"
-              class="badge bg-success position-absolute"
-              style="top:8px; right:8px; display:none;">
-            ✔ Verified
-        </span>
+        <div class="text-danger small" id="err_mobile"></div>
     </div>
 
-    <!-- OTP Section -->
+    <!-- EMAIL -->
+    <div class="mb-2 position-relative">
+
+        <input asp-for="Email" id="Email" class="form-control" placeholder="Email (optional)" />
+
+        <!-- Change -->
+        
+        <a href="#"
+               id="changeEmail"
+               class="position-absolute text-primary"
+               style="top:8px; right:90px; display:none;"
+               onclick="resetEmail();return false;">
+
+            <i class="bi bi-pencil-square"></i>
+        </a>
+
+        <!-- Verified -->
+        <span id="emailVerifiedBadge"
+              class="badge bg-success position-absolute"
+              style="top:6px; right:8px; display:none;">
+            ✔
+        </span>
+
+        <div class="text-danger small" id="err_email"></div>
+    </div>
+
+    <!-- OTP -->
     <div id="otpSection" style="display:none;">
         <div class="d-flex gap-2 mb-2">
-            <input id="txtOtp"
-                   class="form-control text-center"
-                   maxlength="6"
-                   placeholder="Enter OTP" />
+            <input id="txtOtp" class="form-control text-center" maxlength="6" placeholder="Enter OTP" />
 
             <button id="btnRegVerifyOtp"
                     type="button"
-                    class="btn btn-success" onclick="verifyRegOtp()">
+                    class="btn btn-success"
+                    onclick="verifyRegOtp()">
                 Verify
             </button>
         </div>
 
         <div class="small text-muted mb-2">
-            Didn't get OTP?
-            <a href="#" onclick="resendRegOtp(); return false;">Resend</a>
+            <span id="resendTimer">Resend in 30s</span>
+            <a href="#" id="resendLink" style="display:none;" onclick="resendRegOtp();return false;">Resend</a>
         </div>
     </div>
 
-    <!-- Send OTP -->
-    <button id="btnRegSendOtp"
-            type="button"
-            class="btn btn-dark w-100 mb-3">
+    <!-- SEND OTP -->
+    <button id="btnRegSendOtp" type="button" class="btn btn-dark w-100 mb-3">
         Send OTP
     </button>
 
-    <!-- PIN + Address -->
+    <!-- PINCODE -->
     <div class="input-group mb-2">
-        <input id="txtPincode"
-               class="form-control"
-               placeholder="Pincode (optional)" />
+        <input asp-for="Pincode" id="txtPincode" class="form-control" placeholder="Pincode (optional)" />
 
         <button id="btnAddAddress"
                 type="button"
@@ -82,8 +104,7 @@
     </div>
 
     <!-- Address Preview -->
-    <div id="addressPreview"
-         class="small text-muted mb-3">
+    <div id="addressPreview" class="small text-muted mb-3">
         No address selected
     </div>
 
@@ -92,14 +113,31 @@
     <input type="hidden" id="referredByUserId" value="@Model.ReferredByUserID" />
 
     <!-- Submit -->
-    <button id="btnRegister"
-            type="button"
-            class="btn btn-success w-100">
+    <button id="btnRegister" type="button" class="btn btn-success w-100">
         Complete Registration
     </button>
 
 </div>
 
-
-<!-- ADDRESS MODAL -->
 @await Html.PartialAsync("~/Pages/_AddressModal.cshtml")
+
+    <Style>
+        
+        #changeMobile i,
+#changeEmail i {
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#changeMobile i:hover,
+#changeEmail i:hover {
+    color: #0d6efd;
+}
+
+        /* Custom styles for the registration page */
+        #otpSection input {
+            font-size: 1.5rem;
+            letter-spacing: 0.5rem;
+        }
+
+</Style>

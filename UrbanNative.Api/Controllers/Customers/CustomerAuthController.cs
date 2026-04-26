@@ -112,16 +112,19 @@ namespace UrbanNative.Api.Controllers.Customer
             if (user != null)
             {
                 var token = GenerateJwt(user);
-
-
+                
                 return Ok(new
                 {
                     success = true,
-                    Status = user.Status,
-                    UserID = user.UserID,
-                    UserRandomID = user.UserRandomID,
-                    ReferralCode = user.ReferralCode,
-                    Token = token
+                    Status = "LOGIN",
+                    userExist = new
+                    {
+                        StatusLogin = "LOGIN",
+                        UserID = user.UserID,
+                        UserRandomID = user.UserRandomID,
+                        ReferralCode = user.ReferralCode,
+                        Token = token
+                    }
                 });
             }
             else
@@ -212,7 +215,7 @@ namespace UrbanNative.Api.Controllers.Customer
             {
                 var result = await _repo.CompleteRegistrationAsync(req);
 
-                if (result == null)
+                if (result == null || result.Status == "ERROR" || result.UserID == 0)
                 {
                     return BadRequest(new
                     {
@@ -220,7 +223,6 @@ namespace UrbanNative.Api.Controllers.Customer
                         Message = "Registration failed"
                     });
                 }
-
                 var user = await _repo.GetUserAsync(result.UserID, null);
 
                 var token = GenerateJwt(user);

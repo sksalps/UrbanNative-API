@@ -113,11 +113,10 @@ namespace UrbanNative.Customers.Pages.Auth
             {
                 var result = await _service.VerifyOtpAsync(input.Identifier, input.OTP);
 
-                //return new JsonResult(result);
-                return new JsonResult(new
-                {
-                    result
-                });
+                return new JsonResult( result );
+
+
+
             }
             catch (Exception ex)
             {

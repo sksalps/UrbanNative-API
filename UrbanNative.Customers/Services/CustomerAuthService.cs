@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.Json;
 using UrbanNative.Application.DTOs.Customers.AuthLogin;
 using UrbanNative.Customers.Services.Interfaces;
 using static System.Net.WebRequestMethods;
@@ -31,8 +32,30 @@ namespace UrbanNative.Customers.Services
                 "api/customer/auth/verify-otp",
                 new { Identifier = identifier, OTP = otp });
 
-            return await res.Content.ReadFromJsonAsync<VerifyOtpResponseDto>();
+            //return await res.Content.ReadFromJsonAsync<VerifyOtpResponseDto>();
+
+            //var text = await res.Content.ReadAsStringAsync();
+
+
+            //Console.WriteLine("RAW API RESPONSE: " + text);
+            // 🔥 FIX: unwrap double-serialized JSON
+            
+            try
+            {
+                return await res.Content.ReadFromJsonAsync<VerifyOtpResponseDto>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("DESERIALIZATION ERROR: " + ex.Message);
+
+                return new VerifyOtpResponseDto
+                {
+                    success = false,
+                    Status = "ERROR"
+                };
+            }
         }
+
 
         public async Task<CreateTempUserResponseDto?> InsertTempUserAsync(CreateTempUserRequestDto dto)
         {

@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using UrbanNative.Application.DTOs.CommonCrossDashboard;
-using UrbanNative.Application.DTOs.CommonCrossDashboard.Compliance;
 using UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard;
 
 namespace UrbanNative.Api.Controllers.CommonCrossDasboard
@@ -21,6 +20,7 @@ namespace UrbanNative.Api.Controllers.CommonCrossDasboard
         }
 
         [HttpGet("list")]
+        [AllowAnonymous]
         public async Task<IActionResult> List(string type,int? EntityId=null)
         {
             var entityType = string.Empty;
@@ -74,42 +74,96 @@ namespace UrbanNative.Api.Controllers.CommonCrossDasboard
 
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        [AllowAnonymous]
+        public async Task<IActionResult> Get(int id, [FromQuery] string? EntityType = null, [FromQuery] int? EntityId = null)
         {
-            var (entityType, entityId) = ResolveEntity();
+            var entityType = string.Empty;
+            var entityId = 0;
+            if (EntityType == "NATIVE")
+            {
+                entityType = EntityType;
+                entityId = EntityId ?? 0;
+            }
+            else
+            {
+                (entityType, entityId) = ResolveEntity();
+            }
+            //var (entityType, entityId) = ResolveEntity();
             return Ok(await _useCase.GetByIdAsync(id,entityType,entityId));
         }
 
-        [HttpPost("save")]
+        [HttpPost("save")] // 🔥 existing endpoint for JWT save
         public async Task<IActionResult> Save(AddressSaveDto dto)
         {
-            var entityType = string.Empty;
-            var entityId = 0;
-            if (dto.EntityType == null) {
-                (entityType, entityId) = ResolveEntity();
-                dto.EntityType = entityType;
-                dto.EntityID = entityId;
-            }
-                        
-            var id = await _useCase.SaveAsync(dto);
-            return Ok(id);
-        }
 
-        [HttpPost("savenative")]
-        [AllowAnonymous]
-        public async Task<IActionResult> SaveNative(AddressSaveDto dto)
-        {
-            var entityType = string.Empty;
-            var entityId = 0;
             if (dto.EntityType == null)
             {
-                (entityType, entityId) = ResolveEntity();
+                var (entityType, entityId) = ResolveEntity();
                 dto.EntityType = entityType;
                 dto.EntityID = entityId;
             }
+            else { return BadRequest("Invalid EntityType for anonymous save.");        }
 
-            var id = await _useCase.SaveAsync(dto);
-            return Ok(id);
+            var result = await _useCase.SaveAsync(dto);
+
+            if (result == null)
+            {
+                return StatusCode(500, new ServiceResultDto
+                {
+                    IsSuccess = false,
+                    Message = "Failed to save address"
+                });
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPost("savenative")] // 🔥 new endpoint for anonymous save   
+        [AllowAnonymous]
+        public async Task<IActionResult> SaveNative([FromBody] AddressSaveDto dto)
+        {
+            if (dto == null)
+            {
+                return BadRequest(new ServiceResultDto
+                {
+                    IsSuccess = false,
+                    Message = "Invalid request"
+                });
+            }
+
+            // 🔥 Normalize EntityType
+            var entityType = dto.EntityType?.Trim().ToUpper();
+
+            // 🔥 Resolve if not provided
+            if (string.IsNullOrEmpty(entityType))
+            {
+                var (resolvedType, resolvedId) = ResolveEntity();
+
+                dto.EntityType = resolvedType;
+                dto.EntityID = resolvedId;
+            }
+            else if (entityType != "NATIVE")
+            {
+                return BadRequest(new ServiceResultDto
+                {
+                    IsSuccess = false,
+                    Message = "Invalid EntityType. Must be 'NATIVE' for anonymous save."
+                });
+            }
+
+            // 🔥 Call use case
+            var result = await _useCase.SaveAsync(dto);
+
+            if (result == null)
+            {
+                return StatusCode(500, new ServiceResultDto
+                {
+                    IsSuccess = false,
+                    Message = "Failed to save address"
+                });
+            }
+
+            return Ok(result);
         }
 
         [HttpGet("country")]

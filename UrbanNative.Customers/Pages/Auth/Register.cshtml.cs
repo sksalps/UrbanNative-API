@@ -29,6 +29,8 @@ namespace UrbanNative.Customers.Pages.Auth
 
         [BindProperty]
         public int? ReferredByUserID { get; set; }
+        [BindProperty]
+        public string Pincode { get; set; }
 
         [BindProperty]
         public string TempToken { get; set; }
