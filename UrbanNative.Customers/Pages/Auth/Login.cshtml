@@ -22,31 +22,50 @@
         <div class="alert alert-danger">@TempData["error"]</div>
     }
 
-    <!-- STEP 1 -->
-    <div id="step1">
+    <!-- STEP 1 <div id="step1">-->
+    <div id="step1" class="mb-3 position-relative">
+
         <input id="txtIdentifier"
-               class="form-control mb-3"
+               class="form-control pe-5"
                placeholder="Enter Mobile or Email" />
+
+        <!-- ✏️ Pencil -->
+        <span id="changeIdentifier"
+              class="position-absolute"
+              style="top:50%; right:12px; transform:translateY(-50%); display:none; cursor:pointer;"
+              onclick="resetIdentifier()"
+              title="Change Identifier">
+            ✏️
+        </span>
+
         <button id="btnSendOtp"
                 type="button"
-                class="btn btn-dark w-100">
+                class="btn btn-dark w-100 mt-3">
             Send OTP
         </button>
 
     </div>
 
+
+
     <!-- STEP 2 -->
     <div id="step2" style="display:none;">
-        <div class="small text-muted mb-2">
-            OTP sent to <span id="displayIdentifier"></span>
-            <a href="#" onclick="changeNumber(); return false;">Change</a>
-        </div>
 
-        <div class="text-end mb-2">
-            <span id="resendTimer">Resend in 30s</span>
-            <a href="#" id="resendLink" style="display:none;" onclick="resendOtp(); return false;">
-                Resend OTP
-            </a>
+        <!-- 🔥 SAME ROW -->
+        <div class="d-flex justify-content-between align-items-center mb-2 small text-muted">
+            <div>
+                OTP sent<span id="displayIdentifier" class="fw-semibold"></span>
+            </div>
+            <div>
+                <span id="resendTimer">Resend in 30s</span>
+                <a href="#"
+                       id="resendLink"
+                       style="display:none;"
+                       onclick="resendOtp(); return false;">
+                    Resend
+                </a>
+            </div>
+
         </div>
 
         <input id="txtOtp"
@@ -59,6 +78,7 @@
                 class="btn btn-success w-100">
             Verify OTP
         </button>
+
     </div>
 
     <!-- Divider -->

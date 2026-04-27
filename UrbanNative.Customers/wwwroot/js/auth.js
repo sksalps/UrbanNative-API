@@ -31,7 +31,40 @@ function validateIdentifier(identifier) {
     showToast("Enter valid mobile or email", "error");
     return false;
 }
+// =============================
+// 🔁 CHANGE IDENTIFIER
+// =============================
+function resetIdentifier() {
 
+    // clear input
+    //document.getElementById("txtIdentifier").value = "";
+    document.getElementById("txtIdentifier").disabled = false;
+    document.getElementById("changeIdentifier").style.display = "none";
+
+    // reset UI
+    document.getElementById("btnSendOtp").style.display = "block";
+    document.getElementById("step1").style.display = "block";
+    document.getElementById("step2").style.display = "none";
+
+    document.getElementById("txtOtp").value = "";
+}
+function resendOtp() {
+    document.getElementById("btnSendOtp").click();
+}
+function setIdentifierVerified(identifier) {
+    // show identifier in step2
+    //document.getElementById("displayIdentifier").innerText = identifier;
+    document.getElementById("changeIdentifier").style.display = "inline";
+
+    // keep identifier visible but disable editing
+    document.getElementById("txtIdentifier").value = identifier;
+    document.getElementById("txtIdentifier").disabled = true;
+
+    // toggle UI
+    //document.getElementById("step1").style.display = "none";
+    document.getElementById("btnSendOtp").style.display = "none";
+    document.getElementById("step2").style.display = "block";
+}
 // =============================
 // 📲 SEND OTP
 // =============================
@@ -57,34 +90,33 @@ document.addEventListener("DOMContentLoaded", function () {
         this.disabled = true;
         this.innerText = "Sending...";
 
-        try {           
-            const res = await sendAuthOtp(identifier);
-            if (!res.success) {
-                showToast("Failed to send OTP", "error");
-                this.disabled = false;
-                this.innerText = "Send OTP";
-                return;
-            }
-                          
-            // ==========================
-            // ✅ SUCCESS
-            // ==========================
+            try {
+
+                const res = await sendAuthOtp(identifier);
+
+                if (!res.success) {
+                    showToast("Failed to send OTP", "error");
+                    this.disabled = false;
+                    this.innerText = "Send OTP";
+                    return;
+                }
+
+                // ==========================
+                // ✅ SUCCESS (LOGIN PAGE)
+                // ==========================
+                setIdentifierVerified(identifier);
                 
-            if (res.success) {
-                //showToast(res.message || "OTP sent successfully");
-                document.getElementById("step1").style.display = "none";
-                document.getElementById("step2").style.display = "block";
-                document.getElementById("displayIdentifier").innerText = identifier;
-                document.getElementById("txtOtp").value = res.otp;//remove after testing
+                // auto fill OTP (only for testing)
+                document.getElementById("txtOtp").value = res.otp || "";
+
                 startResendTimer();
+
                 document.getElementById("txtOtp").focus();
+
+            } catch (err) {
+                console.error(err);
+                showToast("Something went wrong", "error");
             }
-            else {
-                showToast(data.message, "error");
-            }
-        } catch (err) {
-            showToast("Something went wrong", "error");
-        }
 
         this.disabled = false;
         this.innerText = "Send OTP";
@@ -138,18 +170,28 @@ document.addEventListener("DOMContentLoaded", function () {
                         window.location.href = "/Dashboard/Index";
                     }, 800);
                 }
-                else if (status === "NEW_USER") {
+                if (status === "NEW_USER") {
                     showToast("Verified successfully");
-                     { 
+                    {
                         showToast("Redirecting to registration");
+                        // store temp user
+                        localStorage.setItem("TEMP_ID", data.TempID);
+                        localStorage.setItem("TEMP_TOKEN", data.TempToken);
 
-                        var tempId = data.tempID || data.TempID;
-                        var tempToken = data.tempToken || data.TempToken;
+                        // 🔥 store verified identifier
+                        localStorage.setItem("VERIFIED_IDENTIFIER", identifier);
 
-                        window.location.href =
-                            "/Auth/Register?tempId=" + tempId + "&token=" + tempToken;
+                        // 🔥 mark verified type
+                        if (identifier.includes("@")) {
+                            localStorage.setItem("VERIFIED_TYPE", "EMAIL");
+                        } else {
+                            localStorage.setItem("VERIFIED_TYPE", "MOBILE");
+                        }
+
+                        window.location.href = "/Auth/Register";
                     }
                 }
+                
                 else {
                     showToast("Invalid OTP", "error");
                 }
@@ -208,16 +250,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-// =============================
-// 🔁 CHANGE NUMBER
-// =============================
-function changeNumber() {
-    document.getElementById("step1").style.display = "block";
-    document.getElementById("step2").style.display = "none";
-}
-function resendOtp() {
-    document.getElementById("btnSendOtp").click();
-}
+
 // =============================
 // 🔐 PASSWORD TOGGLE
 // =============================

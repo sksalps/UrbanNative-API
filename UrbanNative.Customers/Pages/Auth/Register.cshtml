@@ -6,9 +6,10 @@
 
 <div class="card p-4 shadow-lg" style="max-width:420px;margin:auto;margin-top:60px;border-radius:18px;">
 
-    <h4 class="text-center fw-bold mb-1">Connect to Your Native</h4>
-    <p class="text-center text-muted small mb-3">Enter details to get your native products</p>
-
+    <!-- 🔥 TITLE -->
+    <h4 class="text-center fw-bold mb-1">Discover Your Native Products🌿</h4>
+    <!--p class="text-center text-muted small mb-3">Enter details to get your native products  Connect to Your Native</p-->
+    <p class="text-center text-muted small mb-4"> Enter your details to explore products from your hometown  </p>
     @Html.AntiForgeryToken()
 
     <!-- Name -->
@@ -52,7 +53,7 @@
                id="changeEmail"
                class="position-absolute text-primary"
                style="top:8px; right:90px; display:none;"
-               onclick="resetEmail();return false;">
+               onclick="resetEmail()">
 
             <i class="bi bi-pencil-square"></i>
         </a>
@@ -111,12 +112,81 @@
     <!-- Hidden -->
     <input type="hidden" id="selectedAddressId" />
     <input type="hidden" id="referredByUserId" value="@Model.ReferredByUserID" />
+    <!-- T & C -->
+    <div class="form-check mb-3">
+        <input class="form-check-input"
+               type="checkbox"
+               id="chkTnC"
+               disabled />
 
+        <label class="form-check-label small">
+            I agree to the
+            <a href="#" onclick="openTnCModal(); return false;">
+                Terms & Conditions
+            </a>
+        </label>
+    </div>
     <!-- Submit -->
-    <button id="btnRegister" type="button" class="btn btn-success w-100">
-        Complete Registration
+    <button id="btnRegister"       type="button"
+            class="btn btn-success w-100 py-2 fw-semibold"
+            style="border-radius:10px;">
+        Continue → Connect to Your Native
     </button>
+</div>
 
+<div class="modal fade" id="tncModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Terms & Conditions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body" id="tncContent" style="max-height:400px; overflow-y:auto;">
+                
+                <!-- 🔥 PASTE T&C CONTENT HERE -->
+                <div style="font-size:14px; line-height:1.6;">
+
+                    <h6>UrbanNative Terms & Conditions</h6>
+
+                    <p>Welcome to UrbanNative. By creating an account, you agree to the following terms:</p>
+
+                    <ul>
+                        <li>You confirm that the information provided by you is accurate and belongs to you.</li>
+
+                        <li>You agree to use UrbanNative platform only for lawful purposes including browsing, purchasing, and interacting with vendors.</li>
+
+                        <li>You understand that UrbanNative acts as a marketplace connecting customers and vendors, and product fulfillment is handled by respective vendors.</li>
+
+                        <li>Prices, availability, and delivery timelines are subject to vendor policies.</li>
+
+                        <li>You agree not to misuse the platform, attempt unauthorized access, or disrupt services.</li>
+
+                        <li>Your account may be suspended or terminated in case of suspicious or fraudulent activity.</li>
+
+                        <li>OTP verification is used for authentication and must not be shared with others.</li>
+
+                        <li>Your personal information will be handled as per our Privacy Policy.</li>
+
+                        <li>UrbanNative reserves the right to update these terms at any time.</li>
+                    </ul>
+
+                    <p><strong>By proceeding, you agree to these Terms & Conditions.</strong></p>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary"
+                        id="btnAcceptTnC"
+                        disabled>
+                    Accept
+                </button>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 @await Html.PartialAsync("~/Pages/_AddressModal.cshtml")
