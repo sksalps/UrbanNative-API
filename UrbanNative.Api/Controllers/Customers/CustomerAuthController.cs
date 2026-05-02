@@ -35,9 +35,6 @@ namespace UrbanNative.Api.Controllers.Customer
             if (req == null || string.IsNullOrWhiteSpace(req.Identifier))
                 return BadRequest("Identifier required");
 
-            //var result = await _repo.SendOtpAsync(req.Identifier.Trim());
-
-
             var otp = new Random().Next(100000, 999999).ToString();
 
             // 🔐 Hash + Salt
@@ -62,13 +59,15 @@ namespace UrbanNative.Api.Controllers.Customer
                 ipAddress,
                 userAgent
             );
+            //var result = await _repo.SendOtpAsync(req.Identifier.Trim());
 
             // TEMP return OTP
             return Ok(new
             {
                 Status = "OTP_SENT",
                 OTP = otp, //Temp: return OTP for testing
-                ExpiryAt = DateTime.UtcNow.AddMinutes(5)
+                ExpiryAt = DateTime.UtcNow.AddMinutes(5),
+                ReferralCode=req.ReferralCode
             });
 
             
@@ -102,7 +101,7 @@ namespace UrbanNative.Api.Controllers.Customer
                 return Unauthorized("Invalid OTP");
 
             // ✅ Mark verified
-            //await _repo.MarkOtpVerifiedAsync(otpRecord.OTPID);
+           // await _repo.MarkOtpVerifiedAsync(otpRecord.OTPID);
 
             // ==========================
             // CHECK USER EXISTENCE
@@ -129,14 +128,16 @@ namespace UrbanNative.Api.Controllers.Customer
             }
             else
             {
-                var temp = await _repo.CreateTempUserAsync(req.Identifier);
-
+                //var temp = await _repo.CreateTempUserAsync(req.Identifier);
+                var temp = await _repo.CreateTempUserAsync(req.Identifier, req.ByReferralCode);
                 return Ok(new
                 {
                     success = true,
                     Status = "NEW_USER",
                     TempID = temp.TempID,
-                    TempToken = temp.TempToken
+                    TempToken = temp.TempToken,
+                    ReferredByUserId = temp.ReferredByUserID,
+                    ByReferralCode = req.ByReferralCode
                 });
             }
              
@@ -233,7 +234,6 @@ namespace UrbanNative.Api.Controllers.Customer
                     UserID = result.UserID,
                     UserRandomID=result.UserRandomID,
                     ReferralCode=result.ReferralCode,
-                    Token = token
                 });
             }
             catch (Exception ex)
@@ -260,18 +260,21 @@ namespace UrbanNative.Api.Controllers.Customer
         // ==========================================
         // 🔑 JWT GENERATION
         // ==========================================
-        private string GenerateJwt(dynamic user)
+        private string GenerateJwt(AuthUserDto user)
         {
             var jwtSection = _configuration.GetSection("JwtSettings");
 
             var claims = new List<Claim>
             {
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserID.ToString()),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+
                 new Claim("UserID", user.UserID.ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.UserID.ToString()),
-                new Claim(ClaimTypes.Name, user.Name ?? ""),
+                new Claim("UserRandomID", user.UserRandomID.ToString()),
+                new Claim("UserNickName", user.UserNickName ?? ""),
+                new Claim(ClaimTypes.Name, user.FullName ?? ""),
                 new Claim(ClaimTypes.MobilePhone, user.Mobile ?? ""),
                 new Claim(ClaimTypes.Email, user.Email ?? ""),
-                new Claim("UserRandomID", user.UserRandomID.ToString()),
                 new Claim(ClaimTypes.Role, "Customer")
             };
 
@@ -285,13 +288,11 @@ namespace UrbanNative.Api.Controllers.Customer
                 issuer: jwtSection["Issuer"],
                 audience: jwtSection["Audience"],
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(
-                    Convert.ToDouble(jwtSection["ExpiryMinutes"])
-                ),
+                expires: DateTime.UtcNow.AddMinutes(Convert.ToDouble(jwtSection["ExpiryMinutes"])),
                 signingCredentials: creds
             );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            user.Token = new JwtSecurityTokenHandler().WriteToken(token);
+            return user.Token;
         }
 
 

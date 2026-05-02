@@ -16,28 +16,21 @@ namespace UrbanNative.Customers.Services
             _http = factory.CreateClient("ApiClient");
         }
 
-        public async Task<SendOtpResponseDto> SendOtpAsync(string identifier)
+        public async Task<SendOtpResponseDto> SendOtpAsync(string identifier, string referralCode)
         {
             var response = await _http.PostAsJsonAsync(
                 "api/customer/auth/send-otp",
-                new { Identifier = identifier }
+                new { Identifier = identifier, ReferralCode = referralCode }
             );
 
             return await response.Content.ReadFromJsonAsync<SendOtpResponseDto>();
         }
 
-        public async Task<VerifyOtpResponseDto> VerifyOtpAsync(string identifier, int otp)
+        public async Task<VerifyOtpResponseDto> VerifyOtpAsync(string identifier, int otp, string referralCode)
         {
             var res = await _http.PostAsJsonAsync(
                 "api/customer/auth/verify-otp",
-                new { Identifier = identifier, OTP = otp });
-
-            //return await res.Content.ReadFromJsonAsync<VerifyOtpResponseDto>();
-
-            //var text = await res.Content.ReadAsStringAsync();
-
-
-            //Console.WriteLine("RAW API RESPONSE: " + text);
+                new { Identifier = identifier, OTP = otp, ByReferralCode = referralCode });
             // 🔥 FIX: unwrap double-serialized JSON
             
             try

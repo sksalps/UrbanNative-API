@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using UrbanNative.Domain.Entities;
 
 namespace UrbanNative.Application.DTOs.Customers.AuthLogin
 {
@@ -11,6 +13,7 @@ namespace UrbanNative.Application.DTOs.Customers.AuthLogin
         public string Status { get; set; }
         public int OTP { get; set; }
         public DateTime ExpiryAt { get; set; }
+        public string referralCode { get; set; } = string.Empty;
     }
 
     public class OtpRecordDto
@@ -26,6 +29,7 @@ namespace UrbanNative.Application.DTOs.Customers.AuthLogin
         public string Identifier { get; set; }
         public int OTP { get; set; }
         public string? SessionID { get; set; } = string.Empty;
+        public string? ByReferralCode { get; set; }=string.Empty;
     }
  
     public class VerifyOtpResponseDto
@@ -34,6 +38,9 @@ namespace UrbanNative.Application.DTOs.Customers.AuthLogin
         public string? Status { get; set; }
         public int? TempID { get; set; }
         public string? TempToken { get; set; }
+        public int? ReferredByUserID { get; set; }=0;
+        public string? ByReferralCode { get; set; }=string.Empty;
+
         //public string? SessionID { get; set; }= string.Empty;
         public verifiedResponseDto? userExist { get; set; }
     }
@@ -64,21 +71,21 @@ namespace UrbanNative.Application.DTOs.Customers.AuthLogin
     public class SendOtpRequestDto
     {
         public string Identifier { get; set; }
+        public string? ReferralCode { get; set; }
     }
-
 
     public class RegisterRequestDto //for receiving finalregistration details of user after OTP verification
     {
         public int TempID { get; set; }
         public string TempToken { get; set; }
         public int? ReferredByUserID { get; set; }=0;
+        public string? ByReferralCode { get; set; }=string.Empty;   
         public string Name { get; set; }
         public string Mobile { get; set; }
         public string? Email { get; set; }=null;
         //public string? Pincode { get; set; }=null;
         public int? AddressID { get; set; } = 0;
     }
-
     public class RegisterResponseDto //for sending response after registration
     {
         public string Status { get; set; }
@@ -86,6 +93,22 @@ namespace UrbanNative.Application.DTOs.Customers.AuthLogin
         public long UserRandomID { get; set; }
         public string ReferralCode { get; set; }
     }
+    public class AuthUserDto
+    {
+        public int UserID { get; set; }
+        public long UserRandomID { get; set; }
+        public string? UserNickName { get; set; } = string.Empty;
+        public string FullName { get; set; }
+        public string Mobile { get; set; }
+        public string Email { get; set; }
+        public string ReferralCode { get; set; }
+        public string SponsorReferralCode { get; set; }=string.Empty;
+        public string? SponsorName { get; set; }=string.Empty;  
+        public bool IsActive { get; set; }
+        public string Token { get; set; }= string.Empty; // JWT
+    }
+
+    
 
     public class TempUserDto //for getting temp user details 
     {

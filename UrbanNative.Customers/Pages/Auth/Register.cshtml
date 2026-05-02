@@ -11,7 +11,9 @@
     <!--p class="text-center text-muted small mb-3">Enter details to get your native products  Connect to Your Native</p-->
     <p class="text-center text-muted small mb-4"> Enter your details to explore products from your hometown  </p>
     @Html.AntiForgeryToken()
-
+    
+    
+    <!--input type="hidden"  id="referralInput" class="form-control mb-1" placeholder="Referred By" /-->
     <!-- Name -->
     <input asp-for="Name" class="form-control mb-1" placeholder="Full Name" />
     <div class="text-danger small" id="err_name"></div>
@@ -49,19 +51,17 @@
 
         <!-- Change -->
         
-        <a href="#"
-               id="changeEmail"
-               class="position-absolute text-primary"
-               style="top:8px; right:90px; display:none;"
-               onclick="resetEmail()">
-
-            <i class="bi bi-pencil-square"></i>
-        </a>
-
+        <span id="changeEmail"
+              class="position-absolute"
+              style="top:50%; right:60px; transform:translateY(-50%); display:none; cursor:pointer;"
+              onclick="resetEmail()"
+              title="Change Email">
+            ✏️
+        </span>
         <!-- Verified -->
         <span id="emailVerifiedBadge"
               class="badge bg-success position-absolute"
-              style="top:6px; right:8px; display:none;">
+              style="top:50%; right:8px; transform:translateY(-50%); display:none;">
             ✔
         </span>
 
@@ -178,9 +178,7 @@
             </div>
 
             <div class="modal-footer">
-                <button class="btn btn-primary"
-                        id="btnAcceptTnC"
-                        disabled>
+                <button class="btn btn-primary" id="btnAcceptTnC"   disabled>
                     Accept
                 </button>
             </div>

@@ -111,11 +111,26 @@ namespace UrbanNative.Infrastructure.Repositories.Customers
             );
         }
 
-        public async Task<dynamic> GetUserAsync(int? userId, string identifier)
+        public async Task<AuthUserDto> GetUserAsync(int? userId, string identifier)
         {
             using var conn = _connectionFactory.CreateConnection();
 
-            return await conn.QueryFirstOrDefaultAsync(
+            return await conn.QueryFirstOrDefaultAsync<AuthUserDto>(
+                "sp_UserLogin_GetUserByUid_Identifier",
+                new
+                {
+                    UserID = userId,
+                    Identifier = identifier
+                },
+                commandType: CommandType.StoredProcedure
+            );
+        }
+
+        public async Task<dynamic> GetUserProfileAsync(int? userId, string identifier)
+        {
+            using var conn = _connectionFactory.CreateConnection();
+
+            return await conn.QueryFirstOrDefaultAsync<dynamic>(
                 "sp_UserLogin_GetUserByUid_Identifier",
                 new
                 {
@@ -148,7 +163,7 @@ namespace UrbanNative.Infrastructure.Repositories.Customers
 
         //On OTP verfication, if user is new we create a temp user record
         //and return tempId and tempToken to client, which will be used for final registration
-        public async Task<dynamic> CreateTempUserAsync(string identifier) 
+        public async Task<dynamic> CreateTempUserAsync(string identifier, string referralCode) 
         {
             using var conn = _connectionFactory.CreateConnection();
 
@@ -156,7 +171,8 @@ namespace UrbanNative.Infrastructure.Repositories.Customers
                 "sp_UserRegistration_CreateTempUser",
                 new
                 {
-                    Identifier = identifier
+                    Identifier = identifier,
+                    ByReferralCode = referralCode   
                 },
                 commandType: CommandType.StoredProcedure
             );
@@ -189,8 +205,8 @@ namespace UrbanNative.Infrastructure.Repositories.Customers
                     Name = req.Name,
                     Mobile = req.Mobile,
                     Email = req.Email,
-                    //Pincode = req.Pincode,
-                    AddressID = req.AddressID
+                    AddressID = req.AddressID,
+                    ByReferralCode = req.ByReferralCode
                 },
                 commandType: CommandType.StoredProcedure
             );

@@ -11,8 +11,9 @@ namespace UrbanNative.Application.Interfaces.Customers
 
         Task<OtpRecordDto> GetLatestOtpAsync(string identifier);
         Task MarkOtpVerifiedAsync(int otpId);
-        Task<dynamic> GetUserAsync(int? userId, string identifier);
-        Task<dynamic> CreateTempUserAsync(string identifier);
+        Task<AuthUserDto> GetUserAsync(int? userId, string identifier);
+        Task<dynamic> GetUserProfileAsync(int? userId, string identifier);
+        Task<dynamic> CreateTempUserAsync(string identifier, string referralCode);
         Task<TempUserDto> GetTempUserAsync(int tempId, string tempToken);
         Task<RegisterResponseDto> CompleteRegistrationAsync(RegisterRequestDto req);
         Task<CreateTempUserResponseDto?> InsertTempUserAsync(CreateTempUserRequestDto dto);

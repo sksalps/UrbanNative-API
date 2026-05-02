@@ -28,58 +28,6 @@ namespace UrbanNative.Customers.Pages.Auth
             public string LoginId { get; set; }
             public string Password { get; set; }
         }
-        /*
-        // STEP 1: Send OTP
-        public async Task<IActionResult> OnPostSendOtpAsync()
-        {
-            await _service.SendOtpAsync(Input.Identifier);
-
-            TempData["msg"] = "OTP Sent (check DB for now)";
-            return Page();
-        }
-
-        // STEP 2: Verify OTP
-        public async Task<IActionResult> OnPostVerifyOtpAsync()
-        {
-            var result = await _service.VerifyOtpAsync(Input.Identifier, Input.OTP);
-
-            if (result.Status == "SUCCESS")
-            {
-                // Store JWT
-                Response.Cookies.Append("CustomerAuthToken", result.Token,
-                    new CookieOptions
-                    {
-                        HttpOnly = true,
-                        Expires = DateTime.UtcNow.AddDays(30)
-                    });
-
-                // Cookie auth (Razor protection)
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.NameIdentifier, result.UserID.ToString()),
-                    new Claim(ClaimTypes.Role, "Customer")
-                };
-
-                var identity = new ClaimsIdentity(claims, "CustomerCookie");
-                var principal = new ClaimsPrincipal(identity);
-
-                await HttpContext.SignInAsync("CustomerCookie", principal);
-
-                return RedirectToPage("/Dashboard/Index");
-            }
-
-            if (result.Status == "NEW_USER")
-            {
-                return RedirectToPage("/Auth/Register",
-                    new { tempId = result.TempID, token = result.TempToken });
-            }
-
-            TempData["error"] = "Invalid OTP";
-            return Page();
-        }
-
-
-        */
 
         public async Task<IActionResult> OnPostSendOtpAsync([FromBody] SendOtpRequestDto input)
         {
@@ -87,14 +35,15 @@ namespace UrbanNative.Customers.Pages.Auth
                 throw new Exception("Input is null");
             try
             {
-                var result = await _service.SendOtpAsync(input.Identifier);
+                var result = await _service.SendOtpAsync(input.Identifier, input.ReferralCode);
 
                 return new JsonResult(new
                 {
                     success = true,
                     message = "OTP_SENT",
                     otp = result.OTP,
-                    expiryAt = result.ExpiryAt
+                    expiryAt = result.ExpiryAt,
+                    byReferralCode=input.ReferralCode
                 });
             }
             catch (Exception ex)
@@ -111,7 +60,7 @@ namespace UrbanNative.Customers.Pages.Auth
         {
             try
             {
-                var result = await _service.VerifyOtpAsync(input.Identifier, input.OTP);
+                var result = await _service.VerifyOtpAsync(input.Identifier, input.OTP,input.ByReferralCode);
 
                 return new JsonResult( result );
 

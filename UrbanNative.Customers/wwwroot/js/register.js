@@ -7,7 +7,49 @@ let isEmailVerified = false;
 // 🔹 INIT
 // ==========================
 document.addEventListener("DOMContentLoaded", () => {
+   //console.warn("REG INIT  called");
+    //alert("Welcome! Please fill in your details to complete registration.");
 
+    //If register page is accessed with referral code in URL, 
+    //save it to localStorage for later use(if not may be come from login page or it would be fallback default in SP)
+    const urlParams = new URLSearchParams(window.location.search);
+    const ref = urlParams.get("ref");
+
+    if (ref) {
+        localStorage.setItem("REF_CODE", ref);
+    }
+    referralCode = resolveReferralCode();
+    const refInput = document.getElementById("referralInput"); // optional UI
+    if (refInput) {
+        refInput.value = referralCode || "NULL";
+    }
+
+    const btnRegSend=document.getElementById("btnRegSendOtp");
+    if (btnRegSend) {
+        btnRegSend.style.display = "none";
+    }
+    const tncContent = document.getElementById("tncContent");
+    const btnAccept = document.getElementById("btnAcceptTnC");
+
+    if (!tncContent || !btnAccept) return;
+
+    // enable Accept after scroll
+    tncContent.addEventListener("scroll", function () {
+        if (tncContent.scrollTop + tncContent.clientHeight >= tncContent.scrollHeight - 5) {
+            btnAccept.disabled = false;
+        }
+    });
+
+    // Accept click
+    btnAccept.addEventListener("click", function () {
+
+        document.getElementById("chkTnC").disabled = false;
+        document.getElementById("chkTnC").checked = true;
+
+        bootstrap.Modal.getInstance(document.getElementById('tncModal')).hide();
+    });
+
+    //Identifier check on reload (OTP verified but page reloaded before registration)
     const identifier = localStorage.getItem("VERIFIED_IDENTIFIER");
     const type = localStorage.getItem("VERIFIED_TYPE");
 
@@ -42,27 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     btnAddress.disabled = false;
 
-
-    const tncContent = document.getElementById("tncContent");
-    const btnAccept = document.getElementById("btnAcceptTnC");
-
-    if (!tncContent || !btnAccept) return;
-
-    // enable Accept after scroll
-    tncContent.addEventListener("scroll", function () {
-        if (tncContent.scrollTop + tncContent.clientHeight >= tncContent.scrollHeight - 5) {
-            btnAccept.disabled = false;
-        }
-    });
-
-    // Accept click
-    btnAccept.addEventListener("click", function () {
-
-        document.getElementById("chkTnC").disabled = false;
-        document.getElementById("chkTnC").checked = true;
-
-        bootstrap.Modal.getInstance(document.getElementById('tncModal')).hide();
-    });
+    
 });
 
 
@@ -80,7 +102,15 @@ function setMobileVerified() {
 
     // 🔥 Disable field
     document.getElementById("Mobile").disabled = true;
-    document.getElementById("btnRegSendOtp").style.display = "none";
+
+    const email = document.getElementById("Email").value.trim();
+    if (!isEmailVerified && email.includes("@")) {
+        document.getElementById("btnRegSendOtp").style.display = "block";
+    }
+    else {
+        document.getElementById("btnRegSendOtp").style.display = "none";
+    }
+    
 
 
     document.getElementById("btnAddAddress").disabled = false;
@@ -114,7 +144,19 @@ function setEmailVerified() {
     document.getElementById("changeEmail").style.display = "inline";
 
     // 🔥 Disable field
+
     document.getElementById("Email").disabled = true;
+
+    const mobile = document.getElementById("Mobile").value.trim();
+
+    if (!isMobileVerified && mobile) {
+        document.getElementById("btnRegSendOtp").style.display = "block";
+    }
+    else {
+        document.getElementById("btnRegSendOtp").style.display = "none";
+    }
+    document.getElementById("btnAddAddress").disabled = false;
+
 }
 
 function resetEmail() {
@@ -135,6 +177,7 @@ function resetEmail() {
 document.addEventListener("DOMContentLoaded", function () {
 
     const emailInput = document.getElementById("Email");
+    const mobileInput = document.getElementById("Mobile");
 
     if (!emailInput) {
         console.warn("Email input not found");
@@ -151,18 +194,68 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        
         const isValid = checkEmail(email);
 
-        if (!isValid) {
-            err.innerText = "Invalid email format";
-        } else {
+        if (isValid) {
             err.innerText = "";
             document.getElementById("btnRegSendOtp").style.display = "block";
+        } else {
+            err.innerText = "Invalid email format";
+            if (mobileInput && !isMobileVerified && mobileInput.value.trim().length >= 10) {
+                document.getElementById("btnRegSendOtp").style.display = "block";
+            }
+            else {
+                document.getElementById("btnRegSendOtp").style.display = "none";
+            }
         }
     });
 
 });
+// ==========================
+// 🔹 Mobile Typing
+// ==========================
+document.addEventListener("DOMContentLoaded", function () {
 
+    const mobileInput = document.getElementById("Mobile");
+    const emailInput = document.getElementById("Email");
+
+    if (!mobileInput) {
+        console.warn("Mobile input not found");
+        return;
+    }
+
+        mobileInput.addEventListener("input", function () {
+
+        const mobile = this.value.trim();
+            const err = document.getElementById("err_mobile");
+
+
+        if (!mobile) {
+            err.innerText = "";
+            return;
+        }
+
+        if (mobile.length >= 10) {
+            err.innerText = "";
+            document.getElementById("btnRegSendOtp").style.display = "block";
+        }
+        else if (mobile.includes("@") && checkEmail(mobile)) {
+            err.innerText = "";
+            document.getElementById("btnRegSendOtp").style.display = "block";
+            return;
+        }
+        else  if (emailInput.value.trim() && checkEmail(emailInput.value.trim()) && !isEmailVerified) {
+                err.innerText = "";
+                document.getElementById("btnRegSendOtp").style.display = "block";
+                return;
+            }
+            else {
+                document.getElementById("btnRegSendOtp").style.display = "none";
+            }
+        
+    });
+});
 
 
 function resendRegOtp() {
@@ -186,6 +279,7 @@ function validateForm() {
 
     if (!name) {
         document.getElementById("err_name").innerText = "Name is required";
+        alert(document.getElementById("err_name").innerText);
         valid = false;
     }
 
@@ -315,6 +409,10 @@ document.addEventListener("DOMContentLoaded", function () {
             showToast("Enter Mobile or Email", "error");
             return;
         }
+        if (isMobileVerified && isEmailVerified) { return; }
+
+        if (!email && isMobileVerified) { return; }
+        if (!mobile && isEmailVerified) { return; }
 
         //If email entered in mobile field, validate it
         if (mobile && mobile.includes("@") && !checkEmail(mobile)) {        
@@ -340,7 +438,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         
 
-        const identifier = mobile || email;
+        //const identifier = mobile || email;
+        if (mobile && !isMobileVerified) { identifier = mobile; }
+        else { identifier = email; }
 
         const res = await sendAuthOtp(identifier);
 
@@ -348,10 +448,21 @@ document.addEventListener("DOMContentLoaded", function () {
             showToast("Failed to send OTP", "error");
             return;
         }
+        localStorage.setItem("REF_CODE", res.ByReferralCode);
+        setCookie("REF_CODE", res.ByReferralCode, 7); // 7 days
+        referralCode = resolveReferralCode();
+        //alert(res.otp+"Reg Send= " + referralCode);
 
-        showToast("OTP sent successfully to "+identifier);
+        showToast(res.otp + " OTP sent successfully to " + identifier);
 
+        //remove after testing, pre-filling for now to avoid manual entry during testing
+        document.getElementById("txtOtp").value = res.otp || ""; 
+
+        document.getElementById("txtOtp").focus();
+        
         document.getElementById("otpSection").style.display = "block";
+        document.getElementById("btnRegSendOtp").style.display = "none";
+        
         startResendTimer();
     });
 });
@@ -393,7 +504,9 @@ async function verifyRegOtp() {
     }
 
 
-    let identifier = mobile || email;
+    //let identifier = mobile || email;
+    if (mobile && !isMobileVerified) { identifier = mobile; }
+    else { identifier = email; }
 
     if (identifier && identifier.includes("@")) {
         identifier = identifier.toLowerCase();
@@ -445,9 +558,17 @@ async function verifyRegOtp() {
         return;
     }
 
-    document.getElementById("txtOtp").value = "";
-    document.getElementById("otpSection").style.display = "none";
+    localStorage.setItem("REF_CODE", data.byReferralCode);
+    setCookie("REF_CODE", data.byReferralCode, 7); // 7 days
+    // store temp user
+    localStorage.setItem("TEMP_ID", data.tempID);
+    localStorage.setItem("TEMP_TOKEN", data.tempToken);
 
+    referralCode = resolveReferralCode();
+    document.getElementById("txtOtp").value = "";
+
+    document.getElementById("otpSection").style.display = "none";
+    //alert("Reg Verified RefCode="+data.byReferralCode);
     showToast("Verified successfully");
 }
 
@@ -466,11 +587,10 @@ document.addEventListener("DOMContentLoaded", function () {
         console.warn("btnRegister not found");
         return;
     }
+    // 🔒 Prevent double click
+    if (btn.disabled) return;
 
     btn.addEventListener("click", async function () {
-        
-
-        //console.log("Register clicked"); // 🔥 debug
 
         if (!validateForm()) return;
 
@@ -493,12 +613,19 @@ document.addEventListener("DOMContentLoaded", function () {
             showToast("Please accept Terms & Conditions", "error");
             return;
         }
+
         const pincode = document.getElementById("txtPincode").value.trim();
         const addressId = document.getElementById("selectedAddressId").value;
         const referredBy = document.getElementById("referredByUserId").value;
         var tempID = localStorage.getItem("TEMP_ID").trim();
         var tempToken = localStorage.getItem("TEMP_TOKEN").trim();
 
+        referralCode = resolveReferralCode();//Referred by
+
+        // Disable button + loading state
+        btn.disabled = true;
+        const originalText = btn.innerText;
+        btn.innerText = "Processing...";
 
         const data = {
             TempID: tempID ? parseInt(tempID) : 0, 
@@ -508,7 +635,8 @@ document.addEventListener("DOMContentLoaded", function () {
             Email: email || null,
             //Pincode: pincode || null,
             AddressID: addressId ? parseInt(addressId) : 0,
-            ReferredByUserID: referredBy ? parseInt(referredBy) : 0
+            ReferredByUserID: referredBy ? parseInt(referredBy) : 0,
+            ByReferralCode: referralCode || null
         };
 
         const csrf = document.querySelector('input[name="__RequestVerificationToken"]').value;
@@ -524,28 +652,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const result = await res.json();
         //const text = await result.text();
-        console.log("RAW ERROR:", result);
+        //console.log("RAW ERROR:", result);
 
         if (result.status === "SUCCESS") {
             showToast("Registration successful");
             localStorage.removeItem("VERIFIED_IDENTIFIER");
             localStorage.removeItem("VERIFIED_TYPE");
+            localStorage.removeItem("REF_CODE");
+            setCookie("REF_CODE", "", -1);
 
             setTimeout(() => {
                 window.location.href = "/Dashboard/Index";
             }, 1500);
         } else {
             showToast("Registration failed", "error");
+            // 🔓 re-enable button on failure
+            btn.disabled = false;
+            btn.innerText = originalText;
         }
     });
 
 });
 
-
-
-
 function openTnCModal() {
     const modal = new bootstrap.Modal(document.getElementById('tncModal'));
     modal.show();
 }
-

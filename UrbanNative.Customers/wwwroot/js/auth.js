@@ -1,5 +1,82 @@
 ﻿let resendInterval = null;
 let resendTime = 30;
+let referralCode = null;
+
+
+//handle referral code both at Login page and Registration page. Priority: URL > localStorage > Cookie
+function resolveReferralCode() {
+    console.warn("Resolving referral code");
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlRef = urlParams.get("ref");
+
+    const localRef = localStorage.getItem("REF_CODE");
+
+    const cookieRef = getCookie("REF_CODE");
+
+    let finalRef = null;
+
+    if (urlRef) {
+        finalRef = urlRef;
+
+        // 🔥 always override with latest
+        localStorage.setItem("REF_CODE", urlRef);
+        setCookie("REF_CODE", urlRef, 7); // 7 days
+    }
+    else if (localRef) {
+        finalRef = localRef;
+        setCookie("REF_CODE", localRef, 7); // 7 days
+    }
+    else if (cookieRef) {
+        finalRef = cookieRef;
+
+        // sync to localStorage
+        localStorage.setItem("REF_CODE", cookieRef);
+    }
+    finalRef = finalRef ? finalRef.trim() : null;
+    return finalRef;
+}
+
+function setCookie(name, value, days) {
+    const expires = new Date(Date.now() + days * 86400000).toUTCString();
+    document.cookie = `${name}=${value}; expires=${expires}; path=/`;
+}
+
+function getCookie(name) {
+    return document.cookie.split('; ')
+        .find(row => row.startsWith(name + '='))
+        ?.split('=')[1];
+}
+
+
+//Login page load - check for ref code
+function initLoginPage() {
+
+    if (!document.getElementById("txtIdentifier")) return;
+
+    console.warn("Login Page INIT running");
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const ref = urlParams.get("ref");
+
+    if (ref) {
+        localStorage.setItem("REF_CODE", ref);
+    }
+
+    window.referralCode = resolveReferralCode();
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initLoginPage);
+} else {
+    initLoginPage();
+}
+
+// 🔥 handle both cases alert("Login Page INIT - Referral code: " + window.referralCode);
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initLoginPage);
+} else {
+    initLoginPage();
+}
 
 
 // =============================
@@ -49,6 +126,7 @@ function resetIdentifier() {
     document.getElementById("txtOtp").value = "";
 }
 function resendOtp() {
+    document.getElementById("txtOtp").value = "";
     document.getElementById("btnSendOtp").click();
 }
 function setIdentifierVerified(identifier) {
@@ -112,6 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 startResendTimer();
 
                 document.getElementById("txtOtp").focus();
+                referralCode = resolveReferralCode();
 
             } catch (err) {
                 console.error(err);
@@ -174,12 +253,16 @@ document.addEventListener("DOMContentLoaded", function () {
                     showToast("Verified successfully");
                     {
                         showToast("Redirecting to registration");
+
                         // store temp user
-                        localStorage.setItem("TEMP_ID", data.TempID);
-                        localStorage.setItem("TEMP_TOKEN", data.TempToken);
+                        localStorage.setItem("TEMP_ID", data.tempID);
+                        localStorage.setItem("TEMP_TOKEN", data.tempToken);
 
                         // 🔥 store verified identifier
                         localStorage.setItem("VERIFIED_IDENTIFIER", identifier);
+
+                        localStorage.setItem("REF_CODE", data.byReferralCode);
+                        setCookie("REF_CODE", data.byReferralCode, 7); // 7 days
 
                         // 🔥 mark verified type
                         if (identifier.includes("@")) {
@@ -364,7 +447,7 @@ async function sendAuthOtp(identifier) {
             showToast("Enter mobile or email", "error");
             return { success: false };
         }
-
+        referralCode = resolveReferralCode();
         const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
 
         const res = await fetch("/Auth/Login?handler=SendOtp", {
@@ -374,7 +457,8 @@ async function sendAuthOtp(identifier) {
                 "RequestVerificationToken": token
             },
             body: JSON.stringify({
-                Identifier: identifier
+                Identifier: identifier,
+                ReferralCode: referralCode   
             })
 
         });
@@ -390,6 +474,12 @@ async function sendAuthOtp(identifier) {
             var otpValue = data.otp || data.OTP;
             showToast("OTP: " + otpValue); //temp - remove in prod
             showToast(data.message || "OTP sent successfully");
+            localStorage.setItem("REF_CODE", data.byReferralCode);
+            // store temp user
+            localStorage.setItem("TEMP_ID", data.tempID);
+            localStorage.setItem("TEMP_TOKEN", data.tempToken);
+            setCookie("REF_CODE", data.byReferralCode, 7); // 7 days
+
             return data;// { success: true,  };
         }
 
@@ -403,69 +493,14 @@ async function sendAuthOtp(identifier) {
     }
 }
 
-/*
-async function verifyAuthOtp(identifier, otp) {
-    try {
-        if (!otp || otp.length !== 6) {
-            showToast("Enter valid OTP", "error");
-            return { success: false };
-        }
-
-        const sessionId = localStorage.getItem("UN_SESSION");
-
-        const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
-
-        const res = await fetch("/Auth/Login?handler=VerifyOtp", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "RequestVerificationToken": token
-            },
-            body: JSON.stringify({
-                Identifier: identifier,
-                OTP: parseInt(otp),
-                SessionID: sessionId
-            })
-        });
-
-        if (!res.ok) {
-            showToast("Verification failed", "error");
-            return { success: false };
-        }
-
-        const data = await res.json();
-
-        // ==========================
-        // ✅ SUCCESS
-        // ==========================
-        if (data.status === "SUCCESS") {
-            showToast("Verified successfully");
-            return {
-                success: true,
-                sessionId: sessionId
-            };
-        }
-
-        // ==========================
-        // ❌ INVALID OTP
-        // ==========================
-        showToast("Invalid OTP", "error");
-
-        return { success: false };
-
-    } catch (err) {
-        console.error("verifyOtp error:", err);
-        showToast("Something went wrong", "error");
-        return { success: false };
-    }
-}
-*/
 async function verifyAuthOTP(identifier, otp) {
     try {
         if (!otp || otp.length !== 6) {
             showToast("Enter valid OTP", "error");
             return { success: false };
-        }
+        } 
+        referralCode = resolveReferralCode();
+        //alert("Verifying OTP: " + otp + " for " + identifier + " with referral: " + referralCode);
         const sessionId = localStorage.getItem("UN_SESSION");
         const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
         const res = await fetch("/Auth/Login?handler=VerifyOtp", {
@@ -477,7 +512,8 @@ async function verifyAuthOTP(identifier, otp) {
             body: JSON.stringify({
                 Identifier: identifier,
                 OTP: parseInt(otp),
-                SessionID: sessionId
+                SessionID: sessionId,
+                ByReferralCode: referralCode
             })
         });
 
@@ -501,14 +537,12 @@ async function verifyAuthOTP(identifier, otp) {
         // 🆕 NEW USER
         // ==========================
         else if (result?.status === "NEW_USER") {
-
-            // 🔥 store temp
-            localStorage.setItem("TEMP_ID", result.tempID);
-            localStorage.setItem("TEMP_TOKEN", result.tempToken);
             localStorage.setItem("TEMP_SESSION", sessionId);
             localStorage.setItem("IS_VERIFIED", "true");
-            showToast("Verified successfully");
-            
+
+            localStorage.setItem("REF_CODE", result.byReferralCode);
+            setCookie("REF_CODE", result.byReferralCode, 7); // 7 days
+            //showToast("Verified successfully");
             return {  result };
         }
 

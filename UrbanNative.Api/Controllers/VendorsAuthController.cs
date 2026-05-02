@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using UrbanNative.Application.DTOs.Vendors;
 using UrbanNative.Application.Interfaces;
+using UrbanNative.Domain.Entities;
 using UrbanNative.Infrastructure.Security;
 
 namespace UrbanNative.Api.Controllers
@@ -56,41 +57,7 @@ namespace UrbanNative.Api.Controllers
             if (!verified)
                 return Unauthorized("Invalid credentials");
 
-            // ==========================
-            // 🔑 JWT Generation
-            // ==========================
-            var jwtSection = _configuration.GetSection("JwtSettings");
-
-            var claims = new List<Claim>
-            {
-                new Claim("VendorId", vendor.VendorID.ToString()),      // 🔥 MUST MATCH API USAGE
-                new Claim(ClaimTypes.NameIdentifier, vendor.VendorID.ToString()),
-                new Claim(ClaimTypes.Name, vendor.VendorName ?? ""),
-                new Claim("BusinessName", vendor.BusinessName ?? ""),
-                new Claim("ContactPerson", vendor.ContactPerson ??  ""),
-                new Claim(ClaimTypes.Email, vendor.Email ?? ""), 
-                new Claim(ClaimTypes.MobilePhone, vendor.Mobile ?? ""),
-                new Claim(ClaimTypes.Role, "Vendor")
-
-            };
-
-            var key = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(jwtSection["Key"]!)
-            );
-
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-                issuer: jwtSection["Issuer"],
-                audience: jwtSection["Audience"],
-                claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(
-                    Convert.ToDouble(jwtSection["ExpiryMinutes"])
-                ),
-                signingCredentials: creds
-            );
-
-            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+            var jwt = JWTAuthenticationToken(vendor);
 
             // ==========================
             // Response
@@ -105,5 +72,45 @@ namespace UrbanNative.Api.Controllers
                 Mobile = vendor.Mobile
             });
         }
+
+        // ==========================
+        // 🔑 JWT Generation
+        // ==========================
+        private string JWTAuthenticationToken(VendorLoginResultDto vendor) {
+            var jwtSection = _configuration.GetSection("JwtSettings");
+
+            var claims = new List<Claim>
+            {
+                new Claim("VendorId", vendor.VendorID.ToString()),      // 🔥 MUST MATCH API USAGE
+                new Claim(ClaimTypes.NameIdentifier, vendor.VendorID.ToString()),
+                new Claim(ClaimTypes.Name, vendor.VendorName ?? ""),
+                new Claim("BusinessName", vendor.BusinessName ?? ""),
+                new Claim("ContactPerson", vendor.ContactPerson ??  ""),
+                new Claim(ClaimTypes.Email, vendor.Email ?? ""),
+                new Claim(ClaimTypes.MobilePhone, vendor.Mobile ?? ""),
+                new Claim(ClaimTypes.Role, "Vendor")
+
+            };
+
+
+        var key = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(jwtSection["Key"]!)
+        );
+
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+        var token = new JwtSecurityToken(
+            issuer: jwtSection["Issuer"],
+            audience: jwtSection["Audience"],
+            claims: claims,
+            expires: DateTime.UtcNow.AddMinutes(
+                Convert.ToDouble(jwtSection["ExpiryMinutes"])
+            ),
+            signingCredentials: creds
+        );
+
+        return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+
     }
 }
