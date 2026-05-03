@@ -519,7 +519,7 @@ async function verifyRegOtp() {
         return;
     }
 
-    const res = await verifyAuthOTP(identifier, otp);
+    const res = await verifyAuthOTP(identifier, otp); //call verification at registration time number/email.
 
     const data = res.result;
 
@@ -529,6 +529,7 @@ async function verifyRegOtp() {
         this.innerText = "Verify OTP";
         return;
     }
+
     document.getElementById("otpSection").style.display = "none";
     if (identifier.includes("@")) {
         setEmailVerified();
@@ -536,21 +537,37 @@ async function verifyRegOtp() {
         setMobileVerified();
     }
 
-    if (data.status === "LOGIN") {
+    var status = data.status || data.Status;
+    
+
+    //verify at time of registration. If already registered, then ask to redirect to dashboard or change number/email.
+    if (status === "LOGIN") { 
         const user = data.userExist;
-
-
         if (!user) {
             showToast("User data missing", "error");
             return;
         }
-
         const confirmRedirect = confirm(
             "Already registered.\n\nOK → Dashboard\nCancel → Change number"
         );
 
         if (confirmRedirect) {
-            window.location.href = "/Dashboard/Index";
+
+            var loginStatus = user.loginStatus || user.LogiStatus;
+            
+            var token = setUserLoginToken(user);
+
+            if (loginStatus !== "SUCCESS" || !token) {
+                showToast("Login failed", "error");
+            }
+
+            showToast("Login successful");
+
+            // 🚀 Redirect
+            setTimeout(function () {
+                window.location.replace("/Customer/Dashboard");
+            }, 800);
+
         } else {
             resetMobile();
         }
@@ -649,7 +666,12 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             body: JSON.stringify(data)
         });
-
+        if (!res.ok) {
+            showToast("Registration failed. Try again", "error");
+            btn.disabled = false;
+            btn.innerText = originalText;
+            return;
+        }
         const result = await res.json();
         //const text = await result.text();
         //console.log("RAW ERROR:", result);
@@ -661,9 +683,27 @@ document.addEventListener("DOMContentLoaded", function () {
             localStorage.removeItem("REF_CODE");
             setCookie("REF_CODE", "", -1);
 
-            setTimeout(() => {
-                window.location.href = "/Dashboard/Index";
+            
+            const user = result.userExist;
+            if (!user) {
+                showToast("User data missing", "error");
+                return;
+            }
+
+            var loginStatus = user.loginStatus || user.LogiStatus;
+            var token = setUserLoginToken(user);
+
+            if (loginStatus !== "SUCCESS" || !token) {
+                showToast("Login failed", "error");
+            }
+
+            showToast("Login successful");
+
+            // 🚀 Redirect
+            setTimeout(function () {
+                window.location.replace("/Customer/Dashboard");
             }, 1500);
+            
         } else {
             showToast("Registration failed", "error");
             // 🔓 re-enable button on failure

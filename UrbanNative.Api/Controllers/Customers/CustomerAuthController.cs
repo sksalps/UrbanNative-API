@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using TesseractOCR.Renderers;
 using UrbanNative.Application.DTOs.Customers.AuthLogin;
 using UrbanNative.Application.Interfaces.Customers;
 using UrbanNative.Infrastructure.Security;
@@ -106,22 +107,32 @@ namespace UrbanNative.Api.Controllers.Customer
             // ==========================
             // CHECK USER EXISTENCE
             // ==========================
+
             var user = await _repo.GetUserAsync(null, req.Identifier);
 
             if (user != null)
             {
                 var token = GenerateJwt(user);
-                
-                return Ok(new
+
+                //API for verify OTP for existing and new user both returns login response with token
+                return Ok(new  
                 {
                     success = true,
                     Status = "LOGIN",
-                    userExist = new
+                    userExist = new UserLoginResponseDto
                     {
-                        StatusLogin = "LOGIN",
+                        LoginStatus = "SUCCESS",
                         UserID = user.UserID,
                         UserRandomID = user.UserRandomID,
                         ReferralCode = user.ReferralCode,
+                        UserNickName = user.UserNickName,
+                        FullName = user.FullName,
+                        Mobile = user.Mobile,
+                        Email = user.Email,
+                        SponsorReferralCode = user.SponsorReferralCode,
+                        SponsorName = user.SponsorName,
+                        Role = "Customer",
+
                         Token = token
                     }
                 });
@@ -193,11 +204,24 @@ namespace UrbanNative.Api.Controllers.Customer
 
                 return Ok(new
                 {
-                    Status = user.Status,
-                    UserID = user.UserID,
-                    UserRandomID = user.UserRandomID,
-                    ReferralCode = user.ReferralCode,
-                    Token = token
+                    success = true,
+                    Status = "LOGIN",
+                    userExist = new UserLoginResponseDto
+                    {
+                        LoginStatus = "SUCCESS",
+                        UserID = user.UserID,
+                        UserRandomID = user.UserRandomID,
+                        ReferralCode = user.ReferralCode,
+                        UserNickName = user.UserNickName,
+                        FullName = user.FullName,
+                        Mobile = user.Mobile,
+                        Email = user.Email,
+                        SponsorReferralCode = user.SponsorReferralCode,
+                        SponsorName = user.SponsorName,
+                        Role = "Customer",
+
+                        Token = token
+                    }
                 });
             }
             else
@@ -225,16 +249,38 @@ namespace UrbanNative.Api.Controllers.Customer
                     });
                 }
                 var user = await _repo.GetUserAsync(result.UserID, null);
-
+                if (user == null)
+                {
+                    return BadRequest(new
+                    {
+                        Status = "ERROR",
+                        Message = "Registration Successful, but user data missing"
+                    });
+                }
                 var token = GenerateJwt(user);
-
+                //new registration also returns same login response with token
                 return Ok(new
                 {
+                    
                     Status = result.Status,
-                    UserID = result.UserID,
-                    UserRandomID=result.UserRandomID,
-                    ReferralCode=result.ReferralCode,
-                });
+                    Message = "Registration Successful, Login Proceed",
+                    userExist = new UserLoginResponseDto
+                    {
+                        LoginStatus = "SUCCESS",
+                        UserID = user.UserID,
+                        UserRandomID = user.UserRandomID,
+                        ReferralCode = user.ReferralCode,
+                        UserNickName = user.UserNickName,
+                        FullName = user.FullName,
+                        Mobile = user.Mobile,
+                        Email = user.Email,
+                        SponsorReferralCode = user.SponsorReferralCode,
+                        SponsorName = user.SponsorName,
+                        Role = "Customer",
+
+                        Token = token
+                    }
+                });               
             }
             catch (Exception ex)
             {
@@ -275,6 +321,8 @@ namespace UrbanNative.Api.Controllers.Customer
                 new Claim(ClaimTypes.Name, user.FullName ?? ""),
                 new Claim(ClaimTypes.MobilePhone, user.Mobile ?? ""),
                 new Claim(ClaimTypes.Email, user.Email ?? ""),
+                new Claim("SponsorReferralCode", user.SponsorReferralCode ?? ""),
+                new Claim("SponsorName", user.SponsorName ?? ""),
                 new Claim(ClaimTypes.Role, "Customer")
             };
 
@@ -291,8 +339,8 @@ namespace UrbanNative.Api.Controllers.Customer
                 expires: DateTime.UtcNow.AddMinutes(Convert.ToDouble(jwtSection["ExpiryMinutes"])),
                 signingCredentials: creds
             );
-            user.Token = new JwtSecurityTokenHandler().WriteToken(token);
-            return user.Token;
+            //user.Token = new JwtSecurityTokenHandler().WriteToken(token);
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
 

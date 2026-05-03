@@ -34,15 +34,15 @@ namespace UrbanNative.Application.DTOs.Customers.AuthLogin
  
     public class VerifyOtpResponseDto
     {
-        public bool success { get; set; }
-        public string? Status { get; set; }
+        public bool success { get; set; } //True if OTP is correct and verified, False otherwise
+        public string? Status { get; set; } //Login / Register / OTP Expired / Invalid OTP etc.
         public int? TempID { get; set; }
         public string? TempToken { get; set; }
         public int? ReferredByUserID { get; set; }=0;
         public string? ByReferralCode { get; set; }=string.Empty;
 
         //public string? SessionID { get; set; }= string.Empty;
-        public verifiedResponseDto? userExist { get; set; }
+        public UserLoginResponseDto? userExist { get; set; } = null;
     }
 
     public class verifiedResponseDto 
@@ -88,10 +88,13 @@ namespace UrbanNative.Application.DTOs.Customers.AuthLogin
     }
     public class RegisterResponseDto //for sending response after registration
     {
-        public string Status { get; set; }
+        public string? Status { get; set; }
+        public string Message { get; set; }=string.Empty;
         public int UserID { get; set; }
         public long UserRandomID { get; set; }
         public string ReferralCode { get; set; }
+        public UserLoginResponseDto? userExist { get; set; } = null;
+
     }
     public class AuthUserDto
     {
@@ -105,10 +108,24 @@ namespace UrbanNative.Application.DTOs.Customers.AuthLogin
         public string SponsorReferralCode { get; set; }=string.Empty;
         public string? SponsorName { get; set; }=string.Empty;  
         public bool IsActive { get; set; }
-        public string Token { get; set; }= string.Empty; // JWT
     }
 
-    
+    public class UserLoginResponseDto
+    {
+        public string LoginStatus { get; set; } // SUCCESS / FAILED / INACTIVE etc.
+        public int UserID { get; set; }
+        public string Token { get; set; } = string.Empty; // JWT
+        public string Role { get; set; } = string.Empty;
+        public string ReferralCode { get; set; } = string.Empty;
+        public long UserRandomID { get; set; }
+        public string? UserNickName { get; set; } = string.Empty;
+        public string FullName { get; set; }
+        public string Mobile { get; set; }
+        public string Email { get; set; }
+        public string SponsorReferralCode { get; set; } = string.Empty;
+        public string? SponsorName { get; set; } = string.Empty;
+        public bool IsActive { get; set; }
+    }
 
     public class TempUserDto //for getting temp user details 
     {

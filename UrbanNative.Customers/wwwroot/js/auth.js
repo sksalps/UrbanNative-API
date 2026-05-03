@@ -226,13 +226,19 @@ document.addEventListener("DOMContentLoaded", function () {
             this.innerText = "Verifying...";
 
             try {
-                const res = await verifyAuthOTP(identifier, otp);
-                //const data = res.result;
-                
+                const res = await verifyAuthOTP(identifier, otp); //call verification at time of Login
+
+                if (!res.success) {
+                    showToast("Verification failed. Try again", "error");
+                    this.disabled = false;
+                    this.innerText = "Verify OTP";
+                    return;
+                }
+               
                 const data = res.result;
 
                 // 🔥 Handle HTTP error
-                if (!data.success) {
+                if (!data || !data.success) {
                     showToast("Verification failed. Try again", "error");
                     this.disabled = false;
                     this.innerText = "Verify OTP";
@@ -241,12 +247,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 
                 // Normalize response
                 var status = data.status || data.Status;
+                
 
                 if (status === "LOGIN") {
+                    const user = data.userExist;
+                    if (!user) {
+                        showToast("User data missing", "error");
+                        return;
+                    }
+
+                    var loginStatus = user.loginStatus || user.LogiStatus;
+                    var token = setUserLoginToken(user);
+                    if (loginStatus !== "SUCCESS" || !token) {
+                        showToast("Login failed", "error");
+                    }
+
                     showToast("Login successful");
 
+                    // 🚀 Redirect
                     setTimeout(function () {
-                        window.location.href = "/Dashboard/Index";
+                        window.location.replace("/Customer/Dashboard");
                     }, 800);
                 }
                 if (status === "NEW_USER") {
@@ -385,36 +405,6 @@ function showToast1(message, type = "success") {
 
 
 
-// Start timer
-/*
-
-let resendSeconds = 30;
-let timerInterval;
-function startResendTimer() {
-
-    resendSeconds = 30;
-
-    document.getElementById("resendLink").style.display = "none";
-    document.getElementById("resendTimer").style.display = "inline";
-
-
-    timerInterval = setInterval(function () {
-
-        resendSeconds--;
-
-        document.getElementById("resendTimer").innerText =
-            "Resend in " + resendSeconds + "s";
-
-        if (resendSeconds <= 0) {
-            clearInterval(timerInterval);
-
-            document.getElementById("resendTimer").style.display = "none";
-            document.getElementById("resendLink").style.display = "inline";
-        }
-
-    }, 1000);
-}
-*/
 // ==========================
 // 🔹 RESEND TIMER
 // ==========================
@@ -558,4 +548,39 @@ async function verifyAuthOTP(identifier, otp) {
         showToast("Something went wrong", "error");
         return { success: false };
     }
+}
+
+async function setUserLoginToken(setUser) {
+
+    localStorage.setItem("token", setUser.token);
+
+    // 👤 Store User Object (structured)
+    const user = {
+        userID: setUser.userID,
+        userRandomID: setUser.userRandomID,
+        fullName: setUser.fullName,
+        nickName: setUser.userNickName,
+        mobile: setUser.mobile,
+        email: setUser.email,
+        referralCode: setUser.referralCode,
+        sponsorName: setUser.sponsorName,
+        sponsorReferralCode: setUser.sponsorReferralCode,
+        role: setUser.role
+    };
+
+    localStorage.setItem("user", JSON.stringify(user));
+    return  setUser.token;
+
+}
+
+function isLoggedIn() {
+    return !!localStorage.getItem("token");
+}
+
+
+function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.clear();
+    window.location.replace("/Customer/Login");
 }

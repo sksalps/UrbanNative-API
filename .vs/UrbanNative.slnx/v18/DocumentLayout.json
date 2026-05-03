@@ -19,32 +19,52 @@
       "RelativeMoniker": "D:0:0:{CA4A5139-0EC7-5A64-B20F-3729BD95A448}|UrbanNative.Api\\UrbanNative.Api.csproj|solutionrelative:urbannative.api\\controllers\\customers\\customerauthcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\pages\\common\\addressenginehandler.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\pages\\common\\addressenginehandler.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FA427025-7986-0D14-9B0E-52112EF7A820}|UrbanNative.Infrastructure\\UrbanNative.Infrastructure.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.infrastructure\\repositories\\customers\\customerauthrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FA427025-7986-0D14-9B0E-52112EF7A820}|UrbanNative.Infrastructure\\UrbanNative.Infrastructure.csproj|solutionrelative:urbannative.infrastructure\\repositories\\customers\\customerauthrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\interfaces\\customers\\icustomerauthrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\interfaces\\customers\\icustomerauthrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E269E81D-D3AF-A87F-B42E-822C3D3B412A}|UrbanNative.Customers\\UrbanNative.Customers.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.customers\\wwwroot\\js\\auth.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{E269E81D-D3AF-A87F-B42E-822C3D3B412A}|UrbanNative.Customers\\UrbanNative.Customers.csproj|solutionrelative:urbannative.customers\\wwwroot\\js\\auth.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\dtos\\customers\\authlogin\\authlogindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\dtos\\customers\\authlogin\\authlogindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E269E81D-D3AF-A87F-B42E-822C3D3B412A}|UrbanNative.Customers\\UrbanNative.Customers.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.customers\\pages\\auth\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{E269E81D-D3AF-A87F-B42E-822C3D3B412A}|UrbanNative.Customers\\UrbanNative.Customers.csproj|solutionrelative:urbannative.customers\\pages\\auth\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{FA427025-7986-0D14-9B0E-52112EF7A820}|UrbanNative.Infrastructure\\UrbanNative.Infrastructure.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.infrastructure\\repositories\\customers\\customerauthrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FA427025-7986-0D14-9B0E-52112EF7A820}|UrbanNative.Infrastructure\\UrbanNative.Infrastructure.csproj|solutionrelative:urbannative.infrastructure\\repositories\\customers\\customerauthrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E269E81D-D3AF-A87F-B42E-822C3D3B412A}|UrbanNative.Customers\\UrbanNative.Customers.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.customers\\services\\interfaces\\icustomerauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E269E81D-D3AF-A87F-B42E-822C3D3B412A}|UrbanNative.Customers\\UrbanNative.Customers.csproj|solutionrelative:urbannative.customers\\services\\interfaces\\icustomerauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\interfaces\\customers\\icustomerauthrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|solutionrelative:urbannative.application\\interfaces\\customers\\icustomerauthrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{CA4A5139-0EC7-5A64-B20F-3729BD95A448}|UrbanNative.Api\\UrbanNative.Api.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.api\\controllers\\vendorsauthcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CA4A5139-0EC7-5A64-B20F-3729BD95A448}|UrbanNative.Api\\UrbanNative.Api.csproj|solutionrelative:urbannative.api\\controllers\\vendorsauthcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E269E81D-D3AF-A87F-B42E-822C3D3B412A}|UrbanNative.Customers\\UrbanNative.Customers.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.customers\\wwwroot\\js\\auth.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{E269E81D-D3AF-A87F-B42E-822C3D3B412A}|UrbanNative.Customers\\UrbanNative.Customers.csproj|solutionrelative:urbannative.customers\\wwwroot\\js\\auth.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\pages\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\pages\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\services\\vendorauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\services\\vendorauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E269E81D-D3AF-A87F-B42E-822C3D3B412A}|UrbanNative.Customers\\UrbanNative.Customers.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.customers\\services\\customeraddressservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E269E81D-D3AF-A87F-B42E-822C3D3B412A}|UrbanNative.Customers\\UrbanNative.Customers.csproj|solutionrelative:urbannative.customers\\services\\customeraddressservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\pages\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\pages\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.vendors\\pages\\common\\addressenginehandler.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C8510AB-2631-4CBD-A2A4-C1733FB5FFA5}|UrbanNative.Vendors\\UrbanNative.Vendors.csproj|solutionrelative:urbannative.vendors\\pages\\common\\addressenginehandler.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E269E81D-D3AF-A87F-B42E-822C3D3B412A}|UrbanNative.Customers\\UrbanNative.Customers.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.customers\\pages\\auth\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E269E81D-D3AF-A87F-B42E-822C3D3B412A}|UrbanNative.Customers\\UrbanNative.Customers.csproj|solutionrelative:urbannative.customers\\pages\\auth\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E269E81D-D3AF-A87F-B42E-822C3D3B412A}|UrbanNative.Customers\\UrbanNative.Customers.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.customers\\pages\\auth\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -53,10 +73,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{E269E81D-D3AF-A87F-B42E-822C3D3B412A}|UrbanNative.Customers\\UrbanNative.Customers.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.customers\\pages\\shared\\_publiclayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{E269E81D-D3AF-A87F-B42E-822C3D3B412A}|UrbanNative.Customers\\UrbanNative.Customers.csproj|solutionrelative:urbannative.customers\\pages\\shared\\_publiclayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E269E81D-D3AF-A87F-B42E-822C3D3B412A}|UrbanNative.Customers\\UrbanNative.Customers.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.customers\\services\\interfaces\\icustomerauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E269E81D-D3AF-A87F-B42E-822C3D3B412A}|UrbanNative.Customers\\UrbanNative.Customers.csproj|solutionrelative:urbannative.customers\\services\\interfaces\\icustomerauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E269E81D-D3AF-A87F-B42E-822C3D3B412A}|UrbanNative.Customers\\UrbanNative.Customers.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.customers\\pages\\auth\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -69,10 +85,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{E269E81D-D3AF-A87F-B42E-822C3D3B412A}|UrbanNative.Customers\\UrbanNative.Customers.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.customers\\pages\\common\\addressenginehandler.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E269E81D-D3AF-A87F-B42E-822C3D3B412A}|UrbanNative.Customers\\UrbanNative.Customers.csproj|solutionrelative:urbannative.customers\\pages\\common\\addressenginehandler.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E269E81D-D3AF-A87F-B42E-822C3D3B412A}|UrbanNative.Customers\\UrbanNative.Customers.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.customers\\services\\customeraddressservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E269E81D-D3AF-A87F-B42E-822C3D3B412A}|UrbanNative.Customers\\UrbanNative.Customers.csproj|solutionrelative:urbannative.customers\\services\\customeraddressservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A8612787-FAC5-ABCE-4191-44927C495DE5}|UrbanNative.Application\\UrbanNative.Application.csproj|e:\\workfolder_1225\\projects\\urbannative\\dotnet\\urbannative-api\\urbannative.application\\interfaces\\commoncrossdashboard\\iaddressengineservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -102,11 +114,47 @@
       "DocumentGroups": [
         {
           "DockedHeight": 317,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "VendorAuthService.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Services\\VendorAuthService.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Services\\VendorAuthService.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Services\\VendorAuthService.cs",
+              "RelativeToolTip": "UrbanNative.Vendors\\Services\\VendorAuthService.cs",
+              "ViewState": "AgIAABsAAADAAgAAAAAtwAcAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-03T05:54:33.158Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Login.cshtml.cs",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Login.cshtml.cs",
+              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Pages\\Login.cshtml.cs",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Login.cshtml.cs",
+              "RelativeToolTip": "UrbanNative.Vendors\\Pages\\Login.cshtml.cs",
+              "ViewState": "AgIAACUAAAAA0GdmZmbuvy0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-03T05:53:02.511Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Login.cshtml",
+              "RelativeDocumentMoniker": "UrbanNative.Vendors\\Pages\\Login.cshtml",
+              "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Login.cshtml",
+              "RelativeToolTip": "UrbanNative.Vendors\\Pages\\Login.cshtml",
+              "ViewState": "AgIAAAkAAACAn5mZmZkOwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-03T05:52:20.269Z"
             },
             {
               "$type": "Document",
@@ -116,13 +164,13 @@
               "RelativeDocumentMoniker": "UrbanNative.Api\\Controllers\\VendorsAuthController.cs",
               "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\Controllers\\VendorsAuthController.cs",
               "RelativeToolTip": "UrbanNative.Api\\Controllers\\VendorsAuthController.cs",
-              "ViewState": "AgIAAF4AAAAAPzMzMzMqwHEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADoAAACAEc3MzEwWwEAAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-01T19:33:27.39Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 21,
               "Title": "IAddressEngineService.cs",
               "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\Interfaces\\CommonCrossDashboard\\IAddressEngineService.cs",
               "RelativeDocumentMoniker": "UrbanNative.Application\\Interfaces\\CommonCrossDashboard\\IAddressEngineService.cs",
@@ -134,25 +182,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 4,
               "Title": "auth.js",
               "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Customers\\wwwroot\\js\\auth.js",
               "RelativeDocumentMoniker": "UrbanNative.Customers\\wwwroot\\js\\auth.js",
               "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Customers\\wwwroot\\js\\auth.js",
               "RelativeToolTip": "UrbanNative.Customers\\wwwroot\\js\\auth.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABECAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAPUAAADARDMzM3MvwAMBAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-04-29T10:47:01.286Z"
+              "WhenOpened": "2026-04-29T10:47:01.286Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "CustomerAuthRepository.cs",
               "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Infrastructure\\Repositories\\Customers\\CustomerAuthRepository.cs",
               "RelativeDocumentMoniker": "UrbanNative.Infrastructure\\Repositories\\Customers\\CustomerAuthRepository.cs",
               "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Infrastructure\\Repositories\\Customers\\CustomerAuthRepository.cs",
               "RelativeToolTip": "UrbanNative.Infrastructure\\Repositories\\Customers\\CustomerAuthRepository.cs",
-              "ViewState": "AgIAAGsAAAAAAAAAAADwv3IAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAL8AAADAAAAAAEAtwMEAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T06:34:12.817Z",
               "EditorCaption": ""
@@ -165,7 +214,7 @@
               "RelativeDocumentMoniker": "UrbanNative.Customers\\wwwroot\\js\\register.js",
               "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Customers\\wwwroot\\js\\register.js",
               "RelativeToolTip": "UrbanNative.Customers\\wwwroot\\js\\register.js",
-              "ViewState": "AgIAAIwCAAAAZmZmZmYLwJcCAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAALQCAAAAmpmZmdkgwKcCAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2026-04-20T13:35:43.161Z",
               "EditorCaption": ""
@@ -178,14 +227,14 @@
               "RelativeDocumentMoniker": "UrbanNative.Api\\Controllers\\Customers\\CustomerAuthController.cs",
               "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Api\\Controllers\\Customers\\CustomerAuthController.cs",
               "RelativeToolTip": "UrbanNative.Api\\Controllers\\Customers\\CustomerAuthController.cs",
-              "ViewState": "AgIAAO4AAAAAAAAAAAAIwPYAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAOgAAAAAAAAAAAAlwPIAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T06:35:41.63Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 22,
               "Title": "AddressEngineUseCase.cs",
               "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\UseCase\\CommonCrossDashboard\\AddressEngineUseCase.cs",
               "RelativeDocumentMoniker": "UrbanNative.Application\\UseCase\\CommonCrossDashboard\\AddressEngineUseCase.cs",
@@ -197,7 +246,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 17,
               "Title": "_PublicLayout.cshtml",
               "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Customers\\Pages\\Shared\\_PublicLayout.cshtml",
               "RelativeDocumentMoniker": "UrbanNative.Customers\\Pages\\Shared\\_PublicLayout.cshtml",
@@ -209,7 +258,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 24,
               "Title": "IAdressEngineUseCase.cs",
               "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\Interfaces\\UseCases\\CommonCrossDashboard\\IAdressEngineUseCase.cs",
               "RelativeDocumentMoniker": "UrbanNative.Application\\Interfaces\\UseCases\\CommonCrossDashboard\\IAdressEngineUseCase.cs",
@@ -221,7 +270,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 23,
               "Title": "AddressEngineDto.cs",
               "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\DTOs\\CommonCrossDashboard\\AddressEngineDto.cs",
               "RelativeDocumentMoniker": "UrbanNative.Application\\DTOs\\CommonCrossDashboard\\AddressEngineDto.cs",
@@ -233,7 +282,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 12,
               "Title": "CustomerAddressService.cs",
               "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Customers\\Services\\CustomerAddressService.cs",
               "RelativeDocumentMoniker": "UrbanNative.Customers\\Services\\CustomerAddressService.cs",
@@ -245,7 +294,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 20,
               "Title": "AddressEngineHandler.cshtml.cs",
               "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Customers\\Pages\\Common\\AddressEngineHandler.cshtml.cs",
               "RelativeDocumentMoniker": "UrbanNative.Customers\\Pages\\Common\\AddressEngineHandler.cshtml.cs",
@@ -257,7 +306,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 16,
               "Title": "Login.cshtml.cs",
               "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Customers\\Pages\\Auth\\Login.cshtml.cs",
               "RelativeDocumentMoniker": "UrbanNative.Customers\\Pages\\Auth\\Login.cshtml.cs",
@@ -269,7 +318,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 19,
               "Title": "address-modal.js",
               "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\wwwroot\\js\\address-modal.js",
               "RelativeDocumentMoniker": "UrbanNative.Shared\\wwwroot\\js\\address-modal.js",
@@ -281,7 +330,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 14,
               "Title": "AddressEngineHandler.cshtml.cs",
               "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Common\\AddressEngineHandler.cshtml.cs",
               "RelativeDocumentMoniker": "UrbanNative.Vendors\\Pages\\Common\\AddressEngineHandler.cshtml.cs",
@@ -289,12 +338,11 @@
               "RelativeToolTip": "UrbanNative.Vendors\\Pages\\Common\\AddressEngineHandler.cshtml.cs",
               "ViewState": "AgIAADwAAAAA1MzMzMz8v0MAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T12:13:54.917Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T12:13:54.917Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 25,
               "Title": "YourAddressList.cshtml.cs",
               "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\Pages\\Business\\Compliance\\YourAddressList.cshtml.cs",
               "RelativeDocumentMoniker": "UrbanNative.Vendors\\Pages\\Business\\Compliance\\YourAddressList.cshtml.cs",
@@ -306,15 +354,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 7,
               "Title": "ICustomerAuthService.cs",
               "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Customers\\Services\\Interfaces\\ICustomerAuthService.cs",
               "RelativeDocumentMoniker": "UrbanNative.Customers\\Services\\Interfaces\\ICustomerAuthService.cs",
               "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Customers\\Services\\Interfaces\\ICustomerAuthService.cs",
               "RelativeToolTip": "UrbanNative.Customers\\Services\\Interfaces\\ICustomerAuthService.cs",
-              "ViewState": "AgIAAAQAAAAQAAAAAIAzwAYAAABUAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAuwAkAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T08:46:59.817Z"
+              "WhenOpened": "2026-04-20T08:46:59.817Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -324,22 +373,23 @@
               "RelativeDocumentMoniker": "UrbanNative.Customers\\Services\\CustomerAuthService.cs",
               "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Customers\\Services\\CustomerAuthService.cs",
               "RelativeToolTip": "UrbanNative.Customers\\Services\\CustomerAuthService.cs",
-              "ViewState": "AgIAAEUAAAAAAAAAAAAiwE4AAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAEQAAACAAAAAAMAjwE0AAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T08:29:41.13Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 5,
               "Title": "AuthLoginDto.cs",
               "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\DTOs\\Customers\\AuthLogin\\AuthLoginDto.cs",
               "RelativeDocumentMoniker": "UrbanNative.Application\\DTOs\\Customers\\AuthLogin\\AuthLoginDto.cs",
               "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\DTOs\\Customers\\AuthLogin\\AuthLoginDto.cs",
               "RelativeToolTip": "UrbanNative.Application\\DTOs\\Customers\\AuthLogin\\AuthLoginDto.cs",
-              "ViewState": "AgIAAGUAAACAp5mZmVktwGkAAABAAAAAAAAAAA==",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAEwF8AAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T08:25:13.99Z"
+              "WhenOpened": "2026-04-20T08:25:13.99Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -349,26 +399,27 @@
               "RelativeDocumentMoniker": "UrbanNative.Customers\\Pages\\Auth\\Register.cshtml.cs",
               "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Customers\\Pages\\Auth\\Register.cshtml.cs",
               "RelativeToolTip": "UrbanNative.Customers\\Pages\\Auth\\Register.cshtml.cs",
-              "ViewState": "AgIAAGEAAAAAAAAAAAAqwG0AAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAF0AAABA2MzMzEwSwGwAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T08:22:11.699Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "ICustomerAuthRepository.cs",
               "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\Interfaces\\Customers\\ICustomerAuthRepository.cs",
               "RelativeDocumentMoniker": "UrbanNative.Application\\Interfaces\\Customers\\ICustomerAuthRepository.cs",
               "ToolTip": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\Interfaces\\Customers\\ICustomerAuthRepository.cs",
               "RelativeToolTip": "UrbanNative.Application\\Interfaces\\Customers\\ICustomerAuthRepository.cs",
-              "ViewState": "AgIAAAsAAAAMAAAAAKA8wA0AAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAABEAAAAAAAAAAAAuwBEAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T06:46:16.537Z"
+              "WhenOpened": "2026-04-20T06:46:16.537Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 18,
               "Title": "Login.cshtml",
               "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Customers\\Pages\\Auth\\Login.cshtml",
               "RelativeDocumentMoniker": "UrbanNative.Customers\\Pages\\Auth\\Login.cshtml",
@@ -380,7 +431,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 15,
               "Title": "Register.cshtml",
               "DocumentMoniker": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Customers\\Pages\\Auth\\Register.cshtml",
               "RelativeDocumentMoniker": "UrbanNative.Customers\\Pages\\Auth\\Register.cshtml",

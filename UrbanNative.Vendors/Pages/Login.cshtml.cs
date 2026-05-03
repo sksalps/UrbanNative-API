@@ -43,9 +43,6 @@ namespace UrbanNative.Vendors.Pages
             }
 
             // Create cookie identity
-
-
-
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, result.VendorID.ToString()), // standard
@@ -58,15 +55,6 @@ namespace UrbanNative.Vendors.Pages
             };
             
 
-            //var identity = new ClaimsIdentity(claims, "VendorCookie");
-            // var principal = new ClaimsPrincipal(identity);
-
-            //await HttpContext.SignInAsync("VendorCookie", principal);
-            //Console.Write (result.VendorID);
-
-            // return RedirectToPage("/Dashboard/Index");
-
-
             var identity = new ClaimsIdentity(claims, "VendorCookie");
 
             await HttpContext.SignInAsync("VendorCookie",   new ClaimsPrincipal(identity),
@@ -75,8 +63,6 @@ namespace UrbanNative.Vendors.Pages
                     IsPersistent = true,
                     ExpiresUtc = DateTimeOffset.UtcNow.AddHours(8)
                 });
-
-
 
             //HttpContext.Session.SetInt32("VendorID", result.VendorID);
 
