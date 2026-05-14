@@ -11,21 +11,30 @@ namespace UrbanNative.Customers.Security
         {
             _httpContextAccessor = httpContextAccessor;
         }
-
-        protected override Task<HttpResponseMessage> SendAsync(
-            HttpRequestMessage request,
-            CancellationToken cancellationToken)
+        public static class CustomClaims
         {
-            var token = _httpContextAccessor.HttpContext?
-                .Request.Cookies["CustomerAuthToken"];
-
-            if (!string.IsNullOrEmpty(token))
+            public const string Jwt = "JWT";
+        }
+        protected override Task<HttpResponseMessage> SendAsync(     HttpRequestMessage request,         CancellationToken cancellationToken)
+        {
+            var context = _httpContextAccessor.HttpContext;
+            if (context != null && context.User.Identity?.IsAuthenticated == true)
             {
-                request.Headers.Authorization =
-                    new AuthenticationHeaderValue("Bearer", token);
-            }
+                //var token = _httpContextAccessor.HttpContext?.Request.Cookies["CustomerAuthToken"];
+                var token = context.User.FindFirst(CustomClaims.Jwt)?.Value;
+                if (token == null) { return base.SendAsync(request, cancellationToken); }
 
-            return base.SendAsync(request, cancellationToken);
+                if (!string.IsNullOrWhiteSpace(token))
+                {
+                    request.Headers.Authorization =
+                        new AuthenticationHeaderValue("Bearer", token);
+                }
+
+            }
+            return base.SendAsync(request, cancellationToken);            
         }
     }
+
+    
+    
 }

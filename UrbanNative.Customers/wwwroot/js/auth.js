@@ -228,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
             try {
                 const res = await verifyAuthOTP(identifier, otp); //call verification at time of Login
 
-                if (!res.success) {
+                if (!res) {
                     showToast("Verification failed. Try again", "error");
                     this.disabled = false;
                     this.innerText = "Verify OTP";
@@ -266,10 +266,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     // 🚀 Redirect
                     setTimeout(function () {
-                        window.location.replace("/Customer/Dashboard");
+                        window.location.replace("/Dashboard");
                     }, 800);
                 }
-                if (status === "NEW_USER") {
+                else if (status === "NEW_USER") {
                     showToast("Verified successfully");
                     {
                         showToast("Redirecting to registration");

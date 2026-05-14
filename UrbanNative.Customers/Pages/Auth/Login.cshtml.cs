@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
 using UrbanNative.Application.DTOs.Customers.AuthLogin;
 using UrbanNative.Customers.Services;
+using UrbanNative.Domain.Entities;
 
 namespace UrbanNative.Customers.Pages.Auth
 {
@@ -43,7 +44,7 @@ namespace UrbanNative.Customers.Pages.Auth
                     message = "OTP_SENT",
                     otp = result.OTP,
                     expiryAt = result.ExpiryAt,
-                    byReferralCode=input.ReferralCode
+                    byReferralCode = input.ReferralCode
                 });
             }
             catch (Exception ex)
@@ -60,12 +61,11 @@ namespace UrbanNative.Customers.Pages.Auth
         {
             try
             {
-                var result = await _service.VerifyOtpAsync(input.Identifier, input.OTP,input.ByReferralCode);
+                var result = await _service.VerifyOtpAsync(input.Identifier, input.OTP, input.ByReferralCode);
 
-                return new JsonResult( result );
+                await setclaims(result);
 
-
-
+                return new JsonResult(result);
             }
             catch (Exception ex)
             {
@@ -75,6 +75,30 @@ namespace UrbanNative.Customers.Pages.Auth
                     message = ex.Message
                 });
             }
+        }
+        private async Task setclaims(VerifyOtpResponseDto result)
+        {
+            {
+                var claims = new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, result.userExist.UserID.ToString()), // standard
+                    new Claim("UserID", result.userExist.UserID.ToString()),
+                    new Claim(ClaimTypes.Name, result.userExist.FullName ?? ""),
+                    new Claim("UserNickName", result.userExist.UserNickName ?? ""),
+                    new Claim(ClaimTypes.Role, "Customer"), // important for policy
+                    new Claim("JWT", result.userExist.Token)   // 🔑 THIS is what JwtTokenHandler reads
+                };
+
+                var identity = new ClaimsIdentity(claims, "CustomerCookie");
+
+                await HttpContext.SignInAsync("CustomerCookie", new ClaimsPrincipal(identity),
+                    new AuthenticationProperties
+                    {
+                        IsPersistent = true,
+                        ExpiresUtc = DateTimeOffset.UtcNow.AddHours(8)
+                    });
+            }            
+
         }
     }
 }

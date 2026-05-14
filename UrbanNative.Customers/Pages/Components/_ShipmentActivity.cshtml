@@ -1,0 +1,57 @@
+﻿@using UrbanNative.Application.DTOs.Customers
+@model List<ShipmentActivityDto>
+
+<div class="card-box">
+
+    <!-- Header -->
+    <div class="card-header-row">
+
+        <div class="dashboard-section-title">
+            Recent Deliveries
+        </div>
+
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="empty-state">
+
+            <i class="bi bi-truck"></i>
+
+            <p>No shipment activity</p>
+
+            <small>
+                Your delivery updates will appear here
+            </small>
+
+        </div>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <div class="activity-item">
+
+                <!-- Left -->
+                <div>
+
+                    <div class="activity-product">
+                        @item.ProductName
+                    </div>
+
+                    <div class="activity-date">
+                        @(item.ShippedAt?.ToString("dd MMM yyyy"))
+                    </div>
+
+                </div>
+
+                <!-- Right -->
+                <div class="activity-status">
+                    @item.ShipmentStatus
+                </div>
+
+            </div>
+        }
+    }
+
+</div>

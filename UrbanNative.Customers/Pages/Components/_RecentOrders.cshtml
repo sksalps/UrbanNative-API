@@ -1,0 +1,69 @@
+﻿@using UrbanNative.Application.DTOs.Customers
+@model List<RecentOrderDto>
+
+<div class="card-box">
+
+    <!-- Header -->
+    <div class="card-header-row">
+
+        <div class="dashboard-section-title">
+            Recent Orders
+        </div>
+
+        <a href="#" class="view-all-link">
+            View All
+        </a>
+
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="empty-state">
+
+            <i class="bi bi-bag-x"></i>
+
+            <p>No orders yet</p>
+
+            <small>
+                Explore products and place your first order
+            </small>
+
+        </div>
+    }
+    else
+    {
+        foreach (var order in Model)
+        {
+            <div class="order-item">
+
+                <!-- Left -->
+                <div class="order-left">
+
+                    <div class="order-product">
+                        @order.ProductName
+                    </div>
+
+                    <div class="order-date">
+                        @order.CreatedAt.ToString("dd MMM yyyy")
+                    </div>
+
+                </div>
+
+                <!-- Right -->
+                <div class="order-right">
+
+                    <div class="order-price">
+                        ₹@order.PayableAmount
+                    </div>
+
+                    <div class="order-status">
+                        @order.OrderStatus
+                    </div>
+
+                </div>
+
+            </div>
+        }
+    }
+
+</div>

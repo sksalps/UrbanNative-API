@@ -1,14 +1,53 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>UrbanNative Customer</title>
-    <link href="/css/site.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+
+    <title>@ViewData["Title"] - UrbanNative</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Customer Layout CSS -->
+    <link rel="stylesheet" href="~/css/customer-layout.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/_content/UrbanNative.Shared/css/common.css" />
+
 </head>
+
 <body>
 
-    <div class="container">
-        @RenderBody()
+    <div class="customer-shell">
+
+        <!-- Sidebar -->
+        @await Html.PartialAsync("_Sidebar")
+
+        <!-- Main Area -->
+        <div class="customer-main">
+
+            <!-- Topbar -->
+            @await Html.PartialAsync("_Topbar")
+
+            <!-- Content -->
+            <main class="customer-content container-fluid">
+                @RenderBody()
+            </main>
+
+            <!-- Footer -->
+            <footer class="customer-footer">
+                © 2026 UrbanNative Customer
+            </footer>
+
+        </div>
+
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
 
 </body>
 </html>

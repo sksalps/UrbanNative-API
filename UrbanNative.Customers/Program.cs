@@ -1,7 +1,9 @@
+using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
 using UrbanNative.Application.Interfaces.CommonCrossDashboard;
 using UrbanNative.Customers.Security;
 using UrbanNative.Customers.Services;
+using UrbanNative.Customers.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,8 @@ builder.Services.AddRazorPages();
 // IHttpContextAccessor
 // =======================
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddMvc();
 
 // =======================
 // JWT → Cookie bridge
@@ -36,20 +40,25 @@ builder.Services.AddAuthentication("CustomerCookie")
         // options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // enable in prod
     });
 
+
 // =======================
 // 🔒 Customer Authorization
 // =======================
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("CustomerOnly", policy =>
-        policy.RequireAuthenticatedUser());
+        //policy.RequireAuthenticatedUser())
+        policy.RequireAuthenticatedUser().RequireRole("Customer"));
 });
+
 
 // Protect Dashboard
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizeFolder("/Dashboard", "CustomerOnly");
 });
+
+
 
 // =======================
 // 🌐 API HttpClient
@@ -67,14 +76,16 @@ builder.Services.AddHttpClient("ApiClient", client =>
 .AddHttpMessageHandler<JwtTokenHandler>();
 
 
+
+
+
 // =======================
 // 🧩 Customer Services
 // =======================
 builder.Services.AddScoped <CustomerAuthService>();
 builder.Services.AddScoped<IAddressEngineService, CustomerAddressService>();
+builder.Services.AddScoped<ICustomerDashboardService, CustomerDashboardService>();
 
-// later:
-// builder.Services.AddScoped<ICustomerDashboardService, CustomerDashboardService>();
 
 // =======================
 // Pipeline

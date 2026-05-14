@@ -1,0 +1,83 @@
+﻿@{
+    var path = Context.Request.Path.Value;
+}
+<div class="sidebar">
+
+    <div class="sidebar-logo">
+        UrbanNative
+    </div>
+
+    <!-- MAIN -->
+    <div class="menu-group">
+
+        <div class="menu-label">MAIN</div>
+        <a href="/Dashboard"
+               class="menu-link @(path == "/Dashboard" ? "active" : "")">
+
+        
+            <i class="bi bi-house"></i>
+            <span>Dashboard</span>
+        </a>
+
+    </div>
+
+    <!-- EXPLORE -->
+    <div class="menu-group">
+
+        <div class="menu-label">EXPLORE</div>
+
+        <a href="#" class="menu-link">
+            <i class="bi bi-bag"></i>
+            <span>Explore Products</span>
+        </a>
+
+        <a href="#" class="menu-link">
+            <i class="bi bi-share"></i>
+            <span>Share Products</span>
+        </a>
+
+    </div>
+
+    <!-- ACCOUNT -->
+    <div class="menu-group">
+
+        <div class="menu-label">ACCOUNT</div>
+
+        <a href="#" class="menu-link">
+            <i class="bi bi-box"></i>
+            <span>My Orders</span>
+        </a>
+
+        <a href="#" class="menu-link">
+            <i class="bi bi-geo"></i>
+            <span>My Addresses</span>
+        </a>
+
+        <a href="#" class="menu-link">
+            <i class="bi bi-person"></i>
+            <span>My Profile</span>
+        </a>
+
+    </div>
+
+    <!-- EARN -->
+    <div class="menu-group">
+
+        <div class="menu-label">EARN</div>
+
+        <a href="#" class="menu-link">
+            <i class="bi bi-gift"></i>
+            <span>Refer & Earn</span>
+        </a>
+
+        <a href="#" class="menu-link">
+            <i class="bi bi-bell"></i>
+
+            <span>Notifications</span>
+
+            <span class="menu-badge">3</span>
+        </a>
+
+    </div>
+
+</div>

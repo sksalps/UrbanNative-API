@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "bIrPupVBXSaM24W6fTXkhfH8NE8GficLaj1J7Zt1SmA=",
+  "Hash": "uEm38Ezf/ltA92ST86WHGsmwl9UGNZezfX0VtC2+qZQ=",
   "Source": "UrbanNative.Customers",
   "BasePath": "_content/UrbanNative.Customers",
   "Mode": "Default",
@@ -72,6 +72,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Customers\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\UrbanNative.Customers.bundle.scp.css"
+    },
+    {
+      "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Customers\\wwwroot\\css\\customer-layout.css",
+      "SourceId": "UrbanNative.Customers",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Customers\\wwwroot\\",
+      "BasePath": "_content/UrbanNative.Customers",
+      "RelativePath": "css/customer-layout.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\customer-layout.css"
     },
     {
       "Identity": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Customers\\wwwroot\\css\\site.css",

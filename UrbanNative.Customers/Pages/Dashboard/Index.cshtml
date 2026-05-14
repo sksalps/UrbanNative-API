@@ -1,7 +1,81 @@
 ﻿@page
-@{
-    Layout = "_CustomerLayout";
-}
+@model IndexModel
 
-<h2>Customer Dashboard</h2>
-<p>Login successful ✅</p>
+<div class="container-fluid dashboard-page">
+
+    <!-- =========================================
+         ROW 1 : WELCOME + REFERRAL
+    ========================================== -->
+    <div class="row g-4 align-items-stretch">
+
+        <!-- Welcome -->
+        <div class="col-lg-6 d-flex">
+
+            @if (Model?.DashboardData?.Welcome != null)
+            {
+                <partial name="~/Pages/Components/_WelcomeCard.cshtml"
+                         model="Model.DashboardData.Welcome" />
+            }
+
+        </div>
+
+        <!-- Referral -->
+        <div class="col-lg-6 d-flex">
+
+            @if (Model?.DashboardData?.Referral != null)
+            {
+                <partial name="~/Pages/Components/_ReferralBanner.cshtml"
+                         model="Model.DashboardData.Referral" />
+            }
+
+        </div>
+
+    </div>
+
+    <!-- =========================================
+         ROW 2 : SHIPMENT SNAPSHOT
+    ========================================== -->
+    <div class="row mt-1">
+
+        <div class="col-12">
+
+            @if (Model?.DashboardData?.Shipment != null)
+            {
+                <partial name="~/Pages/Components/_ShipmentSnapshot.cshtml"
+                         model="Model.DashboardData.Shipment" />
+            }
+
+        </div>
+
+    </div>
+
+    <!-- =========================================
+         ROW 3 : ORDERS + DELIVERIES
+    ========================================== -->
+    <div class="row g-4 mt-1">
+
+        <!-- Recent Orders -->
+        <div class="col-lg-6">
+
+            @if (Model?.DashboardData?.RecentOrders != null)
+            {
+                <partial name="~/Pages/Components/_RecentOrders.cshtml"
+                         model="Model.DashboardData.RecentOrders" />
+            }
+
+        </div>
+
+        <!-- Recent Deliveries -->
+        <div class="col-lg-6">
+
+            @if (Model?.DashboardData?.ShipmentActivities != null)
+            {
+                <partial name="~/Pages/Components/_ShipmentActivity.cshtml"
+                         model="Model.DashboardData.ShipmentActivities" />
+            }
+
+        </div>
+
+    </div>
+
+</div>

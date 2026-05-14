@@ -1,0 +1,55 @@
+﻿<div class="card-box">
+
+    <div class="dashboard-section-title">
+        Delivery Status
+    </div>
+
+    <div class="snapshot-grid">
+
+        <!-- Pending -->
+        <div class="mini-widget pending">
+
+            <i class="bi bi-clock-history"></i>
+
+            <h5>@Model.PendingCount</h5>
+
+            <span>Pending</span>
+
+        </div>
+
+        <!-- Shipped -->
+        <div class="mini-widget shipped">
+
+            <i class="bi bi-truck"></i>
+
+            <h5>@Model.ShippedCount</h5>
+
+            <span>Shipped</span>
+
+        </div>
+
+        <!-- Delivered -->
+        <div class="mini-widget delivered">
+
+            <i class="bi bi-check-circle"></i>
+
+            <h5>@Model.DeliveredCount</h5>
+
+            <span>Delivered</span>
+
+        </div>
+
+        <!-- Failed -->
+        <div class="mini-widget failed">
+
+            <i class="bi bi-x-circle"></i>
+
+            <h5>@Model.FailedCount</h5>
+
+            <span>Failed</span>
+
+        </div>
+
+    </div>
+
+</div>

@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\UrbanNative.Customers.bundle.scp.css"
     },
     {
+      "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Customers\\wwwroot\\css\\customer-layout.css",
+      "PackagePath": "staticwebassets\\css\\customer-layout.css"
+    },
+    {
       "Id": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Customers\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
