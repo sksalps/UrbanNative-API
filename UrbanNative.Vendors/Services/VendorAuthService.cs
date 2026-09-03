@@ -21,8 +21,6 @@ namespace UrbanNative.Vendors.Services
             if (!response.IsSuccessStatusCode)
                 return null;
             var data = await response.Content.ReadFromJsonAsync<VendorLoginResponseDto>();
-            //Console.WriteLine("VENDOR LOGIN RESPONSE:");
-            //Console.WriteLine(data?.Token);
             return data;
         }
 

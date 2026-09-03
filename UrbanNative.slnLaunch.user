@@ -9,6 +9,10 @@
       {
         "Path": "UrbanNative.Customers\\UrbanNative.Customers.csproj",
         "Action": "Start"
+      },
+      {
+        "Path": "UrbanNative.Vendors\\UrbanNative.Vendors.csproj",
+        "Action": "Start"
       }
     ]
   }

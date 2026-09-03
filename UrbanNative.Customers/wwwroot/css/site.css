@@ -122,6 +122,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
+    z-index: 2000;
 }
 
 .topbar-search {
@@ -179,6 +181,74 @@ body {
     justify-content: center;
     font-weight: 700;
 }
+
+
+/* =========================================================
+   PROFILE DROPDOWN
+========================================================= */
+
+
+.dropdown {
+    position: relative;
+}
+
+
+.profile-dropdown-btn {
+    border: none;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: all 0.25s ease;
+}
+
+    .profile-dropdown-btn:hover {
+        transform: translateY(-1px);
+    }
+
+.profile-image {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #eef2ff;
+}
+
+.profile-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.profile-dropdown-menu {
+    border: none;
+    border-radius: 18px;
+    padding: 10px;
+    min-width: 240px;
+    box-shadow: 0 12px 32px rgba(15,23,42,0.12);
+    z-index: 99999 !important;
+}
+
+    .profile-dropdown-menu .dropdown-item {
+        border-radius: 12px;
+        padding: 12px 14px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+        .profile-dropdown-menu .dropdown-item:hover {
+            background: #f8fafc;
+        }
+
+    .profile-dropdown-menu i {
+        font-size: 16px;
+    }
 
 /* =========================================================
    CARDS
@@ -272,7 +342,7 @@ body {
 
 .referral-banner {
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     background: linear-gradient(135deg,#ff7a18,#ffb347);
     border-radius: 22px;
     padding: 30px;

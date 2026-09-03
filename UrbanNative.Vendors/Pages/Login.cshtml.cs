@@ -64,7 +64,6 @@ namespace UrbanNative.Vendors.Pages
                     ExpiresUtc = DateTimeOffset.UtcNow.AddHours(8)
                 });
 
-            //HttpContext.Session.SetInt32("VendorID", result.VendorID);
 
             return RedirectToPage("/dashboard/Index");
         }

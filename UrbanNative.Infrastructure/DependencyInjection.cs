@@ -4,36 +4,33 @@ using Microsoft.Extensions.DependencyInjection;
 using UrbanNative.Application.Interfaces;
 using UrbanNative.Application.Interfaces.CommonCrossDashboard;
 using UrbanNative.Application.Interfaces.CommonCrossDashboard.Compliance;
-
 //Customer related repository interfaces start here on 160426
 using UrbanNative.Application.Interfaces.Customers;
-
 //Interfaces UseCases
 using UrbanNative.Application.Interfaces.UseCase.Logistics;
-
 using UrbanNative.Application.Interfaces.UseCases;
 using UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard;
 using UrbanNative.Application.Interfaces.UseCases.CommonCrossDashboard.Compliance;
+using UrbanNative.Application.Interfaces.UseCases.Customers;
 using UrbanNative.Application.Interfaces.UseCases.VendorInventoryAdd;
 using UrbanNative.Application.Interfaces.UseCases.Wallet;
 using UrbanNative.Application.Interfaces.Vendors;
 using UrbanNative.Application.Interfaces.Vendors.InventoryAdd;
 using UrbanNative.Application.Interfaces.Vendors.Orders;
 using UrbanNative.Application.Interfaces.Vendors.Wallet;
-
 // UseCase Interfaces for Customer related services start here on 160426
 
 // UseCases Implementation
 using UrbanNative.Application.UseCase;
 using UrbanNative.Application.UseCase.CommonCroshDashboard.Compliance;
 using UrbanNative.Application.UseCase.CommonCrossDashboard;
+using UrbanNative.Application.UseCase.Customers;
 using UrbanNative.Application.UseCase.Vendors;
 using UrbanNative.Application.UseCase.Vendors.Logistics;
 using UrbanNative.Application.UseCase.Vendors.Orders;
 using UrbanNative.Application.UseCase.Vendors.VendorInventoryAdd;
 using UrbanNative.Application.UseCase.Vendors.Wallet;
 using UrbanNative.Application.UseCases.Vendors;
-
 // UseCase Implementation for Customer related services start here on 160426
 //using UrbanNative.Application.UseCase.Customers;
 
@@ -41,6 +38,8 @@ using UrbanNative.Application.UseCases.Vendors;
 using UrbanNative.Infrastructure.Repositories;
 using UrbanNative.Infrastructure.Repositories.CommonCrossDashboard;
 using UrbanNative.Infrastructure.Repositories.CommonCrossDashboard.Compliance;
+// Customer related repository implementation statements start here on 160426
+using UrbanNative.Infrastructure.Repositories.Customers;
 using UrbanNative.Infrastructure.Repositories.Vendors;
 using UrbanNative.Infrastructure.Repositories.Vendors.InventoryAdd;
 using UrbanNative.Infrastructure.Repositories.Vendors.Orders;
@@ -49,17 +48,13 @@ using UrbanNative.Infrastructure.Repository;
 using UrbanNative.Infrastructure.Services;
 using UrbanNative.Infrastructure.Services.OcrService;
 
-// Customer related repository implementation statements start here on 160426
-using UrbanNative.Infrastructure.Repositories.Customers;
-
 
 namespace UrbanNative.Infrastructure
 {
     public static class DependencyInjection
     {
 
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services,
-            IConfiguration configuration)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services,IConfiguration configuration)
         {
             services.AddScoped<IProductService, ProductService>();
 
@@ -105,6 +100,7 @@ namespace UrbanNative.Infrastructure
 
             //Repository for Customer repository Services start here on 160426
             services.AddScoped<ICustomerAuthRepository, CustomerAuthRepository>();
+            services.AddScoped<ICustomerDashboardRepository, CustomerDashboardRepository>();
 
 
             // UseCases
@@ -127,6 +123,7 @@ namespace UrbanNative.Infrastructure
 
             // UseCase for Customer related services start here on 160426
             //services.AddScoped<ICustomerAuthUseCase, CustomerAuthUseCase>();
+            services.AddScoped<ICustomerDashboardUseCase, CustomerDashboardUseCase>();
 
             //services.AddHttpClient<OcrSpaceService>();
             //services.AddHttpClient<TesseractCliService>();

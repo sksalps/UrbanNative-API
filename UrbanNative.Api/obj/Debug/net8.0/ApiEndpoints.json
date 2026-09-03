@@ -2429,6 +2429,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "UrbanNative.Api.Controllers.Customers.CustomerDashboardController",
+    "Method": "GetDashboard",
+    "RelativePath": "api/customer/dashboard",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "UrbanNative.Api.Controllers.InventoryController",
     "Method": "Logs",
     "RelativePath": "api/inventory/logs/{variantSetId}",

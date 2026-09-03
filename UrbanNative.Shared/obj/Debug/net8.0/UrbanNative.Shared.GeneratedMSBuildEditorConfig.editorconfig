@@ -9,35 +9,35 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows,browser
 build_property.RootNamespace = UrbanNative.Shared
 build_property.RootNamespace = UrbanNative.Shared
-build_property.ProjectDir = E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Shared\
+build_property.ProjectDir = D:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Shared\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Shared
+build_property.MSBuildProjectDirectory = D:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Shared
 build_property._RazorSourceGeneratorDebug = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Shared/_Imports.razor]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Shared/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Shared/Component1.razor]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Shared/Component1.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50MS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-lwgqbxvsz7
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Shared/Pages/Compliance/_ComplianceDocumentsList.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Shared/Pages/Compliance/_ComplianceDocumentsList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcGxpYW5jZVxfQ29tcGxpYW5jZURvY3VtZW50c0xpc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Shared/Pages/Compliance/_DocUploadEditModal.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Shared/Pages/Compliance/_DocUploadEditModal.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcGxpYW5jZVxfRG9jVXBsb2FkRWRpdE1vZGFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Shared/Pages/_AddBankForm.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Shared/Pages/_AddBankForm.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0FkZEJhbmtGb3JtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Shared/Pages/_AddressModal.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Shared/Pages/_AddressModal.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0FkZHJlc3NNb2RhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

@@ -1491,22 +1491,6 @@
           "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
-      "UrbanNatice.Shared/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "dependencies": {
-          "Microsoft.AspNetCore.Components.Web": "8.0.23"
-        },
-        "compile": {
-          "bin/placeholder/UrbanNatice.Shared.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/UrbanNatice.Shared.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
-      },
       "UrbanNative.Application/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -3649,11 +3633,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "UrbanNatice.Shared/1.0.0": {
-      "type": "project",
-      "path": "../UrbanNatice.Shared/UrbanNatice.Shared.csproj",
-      "msbuildProject": "../UrbanNatice.Shared/UrbanNatice.Shared.csproj"
-    },
     "UrbanNative.Application/1.0.0": {
       "type": "project",
       "path": "../UrbanNative.Application/UrbanNative.Application.csproj",
@@ -3679,7 +3658,6 @@
       "Microsoft.Extensions.Http >= 10.0.2",
       "Newtonsoft.Json >= 13.0.4",
       "System.Net.Http.Json >= 10.0.2",
-      "UrbanNatice.Shared >= 1.0.0",
       "UrbanNative.Application >= 1.0.0",
       "UrbanNative.Shared >= 1.0.0"
     ]
@@ -3691,11 +3669,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\UrbanNative.Vendors.csproj",
+      "projectUniqueName": "D:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\UrbanNative.Vendors.csproj",
       "projectName": "UrbanNative.Vendors",
-      "projectPath": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\UrbanNative.Vendors.csproj",
+      "projectPath": "D:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\UrbanNative.Vendors.csproj",
       "packagesPath": "C:\\Users\\user7\\.nuget\\packages\\",
-      "outputPath": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\obj\\",
+      "outputPath": "D:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3716,14 +3694,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\UrbanNatice.Shared.csproj": {
-              "projectPath": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNatice.Shared\\UrbanNatice.Shared.csproj"
+            "D:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\UrbanNative.Application.csproj": {
+              "projectPath": "D:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\UrbanNative.Application.csproj"
             },
-            "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\UrbanNative.Application.csproj": {
-              "projectPath": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Application\\UrbanNative.Application.csproj"
-            },
-            "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\UrbanNative.Shared.csproj": {
-              "projectPath": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\UrbanNative.Shared.csproj"
+            "D:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\UrbanNative.Shared.csproj": {
+              "projectPath": "D:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Shared\\UrbanNative.Shared.csproj"
             }
           }
         }
@@ -3791,7 +3766,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.420/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.424/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

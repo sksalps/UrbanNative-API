@@ -15,7 +15,6 @@
           "Microsoft.Extensions.Http": "10.0.2",
           "Newtonsoft.Json": "13.0.4",
           "System.Net.Http.Json": "10.0.2",
-          "UrbanNatice.Shared": "1.0.0",
           "UrbanNative.Application": "1.0.0",
           "UrbanNative.Shared": "1.0.0"
         },

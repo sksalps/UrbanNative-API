@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PSGgaWJgv84=",
+  "dgSpecHash": "Rj2UApknxCI=",
   "success": true,
-  "projectFilePath": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Infrastructure\\UrbanNative.Infrastructure.csproj",
+  "projectFilePath": "D:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Infrastructure\\UrbanNative.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user7\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\user7\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",

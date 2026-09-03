@@ -11,9 +11,9 @@ namespace UrbanNative.Application.DTOs.AdminSKU
         public int VariantId { get; set; }
         
         public List<int> VariantValueIds { get; set; } = new();
-}
+    }
 
-public class SkuSignatureDto
+    public class SkuSignatureDto
     {
         public int SeqNo { get; set; }
         public string ValueSignature { get; set; } = string.Empty;

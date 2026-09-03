@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vA05wRNwGLc=",
+  "dgSpecHash": "1JJj89KDRa0=",
   "success": true,
-  "projectFilePath": "E:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\UrbanNative.Vendors.csproj",
+  "projectFilePath": "D:\\WorkFolder_1225\\Projects\\UrbanNative\\DotNet\\UrbanNative-API\\UrbanNative.Vendors\\UrbanNative.Vendors.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user7\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\user7\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

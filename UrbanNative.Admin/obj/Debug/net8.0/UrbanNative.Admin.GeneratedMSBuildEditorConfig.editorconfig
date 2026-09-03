@@ -9,195 +9,195 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = UrbanNative.Admin
 build_property.RootNamespace = UrbanNative.Admin
-build_property.ProjectDir = E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin\
+build_property.ProjectDir = D:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = E:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin
+build_property.MSBuildProjectDirectory = D:\WorkFolder_1225\Projects\UrbanNative\DotNet\UrbanNative-API\UrbanNative.Admin
 build_property._RazorSourceGeneratorDebug = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Categories/CategoryDetails.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Categories/CategoryDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2F0ZWdvcmllc1xDYXRlZ29yeURldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Categories/Index.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Categories/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2F0ZWdvcmllc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Categories/_CategoryBreadcrumb.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Categories/_CategoryBreadcrumb.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2F0ZWdvcmllc1xfQ2F0ZWdvcnlCcmVhZGNydW1iLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Categories/_CreateEditModal.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Categories/_CreateEditModal.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2F0ZWdvcmllc1xfQ3JlYXRlRWRpdE1vZGFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Dashboard/Index_asdfas.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Dashboard/Index_asdfas.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkXEluZGV4X2FzZGZhcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Dashboard/ttIndex.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Dashboard/ttIndex.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkXHR0SW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Error.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/GST/Index.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/GST/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR1NUXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/HSN/CreateHSN.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/HSN/CreateHSN.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSFNOXENyZWF0ZUhTTi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/HSN/EditHSN.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/HSN/EditHSN.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSFNOXEVkaXRIU04uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/HSN/Index.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/HSN/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSFNOXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Index.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Inventory/Index.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Inventory/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Inventory/InventoryDetails.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Inventory/InventoryDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5XEludmVudG9yeURldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Inventory/SkuInventoryLogs.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Inventory/SkuInventoryLogs.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5XFNrdUludmVudG9yeUxvZ3MuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Login.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Logout.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Logout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nb3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Orders/Index.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Orders/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JkZXJzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Orders/OrderDetails.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Orders/OrderDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JkZXJzXE9yZGVyRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Orders/Shipments.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Orders/Shipments.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JkZXJzXFNoaXBtZW50cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Privacy.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Products/Index.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Products/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Products/ProductView.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Products/ProductView.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdHNcUHJvZHVjdFZpZXcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/ReturnsOrder/Index.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/ReturnsOrder/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmV0dXJuc09yZGVyXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/ReturnsOrder/ReturnDetails.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/ReturnsOrder/ReturnDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmV0dXJuc09yZGVyXFJldHVybkRldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Shared/_Footer.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Shared/_Footer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9Gb290ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Shared/_Sidebar.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Shared/_Sidebar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9TaWRlYmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Shared/_Topbar.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Shared/_Topbar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9Ub3BiYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Shared/_ValidationScriptsPartial.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/SKUEngine/Index.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/SKUEngine/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU0tVRW5naW5lXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/SKUEngine/ProductSKUs.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/SKUEngine/ProductSKUs.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU0tVRW5naW5lXFByb2R1Y3RTS1VzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/SKUEngine/VendorCoverage/Index.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/SKUEngine/VendorCoverage/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU0tVRW5naW5lXFZlbmRvckNvdmVyYWdlXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Test.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Test.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGVzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/VariantSets/CreateEditVariantSet.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/VariantSets/CreateEditVariantSet.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmFyaWFudFNldHNcQ3JlYXRlRWRpdFZhcmlhbnRTZXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/VariantSets/Index.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/VariantSets/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmFyaWFudFNldHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/VariantSets/VariantSetDetails.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/VariantSets/VariantSetDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmFyaWFudFNldHNcVmFyaWFudFNldERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Variants/CreateEditVariant.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Variants/CreateEditVariant.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmFyaWFudHNcQ3JlYXRlRWRpdFZhcmlhbnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Variants/Index.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Variants/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmFyaWFudHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Variants/VariantDetails.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Variants/VariantDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmFyaWFudHNcVmFyaWFudERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Vendors/Index.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Vendors/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmVuZG9yc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Vendors/VendorDetails.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Vendors/VendorDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmVuZG9yc1xWZW5kb3JEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Wallet/Index.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Wallet/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcV2FsbGV0XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/_AdminLayout.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/_AdminLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0FkbWluTGF5b3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/_ViewImports.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/_ViewStart.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Shared/_Layout.cshtml]
+[D:/WorkFolder_1225/Projects/UrbanNative/DotNet/UrbanNative-API/UrbanNative.Admin/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-xbxvpof9yg
